@@ -1,0 +1,90 @@
+"Field Name","Compulsory?","Data Type","Description","User-facing copy","Field Label","Helper Text","Hover Text"
+"site_name","Yes","string","Name of the village or site where project activities are implemented","**Field Label:** Site name
+ **Helper Text:** Enter the name of the site or village.
+ **Hover Text:** We ask this to identify where each set of activities is taking place.","Site name","Enter the name of the site or village.","We ask this to identify where each set of activities is taking place."
+"gps_coordinates","No","string","Central coordinate for the site","**Field Label:** GPS coordinates
+ **Helper Text:** Provide the approximate central point of the site.
+ **Hover Text:** We ask this to support spatial mapping and remote verification.","GPS coordinates","Provide the approximate central point of the site.","We ask this to support spatial mapping and remote verification."
+"site_location_description","No","string","Optional narrative description of the site's location if GPS is not provided","**Field Label:** Site location description (optional)
+ **Helper Text:** Describe where the site is located, especially if GPS is not available. Include landmarks or nearby villages.
+ **Hover Text:** This helps verify and distinguish sites if shapefiles or coordinates are not uploaded.","Site location description (optional)","Describe where the site is located, especially if GPS is not available. Include landmarks or nearby villages.","This helps verify and distinguish sites if shapefiles or coordinates are not uploaded."
+"admin_level_1","No","string","Optional first-level administrative unit (e.g. Region, County, State) if GPS or shapefile is uploaded","**Field Label:** First-level administrative unit (optional)
+ **Helper Text:** Include this only if not covered by GPS or shapefile.
+ **Hover Text:** This field is optional if geospatial data has already been provided.","First-level administrative unit (optional)","Include this only if not covered by GPS or shapefile.","This field is optional if geospatial data has already been provided."
+"admin_level_2","No","string","Optional second-level administrative unit (e.g. District, Sub-county) if GPS or shapefile is uploaded","**Field Label:** Second-level administrative unit (optional)
+ **Helper Text:** Include this only if not covered by GPS or shapefile.
+ **Hover Text:** We use this when coordinates aren’t available to help locate the site.","Second-level administrative unit (optional)","Include this only if not covered by GPS or shapefile.","We use this when coordinates aren’t available to help locate the site."
+"admin_level_3","No","string","Optional third-level administrative unit (e.g. Ward, Parish, Village cluster) if GPS or shapefile is uploaded","**Field Label:** Third-level administrative unit (optional)
+ **Helper Text:** Include this only if GPS or shapefiles are missing.
+ **Hover Text:** This field supports mapping and local analysis if no other geospatial data is provided.","Third-level administrative unit (optional)","Include this only if GPS or shapefiles are missing.","This field supports mapping and local analysis if no other geospatial data is provided."
+"site_hectare_coverage","No","number","Approximate size of the site in hectares","**Field Label:** Hectare coverage
+ **Helper Text:** Enter the total area covered by the site.
+ **Hover Text:** We ask this to measure implementation area at the site level.","Hectare coverage","Enter the total area covered by the site.","We ask this to measure implementation area at the site level."
+"site_ecological_zone","Yes","array","Tropical rainforest (lowland or montane)
+Dry deciduous forest
+Miombo woodland
+Temperate deciduous forest
+Boreal forest (taiga)
+Mixed conifer–broadleaf forest
+Riparian forest
+Savannah
+Temperate grassland or steppe
+Acacia–commiphora bushland
+Alpine grassland or heath
+Shrubland or scrubland (e.g. Mediterranean maquis)
+Mangrove
+Wetland / floodplain
+Peatland / bog
+Riverine / delta system
+Semi-arid shrubland
+Cold desert (e.g. Tibetan Plateau)
+Hot desert (e.g. Sahara, Gobi)
+Agro-ecosystem (farming landscape)
+Pastoral landscape
+Urban / peri-urban mosaic
+Plantation forest / managed timber area
+Other (please specify)","**Field Label:** Ecological zone(s)
+ **Helper Text:** Select one or more ecosystem types that apply to this site.
+ **Hover Text:** You can skip this if the site's ecological zone is the same as your project-wide ecological zone.","Ecological zone(s)","Select one or more ecosystem types that apply to this site.","You can skip this if the site's ecological zone is the same as your project-wide ecological zone."
+"estimated_population","Yes","number","Estimated population living in or around the site","**Field Label:** Estimated population
+**Helper Text:** Provide the approximate number of people living in or around this site. Use the most recent census or local government data if available.
+**Hover Text:** We ask this to understand the scale of the community potentially impacted or engaged by the project.","Estimated population","Provide the approximate number of people living in or around this site. Use the most recent census or local government data if available.","We ask this to understand the scale of the community potentially impacted or engaged by the project."
+"gender_distribution","No","string","Estimated gender breakdown of the site population","**Field Label:** Gender distribution
+ **Helper Text:** Provide an estimated breakdown of the population by gender (e.g. % women, % men, % other/unknown). Use census data if available.
+ **Hover Text:** We ask this to support inclusive planning and to disaggregate findings in future analysis.","Gender distribution","Provide an estimated breakdown of the population by gender (e.g. % women, % men, % other/unknown). Use census data if available.","We ask this to support inclusive planning and to disaggregate findings in future analysis."
+"age_distribution","No","string","Estimated breakdown of the population by age group","**Field Label:** Age distribution
+ **Helper Text:** Provide the percentage of people in each age group (e.g. 0–14, 15–24, 25–64, 65+). Use official data if available.
+ **Hover Text:** We ask this to understand the demographic structure and design age-responsive engagement.","Age distribution","Provide the percentage of people in each age group (e.g. 0–14, 15–24, 25–64, 65+). Use official data if available.","We ask this to understand the demographic structure and design age-responsive engagement."
+"ethnic_groups_present","No","array","Ethnic groups present in the site community","**Field Label:** Ethnic groups present
+ **Helper Text:** List all known ethnic or cultural groups present at this site.
+ **Hover Text:** We ask this to ensure culturally inclusive engagement and context awareness.","Ethnic groups present","List all known ethnic or cultural groups present at this site.","We ask this to ensure culturally inclusive engagement and context awareness."
+"vulnerable_groups_present","Yes","boolean","Whether marginalised or vulnerable groups are present","**Field Label:** Are vulnerable groups present?
+ **Helper Text:** Select yes if specific groups face social, economic, or health-related vulnerabilities.
+ **Hover Text:** We ask this to plan for inclusion and safeguard those most at risk.","Are vulnerable groups present?","Select yes if specific groups face social, economic, or health-related vulnerabilities.","We ask this to plan for inclusion and safeguard those most at risk."
+"vulnerability_indicators","No","array","Types of vulnerability observed in the site. Options: Food insecurity, Inadequate housing, Limited access to healthcare, Limited access to education, Lack of income or employment, Physical disability, Lack of identification or legal status, Gender-based marginalisation, Youth exclusion or unemployment, Elderly isolation, None identified, Other (please specify).","**Field Label:** What kinds of vulnerability are common?
+ **Helper Text:** Select any social or economic challenges widely experienced in this community; for example, food insecurity, inability to afford healthcare, poor housing, or social exclusion.
+ **Hover Text:** We ask this to help identify equity and access issues that could shape your engagement, risk management, or benefit-sharing strategy.","What kinds of vulnerability are common?","Select any social or economic challenges widely experienced in this community; for example, food insecurity, inability to afford healthcare, poor housing, or social exclusion.","We ask this to help identify equity and access issues that could shape your engagement, risk management, or benefit-sharing strategy."
+"education_summary","Yes","array","General level of education in the site community. Options: Most have not completed primary school, Most completed primary school, Mixed primary and secondary, Most completed secondary school, Many have vocational or technical training, Some have college or university education, Unknown.","**Field Label:** Education profile
+ **Helper Text:** Select the option that best describes the general education level of people in this site. Think about what most adults or youth have achieved.
+ **Hover Text:** We ask this to help tailor how we engage with the community and support learning or data collection activities.","Education profile","Select the option that best describes the general education level of people in this site. Think about what most adults or youth have achieved.","We ask this to help tailor how we engage with the community and support learning or data collection activities."
+"primary_income_sources","Yes","array","Main livelihood activities in the site community. Options: Subsistence farming, Commercial agriculture, Livestock keeping, Fishing, Timber harvesting, Charcoal production, Mining or quarrying, Crafts or artisanal work, Small business or trade, Public sector work (e.g. teaching, health), Tourism-related income, Day labour or seasonal work, Remittances, None, Other (please specify).","**Field Label:** Main sources of income
+ **Helper Text:** Select the most common income-generating activities in this site.
+ **Hover Text:** We ask this to understand the community’s economic base and identify dependency on natural resources.","Main sources of income","Select the most common income-generating activities in this site.","We ask this to understand the community’s economic base and identify dependency on natural resources."
+"secondary_income_sources","No","array","Additional or seasonal income sources in the site community. Options: Subsistence farming, Commercial agriculture, Livestock keeping, Fishing, Timber harvesting, Charcoal production, Mining or quarrying, Crafts or artisanal work, Small business or trade, Public sector work (e.g. teaching, health), Tourism-related income, Day labour or seasonal work, Remittances, None, Other (please specify).","**Field Label:** Other income sources (optional)
+ **Helper Text:** Select any additional or seasonal sources of income. This could include charcoal production, remittances, or informal trade.
+ **Hover Text:** We ask this to build a fuller picture of livelihood diversity and economic resilience in the site.","Other income sources (optional)","Select any additional or seasonal sources of income. This could include charcoal production, remittances, or informal trade.","We ask this to build a fuller picture of livelihood diversity and economic resilience in the site."
+"cultivated_land_size","Yes","array","Typical amount of land cultivated per household. Options: None, 0.5 hectares or less, 0.5–2 hectares, 2–5 hectares, More than 5 hectares, Highly variable, Unknown.","**Field Label:** Average land cultivated per household
+ **Helper Text:** Choose the range that best represents land use in this site.
+ **Hover Text:** We ask this to assess land pressure and agricultural dependency.","Average land cultivated per household","Choose the range that best represents land use in this site.","We ask this to assess land pressure and agricultural dependency."
+"crops_grown","Yes","array","Crops commonly grown in the site area. Options: Maize, Upland rice, Paddy rice, Cassava, Millet, Sorghum, Sesame, Groundnuts, Sunflower, Cashew, Soybean, Tobacco, Beans, Pigeon pea, Horticultural crops (e.g. tomato, onion), Banana or plantain, Sugarcane, Other (please specify).","**Field Label:** Crops grown
+ **Helper Text:** List all major crops cultivated in this community.
+ **Hover Text:** We ask this to understand local food systems and agricultural practices.","Crops grown","List all major crops cultivated in this community.","We ask this to understand local food systems and agricultural practices."
+"livestock_profile","Yes","object","Types and quantity bands of livestock kept by households in the site. Types: Cattle, Goats, Sheep, Pigs, Chickens, Donkeys, Ducks or geese, Other (please specify). Quantity bands: None, 1–15, 16–30, More than 30, Unknown. Use a structured format to show livestock type and estimated ownership range.","**Field Label:** Livestock kept
+ **Helper Text:** For each livestock type, select the estimated number typically kept per household. Use the best available local knowledge or survey data.
+ **Hover Text:** We ask this to understand economic strategies, grazing pressure, and potential livestock–wildlife interactions.","Livestock kept","For each livestock type, select the estimated number typically kept per household. Use the best available local knowledge or survey data.","We ask this to understand economic strategies, grazing pressure, and potential livestock–wildlife interactions."
+"wildlife_conflict_present","Yes","boolean","Whether wildlife–human conflict is an issue at the site","**Field Label:** Is there human–wildlife conflict at this site?
+ **Helper Text:** Select yes if conflict with wild animals (e.g., elephants, baboons) is known to occur.
+ **Hover Text:** We ask this to understand risks to livelihoods, food security, and safety.","Is there human–wildlife conflict at this site?","Select yes if conflict with wild animals (e.g., elephants, baboons) is known to occur.","We ask this to understand risks to livelihoods, food security, and safety."
+"wildlife_conflict_summary","No","object","Summary of wildlife–human conflict per species. Each entry pairs an animal type with a frequency level. Species options: Elephants, Baboons, Bush pigs, Monkeys, Birds, Crocodiles, Hippos, Lions, Other (please specify). Frequency options: Rare, Occasional, Frequent, Constant, Unknown.","**Field Label:** Wildlife conflict summary
+ **Helper Text:** For each species causing conflict, select how frequently it occurs. Use your own experience or community reports.
+ **Hover Text:** We ask this to prioritise response planning and understand the nature and severity of human–wildlife conflict at this site.","Wildlife conflict summary","For each species causing conflict, select how frequently it occurs. Use your own experience or community reports.","We ask this to prioritise response planning and understand the nature and severity of human–wildlife conflict at this site."

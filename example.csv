@@ -1,0 +1,12 @@
+| fieldName       | dataType    | description                    | userFacingCopy           | isRequired | sortOrder | step | options                    |
+|------------------|--------------|--------------------------------|----------------------------|------------|-----------|------|-----------------------------|
+| projectName      | string       | Name of the project             | Enter project name         | true       | 1         | 1    |                             |
+| startDate        | date         | Project start date             | Select a start date        | true       | 2         | 1    |                             |
+| endDate          | date         | Project end date               | Select an end date         | false      | 3         | 1    |                             |
+| status           | array        | Current status                 | Choose project status       | true       | 4         | 2    | Planned,Ongoing,Completed  |
+| teamSize         | number       | Number of team members         | Enter team size             | false      | 5         | 2    |                             |
+| tags             | array        | Project tags                   | Add project tags            | false      | 6         | 2    | frontend,backend,api       |
+| isBillable       | boolean      | Is the project billable?       | Is this billable?           | true       | 7         | 3    |                             |
+| projectManager   | string       | Name of project manager        | Enter manager name          | true       | 8         | 3    |                             |
+| documentationURL | string       | Link to documentation          | Provide documentation link  | false      | 9         | 3    |                             |
+| technologies     | array        | Tech stack used                | Select used technologies    | false      | 10        | 3    | React,Node.js,PostgreSQL   |

@@ -1,0 +1,145 @@
+"Field Name","Compulsory?","Data Type","Description","User-facing copy","Field Label","Helper Text","Hover Text"
+"certification_standard","Yes","array","RT TREES
+OxCarbon
+Verra
+Plan Vivo
+Puro Earth
+American Carbon Registry
+Social Carbon
+Ecosystem Restoration Standards
+Climate Action Reserve
+Global Carbon Council
+The Integrity Council for Voluntary Carbon Markets
+Green-e
+UK Standards for Gender and Vulnerable groups      Other (please specify)","**Field Label:** What certification standard does your project follow?
+**Helper Text:** Select all that apply from the list or add others.
+**Hover Text:** We ask this to understand how your project aligns with recognised standards, what documentation you’ll need to provide, and which impact indicators are most relevant.","What certification standard does your project follow?","Select all that apply from the list or add others.","We ask this to understand how your project aligns with recognised standards, what documentation you’ll need to provide, and which impact indicators are most relevant."
+"country","Yes","string","Country name (ISO standard)","**Field Label:** Country
+ **Helper Text:** Select the country where your project is based.
+ **Hover Text:** We ask this to ensure your project is linked to the correct country context and frameworks.","Country","Select the country where your project is based.","We ask this to ensure your project is linked to the correct country context and frameworks."
+"admin_level_1","Yes","string","First-level administrative unit (e.g. Region, County, State)","**Field Label:** First-level administrative unit
+ **Helper Text:** Enter the name of the region, county, or province (as locally defined).
+ **Hover Text:** We ask this to accurately place your project within national administrative boundaries.","First-level administrative unit","Enter the name of the region, county, or province (as locally defined).","We ask this to accurately place your project within national administrative boundaries."
+"admin_level_2","Yes","string","Second-level administrative unit (e.g. District, Sub-county)","**Field Label:** Second-level administrative unit
+ **Helper Text:** Enter the name of the district or sub-county (as locally defined).
+ **Hover Text:** We ask this to support detailed mapping, stakeholder targeting, and contextual analysis.","Second-level administrative unit","Enter the name of the district or sub-county (as locally defined).","We ask this to support detailed mapping, stakeholder targeting, and contextual analysis."
+"admin_level_3","Yes","string","Third-level unit (e.g. Ward, Location, Parish)","Field Label: Third-level administrative unit
+Helper Text: Enter the name of the ward, parish, or local area where your project is based.
+Hover Text: “We ask this to ensure local-level institutions and boundaries are accurately represented in your project setup.","Third-level administrative unit","Enter the name of the ward, parish, or local area where your project is based.","“We ask this to ensure local-level institutions and boundaries are accurately represented in your project setup."
+"villages","Yes","string","List of villages/communities","**Field Label:** Villages
+**Helper Text:** Provide village names
+**Hover Text:** We ask this to understand the scale of potential social impact and engagement.","Villages","Provide village names","We ask this to understand the scale of potential social impact and engagement."
+"gps_coordinates","Yes","string","Latitude/Longitude of approximate project centre","**Field Label:** GPS coordinates
+ **Helper Text:** Provide the approximate central location of the project (e.g. from Google Maps).
+ **Hover Text:** We ask this to allow spatial mapping and integration with satellite or GIS data layers.","GPS coordinates","Provide the approximate central location of the project (e.g. from Google Maps).","We ask this to allow spatial mapping and integration with satellite or GIS data layers."
+"shapefiles_uploaded","No","boolean","Triggers link to documents table for uploads","**Field Label:** Upload shapefiles
+**Helper Text:** Attach your project boundary shapefile.
+**Hover Text:** We ask this so your site data can be accurately mapped and visualised.","Upload shapefiles","Attach your project boundary shapefile.","We ask this so your site data can be accurately mapped and visualised."
+"hectare_coverage","Yes","number","Total hectares the project covers","**Field Label:** Hectare coverage
+**Helper Text:** Enter the total project area.
+**Hover Text:** We ask this to understand the project’s scale for future data collection and validation.","Hectare coverage","Enter the total project area.","We ask this to understand the project’s scale for future data collection and validation."
+"ecological_zone","Yes","array","Tropical rainforest (lowland or montane)
+Dry deciduous forest
+Miombo woodland
+Temperate deciduous forest
+Boreal forest (taiga)
+Mixed conifer–broadleaf forest
+Riparian forest
+Savannah
+Temperate grassland or steppe
+Acacia–commiphora bushland
+Alpine grassland or heath
+Shrubland or scrubland (e.g. Mediterranean maquis)
+Mangrove
+Wetland / floodplain
+Peatland / bog
+Riverine / delta system
+Semi-arid shrubland
+Cold desert (e.g. Tibetan Plateau)
+Hot desert (e.g. Sahara, Gobi)
+Agro-ecosystem (farming landscape)
+Pastoral landscape
+Urban / peri-urban mosaic
+Plantation forest / managed timber area
+Other (please specify)","**Field Label:** Ecological zone
+**Helper Text:** Name the main ecosystems covered by the project.
+**Hover Text:** We ask this to link your project’s setting with ecological priorities and risks.","Ecological zone","Name the main ecosystems covered by the project.","We ask this to link your project’s setting with ecological priorities and risks."
+"governance_notes","Yes","string","Free-text summary of project governance structures","**Field Label:** Describe your governance structure
+**Helper Text:** Explain how the project is governed at different levels. You might include:
+Who gave permission for the project (e.g., village assembly, district council, government agency)
+Which organisations or actors are involved in implementation
+Who is responsible for oversight, enforcement, or reporting
+Whether any public–private or customary–formal partnerships are in place
+**Hover Text:** We ask this to understand the decision-making structures, oversight responsibilities, and legitimacy of your project across local, regional, and national levels. This helps align stakeholder engagement and compliance processes.","Describe your governance structure","Explain how the project is governed at different levels. You might include:
+Who gave permission for the project (e.g., village assembly, district council, government agency)
+Which organisations or actors are involved in implementation
+Who is responsible for oversight, enforcement, or reporting
+Whether any public–private or customary–formal partnerships are in place","We ask this to understand the decision-making structures, oversight responsibilities, and legitimacy of your project across local, regional, and national levels. This helps align stakeholder engagement and compliance processes."
+"approval_granted_by","Yes","array","Entities that formally approved the project (e.g. village, district, national authorities)","**Field Label:** Who granted approval for the project?
+ **Helper Text:** Select all relevant authorities (e.g., Village Assembly, District Council, Wildlife Authority, Ministry of Environment).
+ **Hover Text:** We ask this to track the legitimacy of the project and ensure local and national approvals are in place.","Who granted approval for the project?","Select all relevant authorities (e.g., Village Assembly, District Council, Wildlife Authority, Ministry of Environment).","We ask this to track the legitimacy of the project and ensure local and national approvals are in place."
+"implementing_organisations","No","array","Organisations or actors responsible for day-to-day project delivery","**Field Label:** Who is implementing the project?
+ **Helper Text:** List all delivery partners involved in implementation.
+ **Hover Text:** We ask this to understand the delivery structure and enable accurate stakeholder mapping.","Who is implementing the project?","List all delivery partners involved in implementation.","We ask this to understand the delivery structure and enable accurate stakeholder mapping."
+"oversight_authorities","No","array","Authorities responsible for monitoring, compliance, or enforcement","**Field Label:** Who oversees the project?
+ **Helper Text:** Include actors responsible for compliance, reporting, or enforcement.
+ **Hover Text:** We ask this to identify accountability structures and support alignment with certification or legal frameworks.","Who oversees the project?","Include actors responsible for compliance, reporting, or enforcement.","We ask this to identify accountability structures and support alignment with certification or legal frameworks."
+"partnership_type","No","array","Main type of governance partnership. Options: Public–Private Partnership, Government–Community Partnership, NGO–Led Model, Community–Based Governance, Private Sector–Led, Hybrid Governance Model, Customary Governance, Other (please specify).","**Field Label:** What type of governance partnership exists?
+ **Helper Text:** Choose the structure that best describes your project (e.g., Public–Private, Government–Community, NGO–Led).
+ **Hover Text:** We ask this to understand power-sharing dynamics and institutional arrangements.","What type of governance partnership exists?","Choose the structure that best describes your project (e.g., Public–Private, Government–Community, NGO–Led).","We ask this to understand power-sharing dynamics and institutional arrangements."
+"customary_institutions_involved","No","boolean","Whether traditional authorities or customary governance structures are involved. Options: Yes, No, Unknown.","**Field Label:** Are customary institutions involved?
+ **Helper Text:** Select yes if traditional leaders, councils, or norms play a formal or informal governance role.
+ **Hover Text:** We ask this to acknowledge customary authority and better understand local legitimacy structures.","Are customary institutions involved?","Select yes if traditional leaders, councils, or norms play a formal or informal governance role.","We ask this to acknowledge customary authority and better understand local legitimacy structures."
+"customary_institutions_details","No","string","Names or types of customary institutions involved if applicable","**Field Label:** Which customary institutions are involved?
+ **Helper Text:** List the names or roles of any customary authorities (e.g. village elders, clan councils, traditional leaders).
+ **Hover Text:** We ask this to understand how traditional governance contributes to project legitimacy and local engagement.","Which customary institutions are involved?","List the names or roles of any customary authorities (e.g. village elders, clan councils, traditional leaders).","We ask this to understand how traditional governance contributes to project legitimacy and local engagement."
+"land_tenure_notes","Yes","string","Overview of tenure situation","**Field Label:** Describe the land tenure situation
+ **Helper Text:** Provide a summary of how land in the project area is owned, accessed, and governed - both formally and informally. Mention whether the land is privately held, community-managed, state-controlled, or governed by traditional/customary institutions.
+ **Hover Text:** We ask this to understand how land rights are structured and to identify any risks or gaps in access, use, or recognition.","Describe the land tenure situation","Provide a summary of how land in the project area is owned, accessed, and governed - both formally and informally. Mention whether the land is privately held, community-managed, state-controlled, or governed by traditional/customary institutions.","We ask this to understand how land rights are structured and to identify any risks or gaps in access, use, or recognition."
+"customary_rights_holder","Yes","array","Entire community (via village assembly or council)
+Clan or lineage group
+Traditional leader (e.g. chief, elder, sub-chief)
+Women’s land use group
+Youth or pastoral subgroup
+Sacred site custodians
+Customary trust or association
+Other (please specify)","**Field Label:** Who holds customary land rights?
+ **Helper Text:** List the community groups, clans, families, or individuals who hold traditional rights to access, manage, or inherit the land - even if those rights are not legally registered.
+ **Hover Text:** We ask this to ensure traditional land claims are recognised and respected, and to support equitable engagement.","Who holds customary land rights?","List the community groups, clans, families, or individuals who hold traditional rights to access, manage, or inherit the land - even if those rights are not legally registered.","We ask this to ensure traditional land claims are recognised and respected, and to support equitable engagement."
+"formal_rights_holder","Yes","array","Individual landowner
+Community-based organisation (CBO)
+Local government authority (e.g. District Council)
+National government agency
+Private company
+NGO or Trust
+Religious institution
+Other (please specify)","**Field Label:** Who holds formal land rights?
+ **Helper Text:** List individuals, government agencies, or organisations with legal title, leasehold, or state-assigned land use rights.
+ **Hover Text:** We ask this to confirm who has legally recognised control over the land and to help avoid potential legal disputes.","Who holds formal land rights?","List individuals, government agencies, or organisations with legal title, leasehold, or state-assigned land use rights.","We ask this to confirm who has legally recognised control over the land and to help avoid potential legal disputes."
+"overlapping_claims","Yes","boolean","Are there any overlapping land claims?","**Field Label:** Are there overlapping or contested land claims?
+ **Helper Text:** Select yes if more than one party claims rights to the same land; whether legally, customarily, or in practice.
+ **Hover Text:** We ask this to flag areas of potential conflict, displacement risk, or land tenure insecurity.","Are there overlapping or contested land claims?","Select yes if more than one party claims rights to the same land; whether legally, customarily, or in practice.","We ask this to flag areas of potential conflict, displacement risk, or land tenure insecurity."
+"land_agreements_uploaded","No","boolean","Flag to indicate MOU/contract uploaded (linked to documents)","**Field Label:** Upload land agreements or MOUs
+ **Helper Text:** Attach any documents that establish formal or informal land access; including contracts, community agreements, FPIC documentation, or land use approvals.
+ **Hover Text:** We ask this to support land rights verification, safeguard processes, and transparency.","Upload land agreements or MOUs","Attach any documents that establish formal or informal land access; including contracts, community agreements, FPIC documentation, or land use approvals.","We ask this to support land rights verification, safeguard processes, and transparency."
+"conflict_history","Yes","boolean","Has there been prior conflict over the land?","**Field Label:** Is there a history of conflict over the land?
+**Helper Text:** Select yes if relevant.
+**Hover Text:** We ask this to anticipate and avoid repeating past harms.","Is there a history of conflict over the land?","Select yes if relevant.","We ask this to anticipate and avoid repeating past harms."
+"conflict_notes","No","string","Short description of conflict history","**Field Label:** Describe the conflict history (if any)
+**Helper Text:** Briefly explain.
+**Hover Text:** We ask this to guide responsible planning and engagement.","Describe the conflict history (if any)","Briefly explain.","We ask this to guide responsible planning and engagement."
+"political_risk","Yes","boolean","Are there political/legal risks? Sam Mounsey can this then update the risk register","**Field Label:** Are there political or legal risks?
+**Helper Text:** Flag any known issues.
+**Hover Text:** We ask this to assess exposure and connect with risk matrix scoring.","Are there political or legal risks?","Flag any known issues.","We ask this to assess exposure and connect with risk matrix scoring."
+"access_issues","Yes","boolean","Are there geographic or infrastructure constraints?","**Field Label:** Are there any physical or logistical access issues?
+**Helper Text:** Select ‘yes’ if the project area is hard to reach due to poor roads, difficult terrain, seasonal flooding, lack of transport, or security concerns.
+**Hover Text:** We ask this to identify practical barriers that could affect data collection, stakeholder engagement, or implementation — so we can plan accordingly.","Are there any physical or logistical access issues?","Select ‘yes’ if the project area is hard to reach due to poor roads, difficult terrain, seasonal flooding, lack of transport, or security concerns.","We ask this to identify practical barriers that could affect data collection, stakeholder engagement, or implementation — so we can plan accordingly."
+"access_notes","No","string","Short description of access issues","**Field Label:** Describe the access constraints
+**Helper Text:** Briefly explain.
+**Hover Text:** We ask this to guide logistical planning and mitigation.","Describe the access constraints","Briefly explain.","We ask this to guide logistical planning and mitigation."
+"previous_project_failures","Yes","boolean","Have other projects failed in this area? Sam Mounsey can this then update the risk register","**Field Label:** Have there been previous project failures or grievances?
+**Helper Text:** Indicate yes if relevant.
+**Hover Text:** We ask this to understand community perceptions and risks to trust.","Have there been previous project failures or grievances?","Indicate yes if relevant.","We ask this to understand community perceptions and risks to trust."
+"previous_failure_notes","No","string","If yes, provide details","**Field Label:** Explain any previous issues
+**Helper Text:** Summarise what happened.
+**Hover Text:** We ask this to avoid repeating mistakes.","Explain any previous issues","Summarise what happened.","We ask this to avoid repeating mistakes."

@@ -1,0 +1,4207 @@
+[{
+  "_id": {
+    "$oid": "69df7c63241dc35493e9735b"
+  },
+  "name": "Perceived Social Burdens and Tensions Associated with the Intervention",
+  "description": "This sub-theme captures stakeholder perceptions of social burdens, restrictions, or tensions associated with an intervention, including concerns about conflict, exclusion, or negative social consequences.",
+  "theme": {
+    "$oid": "69df7c62241dc35493e97352"
+  },
+  "theoryOfChangeStage": "Stage 2 - Outcome",
+  "indicatorTags": [
+    {
+      "$oid": "69df7f7d372e5c8b2acb8cfe"
+    },
+    {
+      "$oid": "69df7f7d372e5c8b2acb8d01"
+    },
+    {
+      "$oid": "69df7f7d372e5c8b2acb8d04"
+    }
+  ],
+  "sdgTags": [],
+  "resilienceTags": [],
+  "esgTags": [],
+  "standardTags": [],
+  "creator": {
+    "$oid": "69de4f3869452296f6d0ac98"
+  },
+  "status": "published",
+  "archived": false,
+  "archivedAt": null,
+  "createdAt": {
+    "$date": "2026-04-15T11:54:11.772Z"
+  },
+  "updatedAt": {
+    "$date": "2026-04-15T12:10:26.545Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69df7c64241dc35493e9735e"
+  },
+  "name": "Perceived Continuity of the Intervention and Its Benefits",
+  "description": "This construct captures stakeholder perceptions of whether the intervention, its associated benefits, and the rules governing it are likely to continue over time without interruption, sudden change, or withdrawal.",
+  "theme": {
+    "$oid": "69df7c62241dc35493e97352"
+  },
+  "theoryOfChangeStage": "Stage 2 - Outcome",
+  "indicatorTags": [
+    {
+      "$oid": "69df7f7e372e5c8b2acb8d10"
+    },
+    {
+      "$oid": "69df7f7f372e5c8b2acb8d13"
+    },
+    {
+      "$oid": "69df7f7f372e5c8b2acb8d16"
+    }
+  ],
+  "sdgTags": [],
+  "resilienceTags": [],
+  "esgTags": [],
+  "standardTags": [],
+  "creator": {
+    "$oid": "69de4f3869452296f6d0ac98"
+  },
+  "status": "published",
+  "archived": false,
+  "archivedAt": null,
+  "createdAt": {
+    "$date": "2026-04-15T11:54:12.081Z"
+  },
+  "updatedAt": {
+    "$date": "2026-04-15T12:10:27.135Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69df7c64241dc35493e97361"
+  },
+  "name": "Perceived Trust in Implementers",
+  "description": "This sub-theme captures stakeholder perceptions of the integrity, reliability, and good faith of those responsible for implementing the intervention.",
+  "theme": {
+    "$oid": "69df7c62241dc35493e97352"
+  },
+  "theoryOfChangeStage": "Stage 2 - Outcome",
+  "indicatorTags": [
+    {
+      "$oid": "69df7f7e372e5c8b2acb8d07"
+    },
+    {
+      "$oid": "69df7f7e372e5c8b2acb8d0a"
+    },
+    {
+      "$oid": "69df7f7e372e5c8b2acb8d0d"
+    }
+  ],
+  "sdgTags": [],
+  "resilienceTags": [],
+  "esgTags": [],
+  "standardTags": [],
+  "creator": {
+    "$oid": "69de4f3869452296f6d0ac98"
+  },
+  "status": "published",
+  "archived": false,
+  "archivedAt": null,
+  "createdAt": {
+    "$date": "2026-04-15T11:54:12.379Z"
+  },
+  "updatedAt": {
+    "$date": "2026-04-15T12:10:26.845Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69df7c64241dc35493e97364"
+  },
+  "name": "Perceived Inclusiveness and Representation in Village Decision-Making",
+  "description": "This sub-theme captures stakeholder perceptions of whether decision-making processes related to an intervention are inclusive, representative, and allow meaningful participation across different groups.",
+  "theme": {
+    "$oid": "69df7c62241dc35493e97352"
+  },
+  "theoryOfChangeStage": "Stage 2 - Outcome",
+  "indicatorTags": [
+    {
+      "$oid": "69df7f7b372e5c8b2acb8cec"
+    },
+    {
+      "$oid": "69df7f7b372e5c8b2acb8cef"
+    },
+    {
+      "$oid": "69df7f7c372e5c8b2acb8cf2"
+    }
+  ],
+  "sdgTags": [],
+  "resilienceTags": [],
+  "esgTags": [],
+  "standardTags": [],
+  "creator": {
+    "$oid": "69de4f3869452296f6d0ac98"
+  },
+  "status": "published",
+  "archived": false,
+  "archivedAt": null,
+  "createdAt": {
+    "$date": "2026-04-15T11:54:12.674Z"
+  },
+  "updatedAt": {
+    "$date": "2026-04-15T12:10:25.952Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69df7c64241dc35493e97367"
+  },
+  "name": "Perceived Fairness of Benefit Distribution Within the Village",
+  "description": "This sub-theme captures stakeholder perceptions of whether the benefits associated with an intervention are distributed equitably among households or community members, including whether any groups are perceived to be favoured or disadvantaged.",
+  "theme": {
+    "$oid": "69df7c62241dc35493e97352"
+  },
+  "theoryOfChangeStage": "Stage 2 - Outcome",
+  "indicatorTags": [
+    {
+      "$oid": "69df7f7c372e5c8b2acb8cf5"
+    },
+    {
+      "$oid": "69df7f7c372e5c8b2acb8cf8"
+    },
+    {
+      "$oid": "69df7f7c372e5c8b2acb8cfb"
+    }
+  ],
+  "sdgTags": [],
+  "resilienceTags": [],
+  "esgTags": [],
+  "standardTags": [],
+  "creator": {
+    "$oid": "69de4f3869452296f6d0ac98"
+  },
+  "status": "published",
+  "archived": false,
+  "archivedAt": null,
+  "createdAt": {
+    "$date": "2026-04-15T11:54:12.969Z"
+  },
+  "updatedAt": {
+    "$date": "2026-04-15T12:10:26.245Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69df7c65241dc35493e9736a"
+  },
+  "name": "Perceived Importance and Value of Improved Household Health",
+  "description": "This sub-theme captures stakeholder perceptions of the importance and value of improvements in personal or household health associated with increased access to preventative and local healthcare services, including earlier treatment, improved maternal health, and reduced severity of illness.",
+  "theme": {
+    "$oid": "69df7c56241dc35493e972d7"
+  },
+  "theoryOfChangeStage": "Stage 2 - Outcome",
+  "indicatorTags": [],
+  "sdgTags": [],
+  "resilienceTags": [],
+  "esgTags": [],
+  "standardTags": [],
+  "creator": {
+    "$oid": "69de4f3869452296f6d0ac98"
+  },
+  "status": "published",
+  "archived": false,
+  "archivedAt": null,
+  "createdAt": {
+    "$date": "2026-04-15T11:54:13.263Z"
+  },
+  "updatedAt": {
+    "$date": "2026-04-15T11:54:13.263Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69df7c65241dc35493e9736d"
+  },
+  "name": "Perceived Importance and Value of Increased Reliability of Farming Conditions",
+  "description": "This sub-theme captures stakeholder perceptions of the importance and value of increased reliability of farming conditions, including greater confidence in seasonal timing and crop yields.",
+  "theme": {
+    "$oid": "69df7c56241dc35493e972d7"
+  },
+  "theoryOfChangeStage": "Stage 2 - Outcome",
+  "indicatorTags": [],
+  "sdgTags": [],
+  "resilienceTags": [],
+  "esgTags": [],
+  "standardTags": [],
+  "creator": {
+    "$oid": "69de4f3869452296f6d0ac98"
+  },
+  "status": "published",
+  "archived": false,
+  "archivedAt": null,
+  "createdAt": {
+    "$date": "2026-04-15T11:54:13.559Z"
+  },
+  "updatedAt": {
+    "$date": "2026-04-15T11:54:13.559Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69df7c65241dc35493e97370"
+  },
+  "name": "Perceived Importance and Value of Increased Household Income",
+  "description": "This sub-theme captures stakeholder perceptions of the importance and value of increases in household income resulting from expanded income-generating activities, including those enabled through access to community-based savings and credit mechanisms.",
+  "theme": {
+    "$oid": "69df7c56241dc35493e972d7"
+  },
+  "theoryOfChangeStage": "Stage 2 - Outcome",
+  "indicatorTags": [],
+  "sdgTags": [],
+  "resilienceTags": [],
+  "esgTags": [],
+  "standardTags": [],
+  "creator": {
+    "$oid": "69de4f3869452296f6d0ac98"
+  },
+  "status": "published",
+  "archived": false,
+  "archivedAt": null,
+  "createdAt": {
+    "$date": "2026-04-15T11:54:13.849Z"
+  },
+  "updatedAt": {
+    "$date": "2026-04-15T11:54:13.849Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69df7c66241dc35493e97373"
+  },
+  "name": "Perceived Importance and Value of Reduced Caregiving Burden",
+  "description": "This sub-theme captures stakeholder perceptions of the importance and value of reduced or redistributed caregiving responsibilities within households, and the extent to which changes in care burden alter how time is allocated.",
+  "theme": {
+    "$oid": "69df7c56241dc35493e972d7"
+  },
+  "theoryOfChangeStage": "Stage 2 - Outcome",
+  "indicatorTags": [],
+  "sdgTags": [],
+  "resilienceTags": [],
+  "esgTags": [],
+  "standardTags": [],
+  "creator": {
+    "$oid": "69de4f3869452296f6d0ac98"
+  },
+  "status": "published",
+  "archived": false,
+  "archivedAt": null,
+  "createdAt": {
+    "$date": "2026-04-15T11:54:14.140Z"
+  },
+  "updatedAt": {
+    "$date": "2026-04-15T11:54:14.140Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69df7c66241dc35493e97376"
+  },
+  "name": "Perceived Importance and Value of Improved School Attendance and Participation",
+  "description": "This sub-theme captures stakeholder perceptions of the importance and value of improved school attendance and consistent participation associated with school feeding and related educational support.",
+  "theme": {
+    "$oid": "69df7c56241dc35493e972d7"
+  },
+  "theoryOfChangeStage": "Stage 2 - Outcome",
+  "indicatorTags": [],
+  "sdgTags": [],
+  "resilienceTags": [],
+  "esgTags": [],
+  "standardTags": [],
+  "creator": {
+    "$oid": "69de4f3869452296f6d0ac98"
+  },
+  "status": "published",
+  "archived": false,
+  "archivedAt": null,
+  "createdAt": {
+    "$date": "2026-04-15T11:54:14.442Z"
+  },
+  "updatedAt": {
+    "$date": "2026-04-15T11:54:14.442Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69df7c66241dc35493e97379"
+  },
+  "name": "Perceived Importance and Value of Increased Village-Level Economic Activity",
+  "description": "This sub-theme captures stakeholder perceptions of the importance and value of increased village-level economic activity associated with the presence of salaried staff and expanded service provision.",
+  "theme": {
+    "$oid": "69df7c56241dc35493e972d7"
+  },
+  "theoryOfChangeStage": "Stage 2 - Outcome",
+  "indicatorTags": [],
+  "sdgTags": [],
+  "resilienceTags": [],
+  "esgTags": [],
+  "standardTags": [],
+  "creator": {
+    "$oid": "69de4f3869452296f6d0ac98"
+  },
+  "status": "published",
+  "archived": false,
+  "archivedAt": null,
+  "createdAt": {
+    "$date": "2026-04-15T11:54:14.733Z"
+  },
+  "updatedAt": {
+    "$date": "2026-04-15T11:54:14.733Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69df7c67241dc35493e9737c"
+  },
+  "name": "Perceived Importance and Value of Improved Reliability of Essential Public Services",
+  "description": "This sub-theme captures stakeholder perceptions of the importance, significance, and lived value of improved reliability, functionality, and sustained accessibility of essential public services - including education, healthcare, and water.",
+  "theme": {
+    "$oid": "69df7c56241dc35493e972d7"
+  },
+  "theoryOfChangeStage": "Stage 2 - Outcome",
+  "indicatorTags": [],
+  "sdgTags": [],
+  "resilienceTags": [],
+  "esgTags": [],
+  "standardTags": [],
+  "creator": {
+    "$oid": "69de4f3869452296f6d0ac98"
+  },
+  "status": "published",
+  "archived": false,
+  "archivedAt": null,
+  "createdAt": {
+    "$date": "2026-04-15T11:54:15.030Z"
+  },
+  "updatedAt": {
+    "$date": "2026-04-15T11:54:15.030Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69df7c67241dc35493e9737f"
+  },
+  "name": "Free –  Consent is Given Voluntarily Without Coercion",
+  "description": "Communities  must have the ability to decide without force, manipulation, intimidation, or undue incentives. The FPIC process should ensure that Indigenous Peoples and Local Communities (IPLCs) can express their views openly, free from external pressure or power imbalances. Decision-making should take place in an  environment that respects cultural norms and allows for independent   reflection.",
+  "theme": {
+    "$oid": "69df7c56241dc35493e972da"
+  },
+  "theoryOfChangeStage": "Stage 1 - Output",
+  "indicatorTags": [],
+  "sdgTags": [],
+  "resilienceTags": [],
+  "esgTags": [],
+  "standardTags": [],
+  "creator": {
+    "$oid": "69de4f3869452296f6d0ac98"
+  },
+  "status": "published",
+  "archived": false,
+  "archivedAt": null,
+  "createdAt": {
+    "$date": "2026-04-15T11:54:15.322Z"
+  },
+  "updatedAt": {
+    "$date": "2026-04-15T11:54:15.322Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69df7c67241dc35493e97382"
+  },
+  "name": "Collective Efficacy and Community Solidarity",
+  "description": "Confidence that the community can work together to solve shared problems.",
+  "theme": {
+    "$oid": "69df7c5b241dc35493e97307"
+  },
+  "theoryOfChangeStage": "Stage 2 - Outcome",
+  "indicatorTags": [
+    {
+      "$oid": "69df7fca372e5c8b2acb8fd3"
+    },
+    {
+      "$oid": "69df7fcb372e5c8b2acb8fd6"
+    }
+  ],
+  "sdgTags": [],
+  "resilienceTags": [],
+  "esgTags": [],
+  "standardTags": [],
+  "creator": {
+    "$oid": "69de4f3869452296f6d0ac98"
+  },
+  "status": "published",
+  "archived": false,
+  "archivedAt": null,
+  "createdAt": {
+    "$date": "2026-04-15T11:54:15.615Z"
+  },
+  "updatedAt": {
+    "$date": "2026-04-15T12:10:45.601Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69df7c67241dc35493e97385"
+  },
+  "name": "Linking Social Capital: Trust in Institutions and External Actors",
+  "description": "Trust and ability to engage with those in power — including NGOs, government, project implementers, and traditional leaders.",
+  "theme": {
+    "$oid": "69df7c5b241dc35493e97307"
+  },
+  "theoryOfChangeStage": "Stage 2 - Outcome",
+  "indicatorTags": [
+    {
+      "$oid": "69df7fcb372e5c8b2acb8fd9"
+    },
+    {
+      "$oid": "69df7fcb372e5c8b2acb8fdc"
+    },
+    {
+      "$oid": "69df7fcc372e5c8b2acb8fdf"
+    }
+  ],
+  "sdgTags": [],
+  "resilienceTags": [],
+  "esgTags": [],
+  "standardTags": [],
+  "creator": {
+    "$oid": "69de4f3869452296f6d0ac98"
+  },
+  "status": "published",
+  "archived": false,
+  "archivedAt": null,
+  "createdAt": {
+    "$date": "2026-04-15T11:54:15.905Z"
+  },
+  "updatedAt": {
+    "$date": "2026-04-15T12:10:45.900Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69df7c68241dc35493e97388"
+  },
+  "name": "Bridging Social Capital: Collaboration Across Groups",
+  "description": "Relationships between different social groups (e.g. ethnicities, religions, generations, clans, or genders) that foster mutual understanding and cooperation.",
+  "theme": {
+    "$oid": "69df7c5b241dc35493e97307"
+  },
+  "theoryOfChangeStage": "Stage 2 - Outcome",
+  "indicatorTags": [
+    {
+      "$oid": "69df7fca372e5c8b2acb8fcd"
+    },
+    {
+      "$oid": "69df7fca372e5c8b2acb8fd0"
+    }
+  ],
+  "sdgTags": [],
+  "resilienceTags": [],
+  "esgTags": [],
+  "standardTags": [],
+  "creator": {
+    "$oid": "69de4f3869452296f6d0ac98"
+  },
+  "status": "published",
+  "archived": false,
+  "archivedAt": null,
+  "createdAt": {
+    "$date": "2026-04-15T11:54:16.201Z"
+  },
+  "updatedAt": {
+    "$date": "2026-04-15T12:10:45.310Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69df7c68241dc35493e9738b"
+  },
+  "name": "Bonding Social Capital: Trust and Support Within Communities",
+  "description": "Strength of relationships, solidarity, and mutual aid among people with shared identities or within the same group (e.g. neighbours, clan, livelihood group).",
+  "theme": {
+    "$oid": "69df7c5b241dc35493e97307"
+  },
+  "theoryOfChangeStage": "Stage 2 - Outcome",
+  "indicatorTags": [
+    {
+      "$oid": "69df7fc9372e5c8b2acb8fc7"
+    },
+    {
+      "$oid": "69df7fc9372e5c8b2acb8fca"
+    }
+  ],
+  "sdgTags": [],
+  "resilienceTags": [],
+  "esgTags": [],
+  "standardTags": [],
+  "creator": {
+    "$oid": "69de4f3869452296f6d0ac98"
+  },
+  "status": "published",
+  "archived": false,
+  "archivedAt": null,
+  "createdAt": {
+    "$date": "2026-04-15T11:54:16.493Z"
+  },
+  "updatedAt": {
+    "$date": "2026-04-15T12:10:45.011Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69df7c68241dc35493e9738e"
+  },
+  "name": "Indigenous Knowledge Supports Sustainable and Culturally-Aligned Livelihoods",
+  "description": "Indigenous knowledge-based economic activities—such as traditional medicine, crafts, agroecology, and ecotourism—are supported in ethical, equitable, and sustainable ways.",
+  "theme": {
+    "$oid": "69df7c5b241dc35493e97304"
+  },
+  "theoryOfChangeStage": "Stage 2 - Outcome",
+  "indicatorTags": [
+    {
+      "$oid": "69df7fa6372e5c8b2acb8e7c"
+    },
+    {
+      "$oid": "69df7fa7372e5c8b2acb8e7f"
+    },
+    {
+      "$oid": "69df7fa7372e5c8b2acb8e83"
+    }
+  ],
+  "sdgTags": [],
+  "resilienceTags": [],
+  "esgTags": [],
+  "standardTags": [],
+  "creator": {
+    "$oid": "69de4f3869452296f6d0ac98"
+  },
+  "status": "draft",
+  "archived": false,
+  "archivedAt": null,
+  "createdAt": {
+    "$date": "2026-04-15T11:54:16.787Z"
+  },
+  "updatedAt": {
+    "$date": "2026-04-15T12:10:32.638Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69df7c69241dc35493e97391"
+  },
+  "name": "Integration of Indigenous Knowledge in Formal and Informal Education Systems",
+  "description": "The extent to which Indigenous knowledge, language, history, and practices are included in school curricula, local education programs, and informal learning within the community.",
+  "theme": {
+    "$oid": "69df7c5b241dc35493e97304"
+  },
+  "theoryOfChangeStage": "Stage 2 - Outcome",
+  "indicatorTags": [
+    {
+      "$oid": "69df7fa8372e5c8b2acb8e88"
+    },
+    {
+      "$oid": "69df7fa8372e5c8b2acb8e8b"
+    },
+    {
+      "$oid": "69df7fa8372e5c8b2acb8e8e"
+    }
+  ],
+  "sdgTags": [],
+  "resilienceTags": [],
+  "esgTags": [],
+  "standardTags": [],
+  "creator": {
+    "$oid": "69de4f3869452296f6d0ac98"
+  },
+  "status": "draft",
+  "archived": false,
+  "archivedAt": null,
+  "createdAt": {
+    "$date": "2026-04-15T11:54:17.086Z"
+  },
+  "updatedAt": {
+    "$date": "2026-04-15T12:10:32.930Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69df7c69241dc35493e97394"
+  },
+  "name": "Protection of Indigenous Cultural and Spiritual Heritage",
+  "description": "Sacred sites, cultural practices, and languages are preserved and safeguarded from destruction or exploitation.",
+  "theme": {
+    "$oid": "69df7c5b241dc35493e97304"
+  },
+  "theoryOfChangeStage": "Stage 2 - Outcome",
+  "indicatorTags": [
+    {
+      "$oid": "69df7fa9372e5c8b2acb8e93"
+    },
+    {
+      "$oid": "69df7fa9372e5c8b2acb8e96"
+    }
+  ],
+  "sdgTags": [],
+  "resilienceTags": [],
+  "esgTags": [],
+  "standardTags": [],
+  "creator": {
+    "$oid": "69de4f3869452296f6d0ac98"
+  },
+  "status": "draft",
+  "archived": false,
+  "archivedAt": null,
+  "createdAt": {
+    "$date": "2026-04-15T11:54:17.384Z"
+  },
+  "updatedAt": {
+    "$date": "2026-04-15T12:10:33.226Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69df7c69241dc35493e97397"
+  },
+  "name": "Application of Indigenous Ecological Knowledge in Land, Climate, and Conservation Efforts",
+  "description": "Indigenous land stewardship and ecological knowledge inform climate adaptation, conservation, and natural resource management strategies.",
+  "theme": {
+    "$oid": "69df7c5b241dc35493e97304"
+  },
+  "theoryOfChangeStage": "Stage 2 - Outcome",
+  "indicatorTags": [
+    {
+      "$oid": "69df7fa5372e5c8b2acb8e74"
+    },
+    {
+      "$oid": "69df7fa6372e5c8b2acb8e77"
+    }
+  ],
+  "sdgTags": [],
+  "resilienceTags": [],
+  "esgTags": [],
+  "standardTags": [],
+  "creator": {
+    "$oid": "69de4f3869452296f6d0ac98"
+  },
+  "status": "draft",
+  "archived": false,
+  "archivedAt": null,
+  "createdAt": {
+    "$date": "2026-04-15T11:54:17.675Z"
+  },
+  "updatedAt": {
+    "$date": "2026-04-15T12:10:32.326Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69df7c69241dc35493e9739a"
+  },
+  "name": "Recognition and Influence of Indigenous Knowledge Holders",
+  "description": "Indigenous knowledge holders—including elders, leaders, and practitioners—are recognised as experts and decision-makers in environmental governance, land management, and cultural stewardship. Their expertise actively shapes policy, planning, and implementation processes.",
+  "theme": {
+    "$oid": "69df7c5b241dc35493e97304"
+  },
+  "theoryOfChangeStage": "Stage 2 - Outcome",
+  "indicatorTags": [
+    {
+      "$oid": "69df7faa372e5c8b2acb8e9b"
+    },
+    {
+      "$oid": "69df7faa372e5c8b2acb8e9e"
+    }
+  ],
+  "sdgTags": [],
+  "resilienceTags": [],
+  "esgTags": [],
+  "standardTags": [],
+  "creator": {
+    "$oid": "69de4f3869452296f6d0ac98"
+  },
+  "status": "draft",
+  "archived": false,
+  "archivedAt": null,
+  "createdAt": {
+    "$date": "2026-04-15T11:54:17.971Z"
+  },
+  "updatedAt": {
+    "$date": "2026-04-15T12:10:33.516Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69df7c6a241dc35493e9739d"
+  },
+  "name": "Redistribution of Care and Domestic Responsibilities",
+  "description": "Care work, domestic responsibilities, and decision-making within households are equitably distributed, reducing the burden on women.",
+  "theme": {
+    "$oid": "69df7c5a241dc35493e97301"
+  },
+  "theoryOfChangeStage": "Stage 2 - Outcome",
+  "indicatorTags": [
+    {
+      "$oid": "69df7fa3372e5c8b2acb8e5c"
+    },
+    {
+      "$oid": "69df7fa3372e5c8b2acb8e5f"
+    },
+    {
+      "$oid": "69df7fa4372e5c8b2acb8e63"
+    }
+  ],
+  "sdgTags": [],
+  "resilienceTags": [],
+  "esgTags": [],
+  "standardTags": [],
+  "creator": {
+    "$oid": "69de4f3869452296f6d0ac98"
+  },
+  "status": "draft",
+  "archived": false,
+  "archivedAt": null,
+  "createdAt": {
+    "$date": "2026-04-15T11:54:18.269Z"
+  },
+  "updatedAt": {
+    "$date": "2026-04-15T12:10:31.733Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69df7c6a241dc35493e973a0"
+  },
+  "name": "Involvement in Collective Action and Advocacy",
+  "description": "Community members—particularly women, youth, persons with disabilities, and other historically excluded groups—organise, mobilise, and advocate for their rights, needs, and priorities. This sub-theme tracks active engagement in community campaigns, movements, or initiatives that challenge injustice, influence decision-making, and foster solidarity.",
+  "theme": {
+    "$oid": "69df7c5a241dc35493e97301"
+  },
+  "theoryOfChangeStage": "Stage 2 - Outcome",
+  "indicatorTags": [
+    {
+      "$oid": "69df7fa1372e5c8b2acb8e50"
+    },
+    {
+      "$oid": "69df7fa2372e5c8b2acb8e53"
+    },
+    {
+      "$oid": "69df7fa2372e5c8b2acb8e57"
+    }
+  ],
+  "sdgTags": [],
+  "resilienceTags": [],
+  "esgTags": [],
+  "standardTags": [],
+  "creator": {
+    "$oid": "69de4f3869452296f6d0ac98"
+  },
+  "status": "draft",
+  "archived": false,
+  "archivedAt": null,
+  "createdAt": {
+    "$date": "2026-04-15T11:54:18.576Z"
+  },
+  "updatedAt": {
+    "$date": "2026-04-15T12:10:31.441Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69df7c6a241dc35493e973a3"
+  },
+  "name": "Reduction in Discrimination and Harmful Norms",
+  "description": "Addressing and transforming the social norms, attitudes, and behaviours that reinforce exclusion, inequality, and stigma. This sub-theme focuses on reducing discrimination based on gender, disability, ethnicity, age, or other identities, and promoting inclusive beliefs and practices that uphold dignity, equity, and respect for all.",
+  "theme": {
+    "$oid": "69df7c5a241dc35493e97301"
+  },
+  "theoryOfChangeStage": "Stage 2 - Outcome",
+  "indicatorTags": [
+    {
+      "$oid": "69df7fa4372e5c8b2acb8e68"
+    },
+    {
+      "$oid": "69df7fa4372e5c8b2acb8e6b"
+    },
+    {
+      "$oid": "69df7fa5372e5c8b2acb8e6f"
+    }
+  ],
+  "sdgTags": [],
+  "resilienceTags": [],
+  "esgTags": [],
+  "standardTags": [],
+  "creator": {
+    "$oid": "69de4f3869452296f6d0ac98"
+  },
+  "status": "draft",
+  "archived": false,
+  "archivedAt": null,
+  "createdAt": {
+    "$date": "2026-04-15T11:54:18.867Z"
+  },
+  "updatedAt": {
+    "$date": "2026-04-15T12:10:32.028Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69df7c6b241dc35493e973a6"
+  },
+  "name": "Consent  – Right to Accept, Reject, or Set Conditions",
+  "description": "Communities must have the power to approve, reject, or set conditions for project activities affecting them. Consent must be an ongoing process, allowing communities to withdraw or renegotiate agreements as circumstances change. Genuine consent means that decisions are respected, and project proponents cannot proceed without clear and collective agreement from the affected community.",
+  "theme": {
+    "$oid": "69df7c56241dc35493e972da"
+  },
+  "theoryOfChangeStage": "Stage 1 - Output",
+  "indicatorTags": [
+    {
+      "$oid": "69df7fad372e5c8b2acb8eb8"
+    },
+    {
+      "$oid": "69df7fad372e5c8b2acb8ebb"
+    }
+  ],
+  "sdgTags": [],
+  "resilienceTags": [],
+  "esgTags": [],
+  "standardTags": [],
+  "creator": {
+    "$oid": "69de4f3869452296f6d0ac98"
+  },
+  "status": "published",
+  "archived": false,
+  "archivedAt": null,
+  "createdAt": {
+    "$date": "2026-04-15T11:54:19.162Z"
+  },
+  "updatedAt": {
+    "$date": "2026-04-15T12:10:34.540Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69df7c6b241dc35493e973a9"
+  },
+  "name": "Informed  – Access to Full, Accurate, and Understandable Information",
+  "description": "Communities must have access to all relevant details about the project, including its objectives, risks, benefits, impacts, and long-term implications. Information should be shared in culturally appropriate formats and languages, ensuring that all groups—including women, elders, and marginalized members—can understand and engage meaningfully. IPLCs must also have the opportunity to seek independent advice or verification.",
+  "theme": {
+    "$oid": "69df7c56241dc35493e972da"
+  },
+  "theoryOfChangeStage": "Stage 1 - Output",
+  "indicatorTags": [
+    {
+      "$oid": "69df7fac372e5c8b2acb8eac"
+    },
+    {
+      "$oid": "69df7fac372e5c8b2acb8eaf"
+    }
+  ],
+  "sdgTags": [],
+  "resilienceTags": [],
+  "esgTags": [],
+  "standardTags": [],
+  "creator": {
+    "$oid": "69de4f3869452296f6d0ac98"
+  },
+  "status": "draft",
+  "archived": false,
+  "archivedAt": null,
+  "createdAt": {
+    "$date": "2026-04-15T11:54:19.456Z"
+  },
+  "updatedAt": {
+    "$date": "2026-04-15T12:10:34.102Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69df7c6b241dc35493e973ac"
+  },
+  "name": "Prior  – Consent is Obtained Before Project Decisions Are Made",
+  "description": "Consent must be sought early in the project development process—before decisions are finalized or activities begin. Communities must be engaged at the initial stages of planning and have ample time to discuss, evaluate, and decide without being rushed. FPIC should not be applied retroactively to justify actions already taken.",
+  "theme": {
+    "$oid": "69df7c56241dc35493e972da"
+  },
+  "theoryOfChangeStage": "Stage 1 - Output",
+  "indicatorTags": [],
+  "sdgTags": [],
+  "resilienceTags": [],
+  "esgTags": [],
+  "standardTags": [],
+  "creator": {
+    "$oid": "69de4f3869452296f6d0ac98"
+  },
+  "status": "published",
+  "archived": false,
+  "archivedAt": null,
+  "createdAt": {
+    "$date": "2026-04-15T11:54:19.746Z"
+  },
+  "updatedAt": {
+    "$date": "2026-04-15T11:54:19.746Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69df7c6c241dc35493e973af"
+  },
+  "name": "Social infrastructure development",
+  "description": "This subtheme refers to the construction, rehabilitation, expansion, or upgrading of physical facilities and systems that support the delivery of essential social services, particularly in sectors such as education, health, and water. It focuses on improving the availability, functionality, and accessibility of infrastructure needed for people to obtain these services, and on creating the conditions for better service access, use, and wellbeing outcomes.",
+  "theme": {
+    "$oid": "69df7c59241dc35493e972f8"
+  },
+  "theoryOfChangeStage": "Stage 1 - Output",
+  "indicatorTags": [
+    {
+      "$oid": "69df7f82372e5c8b2acb8d2e"
+    },
+    {
+      "$oid": "69df7f83372e5c8b2acb8d31"
+    },
+    {
+      "$oid": "69df7f83372e5c8b2acb8d34"
+    },
+    {
+      "$oid": "69df7f83372e5c8b2acb8d37"
+    },
+    {
+      "$oid": "69df7f84372e5c8b2acb8d3a"
+    },
+    {
+      "$oid": "69df7f84372e5c8b2acb8d3d"
+    },
+    {
+      "$oid": "69df7f84372e5c8b2acb8d40"
+    },
+    {
+      "$oid": "69df7f84372e5c8b2acb8d43"
+    },
+    {
+      "$oid": "69df7f85372e5c8b2acb8d46"
+    },
+    {
+      "$oid": "69df7f85372e5c8b2acb8d49"
+    },
+    {
+      "$oid": "69df7f85372e5c8b2acb8d4c"
+    },
+    {
+      "$oid": "69df7f86372e5c8b2acb8d4f"
+    },
+    {
+      "$oid": "69df7f86372e5c8b2acb8d52"
+    },
+    {
+      "$oid": "69df7f86372e5c8b2acb8d55"
+    },
+    {
+      "$oid": "69df7f87372e5c8b2acb8d58"
+    },
+    {
+      "$oid": "69df7f87372e5c8b2acb8d5b"
+    },
+    {
+      "$oid": "69df7f87372e5c8b2acb8d5e"
+    },
+    {
+      "$oid": "69df7f88372e5c8b2acb8d61"
+    },
+    {
+      "$oid": "69df7f88372e5c8b2acb8d64"
+    },
+    {
+      "$oid": "69df7f88372e5c8b2acb8d67"
+    },
+    {
+      "$oid": "69df7f88372e5c8b2acb8d6a"
+    },
+    {
+      "$oid": "69df7f89372e5c8b2acb8d6d"
+    },
+    {
+      "$oid": "69df7f89372e5c8b2acb8d70"
+    },
+    {
+      "$oid": "69df7f89372e5c8b2acb8d73"
+    },
+    {
+      "$oid": "69df7f8a372e5c8b2acb8d76"
+    },
+    {
+      "$oid": "69df7f8a372e5c8b2acb8d79"
+    }
+  ],
+  "sdgTags": [],
+  "resilienceTags": [],
+  "esgTags": [],
+  "standardTags": [],
+  "creator": {
+    "$oid": "69de4f3869452296f6d0ac98"
+  },
+  "status": "draft",
+  "archived": false,
+  "archivedAt": null,
+  "createdAt": {
+    "$date": "2026-04-15T11:54:20.039Z"
+  },
+  "updatedAt": {
+    "$date": "2026-04-15T12:10:27.719Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69df7c6c241dc35493e973b2"
+  },
+  "name": "Affordability & Financial Inclusion",
+  "description": "Reducing cost barriers to education, healthcare, and other essential services.",
+  "theme": {
+    "$oid": "69df7c59241dc35493e972f8"
+  },
+  "theoryOfChangeStage": "Stage 1 - Output",
+  "indicatorTags": [
+    {
+      "$oid": "69df7f8a372e5c8b2acb8d7c"
+    },
+    {
+      "$oid": "69df7f8b372e5c8b2acb8d7f"
+    },
+    {
+      "$oid": "69df7f8b372e5c8b2acb8d85"
+    },
+    {
+      "$oid": "69df7f8c372e5c8b2acb8d88"
+    },
+    {
+      "$oid": "69df7f8c372e5c8b2acb8d8b"
+    }
+  ],
+  "sdgTags": [],
+  "resilienceTags": [],
+  "esgTags": [],
+  "standardTags": [],
+  "creator": {
+    "$oid": "69de4f3869452296f6d0ac98"
+  },
+  "status": "published",
+  "archived": false,
+  "archivedAt": null,
+  "createdAt": {
+    "$date": "2026-04-15T11:54:20.354Z"
+  },
+  "updatedAt": {
+    "$date": "2026-04-15T12:10:28.029Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69df7c6c241dc35493e973b5"
+  },
+  "name": "Geographic Accessibility",
+  "description": "Ensuring services are available in remote and underserved areas.",
+  "theme": {
+    "$oid": "69df7c59241dc35493e972f8"
+  },
+  "theoryOfChangeStage": "Stage 2 - Outcome",
+  "indicatorTags": [
+    {
+      "$oid": "69df7f8c372e5c8b2acb8d8f"
+    },
+    {
+      "$oid": "69df7f8d372e5c8b2acb8d92"
+    },
+    {
+      "$oid": "69df7f8d372e5c8b2acb8d95"
+    },
+    {
+      "$oid": "69df7f8d372e5c8b2acb8d98"
+    },
+    {
+      "$oid": "69df7f8d372e5c8b2acb8d9b"
+    },
+    {
+      "$oid": "69df7f8e372e5c8b2acb8d9e"
+    },
+    {
+      "$oid": "69df7f8e372e5c8b2acb8da1"
+    },
+    {
+      "$oid": "69df7f8e372e5c8b2acb8da4"
+    },
+    {
+      "$oid": "69df7f8f372e5c8b2acb8da7"
+    },
+    {
+      "$oid": "69df7f8f372e5c8b2acb8daa"
+    },
+    {
+      "$oid": "69df7f8f372e5c8b2acb8dad"
+    },
+    {
+      "$oid": "69df7f90372e5c8b2acb8db0"
+    }
+  ],
+  "sdgTags": [],
+  "resilienceTags": [],
+  "esgTags": [],
+  "standardTags": [],
+  "creator": {
+    "$oid": "69de4f3869452296f6d0ac98"
+  },
+  "status": "published",
+  "archived": false,
+  "archivedAt": null,
+  "createdAt": {
+    "$date": "2026-04-15T11:54:20.646Z"
+  },
+  "updatedAt": {
+    "$date": "2026-04-15T12:10:28.320Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69df7c6c241dc35493e973b8"
+  },
+  "name": "Inclusive Access",
+  "description": "Ensuring that all individuals—regardless of gender, age, disability, ethnicity, language, or social status—can access and benefit from essential services without discrimination or exclusion.",
+  "theme": {
+    "$oid": "69df7c59241dc35493e972f8"
+  },
+  "theoryOfChangeStage": "Stage 2 - Outcome",
+  "indicatorTags": [
+    {
+      "$oid": "69df7f90372e5c8b2acb8db3"
+    },
+    {
+      "$oid": "69df7f90372e5c8b2acb8db6"
+    },
+    {
+      "$oid": "69df7f90372e5c8b2acb8db9"
+    },
+    {
+      "$oid": "69df7f91372e5c8b2acb8dbc"
+    },
+    {
+      "$oid": "69df7f91372e5c8b2acb8dbf"
+    },
+    {
+      "$oid": "69df7f91372e5c8b2acb8dc2"
+    }
+  ],
+  "sdgTags": [],
+  "resilienceTags": [],
+  "esgTags": [],
+  "standardTags": [],
+  "creator": {
+    "$oid": "69de4f3869452296f6d0ac98"
+  },
+  "status": "published",
+  "archived": false,
+  "archivedAt": null,
+  "createdAt": {
+    "$date": "2026-04-15T11:54:20.937Z"
+  },
+  "updatedAt": {
+    "$date": "2026-04-15T12:10:28.614Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69df7c6d241dc35493e973bb"
+  },
+  "name": "Service Awareness & Outreach",
+  "description": "Ensuring that individuals and communities are aware of the essential services available to them—such as healthcare, education, and social protection—and understand how to access them.",
+  "theme": {
+    "$oid": "69df7c59241dc35493e972f8"
+  },
+  "theoryOfChangeStage": "Stage 1 - Output",
+  "indicatorTags": [
+    {
+      "$oid": "69df7f92372e5c8b2acb8dc5"
+    },
+    {
+      "$oid": "69df7f92372e5c8b2acb8dc8"
+    },
+    {
+      "$oid": "69df7f92372e5c8b2acb8dcb"
+    },
+    {
+      "$oid": "69df7f93372e5c8b2acb8dce"
+    },
+    {
+      "$oid": "69df7f93372e5c8b2acb8dd1"
+    },
+    {
+      "$oid": "69df7f93372e5c8b2acb8dd4"
+    },
+    {
+      "$oid": "69df7f93372e5c8b2acb8dd7"
+    }
+  ],
+  "sdgTags": [],
+  "resilienceTags": [],
+  "esgTags": [],
+  "standardTags": [],
+  "creator": {
+    "$oid": "69de4f3869452296f6d0ac98"
+  },
+  "status": "published",
+  "archived": false,
+  "archivedAt": null,
+  "createdAt": {
+    "$date": "2026-04-15T11:54:21.247Z"
+  },
+  "updatedAt": {
+    "$date": "2026-04-15T12:10:28.906Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69df7c6d241dc35493e973be"
+  },
+  "name": "FPIC & Ethical Engagement Readiness",
+  "description": "Ensuring that Indigenous Peoples and Local Communities have formally provided Free, Prior, and Informed Consent before any land-use changes occur. It verifies documented, time-bound consent processes grounded in transparency, participation, and non-coercion.",
+  "theme": {
+    "$oid": "69df7c5c241dc35493e97310"
+  },
+  "theoryOfChangeStage": "Stage 1 - Output",
+  "indicatorTags": [],
+  "sdgTags": [],
+  "resilienceTags": [],
+  "esgTags": [],
+  "standardTags": [],
+  "creator": {
+    "$oid": "69de4f3869452296f6d0ac98"
+  },
+  "status": "draft",
+  "archived": false,
+  "archivedAt": null,
+  "createdAt": {
+    "$date": "2026-04-15T11:54:21.554Z"
+  },
+  "updatedAt": {
+    "$date": "2026-04-15T11:54:21.554Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69df7c6d241dc35493e973c1"
+  },
+  "name": "Carbon Rights & Legal Tenure Clarification",
+  "description": "Ensuring that land tenure and carbon ownership rights are legally clarified and agreed upon with IPLCs prior to validation. It safeguards customary rights and prevents future disputes over resource control.",
+  "theme": {
+    "$oid": "69df7c5c241dc35493e97310"
+  },
+  "theoryOfChangeStage": "Stage 1 - Output",
+  "indicatorTags": [],
+  "sdgTags": [],
+  "resilienceTags": [],
+  "esgTags": [],
+  "standardTags": [],
+  "creator": {
+    "$oid": "69de4f3869452296f6d0ac98"
+  },
+  "status": "draft",
+  "archived": false,
+  "archivedAt": null,
+  "createdAt": {
+    "$date": "2026-04-15T11:54:21.874Z"
+  },
+  "updatedAt": {
+    "$date": "2026-04-15T11:54:21.874Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69df7c6e241dc35493e973c4"
+  },
+  "name": "Participatory Benefit-Sharing Design",
+  "description": "Ensuring that a community-ratified Benefit Sharing Mechanism defines how carbon revenues flow from credit sales to households. It promotes transparency, equity, and collective decision-making in financial distribution.",
+  "theme": {
+    "$oid": "69df7c5c241dc35493e97310"
+  },
+  "theoryOfChangeStage": "Stage 1 - Output",
+  "indicatorTags": [],
+  "sdgTags": [],
+  "resilienceTags": [],
+  "esgTags": [],
+  "standardTags": [],
+  "creator": {
+    "$oid": "69de4f3869452296f6d0ac98"
+  },
+  "status": "draft",
+  "archived": false,
+  "archivedAt": null,
+  "createdAt": {
+    "$date": "2026-04-15T11:54:22.171Z"
+  },
+  "updatedAt": {
+    "$date": "2026-04-15T11:54:22.171Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69df7c6e241dc35493e973c7"
+  },
+  "name": "Socio-Economic  Baselines",
+  "description": "Ensuring that rigorous socio-economic and High Conservation Value assessments are completed with community participation prior to implementation. It establishes an evidence-based foundation for monitoring social and ecological change.",
+  "theme": {
+    "$oid": "69df7c5c241dc35493e97310"
+  },
+  "theoryOfChangeStage": "Stage 1 - Output",
+  "indicatorTags": [],
+  "sdgTags": [],
+  "resilienceTags": [],
+  "esgTags": [],
+  "standardTags": [],
+  "creator": {
+    "$oid": "69de4f3869452296f6d0ac98"
+  },
+  "status": "draft",
+  "archived": false,
+  "archivedAt": null,
+  "createdAt": {
+    "$date": "2026-04-15T11:54:22.467Z"
+  },
+  "updatedAt": {
+    "$date": "2026-04-15T11:54:22.467Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69df7c6e241dc35493e973ca"
+  },
+  "name": "Risk Mitigation & Safeguard Planning",
+  "description": "Ensuring that social and environmental risks are identified and accompanied by community-approved mitigation strategies before implementation. It protects against displacement, elite capture, conflict, and unintended harm.",
+  "theme": {
+    "$oid": "69df7c5c241dc35493e97310"
+  },
+  "theoryOfChangeStage": "Stage 1 - Output",
+  "indicatorTags": [],
+  "sdgTags": [],
+  "resilienceTags": [],
+  "esgTags": [],
+  "standardTags": [],
+  "creator": {
+    "$oid": "69de4f3869452296f6d0ac98"
+  },
+  "status": "draft",
+  "archived": false,
+  "archivedAt": null,
+  "createdAt": {
+    "$date": "2026-04-15T11:54:22.763Z"
+  },
+  "updatedAt": {
+    "$date": "2026-04-15T11:54:22.763Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69df7c6f241dc35493e973cd"
+  },
+  "name": "Child Protection & Support for Vulnerable Children",
+  "description": "Establishing strong child protection systems to prevent abuse, neglect, exploitation, and violence against children. Ensuring support for orphaned and vulnerable children through alternative care, family strengthening, and education access.",
+  "theme": {
+    "$oid": "69df7c5a241dc35493e972fb"
+  },
+  "theoryOfChangeStage": "Stage 2 - Outcome",
+  "indicatorTags": [
+    {
+      "$oid": "69df7f94372e5c8b2acb8dda"
+    },
+    {
+      "$oid": "69df7f94372e5c8b2acb8ddd"
+    },
+    {
+      "$oid": "69df7f94372e5c8b2acb8de1"
+    },
+    {
+      "$oid": "69df7f95372e5c8b2acb8de5"
+    }
+  ],
+  "sdgTags": [],
+  "resilienceTags": [],
+  "esgTags": [],
+  "standardTags": [],
+  "creator": {
+    "$oid": "69de4f3869452296f6d0ac98"
+  },
+  "status": "published",
+  "archived": false,
+  "archivedAt": null,
+  "createdAt": {
+    "$date": "2026-04-15T11:54:23.057Z"
+  },
+  "updatedAt": {
+    "$date": "2026-04-15T12:10:29.204Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69df7c6f241dc35493e973d0"
+  },
+  "name": "Community Safety, Crime Prevention & Justice Services",
+  "description": "The extent to which community members feel safe from violence, crime, trafficking, and exploitation, and whether they believe justice systems are accessible, fair, and responsive. This includes perceptions of personal and collective safety, access to legal support, trust in justice institutions, and confidence that wrongdoings are addressed appropriately.",
+  "theme": {
+    "$oid": "69df7c5a241dc35493e972fb"
+  },
+  "theoryOfChangeStage": "Stage 2 - Outcome",
+  "indicatorTags": [
+    {
+      "$oid": "69df7f96372e5c8b2acb8dea"
+    },
+    {
+      "$oid": "69df7f96372e5c8b2acb8ded"
+    },
+    {
+      "$oid": "69df7f96372e5c8b2acb8df1"
+    },
+    {
+      "$oid": "69df7f97372e5c8b2acb8df5"
+    }
+  ],
+  "sdgTags": [],
+  "resilienceTags": [],
+  "esgTags": [],
+  "standardTags": [],
+  "creator": {
+    "$oid": "69de4f3869452296f6d0ac98"
+  },
+  "status": "published",
+  "archived": false,
+  "archivedAt": null,
+  "createdAt": {
+    "$date": "2026-04-15T11:54:23.349Z"
+  },
+  "updatedAt": {
+    "$date": "2026-04-15T12:10:29.499Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69df7c6f241dc35493e973d3"
+  },
+  "name": "Education & Inclusive Learning",
+  "description": "Ensuring that schools are accessible, inclusive, and safe, while also improving the quality of teaching, learning outcomes, and support systems for children and youth—especially those from marginalized groups. This includes investments in trained teachers, relevant curricula, adequate learning materials, and inclusive classroom practices that enable all learners to thrive.",
+  "theme": {
+    "$oid": "69df7c5a241dc35493e972fb"
+  },
+  "theoryOfChangeStage": "Stage 2 - Outcome",
+  "indicatorTags": [
+    {
+      "$oid": "69df7f97372e5c8b2acb8dfa"
+    },
+    {
+      "$oid": "69df7f98372e5c8b2acb8dfd"
+    },
+    {
+      "$oid": "69df7f98372e5c8b2acb8e01"
+    },
+    {
+      "$oid": "69df7f99372e5c8b2acb8e05"
+    }
+  ],
+  "sdgTags": [],
+  "resilienceTags": [],
+  "esgTags": [],
+  "standardTags": [],
+  "creator": {
+    "$oid": "69de4f3869452296f6d0ac98"
+  },
+  "status": "published",
+  "archived": false,
+  "archivedAt": null,
+  "createdAt": {
+    "$date": "2026-04-15T11:54:23.642Z"
+  },
+  "updatedAt": {
+    "$date": "2026-04-15T12:10:29.797Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69df7c6f241dc35493e973d6"
+  },
+  "name": "Gender-Based Violence & Survivor-Centered Response",
+  "description": "Preventing gender-based violence (GBV) and domestic abuse through education, community engagement, and social norm change, while ensuring that survivors have access to safe spaces, emergency care, legal aid, and long-term support. A survivor-centered approach prioritizes dignity, confidentiality, and access to justice for those affected.",
+  "theme": {
+    "$oid": "69df7c5a241dc35493e972fb"
+  },
+  "theoryOfChangeStage": "Stage 2 - Outcome",
+  "indicatorTags": [
+    {
+      "$oid": "69df7f99372e5c8b2acb8e0a"
+    },
+    {
+      "$oid": "69df7f9a372e5c8b2acb8e0d"
+    },
+    {
+      "$oid": "69df7f9a372e5c8b2acb8e11"
+    },
+    {
+      "$oid": "69df7f9b372e5c8b2acb8e15"
+    }
+  ],
+  "sdgTags": [],
+  "resilienceTags": [],
+  "esgTags": [],
+  "standardTags": [],
+  "creator": {
+    "$oid": "69de4f3869452296f6d0ac98"
+  },
+  "status": "published",
+  "archived": false,
+  "archivedAt": null,
+  "createdAt": {
+    "$date": "2026-04-15T11:54:23.942Z"
+  },
+  "updatedAt": {
+    "$date": "2026-04-15T12:10:30.114Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69df7c70241dc35493e973d9"
+  },
+  "name": "Healthcare, Mental Health & Psychosocial Support",
+  "description": "Ensuring that individuals and families have access to quality, affordable, and respectful healthcare services, including mental health and psychosocial support. This includes preventive and curative care, public health interventions, and counselling services that are culturally appropriate, confidential, and responsive to community needs—particularly for those experiencing trauma, chronic illness, or emotional distress.",
+  "theme": {
+    "$oid": "69df7c5a241dc35493e972fb"
+  },
+  "theoryOfChangeStage": "Stage 2 - Outcome",
+  "indicatorTags": [
+    {
+      "$oid": "69df7f9b372e5c8b2acb8e1a"
+    },
+    {
+      "$oid": "69df7f9b372e5c8b2acb8e1d"
+    },
+    {
+      "$oid": "69df7f9c372e5c8b2acb8e21"
+    }
+  ],
+  "sdgTags": [],
+  "resilienceTags": [],
+  "esgTags": [],
+  "standardTags": [],
+  "creator": {
+    "$oid": "69de4f3869452296f6d0ac98"
+  },
+  "status": "published",
+  "archived": false,
+  "archivedAt": null,
+  "createdAt": {
+    "$date": "2026-04-15T11:54:24.255Z"
+  },
+  "updatedAt": {
+    "$date": "2026-04-15T12:10:30.404Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69df7c70241dc35493e973dc"
+  },
+  "name": "Social Protection for Vulnerable Groups",
+  "description": "Expanding safety nets for individuals facing extreme poverty, displacement, or social exclusion, ensuring that vulnerable groups receive necessary support services.",
+  "theme": {
+    "$oid": "69df7c5a241dc35493e972fb"
+  },
+  "theoryOfChangeStage": "Stage 2 - Outcome",
+  "indicatorTags": [
+    {
+      "$oid": "69df7f9d372e5c8b2acb8e26"
+    },
+    {
+      "$oid": "69df7f9d372e5c8b2acb8e29"
+    },
+    {
+      "$oid": "69df7f9d372e5c8b2acb8e2d"
+    },
+    {
+      "$oid": "69df7f9e372e5c8b2acb8e31"
+    }
+  ],
+  "sdgTags": [],
+  "resilienceTags": [],
+  "esgTags": [],
+  "standardTags": [],
+  "creator": {
+    "$oid": "69de4f3869452296f6d0ac98"
+  },
+  "status": "published",
+  "archived": false,
+  "archivedAt": null,
+  "createdAt": {
+    "$date": "2026-04-15T11:54:24.557Z"
+  },
+  "updatedAt": {
+    "$date": "2026-04-15T12:10:30.698Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69df7c70241dc35493e973df"
+  },
+  "name": "Clarity about the short-term and long-term benefits of the project",
+  "description": "Ensuring that all stakeholders, particularly local communities, have a clear understanding of both the immediate and long-term benefits of the project. Clarity helps to manage expectations and promote trust in the project.",
+  "theme": {
+    "$oid": "69df7c58241dc35493e972ef"
+  },
+  "theoryOfChangeStage": "Stage 1 - Output",
+  "indicatorTags": [
+    {
+      "$oid": "69df7fae372e5c8b2acb8ec1"
+    },
+    {
+      "$oid": "69df7fae372e5c8b2acb8ec4"
+    },
+    {
+      "$oid": "69df7fae372e5c8b2acb8ec7"
+    }
+  ],
+  "sdgTags": [],
+  "resilienceTags": [],
+  "esgTags": [],
+  "standardTags": [],
+  "creator": {
+    "$oid": "69de4f3869452296f6d0ac98"
+  },
+  "status": "published",
+  "archived": false,
+  "archivedAt": null,
+  "createdAt": {
+    "$date": "2026-04-15T11:54:24.850Z"
+  },
+  "updatedAt": {
+    "$date": "2026-04-15T12:10:34.987Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69df7c71241dc35493e973e2"
+  },
+  "name": "Plans in place to ensure that marginalized groups benefit",
+  "description": "Ensuring that benefit-sharing mechanisms are inclusive and equitable, particularly for women, Indigenous Peoples, persons with disabilities, and other marginalized groups.",
+  "theme": {
+    "$oid": "69df7c58241dc35493e972ef"
+  },
+  "theoryOfChangeStage": "Stage 1 - Output",
+  "indicatorTags": [
+    {
+      "$oid": "69df7faf372e5c8b2acb8ece"
+    }
+  ],
+  "sdgTags": [],
+  "resilienceTags": [],
+  "esgTags": [],
+  "standardTags": [],
+  "creator": {
+    "$oid": "69de4f3869452296f6d0ac98"
+  },
+  "status": "published",
+  "archived": false,
+  "archivedAt": null,
+  "createdAt": {
+    "$date": "2026-04-15T11:54:25.145Z"
+  },
+  "updatedAt": {
+    "$date": "2026-04-15T12:10:35.425Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69df7c71241dc35493e973e5"
+  },
+  "name": "Potential negative unintended consequences considered & mitigated",
+  "description": "Ensuring that benefit-sharing mechanisms do not inadvertently create harm, exclusion, or social and economic disparities.",
+  "theme": {
+    "$oid": "69df7c58241dc35493e972ef"
+  },
+  "theoryOfChangeStage": "Stage 1 - Output",
+  "indicatorTags": [
+    {
+      "$oid": "69df7fb0372e5c8b2acb8ed1"
+    },
+    {
+      "$oid": "69df7fb0372e5c8b2acb8ed4"
+    }
+  ],
+  "sdgTags": [],
+  "resilienceTags": [],
+  "esgTags": [],
+  "standardTags": [],
+  "creator": {
+    "$oid": "69de4f3869452296f6d0ac98"
+  },
+  "status": "published",
+  "archived": false,
+  "archivedAt": null,
+  "createdAt": {
+    "$date": "2026-04-15T11:54:25.440Z"
+  },
+  "updatedAt": {
+    "$date": "2026-04-15T12:10:35.717Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69df7c71241dc35493e973e9"
+  },
+  "name": "Access to Financial Services & Asset Building",
+  "description": "The extent to which individuals and households can access financial services—such as loans, savings accounts, and credit facilities—and their ability to build and sustain financial assets over time.",
+  "theme": {
+    "$oid": "69df7c59241dc35493e972f2"
+  },
+  "theoryOfChangeStage": "Stage 2 - Outcome",
+  "indicatorTags": [
+    {
+      "$oid": "69df7fb0372e5c8b2acb8eda"
+    },
+    {
+      "$oid": "69df7fb1372e5c8b2acb8edd"
+    },
+    {
+      "$oid": "69df7fb1372e5c8b2acb8ee0"
+    }
+  ],
+  "sdgTags": [],
+  "resilienceTags": [],
+  "esgTags": [],
+  "standardTags": [],
+  "creator": {
+    "$oid": "69de4f3869452296f6d0ac98"
+  },
+  "status": "published",
+  "archived": false,
+  "archivedAt": null,
+  "createdAt": {
+    "$date": "2026-04-15T11:54:25.890Z"
+  },
+  "updatedAt": {
+    "$date": "2026-04-15T12:10:36.151Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69df7c72241dc35493e973ec"
+  },
+  "name": "Employment secured",
+  "description": "Access to stable, fair, and dignified employment opportunities, ensuring compliance with labor rights and equitable pay.",
+  "theme": {
+    "$oid": "69df7c59241dc35493e972f2"
+  },
+  "theoryOfChangeStage": "Stage 2 - Outcome",
+  "indicatorTags": [
+    {
+      "$oid": "69df7fb1372e5c8b2acb8ee3"
+    },
+    {
+      "$oid": "69df7fb2372e5c8b2acb8ee6"
+    },
+    {
+      "$oid": "69df7fb2372e5c8b2acb8ee9"
+    }
+  ],
+  "sdgTags": [],
+  "resilienceTags": [],
+  "esgTags": [],
+  "standardTags": [],
+  "creator": {
+    "$oid": "69de4f3869452296f6d0ac98"
+  },
+  "status": "published",
+  "archived": false,
+  "archivedAt": null,
+  "createdAt": {
+    "$date": "2026-04-15T11:54:26.241Z"
+  },
+  "updatedAt": {
+    "$date": "2026-04-15T12:10:36.463Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69df7c72241dc35493e973ef"
+  },
+  "name": "Household Economic Stability & Income Growth",
+  "description": "Changes in household income levels and overall economic well-being, assessing whether families experience increased financial security and reduced poverty.",
+  "theme": {
+    "$oid": "69df7c59241dc35493e972f2"
+  },
+  "theoryOfChangeStage": "Stage 2 - Outcome",
+  "indicatorTags": [
+    {
+      "$oid": "69df7fb2372e5c8b2acb8eec"
+    },
+    {
+      "$oid": "69df7fb2372e5c8b2acb8eef"
+    },
+    {
+      "$oid": "69df7fb3372e5c8b2acb8ef2"
+    }
+  ],
+  "sdgTags": [],
+  "resilienceTags": [],
+  "esgTags": [],
+  "standardTags": [],
+  "creator": {
+    "$oid": "69de4f3869452296f6d0ac98"
+  },
+  "status": "published",
+  "archived": false,
+  "archivedAt": null,
+  "createdAt": {
+    "$date": "2026-04-15T11:54:26.547Z"
+  },
+  "updatedAt": {
+    "$date": "2026-04-15T12:10:36.755Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69df7c72241dc35493e973f2"
+  },
+  "name": "Livelihood diversification",
+  "description": "Supporting individuals and communities in developing multiple income-generating activities to reduce economic vulnerability, increase financial stability, and enhance resilience to external shocks such as climate change, market fluctuations, and job loss.",
+  "theme": {
+    "$oid": "69df7c59241dc35493e972f2"
+  },
+  "theoryOfChangeStage": "Stage 2 - Outcome",
+  "indicatorTags": [
+    {
+      "$oid": "69df7fb3372e5c8b2acb8ef5"
+    },
+    {
+      "$oid": "69df7fb4372e5c8b2acb8ef8"
+    }
+  ],
+  "sdgTags": [],
+  "resilienceTags": [],
+  "esgTags": [],
+  "standardTags": [],
+  "creator": {
+    "$oid": "69de4f3869452296f6d0ac98"
+  },
+  "status": "published",
+  "archived": false,
+  "archivedAt": null,
+  "createdAt": {
+    "$date": "2026-04-15T11:54:26.854Z"
+  },
+  "updatedAt": {
+    "$date": "2026-04-15T12:10:37.046Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69df7c73241dc35493e973f5"
+  },
+  "name": "Self-employment & entrepreneurship growth",
+  "description": "Support for small businesses, cooperatives, and local enterprises, fostering self-reliance and new income streams.",
+  "theme": {
+    "$oid": "69df7c59241dc35493e972f2"
+  },
+  "theoryOfChangeStage": "Stage 2 - Outcome",
+  "indicatorTags": [
+    {
+      "$oid": "69df7fb4372e5c8b2acb8efb"
+    },
+    {
+      "$oid": "69df7fb4372e5c8b2acb8efe"
+    },
+    {
+      "$oid": "69df7fb5372e5c8b2acb8f01"
+    },
+    {
+      "$oid": "69df7fb5372e5c8b2acb8f04"
+    }
+  ],
+  "sdgTags": [],
+  "resilienceTags": [],
+  "esgTags": [],
+  "standardTags": [],
+  "creator": {
+    "$oid": "69de4f3869452296f6d0ac98"
+  },
+  "status": "published",
+  "archived": false,
+  "archivedAt": null,
+  "createdAt": {
+    "$date": "2026-04-15T11:54:27.147Z"
+  },
+  "updatedAt": {
+    "$date": "2026-04-15T12:10:37.339Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69df7c73241dc35493e973f8"
+  },
+  "name": "Socio-Economic Baselines",
+  "description": "Ensuring that rigorous socio-economic and High Conservation Value assessments are completed with community participation prior to implementation. It establishes an evidence-based foundation for monitoring social and ecological change.",
+  "theme": {
+    "$oid": "69df7c59241dc35493e972f2"
+  },
+  "theoryOfChangeStage": "Stage 1 - Output",
+  "indicatorTags": [],
+  "sdgTags": [],
+  "resilienceTags": [],
+  "esgTags": [],
+  "standardTags": [],
+  "creator": {
+    "$oid": "69de4f3869452296f6d0ac98"
+  },
+  "status": "draft",
+  "archived": false,
+  "archivedAt": null,
+  "createdAt": {
+    "$date": "2026-04-15T11:54:27.451Z"
+  },
+  "updatedAt": {
+    "$date": "2026-04-15T11:54:27.451Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69df7c73241dc35493e973fb"
+  },
+  "name": "Biodiversity & Ecosystem Conservation for Livelihoods",
+  "description": "Protecting and restoring biodiversity and ecosystems to sustain and enhance local livelihoods. This includes conservation of forests, wetlands, and wildlife to support sustainable agriculture, fishing, ecotourism, and other nature-based economic activities. By maintaining healthy ecosystems, communities can improve food security, climate resilience, and long-term economic opportunities while ensuring the sustainable use of natural resources.",
+  "theme": {
+    "$oid": "69df7c59241dc35493e972f5"
+  },
+  "theoryOfChangeStage": "Stage 2 - Outcome",
+  "indicatorTags": [
+    {
+      "$oid": "69df7fb5372e5c8b2acb8f0a"
+    },
+    {
+      "$oid": "69df7fb6372e5c8b2acb8f0d"
+    },
+    {
+      "$oid": "69df7fb6372e5c8b2acb8f10"
+    },
+    {
+      "$oid": "69df7fb6372e5c8b2acb8f13"
+    }
+  ],
+  "sdgTags": [],
+  "resilienceTags": [],
+  "esgTags": [],
+  "standardTags": [],
+  "creator": {
+    "$oid": "69de4f3869452296f6d0ac98"
+  },
+  "status": "published",
+  "archived": false,
+  "archivedAt": null,
+  "createdAt": {
+    "$date": "2026-04-15T11:54:27.745Z"
+  },
+  "updatedAt": {
+    "$date": "2026-04-15T12:10:37.775Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69df7c74241dc35493e973fe"
+  },
+  "name": "Climate Regulation & Disaster Resilience",
+  "description": "Strengthening the ability of ecosystems to mitigate floods, droughts, and extreme weather impacts.",
+  "theme": {
+    "$oid": "69df7c59241dc35493e972f5"
+  },
+  "theoryOfChangeStage": "Stage 2 - Outcome",
+  "indicatorTags": [],
+  "sdgTags": [],
+  "resilienceTags": [],
+  "esgTags": [],
+  "standardTags": [],
+  "creator": {
+    "$oid": "69de4f3869452296f6d0ac98"
+  },
+  "status": "published",
+  "archived": false,
+  "archivedAt": null,
+  "createdAt": {
+    "$date": "2026-04-15T11:54:28.044Z"
+  },
+  "updatedAt": {
+    "$date": "2026-04-15T11:54:28.044Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69df7c74241dc35493e97401"
+  },
+  "name": "Climate Resilience & Disaster Risk Reduction",
+  "description": "Strengthening the ability of ecosystems to mitigate floods, droughts, and extreme weather impacts.",
+  "theme": {
+    "$oid": "69df7c59241dc35493e972f5"
+  },
+  "theoryOfChangeStage": "Stage 2 - Outcome",
+  "indicatorTags": [
+    {
+      "$oid": "69df7fb7372e5c8b2acb8f16"
+    },
+    {
+      "$oid": "69df7fb7372e5c8b2acb8f19"
+    }
+  ],
+  "sdgTags": [],
+  "resilienceTags": [],
+  "esgTags": [],
+  "standardTags": [],
+  "creator": {
+    "$oid": "69de4f3869452296f6d0ac98"
+  },
+  "status": "published",
+  "archived": false,
+  "archivedAt": null,
+  "createdAt": {
+    "$date": "2026-04-15T11:54:28.342Z"
+  },
+  "updatedAt": {
+    "$date": "2026-04-15T12:10:38.067Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69df7c74241dc35493e97404"
+  },
+  "name": "Pollution Prevention & Waste Management",
+  "description": "Reducing pollution from agricultural runoff, plastic waste, and industrial activities to protect soil, water, and air quality. Promoting circular economy practices, waste recycling, and responsible disposal methods.",
+  "theme": {
+    "$oid": "69df7c59241dc35493e972f5"
+  },
+  "theoryOfChangeStage": "Stage 2 - Outcome",
+  "indicatorTags": [
+    {
+      "$oid": "69df7fb7372e5c8b2acb8f1c"
+    },
+    {
+      "$oid": "69df7fb7372e5c8b2acb8f1f"
+    }
+  ],
+  "sdgTags": [],
+  "resilienceTags": [],
+  "esgTags": [],
+  "standardTags": [],
+  "creator": {
+    "$oid": "69de4f3869452296f6d0ac98"
+  },
+  "status": "published",
+  "archived": false,
+  "archivedAt": null,
+  "createdAt": {
+    "$date": "2026-04-15T11:54:28.633Z"
+  },
+  "updatedAt": {
+    "$date": "2026-04-15T12:10:38.369Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69df7c74241dc35493e97407"
+  },
+  "name": "Renewable Energy & Sustainable Energy Access",
+  "description": "Expanding community access to clean energy sources, such as solar, wind, and bioenergy, to reduce reliance on fossil fuels, improve energy security, and support sustainable livelihoods.",
+  "theme": {
+    "$oid": "69df7c59241dc35493e972f5"
+  },
+  "theoryOfChangeStage": "Stage 2 - Outcome",
+  "indicatorTags": [
+    {
+      "$oid": "69df7fb8372e5c8b2acb8f22"
+    },
+    {
+      "$oid": "69df7fb8372e5c8b2acb8f25"
+    }
+  ],
+  "sdgTags": [],
+  "resilienceTags": [],
+  "esgTags": [],
+  "standardTags": [],
+  "creator": {
+    "$oid": "69de4f3869452296f6d0ac98"
+  },
+  "status": "published",
+  "archived": false,
+  "archivedAt": null,
+  "createdAt": {
+    "$date": "2026-04-15T11:54:28.925Z"
+  },
+  "updatedAt": {
+    "$date": "2026-04-15T12:10:38.662Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69df7c75241dc35493e9740a"
+  },
+  "name": "Sustainable Land & Soil Management",
+  "description": "Promoting land-use practices that maintain soil health, improve agricultural productivity, and support ecosystem balance. This includes preventing land degradation, enhancing soil fertility, and ensuring that land-use decisions balance environmental conservation with sustainable livelihoods. Effective land and soil management practices contribute to food security, climate resilience, and long-term economic stability for communities.",
+  "theme": {
+    "$oid": "69df7c59241dc35493e972f5"
+  },
+  "theoryOfChangeStage": "Stage 2 - Outcome",
+  "indicatorTags": [
+    {
+      "$oid": "69df7fb8372e5c8b2acb8f28"
+    },
+    {
+      "$oid": "69df7fb9372e5c8b2acb8f2b"
+    },
+    {
+      "$oid": "69df7fb9372e5c8b2acb8f2e"
+    },
+    {
+      "$oid": "69df7fb9372e5c8b2acb8f31"
+    }
+  ],
+  "sdgTags": [],
+  "resilienceTags": [],
+  "esgTags": [],
+  "standardTags": [],
+  "creator": {
+    "$oid": "69de4f3869452296f6d0ac98"
+  },
+  "status": "published",
+  "archived": false,
+  "archivedAt": null,
+  "createdAt": {
+    "$date": "2026-04-15T11:54:29.219Z"
+  },
+  "updatedAt": {
+    "$date": "2026-04-15T12:10:38.956Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69df7c75241dc35493e9740d"
+  },
+  "name": "Water Security & Watershed Protection",
+  "description": "Ensuring access to clean water through forest conservation, wetland protection, and sustainable land management.",
+  "theme": {
+    "$oid": "69df7c59241dc35493e972f5"
+  },
+  "theoryOfChangeStage": "Stage 2 - Outcome",
+  "indicatorTags": [],
+  "sdgTags": [],
+  "resilienceTags": [],
+  "esgTags": [],
+  "standardTags": [],
+  "creator": {
+    "$oid": "69de4f3869452296f6d0ac98"
+  },
+  "status": "published",
+  "archived": false,
+  "archivedAt": null,
+  "createdAt": {
+    "$date": "2026-04-15T11:54:29.515Z"
+  },
+  "updatedAt": {
+    "$date": "2026-04-15T11:54:29.515Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69df7c75241dc35493e97410"
+  },
+  "name": "Inclusive community governance structures",
+  "description": "Ensuring that local governance mechanisms responsible for decision-making on project activities are inclusive, representative, and effective. These structures may include formal or informal bodies such as village councils, forest user groups, Indigenous governance systems, land management committees, and other community-led institutions.",
+  "theme": {
+    "$oid": "69df7c57241dc35493e972e6"
+  },
+  "theoryOfChangeStage": "Stage 1 - Output",
+  "indicatorTags": [],
+  "sdgTags": [],
+  "resilienceTags": [],
+  "esgTags": [],
+  "standardTags": [],
+  "creator": {
+    "$oid": "69de4f3869452296f6d0ac98"
+  },
+  "status": "published",
+  "archived": false,
+  "archivedAt": null,
+  "createdAt": {
+    "$date": "2026-04-15T11:54:29.806Z"
+  },
+  "updatedAt": {
+    "$date": "2026-04-15T11:54:29.806Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69df7c76241dc35493e97413"
+  },
+  "name": "Representation & leadership",
+  "description": "Supporting diverse leadership, including women, youth, and indigenous groups in governance structures",
+  "theme": {
+    "$oid": "69df7c57241dc35493e972e6"
+  },
+  "theoryOfChangeStage": "Stage 1 - Output",
+  "indicatorTags": [
+    {
+      "$oid": "69df7fbc372e5c8b2acb8f4a"
+    }
+  ],
+  "sdgTags": [],
+  "resilienceTags": [],
+  "esgTags": [],
+  "standardTags": [],
+  "creator": {
+    "$oid": "69de4f3869452296f6d0ac98"
+  },
+  "status": "published",
+  "archived": false,
+  "archivedAt": null,
+  "createdAt": {
+    "$date": "2026-04-15T11:54:30.101Z"
+  },
+  "updatedAt": {
+    "$date": "2026-04-15T12:10:39.833Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69df7c76241dc35493e97416"
+  },
+  "name": "Participatory decision-making",
+  "description": "Ensuring that communities—including marginalized groups—have meaningful influence in shaping project design, implementation, and benefit-sharing.",
+  "theme": {
+    "$oid": "69df7c57241dc35493e972e6"
+  },
+  "theoryOfChangeStage": "Stage 1 - Output",
+  "indicatorTags": [
+    {
+      "$oid": "69df7fbb372e5c8b2acb8f46"
+    }
+  ],
+  "sdgTags": [],
+  "resilienceTags": [],
+  "esgTags": [],
+  "standardTags": [],
+  "creator": {
+    "$oid": "69de4f3869452296f6d0ac98"
+  },
+  "status": "published",
+  "archived": false,
+  "archivedAt": null,
+  "createdAt": {
+    "$date": "2026-04-15T11:54:30.396Z"
+  },
+  "updatedAt": {
+    "$date": "2026-04-15T12:10:39.541Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69df7c76241dc35493e97419"
+  },
+  "name": "Informed Decision-Making & Personal Agency",
+  "description": "Enabling individuals to access relevant information, develop critical thinking, and apply knowledge to make informed choices about their lives, livelihoods, and participation in community development. Their confidence, self-efficacy, and the ability to act independently and responsibly.",
+  "theme": {
+    "$oid": "69df7c5a241dc35493e972fe"
+  },
+  "theoryOfChangeStage": "Stage 1 - Output",
+  "indicatorTags": [
+    {
+      "$oid": "69df7fbe372e5c8b2acb8f5e"
+    },
+    {
+      "$oid": "69df7fbe372e5c8b2acb8f61"
+    },
+    {
+      "$oid": "69df7fbe372e5c8b2acb8f64"
+    }
+  ],
+  "sdgTags": [],
+  "resilienceTags": [],
+  "esgTags": [],
+  "standardTags": [],
+  "creator": {
+    "$oid": "69de4f3869452296f6d0ac98"
+  },
+  "status": "published",
+  "archived": false,
+  "archivedAt": null,
+  "createdAt": {
+    "$date": "2026-04-15T11:54:30.688Z"
+  },
+  "updatedAt": {
+    "$date": "2026-04-15T12:10:40.716Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69df7c76241dc35493e9741c"
+  },
+  "name": "Community-Led Learning, M&E, and Knowledge Sharing",
+  "description": "Building local capacity to monitor progress, reflect on results, and share knowledge across peer groups and networks. This includes the use of participatory monitoring tools, peer learning exchanges, and evidence-based planning to improve accountability, ownership, and adaptive learning.",
+  "theme": {
+    "$oid": "69df7c5a241dc35493e972fe"
+  },
+  "theoryOfChangeStage": "Stage 1 - Output",
+  "indicatorTags": [
+    {
+      "$oid": "69df7fbd372e5c8b2acb8f58"
+    },
+    {
+      "$oid": "69df7fbd372e5c8b2acb8f5b"
+    }
+  ],
+  "sdgTags": [],
+  "resilienceTags": [],
+  "esgTags": [],
+  "standardTags": [],
+  "creator": {
+    "$oid": "69de4f3869452296f6d0ac98"
+  },
+  "status": "published",
+  "archived": false,
+  "archivedAt": null,
+  "createdAt": {
+    "$date": "2026-04-15T11:54:30.986Z"
+  },
+  "updatedAt": {
+    "$date": "2026-04-15T12:10:40.423Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69df7c77241dc35493e9741f"
+  },
+  "name": "Civic Knowledge & Participation",
+  "description": "Increasing awareness of civic rights, responsibilities, and legal entitlements, while strengthening meaningful participation in social, political, and policy processes. This includes understanding laws, speaking up in community forums, and influencing decisions that affect livelihoods, land, or services.",
+  "theme": {
+    "$oid": "69df7c5a241dc35493e972fe"
+  },
+  "theoryOfChangeStage": "Stage 1 - Output",
+  "indicatorTags": [
+    {
+      "$oid": "69df7fbc372e5c8b2acb8f4e"
+    },
+    {
+      "$oid": "69df7fbc372e5c8b2acb8f51"
+    },
+    {
+      "$oid": "69df7fbd372e5c8b2acb8f54"
+    }
+  ],
+  "sdgTags": [],
+  "resilienceTags": [],
+  "esgTags": [],
+  "standardTags": [],
+  "creator": {
+    "$oid": "69de4f3869452296f6d0ac98"
+  },
+  "status": "published",
+  "archived": false,
+  "archivedAt": null,
+  "createdAt": {
+    "$date": "2026-04-15T11:54:31.281Z"
+  },
+  "updatedAt": {
+    "$date": "2026-04-15T12:10:40.128Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69df7c77241dc35493e97422"
+  },
+  "name": "Strengthened Local Governance & Leadership Capacity",
+  "description": "Enhancing the knowledge, skills, and confidence of local leaders, institutions, and governance structures to make inclusive, accountable, and transparent decisions. This includes traditional and elected leaders, youth leaders, and community committees responsible for project implementation or collective planning.",
+  "theme": {
+    "$oid": "69df7c5a241dc35493e972fe"
+  },
+  "theoryOfChangeStage": "Stage 1 - Output",
+  "indicatorTags": [
+    {
+      "$oid": "69df7fbf372e5c8b2acb8f67"
+    },
+    {
+      "$oid": "69df7fbf372e5c8b2acb8f6a"
+    },
+    {
+      "$oid": "69df7fbf372e5c8b2acb8f6d"
+    }
+  ],
+  "sdgTags": [],
+  "resilienceTags": [],
+  "esgTags": [],
+  "standardTags": [],
+  "creator": {
+    "$oid": "69de4f3869452296f6d0ac98"
+  },
+  "status": "published",
+  "archived": false,
+  "archivedAt": null,
+  "createdAt": {
+    "$date": "2026-04-15T11:54:31.576Z"
+  },
+  "updatedAt": {
+    "$date": "2026-04-15T12:10:41.015Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69df7c77241dc35493e97425"
+  },
+  "name": "Deforestation Prevention",
+  "description": "Implementing policies, bylaws and practices that prevent deforestation, land degradation, and illegal land conversion.",
+  "theme": {
+    "$oid": "69df7c57241dc35493e972e0"
+  },
+  "theoryOfChangeStage": "Stage 2 - Outcome",
+  "indicatorTags": [
+    {
+      "$oid": "69df7fc0372e5c8b2acb8f70"
+    },
+    {
+      "$oid": "69df7fc1372e5c8b2acb8f82"
+    }
+  ],
+  "sdgTags": [],
+  "resilienceTags": [],
+  "esgTags": [],
+  "standardTags": [],
+  "creator": {
+    "$oid": "69de4f3869452296f6d0ac98"
+  },
+  "status": "published",
+  "archived": false,
+  "archivedAt": null,
+  "createdAt": {
+    "$date": "2026-04-15T11:54:31.871Z"
+  },
+  "updatedAt": {
+    "$date": "2026-04-15T12:10:41.308Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69df7c78241dc35493e97428"
+  },
+  "name": "Policy, Governance & Legal Protections",
+  "description": "Enhancing legal frameworks, land tenure security, and institutional capacity to enforce forest protection policies and support community rights.",
+  "theme": {
+    "$oid": "69df7c57241dc35493e972e0"
+  },
+  "theoryOfChangeStage": "Stage 2 - Outcome",
+  "indicatorTags": [
+    {
+      "$oid": "69df7fc3372e5c8b2acb8f94"
+    },
+    {
+      "$oid": "69df7fc3372e5c8b2acb8f97"
+    }
+  ],
+  "sdgTags": [],
+  "resilienceTags": [],
+  "esgTags": [],
+  "standardTags": [],
+  "creator": {
+    "$oid": "69de4f3869452296f6d0ac98"
+  },
+  "status": "published",
+  "archived": false,
+  "archivedAt": null,
+  "createdAt": {
+    "$date": "2026-04-15T11:54:32.164Z"
+  },
+  "updatedAt": {
+    "$date": "2026-04-15T12:10:42.810Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69df7c78241dc35493e9742b"
+  },
+  "name": "Water & Watershed Protection",
+  "description": "Ensuring that forests continue to provide critical ecosystem services such as water filtration, soil stabilization, and flood prevention through integrated watershed management.",
+  "theme": {
+    "$oid": "69df7c57241dc35493e972e0"
+  },
+  "theoryOfChangeStage": "Stage 2 - Outcome",
+  "indicatorTags": [],
+  "sdgTags": [],
+  "resilienceTags": [],
+  "esgTags": [],
+  "standardTags": [],
+  "creator": {
+    "$oid": "69de4f3869452296f6d0ac98"
+  },
+  "status": "published",
+  "archived": false,
+  "archivedAt": null,
+  "createdAt": {
+    "$date": "2026-04-15T11:54:32.455Z"
+  },
+  "updatedAt": {
+    "$date": "2026-04-15T11:54:32.455Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69df7c78241dc35493e9742e"
+  },
+  "name": "Fire Prevention & Disaster Risk Reduction",
+  "description": "Implementing community-led fire management, early warning systems, and training programmes to reduce the risk of wildfires and other climate-induced disasters affecting forests.",
+  "theme": {
+    "$oid": "69df7c57241dc35493e972e0"
+  },
+  "theoryOfChangeStage": "Stage 2 - Outcome",
+  "indicatorTags": [
+    {
+      "$oid": "69df7fc2372e5c8b2acb8f8e"
+    },
+    {
+      "$oid": "69df7fc3372e5c8b2acb8f91"
+    }
+  ],
+  "sdgTags": [],
+  "resilienceTags": [],
+  "esgTags": [],
+  "standardTags": [],
+  "creator": {
+    "$oid": "69de4f3869452296f6d0ac98"
+  },
+  "status": "published",
+  "archived": false,
+  "archivedAt": null,
+  "createdAt": {
+    "$date": "2026-04-15T11:54:32.749Z"
+  },
+  "updatedAt": {
+    "$date": "2026-04-15T12:10:42.518Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69df7c79241dc35493e97431"
+  },
+  "name": "Sustainable Forest-Based Livelihoods",
+  "description": "Supporting sustainable economic activities such as agroforestry, non-timber forest product harvesting, and ecotourism to provide income while maintaining forest integrity.",
+  "theme": {
+    "$oid": "69df7c57241dc35493e972e0"
+  },
+  "theoryOfChangeStage": "Stage 2 - Outcome",
+  "indicatorTags": [
+    {
+      "$oid": "69df7fc4372e5c8b2acb8f9a"
+    },
+    {
+      "$oid": "69df7fc4372e5c8b2acb8f9d"
+    }
+  ],
+  "sdgTags": [],
+  "resilienceTags": [],
+  "esgTags": [],
+  "standardTags": [],
+  "creator": {
+    "$oid": "69de4f3869452296f6d0ac98"
+  },
+  "status": "published",
+  "archived": false,
+  "archivedAt": null,
+  "createdAt": {
+    "$date": "2026-04-15T11:54:33.042Z"
+  },
+  "updatedAt": {
+    "$date": "2026-04-15T12:10:43.100Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69df7c79241dc35493e97434"
+  },
+  "name": "Biodiversity Conservation & Ecosystem Restoration",
+  "description": "Protecting and restoring forest biodiversity, ensuring the survival of key species, and rehabilitating degraded landscapes to enhance ecological resilience.",
+  "theme": {
+    "$oid": "69df7c57241dc35493e972e0"
+  },
+  "theoryOfChangeStage": "Stage 2 - Outcome",
+  "indicatorTags": [
+    {
+      "$oid": "69df7fc0372e5c8b2acb8f73"
+    },
+    {
+      "$oid": "69df7fc0372e5c8b2acb8f76"
+    }
+  ],
+  "sdgTags": [],
+  "resilienceTags": [],
+  "esgTags": [],
+  "standardTags": [],
+  "creator": {
+    "$oid": "69de4f3869452296f6d0ac98"
+  },
+  "status": "published",
+  "archived": false,
+  "archivedAt": null,
+  "createdAt": {
+    "$date": "2026-04-15T11:54:33.340Z"
+  },
+  "updatedAt": {
+    "$date": "2026-04-15T12:10:41.606Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69df7c79241dc35493e97437"
+  },
+  "name": "Community-Led Forest Management",
+  "description": "Empowering Indigenous Peoples and Local Communities as custodians of forests",
+  "theme": {
+    "$oid": "69df7c57241dc35493e972e0"
+  },
+  "theoryOfChangeStage": "Stage 2 - Outcome",
+  "indicatorTags": [
+    {
+      "$oid": "69df7fc0372e5c8b2acb8f79"
+    },
+    {
+      "$oid": "69df7fc1372e5c8b2acb8f7c"
+    },
+    {
+      "$oid": "69df7fc1372e5c8b2acb8f7f"
+    }
+  ],
+  "sdgTags": [],
+  "resilienceTags": [],
+  "esgTags": [],
+  "standardTags": [],
+  "creator": {
+    "$oid": "69de4f3869452296f6d0ac98"
+  },
+  "status": "published",
+  "archived": false,
+  "archivedAt": null,
+  "createdAt": {
+    "$date": "2026-04-15T11:54:33.635Z"
+  },
+  "updatedAt": {
+    "$date": "2026-04-15T12:10:41.897Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69df7c79241dc35493e9743a"
+  },
+  "name": "Encroachment prevention",
+  "description": "Community-led strategies to prevent illegal logging, land grabbing, wildfires, and other unauthorized activities that threaten forests, land tenure security, and biodiversity.",
+  "theme": {
+    "$oid": "69df7c57241dc35493e972e0"
+  },
+  "theoryOfChangeStage": "Stage 2 - Outcome",
+  "indicatorTags": [
+    {
+      "$oid": "69df7fc2372e5c8b2acb8f85"
+    },
+    {
+      "$oid": "69df7fc2372e5c8b2acb8f88"
+    },
+    {
+      "$oid": "69df7fc2372e5c8b2acb8f8b"
+    }
+  ],
+  "sdgTags": [],
+  "resilienceTags": [],
+  "esgTags": [],
+  "standardTags": [],
+  "creator": {
+    "$oid": "69de4f3869452296f6d0ac98"
+  },
+  "status": "published",
+  "archived": false,
+  "archivedAt": null,
+  "createdAt": {
+    "$date": "2026-04-15T11:54:33.928Z"
+  },
+  "updatedAt": {
+    "$date": "2026-04-15T12:10:42.227Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69df7c7a241dc35493e9743d"
+  },
+  "name": "Prevention of Forced Labour, Child Labour, Trafficking, and Exploitation",
+  "description": "Ensuring that project activities uphold human rights by preventing forced labour, child labour, human trafficking, and other forms of exploitation. This includes establishing robust policies, monitoring mechanisms, and community safeguards to protect workers—especially vulnerable groups such as children, women, Indigenous Peoples, and migrant workers",
+  "theme": {
+    "$oid": "69df7c58241dc35493e972e9"
+  },
+  "theoryOfChangeStage": "Stage 2 - Outcome",
+  "indicatorTags": [
+    {
+      "$oid": "69df7fc7372e5c8b2acb8fb5"
+    },
+    {
+      "$oid": "69df7fc7372e5c8b2acb8fb8"
+    }
+  ],
+  "sdgTags": [],
+  "resilienceTags": [],
+  "esgTags": [],
+  "standardTags": [],
+  "creator": {
+    "$oid": "69de4f3869452296f6d0ac98"
+  },
+  "status": "published",
+  "archived": false,
+  "archivedAt": null,
+  "createdAt": {
+    "$date": "2026-04-15T11:54:34.222Z"
+  },
+  "updatedAt": {
+    "$date": "2026-04-15T12:10:44.123Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69df7c7a241dc35493e97440"
+  },
+  "name": "Workplace Health, Safety & Well-Being",
+  "description": "Ensuring safe and dignified working conditions for all, including adherence to occupational health and safety standards, prevention of harassment and abuse, and access to safe reporting mechanisms without fear of reprisal.",
+  "theme": {
+    "$oid": "69df7c58241dc35493e972e9"
+  },
+  "theoryOfChangeStage": "Stage 2 - Outcome",
+  "indicatorTags": [
+    {
+      "$oid": "69df7fc9372e5c8b2acb8fc1"
+    },
+    {
+      "$oid": "69df7fc9372e5c8b2acb8fc4"
+    }
+  ],
+  "sdgTags": [],
+  "resilienceTags": [],
+  "esgTags": [],
+  "standardTags": [],
+  "creator": {
+    "$oid": "69de4f3869452296f6d0ac98"
+  },
+  "status": "published",
+  "archived": false,
+  "archivedAt": null,
+  "createdAt": {
+    "$date": "2026-04-15T11:54:34.516Z"
+  },
+  "updatedAt": {
+    "$date": "2026-04-15T12:10:44.713Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69df7c7a241dc35493e97443"
+  },
+  "name": "Prevention of Sexual Harassment & Gender-Based Violence",
+  "description": "Ensuring a safe and respectful environment in all project activities by preventing sexual harassment and gender-based violence (GBV). Fostering a zero-tolerance culture for harassment, discrimination, and violence.",
+  "theme": {
+    "$oid": "69df7c58241dc35493e972e9"
+  },
+  "theoryOfChangeStage": "Stage 2 - Outcome",
+  "indicatorTags": [
+    {
+      "$oid": "69df7fc7372e5c8b2acb8fbb"
+    },
+    {
+      "$oid": "69df7fc8372e5c8b2acb8fbe"
+    }
+  ],
+  "sdgTags": [],
+  "resilienceTags": [],
+  "esgTags": [],
+  "standardTags": [],
+  "creator": {
+    "$oid": "69de4f3869452296f6d0ac98"
+  },
+  "status": "published",
+  "archived": false,
+  "archivedAt": null,
+  "createdAt": {
+    "$date": "2026-04-15T11:54:34.810Z"
+  },
+  "updatedAt": {
+    "$date": "2026-04-15T12:10:44.416Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69df7c7b241dc35493e97446"
+  },
+  "name": "Inclusion & Non-Discrimination",
+  "description": "Projects promote gender equality, disability inclusion, and non-discriminatory practices in employment, leadership, and benefit-sharing. All individuals, regardless of race, ethnicity, age, gender identity, disability, or socioeconomic status, have equal opportunities to participate and benefit.",
+  "theme": {
+    "$oid": "69df7c58241dc35493e972e9"
+  },
+  "theoryOfChangeStage": "Stage 2 - Outcome",
+  "indicatorTags": [
+    {
+      "$oid": "69df7fc6372e5c8b2acb8fac"
+    },
+    {
+      "$oid": "69df7fc6372e5c8b2acb8faf"
+    },
+    {
+      "$oid": "69df7fc6372e5c8b2acb8fb2"
+    }
+  ],
+  "sdgTags": [],
+  "resilienceTags": [],
+  "esgTags": [],
+  "standardTags": [],
+  "creator": {
+    "$oid": "69de4f3869452296f6d0ac98"
+  },
+  "status": "published",
+  "archived": false,
+  "archivedAt": null,
+  "createdAt": {
+    "$date": "2026-04-15T11:54:35.107Z"
+  },
+  "updatedAt": {
+    "$date": "2026-04-15T12:10:43.834Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69df7c7b241dc35493e97449"
+  },
+  "name": "Fair & Equitable Compensation",
+  "description": "Wages and compensation structures are transparent, fair, and non-discriminatory, ensuring equal pay for equal work regardless of gender, ethnicity, disability, or other identity markers.",
+  "theme": {
+    "$oid": "69df7c58241dc35493e972e9"
+  },
+  "theoryOfChangeStage": "Stage 2 - Outcome",
+  "indicatorTags": [
+    {
+      "$oid": "69df7fc5372e5c8b2acb8fa6"
+    },
+    {
+      "$oid": "69df7fc5372e5c8b2acb8fa9"
+    }
+  ],
+  "sdgTags": [],
+  "resilienceTags": [],
+  "esgTags": [],
+  "standardTags": [],
+  "creator": {
+    "$oid": "69de4f3869452296f6d0ac98"
+  },
+  "status": "published",
+  "archived": false,
+  "archivedAt": null,
+  "createdAt": {
+    "$date": "2026-04-15T11:54:35.401Z"
+  },
+  "updatedAt": {
+    "$date": "2026-04-15T12:10:43.536Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69df7c7b241dc35493e9744c"
+  },
+  "name": "Staff trained",
+  "description": "Staff members have participated in and successfully completed training programmes aimed at enhancing their professional skills, technical expertise, and capacity to contribute effectively to the project's objectives.",
+  "theme": {
+    "$oid": "69df7c58241dc35493e972ec"
+  },
+  "theoryOfChangeStage": "Stage 1 - Output",
+  "indicatorTags": [
+    {
+      "$oid": "69df7fce372e5c8b2acb8ffa"
+    },
+    {
+      "$oid": "69df7fce372e5c8b2acb8ffd"
+    }
+  ],
+  "sdgTags": [],
+  "resilienceTags": [],
+  "esgTags": [],
+  "standardTags": [],
+  "creator": {
+    "$oid": "69de4f3869452296f6d0ac98"
+  },
+  "status": "published",
+  "archived": false,
+  "archivedAt": null,
+  "createdAt": {
+    "$date": "2026-04-15T11:54:35.696Z"
+  },
+  "updatedAt": {
+    "$date": "2026-04-15T12:10:47.365Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69df7c7b241dc35493e9744f"
+  },
+  "name": "Government trained",
+  "description": "Government staff who have participated in training through the project to build their knowledge and skills in areas relevant to the project.",
+  "theme": {
+    "$oid": "69df7c58241dc35493e972ec"
+  },
+  "theoryOfChangeStage": "Stage 1 - Output",
+  "indicatorTags": [
+    {
+      "$oid": "69df7fcd372e5c8b2acb8fee"
+    },
+    {
+      "$oid": "69df7fcd372e5c8b2acb8ff1"
+    }
+  ],
+  "sdgTags": [],
+  "resilienceTags": [],
+  "esgTags": [],
+  "standardTags": [],
+  "creator": {
+    "$oid": "69de4f3869452296f6d0ac98"
+  },
+  "status": "published",
+  "archived": false,
+  "archivedAt": null,
+  "createdAt": {
+    "$date": "2026-04-15T11:54:35.985Z"
+  },
+  "updatedAt": {
+    "$date": "2026-04-15T12:10:46.781Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69df7c7c241dc35493e97452"
+  },
+  "name": "Partners trained",
+  "description": "Project partners who have participated in training through the project to build their knowledge and skills in areas relevant to the project.",
+  "theme": {
+    "$oid": "69df7c58241dc35493e972ec"
+  },
+  "theoryOfChangeStage": "Stage 1 - Output",
+  "indicatorTags": [
+    {
+      "$oid": "69df7fce372e5c8b2acb8ff4"
+    },
+    {
+      "$oid": "69df7fce372e5c8b2acb8ff7"
+    }
+  ],
+  "sdgTags": [],
+  "resilienceTags": [],
+  "esgTags": [],
+  "standardTags": [],
+  "creator": {
+    "$oid": "69de4f3869452296f6d0ac98"
+  },
+  "status": "published",
+  "archived": false,
+  "archivedAt": null,
+  "createdAt": {
+    "$date": "2026-04-15T11:54:36.297Z"
+  },
+  "updatedAt": {
+    "$date": "2026-04-15T12:10:47.072Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69df7c7c241dc35493e97455"
+  },
+  "name": "Community members trained",
+  "description": "Community members who have participated in training through the project to build their knowledge and skills in areas relevant to the project.",
+  "theme": {
+    "$oid": "69df7c58241dc35493e972ec"
+  },
+  "theoryOfChangeStage": "Stage 1 - Output",
+  "indicatorTags": [
+    {
+      "$oid": "69df7fcc372e5c8b2acb8fe8"
+    },
+    {
+      "$oid": "69df7fcd372e5c8b2acb8feb"
+    }
+  ],
+  "sdgTags": [],
+  "resilienceTags": [],
+  "esgTags": [],
+  "standardTags": [],
+  "creator": {
+    "$oid": "69de4f3869452296f6d0ac98"
+  },
+  "status": "published",
+  "archived": false,
+  "archivedAt": null,
+  "createdAt": {
+    "$date": "2026-04-15T11:54:36.594Z"
+  },
+  "updatedAt": {
+    "$date": "2026-04-15T12:10:46.490Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69df7c7c241dc35493e97458"
+  },
+  "name": "Carbon Market Technical Training",
+  "description": "Extent to which project stakeholders—particularly community members, local institutions, and implementing partners—have access to and demonstrate understanding of key carbon market concepts, processes, and technical requirements, including carbon accounting, credit generation, verification standards, and market mechanisms.",
+  "theme": {
+    "$oid": "69df7c58241dc35493e972ec"
+  },
+  "theoryOfChangeStage": "Stage 1 - Output",
+  "indicatorTags": [
+    {
+      "$oid": "69df7fcc372e5c8b2acb8fe2"
+    },
+    {
+      "$oid": "69df7fcc372e5c8b2acb8fe5"
+    }
+  ],
+  "sdgTags": [],
+  "resilienceTags": [],
+  "esgTags": [],
+  "standardTags": [],
+  "creator": {
+    "$oid": "69de4f3869452296f6d0ac98"
+  },
+  "status": "draft",
+  "archived": false,
+  "archivedAt": null,
+  "createdAt": {
+    "$date": "2026-04-15T11:54:36.885Z"
+  },
+  "updatedAt": {
+    "$date": "2026-04-15T12:10:46.198Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69df7c7d241dc35493e9745b"
+  },
+  "name": "User rights protected",
+  "description": "Communities' rights to access, manage, and benefit from land and resources are legally recognized and upheld.",
+  "theme": {
+    "$oid": "69df7c57241dc35493e972dd"
+  },
+  "theoryOfChangeStage": "Stage 1 - Output",
+  "indicatorTags": [
+    {
+      "$oid": "69df7fd0372e5c8b2acb900f"
+    },
+    {
+      "$oid": "69df7fd1372e5c8b2acb9012"
+    }
+  ],
+  "sdgTags": [],
+  "resilienceTags": [],
+  "esgTags": [],
+  "standardTags": [],
+  "creator": {
+    "$oid": "69de4f3869452296f6d0ac98"
+  },
+  "status": "published",
+  "archived": false,
+  "archivedAt": null,
+  "createdAt": {
+    "$date": "2026-04-15T11:54:37.184Z"
+  },
+  "updatedAt": {
+    "$date": "2026-04-15T12:10:48.100Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69df7c7d241dc35493e9745e"
+  },
+  "name": "Cultural heritage & traditional knowledge safeguarded",
+  "description": "Ensuring that the cultural heritage, traditional knowledge, and practices of Indigenous Peoples and Local Communities are respected, protected, and integrated into project design and implementation. This includes recognizing Indigenous land stewardship, preserving sacred sites, and upholding the rights of communities to maintain and transmit their cultural and ecological knowledge",
+  "theme": {
+    "$oid": "69df7c57241dc35493e972dd"
+  },
+  "theoryOfChangeStage": "Stage 1 - Output",
+  "indicatorTags": [
+    {
+      "$oid": "69df7fd1372e5c8b2acb9015"
+    }
+  ],
+  "sdgTags": [],
+  "resilienceTags": [],
+  "esgTags": [],
+  "standardTags": [],
+  "creator": {
+    "$oid": "69de4f3869452296f6d0ac98"
+  },
+  "status": "published",
+  "archived": false,
+  "archivedAt": null,
+  "createdAt": {
+    "$date": "2026-04-15T11:54:37.478Z"
+  },
+  "updatedAt": {
+    "$date": "2026-04-15T12:10:48.390Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69df7c7d241dc35493e97461"
+  },
+  "name": "Land use plans agreed – no displacement",
+  "description": "Land use plans are developed and agreed upon through inclusive processes, ensuring sustainable management without displacing communities",
+  "theme": {
+    "$oid": "69df7c57241dc35493e972dd"
+  },
+  "theoryOfChangeStage": "Stage 1 - Output",
+  "indicatorTags": [
+    {
+      "$oid": "69df7fd2372e5c8b2acb901e"
+    },
+    {
+      "$oid": "69df7fd2372e5c8b2acb9021"
+    },
+    {
+      "$oid": "69df7fd3372e5c8b2acb9024"
+    },
+    {
+      "$oid": "69df7fd3372e5c8b2acb9027"
+    }
+  ],
+  "sdgTags": [
+    {
+      "$oid": "69dfb0e63eebc5c8b644348f"
+    }
+  ],
+  "resilienceTags": [
+    {
+      "$oid": "69dfa65e3eebc5c8b64431d2"
+    }
+  ],
+  "esgTags": [
+    {
+      "$oid": "69dfb4263eebc5c8b6443517"
+    }
+  ],
+  "standardTags": [],
+  "creator": {
+    "$oid": "69de4f3869452296f6d0ac98"
+  },
+  "status": "published",
+  "archived": false,
+  "archivedAt": null,
+  "createdAt": {
+    "$date": "2026-04-15T11:54:37.769Z"
+  },
+  "updatedAt": {
+    "$date": "2026-04-21T14:17:47.857Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69df7c7e241dc35493e97464"
+  },
+  "name": "Land tenure secured",
+  "description": "Land ownership and usage rights are formally documented, reducing conflicts and ensuring long-term security for communities.",
+  "theme": {
+    "$oid": "69df7c57241dc35493e972dd"
+  },
+  "theoryOfChangeStage": "Stage 1 - Output",
+  "indicatorTags": [
+    {
+      "$oid": "69df7fd1372e5c8b2acb9018"
+    },
+    {
+      "$oid": "69df7fd1372e5c8b2acb901b"
+    }
+  ],
+  "sdgTags": [
+    {
+      "$oid": "69dfb0e63eebc5c8b644348f"
+    }
+  ],
+  "resilienceTags": [
+    {
+      "$oid": "69dfa65e3eebc5c8b64431d2"
+    }
+  ],
+  "esgTags": [
+    {
+      "$oid": "69dfb4263eebc5c8b6443517"
+    }
+  ],
+  "standardTags": [],
+  "creator": {
+    "$oid": "69de4f3869452296f6d0ac98"
+  },
+  "status": "published",
+  "archived": false,
+  "archivedAt": null,
+  "createdAt": {
+    "$date": "2026-04-15T11:54:38.075Z"
+  },
+  "updatedAt": {
+    "$date": "2026-04-21T14:15:48.835Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69df7c8b241dc35493e974e2"
+  },
+  "name": "Fair Compensation & Decent Work",
+  "description": "Ensuring that all project workers receive wages and compensation that are fair, transparent, and equitable across gender and identity groups, and that employment conditions meet recognised decent work standards including job security, benefits, and dignified treatment.",
+  "theme": {
+    "$oid": "69df7c5c241dc35493e97313"
+  },
+  "theoryOfChangeStage": "Stage 1 - Output",
+  "indicatorTags": [
+    {
+      "$oid": "69df802b372e5c8b2acb9381"
+    },
+    {
+      "$oid": "69df802d372e5c8b2acb9393"
+    },
+    {
+      "$oid": "69df802e372e5c8b2acb939f"
+    }
+  ],
+  "sdgTags": [
+    {
+      "$oid": "69dfae813eebc5c8b64433dd"
+    }
+  ],
+  "resilienceTags": [
+    {
+      "$oid": "69dfa7063eebc5c8b64431fa"
+    },
+    {
+      "$oid": "69dfa4a33eebc5c8b6443162"
+    },
+    {
+      "$oid": "69dfa4043eebc5c8b6443142"
+    }
+  ],
+  "esgTags": [
+    {
+      "$oid": "69dfb4263eebc5c8b6443517"
+    }
+  ],
+  "standardTags": [],
+  "creator": {
+    "$oid": "69de4f3869452296f6d0ac98"
+  },
+  "status": "published",
+  "archived": false,
+  "archivedAt": null,
+  "createdAt": {
+    "$date": "2026-04-15T11:54:51.197Z"
+  },
+  "updatedAt": {
+    "$date": "2026-04-21T13:47:59.688Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69df7c8b241dc35493e974e5"
+  },
+  "name": "Inclusive & Localized Employment",
+  "description": "Ensuring that project employment opportunities prioritise and are accessible to local community members, including women, Indigenous Peoples, persons with disabilities, and other marginalised groups. This sub-theme tracks equitable recruitment practices, local hiring targets, and the removal of barriers that prevent community members from benefiting economically from project-generated employment.",
+  "theme": {
+    "$oid": "69df7c5c241dc35493e97313"
+  },
+  "theoryOfChangeStage": "Stage 1 - Output",
+  "indicatorTags": [
+    {
+      "$oid": "69df802a372e5c8b2acb937b"
+    },
+    {
+      "$oid": "69df802c372e5c8b2acb9390"
+    },
+    {
+      "$oid": "69df802d372e5c8b2acb939c"
+    }
+  ],
+  "sdgTags": [
+    {
+      "$oid": "69dfae813eebc5c8b64433dd"
+    },
+    {
+      "$oid": "69dfaf4f3eebc5c8b644340b"
+    }
+  ],
+  "resilienceTags": [
+    {
+      "$oid": "69dfa3843eebc5c8b6443116"
+    },
+    {
+      "$oid": "69dfa7063eebc5c8b64431fa"
+    }
+  ],
+  "esgTags": [
+    {
+      "$oid": "69dfb4263eebc5c8b6443517"
+    }
+  ],
+  "standardTags": [],
+  "creator": {
+    "$oid": "69de4f3869452296f6d0ac98"
+  },
+  "status": "published",
+  "archived": false,
+  "archivedAt": null,
+  "createdAt": {
+    "$date": "2026-04-15T11:54:51.491Z"
+  },
+  "updatedAt": {
+    "$date": "2026-04-21T13:47:23.969Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69df7c8b241dc35493e974e8"
+  },
+  "name": "Worker Grievance & Industrial Relations",
+  "description": "Ensuring that project workers have access to functioning, accessible, and trusted mechanisms to raise concerns about working conditions, treatment, or rights violations, and that worker-management relations are governed by fair, transparent, and accountable processes.",
+  "theme": {
+    "$oid": "69df7c5c241dc35493e97313"
+  },
+  "theoryOfChangeStage": "Stage 1 - Output",
+  "indicatorTags": [
+    {
+      "$oid": "69df802a372e5c8b2acb937e"
+    },
+    {
+      "$oid": "69df802c372e5c8b2acb938a"
+    },
+    {
+      "$oid": "69df802c372e5c8b2acb938d"
+    },
+    {
+      "$oid": "69df802d372e5c8b2acb9396"
+    }
+  ],
+  "sdgTags": [
+    {
+      "$oid": "69dfae813eebc5c8b64433dd"
+    }
+  ],
+  "resilienceTags": [
+    {
+      "$oid": "69dfa4a33eebc5c8b6443162"
+    },
+    {
+      "$oid": "69dfa8033eebc5c8b644323c"
+    }
+  ],
+  "esgTags": [
+    {
+      "$oid": "69dfb4263eebc5c8b6443517"
+    }
+  ],
+  "standardTags": [],
+  "creator": {
+    "$oid": "69de4f3869452296f6d0ac98"
+  },
+  "status": "published",
+  "archived": false,
+  "archivedAt": null,
+  "createdAt": {
+    "$date": "2026-04-15T11:54:51.791Z"
+  },
+  "updatedAt": {
+    "$date": "2026-04-21T13:46:43.797Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69df7c8c241dc35493e974eb"
+  },
+  "name": "Occupational Health, Safety & Training",
+  "description": "Ensuring that project workers operate in safe and healthy working environments, receive adequate safety training before commencing work, and have access to protective equipment and emergency procedures. This sub-theme also tracks investment in worker skill development and capacity building.",
+  "theme": {
+    "$oid": "69df7c5c241dc35493e97313"
+  },
+  "theoryOfChangeStage": "Stage 1 - Output",
+  "indicatorTags": [
+    {
+      "$oid": "69df802b372e5c8b2acb9384"
+    },
+    {
+      "$oid": "69df802b372e5c8b2acb9387"
+    },
+    {
+      "$oid": "69df802d372e5c8b2acb9399"
+    },
+    {
+      "$oid": "69df802e372e5c8b2acb93a2"
+    }
+  ],
+  "sdgTags": [
+    {
+      "$oid": "69dfae813eebc5c8b64433dd"
+    },
+    {
+      "$oid": "69dfacc93eebc5c8b644336e"
+    }
+  ],
+  "resilienceTags": [
+    {
+      "$oid": "69dfa3843eebc5c8b6443116"
+    }
+  ],
+  "esgTags": [
+    {
+      "$oid": "69dfb4263eebc5c8b6443517"
+    }
+  ],
+  "standardTags": [],
+  "creator": {
+    "$oid": "69de4f3869452296f6d0ac98"
+  },
+  "status": "published",
+  "archived": false,
+  "archivedAt": null,
+  "createdAt": {
+    "$date": "2026-04-15T11:54:52.082Z"
+  },
+  "updatedAt": {
+    "$date": "2026-04-21T13:45:34.641Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69df7c8c241dc35493e974ee"
+  },
+  "name": "Human Safety & Psychological Wellbeing",
+  "description": "Measuring the physical safety risks and psychological wellbeing impacts experienced by community members as a result of human-wildlife conflict, including fear, anxiety, trauma, and changes in daily behaviour. This sub-theme tracks whether communities feel safe and whether mental health burdens associated with conflict are addressed.",
+  "theme": {
+    "$oid": "69df7c5b241dc35493e9730a"
+  },
+  "theoryOfChangeStage": "Stage 2 - Outcome",
+  "indicatorTags": [
+    {
+      "$oid": "69df8025372e5c8b2acb9351"
+    },
+    {
+      "$oid": "69df8026372e5c8b2acb935d"
+    },
+    {
+      "$oid": "69df8027372e5c8b2acb9360"
+    }
+  ],
+  "sdgTags": [
+    {
+      "$oid": "69dfacc93eebc5c8b644336e"
+    }
+  ],
+  "resilienceTags": [
+    {
+      "$oid": "69dfa4a33eebc5c8b6443162"
+    },
+    {
+      "$oid": "69dfa3843eebc5c8b6443116"
+    }
+  ],
+  "esgTags": [
+    {
+      "$oid": "69dfb4263eebc5c8b6443517"
+    }
+  ],
+  "standardTags": [],
+  "creator": {
+    "$oid": "69de4f3869452296f6d0ac98"
+  },
+  "status": "published",
+  "archived": false,
+  "archivedAt": null,
+  "createdAt": {
+    "$date": "2026-04-15T11:54:52.392Z"
+  },
+  "updatedAt": {
+    "$date": "2026-04-21T13:43:59.730Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69df7c8c241dc35493e974f1"
+  },
+  "name": "Livelihood Impact",
+  "description": "Assessing the economic losses experienced by households as a result of human-wildlife conflicts, including damage to crops, livestock, property, and stored food. This sub-theme tracks the magnitude and distribution of livelihood impacts and the extent to which affected households are able to recover.",
+  "theme": {
+    "$oid": "69df7c5b241dc35493e9730a"
+  },
+  "theoryOfChangeStage": "Stage 2 - Outcome",
+  "indicatorTags": [
+    {
+      "$oid": "69df8026372e5c8b2acb935a"
+    },
+    {
+      "$oid": "69df8028372e5c8b2acb936c"
+    },
+    {
+      "$oid": "69df8029372e5c8b2acb9372"
+    }
+  ],
+  "sdgTags": [
+    {
+      "$oid": "69dfaf4f3eebc5c8b644340b"
+    },
+    {
+      "$oid": "69dfae813eebc5c8b64433dd"
+    }
+  ],
+  "resilienceTags": [
+    {
+      "$oid": "69dfa4043eebc5c8b6443142"
+    },
+    {
+      "$oid": "69dfa7063eebc5c8b64431fa"
+    }
+  ],
+  "esgTags": [
+    {
+      "$oid": "69dfb4263eebc5c8b6443517"
+    }
+  ],
+  "standardTags": [],
+  "creator": {
+    "$oid": "69de4f3869452296f6d0ac98"
+  },
+  "status": "published",
+  "archived": false,
+  "archivedAt": null,
+  "createdAt": {
+    "$date": "2026-04-15T11:54:52.686Z"
+  },
+  "updatedAt": {
+    "$date": "2026-04-21T13:42:07.301Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69df7c8c241dc35493e974f4"
+  },
+  "name": "Land-Use Change and Wildlife Displacement",
+  "description": "Assessing how land-use changes within and around the project boundary affect wildlife movement patterns and the resulting displacement of wildlife into community areas, which can intensify human-wildlife conflicts. This sub-theme monitors the interaction between project conservation activities and wildlife-community interface dynamics.",
+  "theme": {
+    "$oid": "69df7c5b241dc35493e9730a"
+  },
+  "theoryOfChangeStage": "Stage 2 - Outcome",
+  "indicatorTags": [
+    {
+      "$oid": "69df8026372e5c8b2acb9357"
+    },
+    {
+      "$oid": "69df8028372e5c8b2acb9369"
+    },
+    {
+      "$oid": "69df8028372e5c8b2acb936f"
+    }
+  ],
+  "sdgTags": [
+    {
+      "$oid": "69dfb0bd3eebc5c8b6443478"
+    }
+  ],
+  "resilienceTags": [
+    {
+      "$oid": "69dfa5c13eebc5c8b64431aa"
+    }
+  ],
+  "esgTags": [
+    {
+      "$oid": "69dfb3f93eebc5c8b6443500"
+    }
+  ],
+  "standardTags": [],
+  "creator": {
+    "$oid": "69de4f3869452296f6d0ac98"
+  },
+  "status": "published",
+  "archived": false,
+  "archivedAt": null,
+  "createdAt": {
+    "$date": "2026-04-15T11:54:52.982Z"
+  },
+  "updatedAt": {
+    "$date": "2026-04-21T13:41:21.250Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69df7c8d241dc35493e974f7"
+  },
+  "name": "Conflict Incidence",
+  "description": "Monitoring the frequency, type, location, and severity of human-wildlife conflict incidents within and around the project boundary. This includes crop raiding, livestock predation, property damage, and direct attacks on people, tracked over time to assess conflict trends and the effectiveness of mitigation measures.",
+  "theme": {
+    "$oid": "69df7c5b241dc35493e9730a"
+  },
+  "theoryOfChangeStage": "Stage 2 - Outcome",
+  "indicatorTags": [
+    {
+      "$oid": "69df8025372e5c8b2acb934e"
+    },
+    {
+      "$oid": "69df8027372e5c8b2acb9363"
+    },
+    {
+      "$oid": "69df8029372e5c8b2acb9378"
+    }
+  ],
+  "sdgTags": [
+    {
+      "$oid": "69dfafe63eebc5c8b6443448"
+    }
+  ],
+  "resilienceTags": [
+    {
+      "$oid": "69dfa5073eebc5c8b6443182"
+    }
+  ],
+  "esgTags": [
+    {
+      "$oid": "69dfb4263eebc5c8b6443517"
+    }
+  ],
+  "standardTags": [],
+  "creator": {
+    "$oid": "69de4f3869452296f6d0ac98"
+  },
+  "status": "published",
+  "archived": false,
+  "archivedAt": null,
+  "createdAt": {
+    "$date": "2026-04-15T11:54:53.276Z"
+  },
+  "updatedAt": {
+    "$date": "2026-04-21T12:56:05.563Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69df7c8d241dc35493e974fa"
+  },
+  "name": "Compensation and Insurance Performance",
+  "description": "Evaluating the accessibility, timeliness, adequacy, and fairness of compensation and insurance schemes for households affected by human-wildlife conflict losses. This sub-theme tracks whether affected families receive meaningful support and whether compensation mechanisms function as intended.",
+  "theme": {
+    "$oid": "69df7c5b241dc35493e9730a"
+  },
+  "theoryOfChangeStage": "Stage 2 - Outcome",
+  "indicatorTags": [
+    {
+      "$oid": "69df8026372e5c8b2acb9354"
+    },
+    {
+      "$oid": "69df8027372e5c8b2acb9366"
+    },
+    {
+      "$oid": "69df8029372e5c8b2acb9375"
+    }
+  ],
+  "sdgTags": [
+    {
+      "$oid": "69dfaf4f3eebc5c8b644340b"
+    },
+    {
+      "$oid": "69dfae813eebc5c8b64433dd"
+    }
+  ],
+  "resilienceTags": [
+    {
+      "$oid": "69dfa4043eebc5c8b6443142"
+    },
+    {
+      "$oid": "69dfa5c13eebc5c8b64431aa"
+    }
+  ],
+  "esgTags": [
+    {
+      "$oid": "69dfb4263eebc5c8b6443517"
+    }
+  ],
+  "standardTags": [],
+  "creator": {
+    "$oid": "69de4f3869452296f6d0ac98"
+  },
+  "status": "published",
+  "archived": false,
+  "archivedAt": null,
+  "createdAt": {
+    "$date": "2026-04-15T11:54:53.567Z"
+  },
+  "updatedAt": {
+    "$date": "2026-04-21T12:35:27.490Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69df7c8d241dc35493e974fd"
+  },
+  "name": "Policy & Governance",
+  "description": "Ensuring that young people have formal voting rights and meaningful representation on Project Steering Committees and Benefit-Sharing Boards, transforming youth from passive beneficiaries into active decision-makers in project governance.",
+  "theme": {
+    "$oid": "69df7c5b241dc35493e9730d"
+  },
+  "theoryOfChangeStage": "Stage 2 - Outcome",
+  "indicatorTags": [
+    {
+      "$oid": "69df8024372e5c8b2acb9348"
+    }
+  ],
+  "sdgTags": [
+    {
+      "$oid": "69dfb0e63eebc5c8b644348f"
+    }
+  ],
+  "resilienceTags": [
+    {
+      "$oid": "69dfaa133eebc5c8b64432e3"
+    }
+  ],
+  "esgTags": [
+    {
+      "$oid": "69dfb43c3eebc5c8b6443526"
+    }
+  ],
+  "standardTags": [],
+  "creator": {
+    "$oid": "69de4f3869452296f6d0ac98"
+  },
+  "status": "published",
+  "archived": false,
+  "archivedAt": null,
+  "createdAt": {
+    "$date": "2026-04-15T11:54:53.858Z"
+  },
+  "updatedAt": {
+    "$date": "2026-04-21T12:31:06.842Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69df7c8e241dc35493e97500"
+  },
+  "name": "Youth-led Entrepreneurship",
+  "description": "Supporting youth to establish and grow enterprises rooted in carbon finance and conservation activities, including nurseries, sustainable harvesting, and eco-tourism businesses funded or catalysed by carbon revenues.",
+  "theme": {
+    "$oid": "69df7c5b241dc35493e9730d"
+  },
+  "theoryOfChangeStage": "Stage 2 - Outcome",
+  "indicatorTags": [
+    {
+      "$oid": "69df8023372e5c8b2acb933f"
+    }
+  ],
+  "sdgTags": [
+    {
+      "$oid": "69dfaf4f3eebc5c8b644340b"
+    },
+    {
+      "$oid": "69dfab743eebc5c8b6443318"
+    },
+    {
+      "$oid": "69dfad873eebc5c8b644338d"
+    }
+  ],
+  "resilienceTags": [
+    {
+      "$oid": "69dfa5c13eebc5c8b64431aa"
+    }
+  ],
+  "esgTags": [
+    {
+      "$oid": "69dfb4263eebc5c8b6443517"
+    }
+  ],
+  "standardTags": [],
+  "creator": {
+    "$oid": "69de4f3869452296f6d0ac98"
+  },
+  "status": "published",
+  "archived": false,
+  "archivedAt": null,
+  "createdAt": {
+    "$date": "2026-04-15T11:54:54.152Z"
+  },
+  "updatedAt": {
+    "$date": "2026-04-21T12:30:11.230Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69df7c8e241dc35493e97503"
+  },
+  "name": "Technology",
+  "description": "Building youth capacity to use digital conservation and carbon monitoring tools including dMRV apps, drone-based mapping, and remote sensing platforms, enabling youth-led data collection and monitoring.",
+  "theme": {
+    "$oid": "69df7c5b241dc35493e9730d"
+  },
+  "theoryOfChangeStage": "Stage 2 - Outcome",
+  "indicatorTags": [
+    {
+      "$oid": "69df8025372e5c8b2acb934b"
+    }
+  ],
+  "sdgTags": [
+    {
+      "$oid": "69dfad873eebc5c8b644338d"
+    }
+  ],
+  "resilienceTags": [],
+  "esgTags": [
+    {
+      "$oid": "69dfb4263eebc5c8b6443517"
+    }
+  ],
+  "standardTags": [],
+  "creator": {
+    "$oid": "69de4f3869452296f6d0ac98"
+  },
+  "status": "published",
+  "archived": false,
+  "archivedAt": null,
+  "createdAt": {
+    "$date": "2026-04-15T11:54:54.447Z"
+  },
+  "updatedAt": {
+    "$date": "2026-04-21T11:58:06.343Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69df7c8e241dc35493e97506"
+  },
+  "name": "Education & Capacity Building",
+  "description": "Developing high-level technical competency in nature-based solutions application and climate-risk assessment among project youth, tracked through standardised post-training assessments.",
+  "theme": {
+    "$oid": "69df7c5b241dc35493e9730d"
+  },
+  "theoryOfChangeStage": "Stage 2 - Outcome",
+  "indicatorTags": [
+    {
+      "$oid": "69df8023372e5c8b2acb933c"
+    }
+  ],
+  "sdgTags": [
+    {
+      "$oid": "69dfad873eebc5c8b644338d"
+    }
+  ],
+  "resilienceTags": [
+    {
+      "$oid": "69dfa5c13eebc5c8b64431aa"
+    }
+  ],
+  "esgTags": [
+    {
+      "$oid": "69dfb4263eebc5c8b6443517"
+    }
+  ],
+  "standardTags": [],
+  "creator": {
+    "$oid": "69de4f3869452296f6d0ac98"
+  },
+  "status": "published",
+  "archived": false,
+  "archivedAt": null,
+  "createdAt": {
+    "$date": "2026-04-15T11:54:54.738Z"
+  },
+  "updatedAt": {
+    "$date": "2026-04-21T12:14:38.700Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69df7c8f241dc35493e97509"
+  },
+  "name": "Youth-led Advocacy for Carbon",
+  "description": "Enabling youth to lead and participate in formal policy submissions, community advocacy campaigns, and public engagement on carbon and climate issues at national and international levels.",
+  "theme": {
+    "$oid": "69df7c5b241dc35493e9730d"
+  },
+  "theoryOfChangeStage": "Stage 2 - Outcome",
+  "indicatorTags": [
+    {
+      "$oid": "69df8023372e5c8b2acb9336"
+    }
+  ],
+  "sdgTags": [
+    {
+      "$oid": "69dfafe63eebc5c8b6443448"
+    }
+  ],
+  "resilienceTags": [
+    {
+      "$oid": "69dfa5c13eebc5c8b64431aa"
+    }
+  ],
+  "esgTags": [
+    {
+      "$oid": "69dfb4263eebc5c8b6443517"
+    }
+  ],
+  "standardTags": [],
+  "creator": {
+    "$oid": "69de4f3869452296f6d0ac98"
+  },
+  "status": "published",
+  "archived": false,
+  "archivedAt": null,
+  "createdAt": {
+    "$date": "2026-04-15T11:54:55.033Z"
+  },
+  "updatedAt": {
+    "$date": "2026-04-21T12:14:09.515Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69df7c8f241dc35493e9750c"
+  },
+  "name": "Financial Inclusion",
+  "description": "Connecting project youth to direct financial benefits from carbon dividends through mobile money accounts and micro-finance products, building financial independence and inclusion.",
+  "theme": {
+    "$oid": "69df7c5b241dc35493e9730d"
+  },
+  "theoryOfChangeStage": "Stage 2 - Outcome",
+  "indicatorTags": [
+    {
+      "$oid": "69df8023372e5c8b2acb9339"
+    }
+  ],
+  "sdgTags": [
+    {
+      "$oid": "69dfaf4f3eebc5c8b644340b"
+    },
+    {
+      "$oid": "69dfab743eebc5c8b6443318"
+    }
+  ],
+  "resilienceTags": [
+    {
+      "$oid": "69dfa4043eebc5c8b6443142"
+    }
+  ],
+  "esgTags": [
+    {
+      "$oid": "69dfb4263eebc5c8b6443517"
+    }
+  ],
+  "standardTags": [],
+  "creator": {
+    "$oid": "69de4f3869452296f6d0ac98"
+  },
+  "status": "published",
+  "archived": false,
+  "archivedAt": null,
+  "createdAt": {
+    "$date": "2026-04-15T11:54:55.328Z"
+  },
+  "updatedAt": {
+    "$date": "2026-04-21T12:12:39.336Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69df7c8f241dc35493e9750f"
+  },
+  "name": "Green Skills & Knowledge Transfer",
+  "description": "Building the technical knowledge and certified skills of youth in nature-based solutions, ecosystem management, and climate adaptation. This sub-theme tracks participation in certification programmes and the transfer of practical NbS skills to young people.",
+  "theme": {
+    "$oid": "69df7c5b241dc35493e9730d"
+  },
+  "theoryOfChangeStage": "Stage 2 - Outcome",
+  "indicatorTags": [
+    {
+      "$oid": "69df8024372e5c8b2acb9342"
+    }
+  ],
+  "sdgTags": [
+    {
+      "$oid": "69dfafe63eebc5c8b6443448"
+    },
+    {
+      "$oid": "69dfad873eebc5c8b644338d"
+    }
+  ],
+  "resilienceTags": [
+    {
+      "$oid": "69dfa5c13eebc5c8b64431aa"
+    }
+  ],
+  "esgTags": [
+    {
+      "$oid": "69dfb4263eebc5c8b6443517"
+    }
+  ],
+  "standardTags": [],
+  "creator": {
+    "$oid": "69de4f3869452296f6d0ac98"
+  },
+  "status": "published",
+  "archived": false,
+  "archivedAt": null,
+  "createdAt": {
+    "$date": "2026-04-15T11:54:55.628Z"
+  },
+  "updatedAt": {
+    "$date": "2026-04-21T12:12:01.836Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69df7c8f241dc35493e97512"
+  },
+  "name": "Project Governance",
+  "description": "Ensuring youth representatives are formally involved across the full project cycle — planning, monitoring, and reporting — not only as token representatives but as active contributors with defined roles and accountability.",
+  "theme": {
+    "$oid": "69df7c5b241dc35493e9730d"
+  },
+  "theoryOfChangeStage": "Stage 2 - Outcome",
+  "indicatorTags": [
+    {
+      "$oid": "69df8024372e5c8b2acb9345"
+    }
+  ],
+  "sdgTags": [
+    {
+      "$oid": "69dfb0e63eebc5c8b644348f"
+    }
+  ],
+  "resilienceTags": [
+    {
+      "$oid": "69dfa8983eebc5c8b6443266"
+    }
+  ],
+  "esgTags": [
+    {
+      "$oid": "69dfb43c3eebc5c8b6443526"
+    }
+  ],
+  "standardTags": [],
+  "creator": {
+    "$oid": "69de4f3869452296f6d0ac98"
+  },
+  "status": "published",
+  "archived": false,
+  "archivedAt": null,
+  "createdAt": {
+    "$date": "2026-04-15T11:54:55.922Z"
+  },
+  "updatedAt": {
+    "$date": "2026-04-21T11:58:37.294Z"
+  },
+  "__v": 0
+}]

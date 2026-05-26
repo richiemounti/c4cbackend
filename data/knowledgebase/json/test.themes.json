@@ -1,0 +1,483 @@
+[{
+  "_id": {
+    "$oid": "69df7c56241dc35493e972d1"
+  },
+  "name": "Demographics",
+  "description": "Demographics instead describe who the respondent is. They are used for:\n• disaggregation\n• equity analysis\n• sampling validation\n• context interpretation",
+  "theoryOfChangeStage": null,
+  "creator": {
+    "$oid": "69de4f3869452296f6d0ac98"
+  },
+  "status": "published",
+  "archived": false,
+  "archivedAt": null,
+  "createdAt": {
+    "$date": "2026-04-15T11:53:58.224Z"
+  },
+  "updatedAt": {
+    "$date": "2026-04-15T11:53:58.224Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69df7c56241dc35493e972d7"
+  },
+  "name": "Social Valuation",
+  "description": "Social Valuation examines stakeholder perceptions of the importance and lived value of experienced changes resulting from carbon revenue–funded activities. It does not measure structural conditions or service provision directly; rather, it assesses how significant and meaningful these changes are to stakeholders.",
+  "theoryOfChangeStage": "Stage 2 - Outcome",
+  "creator": {
+    "$oid": "69de4f3869452296f6d0ac98"
+  },
+  "status": "published",
+  "archived": false,
+  "archivedAt": null,
+  "createdAt": {
+    "$date": "2026-04-15T11:53:58.524Z"
+  },
+  "updatedAt": {
+    "$date": "2026-04-15T11:53:58.524Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69df7c56241dc35493e972da"
+  },
+  "name": "Free, Prior, and Informed Consent (FPIC)",
+  "description": "Ensuring that Indigenous Peoples and Local Communities (IPLCs) have the right to give or withhold consent before any project affecting their land, resources, or livelihoods is approved. FPIC is a continuous process, requiring full transparency, meaningful participation, and decision-making free from coercion. It upholds self-determination, safeguards rights, and ensures communities have access to relevant information before making informed decisions.",
+  "theoryOfChangeStage": "Stage 1 - Output",
+  "creator": {
+    "$oid": "69de4f3869452296f6d0ac98"
+  },
+  "status": "published",
+  "archived": false,
+  "archivedAt": null,
+  "createdAt": {
+    "$date": "2026-04-15T11:53:58.819Z"
+  },
+  "updatedAt": {
+    "$date": "2026-04-15T11:53:58.819Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69df7c57241dc35493e972dd"
+  },
+  "name": "User Rights and Land Tenure",
+  "description": "Ensuring that Indigenous Peoples and Local Communities (IPLCs) have secure, legally recognized, and enforceable rights to access, use, manage, and benefit from land and natural resources. This includes formalizing land tenure, preventing land grabbing and displacement, and promoting equitable land governance. Strengthening user rights ensures that IPLCs can make decisions over their land, maintain their livelihoods, and participate in conservation and development initiatives without the risk of exclusion or loss of access",
+  "theoryOfChangeStage": "Stage 1 - Output",
+  "creator": {
+    "$oid": "69de4f3869452296f6d0ac98"
+  },
+  "status": "published",
+  "archived": false,
+  "archivedAt": null,
+  "createdAt": {
+    "$date": "2026-04-15T11:53:59.117Z"
+  },
+  "updatedAt": {
+    "$date": "2026-04-15T11:53:59.117Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69df7c57241dc35493e972e0"
+  },
+  "name": "Natural Resource Management",
+  "description": "Ensuring the conservation, sustainable management, and restoration of forests to maintain biodiversity, regulate the climate, and support the livelihoods of local communities. Forest protection efforts prioritize preventing deforestation, illegal logging, and land degradation while recognizing the rights of Indigenous Peoples and Local Communities as stewards of forest ecosystems.",
+  "theoryOfChangeStage": "Stage 1 - Output",
+  "creator": {
+    "$oid": "69de4f3869452296f6d0ac98"
+  },
+  "status": "published",
+  "archived": false,
+  "archivedAt": null,
+  "createdAt": {
+    "$date": "2026-04-15T11:53:59.411Z"
+  },
+  "updatedAt": {
+    "$date": "2026-04-15T11:53:59.411Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69df7c57241dc35493e972e3"
+  },
+  "name": "Transparency & Access to Information",
+  "description": "Ensuring that all stakeholders have timely, accurate, and accessible information about project activities, decisions, and outcomes. Transparency fosters trust, accountability, and informed participation by making financial flows, land agreements, environmental and social impact assessments, and governance structures publicly available.",
+  "theoryOfChangeStage": "Both",
+  "creator": {
+    "$oid": "69de4f3869452296f6d0ac98"
+  },
+  "status": "published",
+  "archived": false,
+  "archivedAt": null,
+  "createdAt": {
+    "$date": "2026-04-15T11:53:59.708Z"
+  },
+  "updatedAt": {
+    "$date": "2026-04-15T11:53:59.708Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69df7c57241dc35493e972e6"
+  },
+  "name": "Inclusive Decision Making & Participation",
+  "description": "Ensuring that all stakeholders, particularly marginalized groups—have meaningful opportunities to participate in decision-making processes. This includes co-designing projects, influencing policies, and shaping benefit-sharing mechanisms.",
+  "theoryOfChangeStage": "Both",
+  "creator": {
+    "$oid": "69de4f3869452296f6d0ac98"
+  },
+  "status": "published",
+  "archived": false,
+  "archivedAt": null,
+  "createdAt": {
+    "$date": "2026-04-15T11:54:00.001Z"
+  },
+  "updatedAt": {
+    "$date": "2026-04-15T11:54:00.001Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69df7c58241dc35493e972e9"
+  },
+  "name": "Safeguarding & Ethical Standards",
+  "description": "Ensuring that all project activities uphold human rights, prevent harm, and promote ethical, fair, and inclusive practices. This includes robust measures to prevent exploitation, discrimination, abuse, and unsafe working conditions, particularly for vulnerable groups such as children, women, and marginalized communities.",
+  "theoryOfChangeStage": "Both",
+  "creator": {
+    "$oid": "69de4f3869452296f6d0ac98"
+  },
+  "status": "published",
+  "archived": false,
+  "archivedAt": null,
+  "createdAt": {
+    "$date": "2026-04-15T11:54:00.298Z"
+  },
+  "updatedAt": {
+    "$date": "2026-04-15T11:54:00.298Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69df7c58241dc35493e972ec"
+  },
+  "name": "Training",
+  "description": "Ensuring that individuals, communities, and institutions have the knowledge, skills, and resources needed to effectively participate in and benefit from projects.",
+  "theoryOfChangeStage": "Both",
+  "creator": {
+    "$oid": "69de4f3869452296f6d0ac98"
+  },
+  "status": "published",
+  "archived": false,
+  "archivedAt": null,
+  "createdAt": {
+    "$date": "2026-04-15T11:54:00.593Z"
+  },
+  "updatedAt": {
+    "$date": "2026-04-15T11:54:00.593Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69df7c58241dc35493e972ef"
+  },
+  "name": "Benefit Sharing Mechanism",
+  "description": "Ensuring that project benefits—financial, social, and environmental—are distributed through clear, transparent, and participatory mechanisms. This includes well-documented processes for fund disbursement, decision-making, and oversight to prevent elite capture and ensure fairness. Local communities and Indigenous Peoples must have a direct role in shaping and accessing these benefits, with grievance mechanisms in place to address concerns.",
+  "theoryOfChangeStage": "Stage 1 - Output",
+  "creator": {
+    "$oid": "69de4f3869452296f6d0ac98"
+  },
+  "status": "published",
+  "archived": false,
+  "archivedAt": null,
+  "createdAt": {
+    "$date": "2026-04-15T11:54:00.887Z"
+  },
+  "updatedAt": {
+    "$date": "2026-04-15T11:54:00.887Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69df7c59241dc35493e972f2"
+  },
+  "name": "Economic Empowerment & Resilient Livelihoods",
+  "description": "Ensuring communities have access to sustainable economic opportunities that increase income, build assets, and enhance long-term financial security. A focus on resilience ensures that communities can adapt to environmental and economic shifts, fostering self-sufficiency and long-term well-being.",
+  "theoryOfChangeStage": "Both",
+  "creator": {
+    "$oid": "69de4f3869452296f6d0ac98"
+  },
+  "status": "published",
+  "archived": false,
+  "archivedAt": null,
+  "createdAt": {
+    "$date": "2026-04-15T11:54:01.186Z"
+  },
+  "updatedAt": {
+    "$date": "2026-04-15T11:54:01.186Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69df7c59241dc35493e972f5"
+  },
+  "name": "Improved Ecosystem Services & Practices for Sustainable Livelihoods",
+  "description": "Ensuring that natural ecosystems—such as forests, watersheds, and soils—are protected and enhanced to sustain and improve the livelihoods of local communities. This includes maintaining biodiversity, regulating climate, securing water resources, and improving soil health, all of which contribute to sustainable farming, fishing, and other nature-based livelihoods.",
+  "theoryOfChangeStage": "Both",
+  "creator": {
+    "$oid": "69de4f3869452296f6d0ac98"
+  },
+  "status": "published",
+  "archived": false,
+  "archivedAt": null,
+  "createdAt": {
+    "$date": "2026-04-15T11:54:01.505Z"
+  },
+  "updatedAt": {
+    "$date": "2026-04-15T11:54:01.505Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69df7c59241dc35493e972f8"
+  },
+  "name": "Access to Social Services",
+  "description": "Ensuring that all individuals, particularly marginalized groups, can reach and utilize essential services such as healthcare, education, and social protection without barriers.",
+  "theoryOfChangeStage": "Both",
+  "creator": {
+    "$oid": "69de4f3869452296f6d0ac98"
+  },
+  "status": "published",
+  "archived": false,
+  "archivedAt": null,
+  "createdAt": {
+    "$date": "2026-04-15T11:54:01.810Z"
+  },
+  "updatedAt": {
+    "$date": "2026-04-15T11:54:01.810Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69df7c5a241dc35493e972fb"
+  },
+  "name": "Improved Quality of Social Services",
+  "description": "Enhancing the effectiveness, safety, and responsiveness of healthcare, education, social protection, and justice services to meet community needs.",
+  "theoryOfChangeStage": "Stage 2 - Outcome",
+  "creator": {
+    "$oid": "69de4f3869452296f6d0ac98"
+  },
+  "status": "published",
+  "archived": false,
+  "archivedAt": null,
+  "createdAt": {
+    "$date": "2026-04-15T11:54:02.129Z"
+  },
+  "updatedAt": {
+    "$date": "2026-04-15T11:54:02.129Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69df7c5a241dc35493e972fe"
+  },
+  "name": "Increased knowledge and skills",
+  "description": "Enhancing the knowledge, skills, and capacities of individuals and communities to make informed decisions, improve livelihoods, and actively participate in governance and sustainability efforts.",
+  "theoryOfChangeStage": "Stage 2 - Outcome",
+  "creator": {
+    "$oid": "69de4f3869452296f6d0ac98"
+  },
+  "status": "published",
+  "archived": false,
+  "archivedAt": null,
+  "createdAt": {
+    "$date": "2026-04-15T11:54:02.427Z"
+  },
+  "updatedAt": {
+    "$date": "2026-04-15T11:54:02.427Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69df7c5a241dc35493e97301"
+  },
+  "name": "Transformations in Gender and Social Inclusion",
+  "description": "Transformations in gender and social inclusion occur when systemic barriers to equity are dismantled, power imbalances are addressed, and all individuals—especially those historically marginalised—can fully participate in and benefit from social, economic, and political life. These changes lead to greater agency, improved well-being, and more inclusive, accountable governance that reflects the rights, needs, and perspectives of diverse communities.",
+  "theoryOfChangeStage": "Both",
+  "creator": {
+    "$oid": "69de4f3869452296f6d0ac98"
+  },
+  "status": "published",
+  "archived": false,
+  "archivedAt": null,
+  "createdAt": {
+    "$date": "2026-04-15T11:54:02.728Z"
+  },
+  "updatedAt": {
+    "$date": "2026-04-15T11:54:02.728Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69df7c5b241dc35493e97304"
+  },
+  "name": "Indigenous Knowledge Recognised, Practised & Sustained",
+  "description": "Indigenous knowledge and cultural heritage are actively recognised, integrated, and protected within land use, conservation, and development practices. Indigenous Peoples and local communities exercise agency in leading and transmitting their ecological knowledge, ensuring its continuity, influence, and intergenerational transfer.",
+  "theoryOfChangeStage": "Both",
+  "creator": {
+    "$oid": "69de4f3869452296f6d0ac98"
+  },
+  "status": "published",
+  "archived": false,
+  "archivedAt": null,
+  "createdAt": {
+    "$date": "2026-04-15T11:54:03.021Z"
+  },
+  "updatedAt": {
+    "$date": "2026-04-15T11:54:03.021Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69df7c5b241dc35493e97307"
+  },
+  "name": "Social Cohesion and Strengthened Social Capital",
+  "description": "Communities experience a sense of connection, mutual trust, and shared responsibility. Social networks are inclusive and supportive, enabling collaboration across groups and increasing resilience to shocks and conflict. Strong social capital fosters cooperation, reinforces accountability, and strengthens long-term well-being.",
+  "theoryOfChangeStage": "Both",
+  "creator": {
+    "$oid": "69de4f3869452296f6d0ac98"
+  },
+  "status": "published",
+  "archived": false,
+  "archivedAt": null,
+  "createdAt": {
+    "$date": "2026-04-15T11:54:03.318Z"
+  },
+  "updatedAt": {
+    "$date": "2026-04-15T11:54:03.318Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69df7c5b241dc35493e9730a"
+  },
+  "name": "Human-Wildlife Conflict",
+  "description": "This theme addresses the systematic management of interactions between local communities and wildlife to minimize negative impacts on both human livelihoods and biodiversity. It focuses on shifting from reactive, lethal measures to proactive, non-lethal co-existence strategies. Monitoring under this theme evaluates the effectiveness of physical and digital deterrents, the efficiency of compensation or insurance schemes for crop/livestock loss, and the integration of traditional ecological knowledge into modern conservation protocols. The objective is to ensure that conservation goals do not come at the expense of community safety or economic security.",
+  "theoryOfChangeStage": "Both",
+  "creator": {
+    "$oid": "69de4f3869452296f6d0ac98"
+  },
+  "status": "published",
+  "archived": false,
+  "archivedAt": null,
+  "createdAt": {
+    "$date": "2026-04-15T11:54:03.612Z"
+  },
+  "updatedAt": {
+    "$date": "2026-04-15T11:54:03.612Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69df7c5b241dc35493e9730d"
+  },
+  "name": "Youth Empowerment",
+  "description": "This theme evaluates the mechanisms by which a project integrates young people (ages 15–35, or as contextually defined) into leadership, decision-making, and economic structures. It focuses on the transition from passive participation to active agency, ensuring that the youth are equipped with the technical skills and institutional access required to sustain project activities over the long term. Monitoring within this theme tracks investments in vocational training, the formalization of youth councils, and the reduction of barriers to land, credit, and employment within the project’s value chain.",
+  "theoryOfChangeStage": "Both",
+  "creator": {
+    "$oid": "69de4f3869452296f6d0ac98"
+  },
+  "status": "published",
+  "archived": false,
+  "archivedAt": null,
+  "createdAt": {
+    "$date": "2026-04-15T11:54:03.907Z"
+  },
+  "updatedAt": {
+    "$date": "2026-04-15T11:54:03.907Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69df7c5c241dc35493e97310"
+  },
+  "name": "Preparatory Planning",
+  "description": "It refers to the structured, participatory, and legally grounded processes undertaken prior to project implementation to ensure ethical legitimacy, legal clarity, social equity, and ecological integrity. It assesses whether foundational safeguards, rights recognition, baseline evidence, and risk mitigation mechanisms are in place before any physical land-use changes or carbon-related activities begin. This theme evaluates the depth of community inclusion, legal preparedness, and institutional accountability during the project design phase.",
+  "theoryOfChangeStage": "Stage 1 - Output",
+  "creator": {
+    "$oid": "69de4f3869452296f6d0ac98"
+  },
+  "status": "published",
+  "archived": false,
+  "archivedAt": null,
+  "createdAt": {
+    "$date": "2026-04-15T11:54:04.199Z"
+  },
+  "updatedAt": {
+    "$date": "2026-04-15T11:54:04.199Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69df7c5c241dc35493e97313"
+  },
+  "name": "Recruitment and Management",
+  "description": "Ensuring that project employment systems are inclusive, fair, and protective of worker dignity. Recruitment and Management safeguards equitable access to jobs, fair compensation, safe working conditions, and accountable labor governance. It ensures that economic benefits generated by the project translate into decent work opportunities for local communities, while protecting workers’ rights and wellbeing.",
+  "theoryOfChangeStage": "Stage 1 - Output",
+  "creator": {
+    "$oid": "69de4f3869452296f6d0ac98"
+  },
+  "status": "published",
+  "archived": false,
+  "archivedAt": null,
+  "createdAt": {
+    "$date": "2026-04-15T11:54:04.521Z"
+  },
+  "updatedAt": {
+    "$date": "2026-04-15T11:54:04.521Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69df7c62241dc35493e97352"
+  },
+  "name": "Social Legitimacy",
+  "description": "This theme assesses stakeholder perceptions of the legitimacy and equity of carbon revenue arrangements within villages, including fairness of benefit distribution, inclusiveness of governance processes, experienced social burdens, and trust in the continuation of the system.",
+  "theoryOfChangeStage": "Stage 2 - Outcome",
+  "creator": {
+    "$oid": "69de4f3869452296f6d0ac98"
+  },
+  "status": "published",
+  "archived": false,
+  "archivedAt": null,
+  "createdAt": {
+    "$date": "2026-04-15T11:54:10.859Z"
+  },
+  "updatedAt": {
+    "$date": "2026-04-15T11:54:10.859Z"
+  },
+  "__v": 0
+}]

@@ -1,0 +1,4035 @@
+[{
+  "_id": {
+    "$oid": "69e20fafae03b789d9ca82e1"
+  },
+  "text": "To what extent do you agree or disagree with the following statement?",
+  "description": "",
+  "type": "matrix",
+  "required": true,
+  "options": [
+    {
+      "value": "1",
+      "label": "Option 1",
+      "descriptor": null,
+      "placeholder": null,
+      "_id": {
+        "$oid": "69e20fb1ae03b789d9ca82f5"
+      }
+    }
+  ],
+  "creator": {
+    "$oid": "69df354625b6694922b90eb1"
+  },
+  "categories": [
+    {
+      "$oid": "69df82df25b6694922b91a9a"
+    },
+    {
+      "$oid": "69df82c625b6694922b91a8b"
+    }
+  ],
+  "theme": {
+    "$oid": "69df7c62241dc35493e97352"
+  },
+  "subThemes": [
+    {
+      "$oid": "69df7c64241dc35493e97364"
+    }
+  ],
+  "targetAudience": "both",
+  "status": "published",
+  "isTemplate": false,
+  "tags": [],
+  "isBespoke": false,
+  "bespokeMetadata": {
+    "status": "pending"
+  },
+  "isStandardDemographic": false,
+  "isGlobalStandard": false,
+  "demographicMetadata": {
+    "isRequired": false,
+    "recommendedForAudience": [],
+    "complianceRelevant": false,
+    "sensitivityLevel": "medium",
+    "anonymizationRequired": false
+  },
+  "selectedIndicatorTags": [
+    {
+      "$oid": "69df7f7c372e5c8b2acb8cf2"
+    }
+  ],
+  "selectedSdgTags": [],
+  "selectedResilienceTags": [],
+  "selectedEsgTags": [],
+  "selectedStandardTags": [],
+  "archived": false,
+  "archivedAt": null,
+  "createdAt": {
+    "$date": "2026-04-17T10:47:11.767Z"
+  },
+  "updatedAt": {
+    "$date": "2026-04-17T10:47:13.111Z"
+  },
+  "__v": 0,
+  "validation": {}
+},
+{
+  "_id": {
+    "$oid": "69e21113ae03b789d9ca8328"
+  },
+  "text": "To what extent do you agree or disagree with the following statement?",
+  "description": "",
+  "type": "matrix",
+  "required": false,
+  "options": [
+    {
+      "value": "1",
+      "label": "Option 1",
+      "descriptor": null,
+      "placeholder": null,
+      "_id": {
+        "$oid": "69e21114ae03b789d9ca833f"
+      }
+    }
+  ],
+  "creator": {
+    "$oid": "69df354625b6694922b90eb1"
+  },
+  "categories": [
+    {
+      "$oid": "69df82df25b6694922b91a9a"
+    },
+    {
+      "$oid": "69df82c625b6694922b91a8b"
+    }
+  ],
+  "theme": {
+    "$oid": "69df7c62241dc35493e97352"
+  },
+  "subThemes": [
+    {
+      "$oid": "69df7c64241dc35493e97364"
+    }
+  ],
+  "targetAudience": "external",
+  "status": "published",
+  "isTemplate": false,
+  "tags": [],
+  "isBespoke": false,
+  "bespokeMetadata": {
+    "status": "pending"
+  },
+  "isStandardDemographic": false,
+  "isGlobalStandard": false,
+  "demographicMetadata": {
+    "isRequired": false,
+    "recommendedForAudience": [],
+    "complianceRelevant": false,
+    "sensitivityLevel": "medium",
+    "anonymizationRequired": false
+  },
+  "selectedIndicatorTags": [
+    {
+      "$oid": "69df7f7b372e5c8b2acb8cec"
+    }
+  ],
+  "selectedSdgTags": [],
+  "selectedResilienceTags": [],
+  "selectedEsgTags": [],
+  "selectedStandardTags": [],
+  "archived": false,
+  "archivedAt": null,
+  "createdAt": {
+    "$date": "2026-04-17T10:53:07.182Z"
+  },
+  "updatedAt": {
+    "$date": "2026-04-17T10:53:08.326Z"
+  },
+  "__v": 0,
+  "validation": {}
+},
+{
+  "_id": {
+    "$oid": "69e2124fae03b789d9ca8375"
+  },
+  "text": "To what extent do you agree or disagree with the following statement?",
+  "description": "",
+  "type": "matrix",
+  "required": false,
+  "options": [
+    {
+      "value": "1",
+      "label": "Option 1",
+      "descriptor": null,
+      "placeholder": null,
+      "_id": {
+        "$oid": "69e2170aae03b789d9ca83e1"
+      }
+    }
+  ],
+  "creator": {
+    "$oid": "69df354625b6694922b90eb1"
+  },
+  "categories": [
+    {
+      "$oid": "69df82df25b6694922b91a9a"
+    },
+    {
+      "$oid": "69df82c625b6694922b91a8b"
+    }
+  ],
+  "theme": {
+    "$oid": "69df7c62241dc35493e97352"
+  },
+  "subThemes": [
+    {
+      "$oid": "69df7c64241dc35493e97364"
+    }
+  ],
+  "targetAudience": "external",
+  "status": "published",
+  "isTemplate": false,
+  "tags": [],
+  "isBespoke": false,
+  "bespokeMetadata": {
+    "status": "pending"
+  },
+  "isStandardDemographic": false,
+  "isGlobalStandard": false,
+  "demographicMetadata": {
+    "isRequired": false,
+    "recommendedForAudience": [],
+    "complianceRelevant": false,
+    "sensitivityLevel": "medium",
+    "anonymizationRequired": false
+  },
+  "selectedIndicatorTags": [
+    {
+      "$oid": "69df7f7b372e5c8b2acb8cef"
+    }
+  ],
+  "selectedSdgTags": [],
+  "selectedResilienceTags": [],
+  "selectedEsgTags": [],
+  "selectedStandardTags": [],
+  "archived": false,
+  "archivedAt": null,
+  "createdAt": {
+    "$date": "2026-04-17T10:58:23.629Z"
+  },
+  "updatedAt": {
+    "$date": "2026-04-17T11:18:34.538Z"
+  },
+  "__v": 0,
+  "validation": {}
+},
+{
+  "_id": {
+    "$oid": "69e2187bae03b789d9ca8432"
+  },
+  "text": "To what extent do you agree or disagree with the following statement?",
+  "description": "",
+  "type": "matrix",
+  "required": false,
+  "options": [
+    {
+      "value": "1",
+      "label": "Option 1",
+      "descriptor": null,
+      "placeholder": null,
+      "_id": {
+        "$oid": "69e218b4ae03b789d9ca8471"
+      }
+    }
+  ],
+  "creator": {
+    "$oid": "69df354625b6694922b90eb1"
+  },
+  "categories": [
+    {
+      "$oid": "69df82df25b6694922b91a9a"
+    },
+    {
+      "$oid": "69df82c625b6694922b91a8b"
+    }
+  ],
+  "theme": {
+    "$oid": "69df7c62241dc35493e97352"
+  },
+  "subThemes": [
+    {
+      "$oid": "69df7c64241dc35493e97367"
+    }
+  ],
+  "targetAudience": "external",
+  "status": "published",
+  "isTemplate": false,
+  "tags": [],
+  "isBespoke": false,
+  "bespokeMetadata": {
+    "status": "pending"
+  },
+  "isStandardDemographic": false,
+  "isGlobalStandard": false,
+  "demographicMetadata": {
+    "isRequired": false,
+    "recommendedForAudience": [],
+    "complianceRelevant": false,
+    "sensitivityLevel": "medium",
+    "anonymizationRequired": false
+  },
+  "selectedIndicatorTags": [
+    {
+      "$oid": "69df7f7c372e5c8b2acb8cf5"
+    }
+  ],
+  "selectedSdgTags": [],
+  "selectedResilienceTags": [],
+  "selectedEsgTags": [],
+  "selectedStandardTags": [],
+  "archived": false,
+  "archivedAt": null,
+  "createdAt": {
+    "$date": "2026-04-17T11:24:43.654Z"
+  },
+  "updatedAt": {
+    "$date": "2026-04-17T11:25:40.537Z"
+  },
+  "__v": 0,
+  "validation": {}
+},
+{
+  "_id": {
+    "$oid": "69e219c7ae03b789d9ca84a1"
+  },
+  "text": "To what extent do you agree or disagree with the following statement?",
+  "description": "",
+  "type": "matrix",
+  "required": false,
+  "options": [
+    {
+      "value": "1",
+      "label": "Option 1",
+      "descriptor": null,
+      "placeholder": null,
+      "_id": {
+        "$oid": "69e219caae03b789d9ca84bb"
+      }
+    }
+  ],
+  "creator": {
+    "$oid": "69df354625b6694922b90eb1"
+  },
+  "categories": [
+    {
+      "$oid": "69df82df25b6694922b91a9a"
+    },
+    {
+      "$oid": "69df82c625b6694922b91a8b"
+    }
+  ],
+  "theme": {
+    "$oid": "69df7c62241dc35493e97352"
+  },
+  "subThemes": [
+    {
+      "$oid": "69df7c64241dc35493e97367"
+    }
+  ],
+  "targetAudience": "external",
+  "status": "published",
+  "isTemplate": false,
+  "tags": [],
+  "isBespoke": false,
+  "bespokeMetadata": {
+    "status": "pending"
+  },
+  "isStandardDemographic": false,
+  "isGlobalStandard": false,
+  "demographicMetadata": {
+    "isRequired": false,
+    "recommendedForAudience": [],
+    "complianceRelevant": false,
+    "sensitivityLevel": "medium",
+    "anonymizationRequired": false
+  },
+  "selectedIndicatorTags": [
+    {
+      "$oid": "69df7f7c372e5c8b2acb8cf8"
+    }
+  ],
+  "selectedSdgTags": [],
+  "selectedResilienceTags": [],
+  "selectedEsgTags": [],
+  "selectedStandardTags": [],
+  "archived": false,
+  "archivedAt": null,
+  "createdAt": {
+    "$date": "2026-04-17T11:30:15.776Z"
+  },
+  "updatedAt": {
+    "$date": "2026-04-17T11:30:18.157Z"
+  },
+  "__v": 0,
+  "validation": {}
+},
+{
+  "_id": {
+    "$oid": "69e21ac4ae03b789d9ca84f4"
+  },
+  "text": "To what extent do you agree or disagree with the following statement?",
+  "description": "",
+  "type": "matrix",
+  "required": false,
+  "options": [
+    {
+      "value": "1",
+      "label": "Option 1",
+      "descriptor": null,
+      "placeholder": null,
+      "_id": {
+        "$oid": "69e21ac8ae03b789d9ca851f"
+      }
+    }
+  ],
+  "creator": {
+    "$oid": "69df354625b6694922b90eb1"
+  },
+  "categories": [
+    {
+      "$oid": "69df82df25b6694922b91a9a"
+    },
+    {
+      "$oid": "69df82c625b6694922b91a8b"
+    }
+  ],
+  "theme": {
+    "$oid": "69df7c62241dc35493e97352"
+  },
+  "subThemes": [
+    {
+      "$oid": "69df7c64241dc35493e97367"
+    }
+  ],
+  "targetAudience": "both",
+  "status": "published",
+  "isTemplate": false,
+  "tags": [],
+  "isBespoke": false,
+  "bespokeMetadata": {
+    "status": "pending"
+  },
+  "isStandardDemographic": false,
+  "isGlobalStandard": false,
+  "demographicMetadata": {
+    "isRequired": false,
+    "recommendedForAudience": [],
+    "complianceRelevant": false,
+    "sensitivityLevel": "medium",
+    "anonymizationRequired": false
+  },
+  "selectedIndicatorTags": [
+    {
+      "$oid": "69df7f7c372e5c8b2acb8cfb"
+    }
+  ],
+  "selectedSdgTags": [],
+  "selectedResilienceTags": [],
+  "selectedEsgTags": [],
+  "selectedStandardTags": [],
+  "archived": false,
+  "archivedAt": null,
+  "createdAt": {
+    "$date": "2026-04-17T11:34:28.720Z"
+  },
+  "updatedAt": {
+    "$date": "2026-04-17T11:34:32.033Z"
+  },
+  "__v": 0,
+  "validation": {}
+},
+{
+  "_id": {
+    "$oid": "69e21daeae03b789d9ca8594"
+  },
+  "text": "To what extent do you agree or disagree with the following statement?",
+  "description": "",
+  "type": "matrix",
+  "required": false,
+  "options": [
+    {
+      "value": "1",
+      "label": "Option 1",
+      "descriptor": null,
+      "placeholder": null,
+      "_id": {
+        "$oid": "69e21e8fae03b789d9ca85cf"
+      }
+    }
+  ],
+  "creator": {
+    "$oid": "69df354625b6694922b90eb1"
+  },
+  "categories": [
+    {
+      "$oid": "69df82df25b6694922b91a9a"
+    },
+    {
+      "$oid": "69df82c625b6694922b91a8b"
+    }
+  ],
+  "theme": {
+    "$oid": "69df7c62241dc35493e97352"
+  },
+  "subThemes": [
+    {
+      "$oid": "69df7c64241dc35493e97361"
+    }
+  ],
+  "targetAudience": "external",
+  "status": "published",
+  "isTemplate": false,
+  "tags": [],
+  "isBespoke": false,
+  "bespokeMetadata": {
+    "status": "pending"
+  },
+  "isStandardDemographic": false,
+  "isGlobalStandard": false,
+  "demographicMetadata": {
+    "isRequired": false,
+    "recommendedForAudience": [],
+    "complianceRelevant": false,
+    "sensitivityLevel": "medium",
+    "anonymizationRequired": false
+  },
+  "selectedIndicatorTags": [
+    {
+      "$oid": "69df7f7e372e5c8b2acb8d07"
+    }
+  ],
+  "selectedSdgTags": [],
+  "selectedResilienceTags": [],
+  "selectedEsgTags": [],
+  "selectedStandardTags": [],
+  "archived": false,
+  "archivedAt": null,
+  "createdAt": {
+    "$date": "2026-04-17T11:46:54.273Z"
+  },
+  "updatedAt": {
+    "$date": "2026-04-17T11:50:39.572Z"
+  },
+  "__v": 0,
+  "validation": {}
+},
+{
+  "_id": {
+    "$oid": "69e21f78ae03b789d9ca8600"
+  },
+  "text": "To what extent do you agree or disagree with the following statement?",
+  "description": "",
+  "type": "matrix",
+  "required": false,
+  "options": [
+    {
+      "value": "1",
+      "label": "Option 1",
+      "descriptor": null,
+      "placeholder": null,
+      "_id": {
+        "$oid": "69e21f79ae03b789d9ca861d"
+      }
+    }
+  ],
+  "creator": {
+    "$oid": "69df354625b6694922b90eb1"
+  },
+  "categories": [
+    {
+      "$oid": "69df82df25b6694922b91a9a"
+    },
+    {
+      "$oid": "69df82c625b6694922b91a8b"
+    }
+  ],
+  "theme": {
+    "$oid": "69df7c62241dc35493e97352"
+  },
+  "subThemes": [
+    {
+      "$oid": "69df7c64241dc35493e97361"
+    }
+  ],
+  "targetAudience": "external",
+  "status": "published",
+  "isTemplate": false,
+  "tags": [],
+  "isBespoke": false,
+  "bespokeMetadata": {
+    "status": "pending"
+  },
+  "isStandardDemographic": false,
+  "isGlobalStandard": false,
+  "demographicMetadata": {
+    "isRequired": false,
+    "recommendedForAudience": [],
+    "complianceRelevant": false,
+    "sensitivityLevel": "medium",
+    "anonymizationRequired": false
+  },
+  "selectedIndicatorTags": [
+    {
+      "$oid": "69df7f7e372e5c8b2acb8d0a"
+    }
+  ],
+  "selectedSdgTags": [],
+  "selectedResilienceTags": [],
+  "selectedEsgTags": [],
+  "selectedStandardTags": [],
+  "archived": false,
+  "archivedAt": null,
+  "createdAt": {
+    "$date": "2026-04-17T11:54:32.023Z"
+  },
+  "updatedAt": {
+    "$date": "2026-04-17T11:54:33.099Z"
+  },
+  "__v": 0,
+  "validation": {}
+},
+{
+  "_id": {
+    "$oid": "69e2209aae03b789d9ca8651"
+  },
+  "text": "To what extent do you agree or disagree with the following statement?",
+  "description": "",
+  "type": "matrix",
+  "required": false,
+  "options": [
+    {
+      "value": "1",
+      "label": "Option 1",
+      "descriptor": null,
+      "placeholder": null,
+      "_id": {
+        "$oid": "69e2209cae03b789d9ca866f"
+      }
+    }
+  ],
+  "creator": {
+    "$oid": "69df354625b6694922b90eb1"
+  },
+  "categories": [
+    {
+      "$oid": "69df82df25b6694922b91a9a"
+    },
+    {
+      "$oid": "69df82c625b6694922b91a8b"
+    }
+  ],
+  "theme": {
+    "$oid": "69df7c62241dc35493e97352"
+  },
+  "subThemes": [
+    {
+      "$oid": "69df7c64241dc35493e97361"
+    }
+  ],
+  "targetAudience": "external",
+  "status": "published",
+  "isTemplate": false,
+  "tags": [],
+  "isBespoke": false,
+  "bespokeMetadata": {
+    "status": "pending"
+  },
+  "isStandardDemographic": false,
+  "isGlobalStandard": false,
+  "demographicMetadata": {
+    "isRequired": false,
+    "recommendedForAudience": [],
+    "complianceRelevant": false,
+    "sensitivityLevel": "medium",
+    "anonymizationRequired": false
+  },
+  "selectedIndicatorTags": [
+    {
+      "$oid": "69df7f7e372e5c8b2acb8d0d"
+    }
+  ],
+  "selectedSdgTags": [],
+  "selectedResilienceTags": [],
+  "selectedEsgTags": [],
+  "selectedStandardTags": [],
+  "archived": false,
+  "archivedAt": null,
+  "createdAt": {
+    "$date": "2026-04-17T11:59:22.461Z"
+  },
+  "updatedAt": {
+    "$date": "2026-04-17T11:59:24.125Z"
+  },
+  "__v": 0,
+  "validation": {}
+},
+{
+  "_id": {
+    "$oid": "69e2280aae03b789d9ca8732"
+  },
+  "text": "To what extent do you agree or disagree with the following statement?",
+  "description": "",
+  "type": "matrix",
+  "required": false,
+  "options": [
+    {
+      "value": "1",
+      "label": "Option 1",
+      "descriptor": null,
+      "placeholder": null,
+      "_id": {
+        "$oid": "69e22824ae03b789d9ca8764"
+      }
+    }
+  ],
+  "creator": {
+    "$oid": "69df354625b6694922b90eb1"
+  },
+  "categories": [
+    {
+      "$oid": "69df82df25b6694922b91a9a"
+    },
+    {
+      "$oid": "69df82c625b6694922b91a8b"
+    }
+  ],
+  "theme": {
+    "$oid": "69df7c62241dc35493e97352"
+  },
+  "subThemes": [
+    {
+      "$oid": "69df7c64241dc35493e9735e"
+    }
+  ],
+  "targetAudience": "external",
+  "status": "published",
+  "isTemplate": false,
+  "tags": [],
+  "isBespoke": false,
+  "bespokeMetadata": {
+    "status": "pending"
+  },
+  "isStandardDemographic": false,
+  "isGlobalStandard": false,
+  "demographicMetadata": {
+    "isRequired": false,
+    "recommendedForAudience": [],
+    "complianceRelevant": false,
+    "sensitivityLevel": "medium",
+    "anonymizationRequired": false
+  },
+  "selectedIndicatorTags": [
+    {
+      "$oid": "69df7f7e372e5c8b2acb8d10"
+    }
+  ],
+  "selectedSdgTags": [],
+  "selectedResilienceTags": [],
+  "selectedEsgTags": [],
+  "selectedStandardTags": [],
+  "archived": false,
+  "archivedAt": null,
+  "createdAt": {
+    "$date": "2026-04-17T12:31:06.577Z"
+  },
+  "updatedAt": {
+    "$date": "2026-04-17T12:31:32.909Z"
+  },
+  "__v": 0,
+  "validation": {}
+},
+{
+  "_id": {
+    "$oid": "69e22975ae03b789d9ca879a"
+  },
+  "text": "To what extent do you agree or disagree with the following statement?",
+  "description": "",
+  "type": "matrix",
+  "required": false,
+  "options": [
+    {
+      "value": "1",
+      "label": "Option 1",
+      "descriptor": null,
+      "placeholder": null,
+      "_id": {
+        "$oid": "69e22977ae03b789d9ca87ba"
+      }
+    }
+  ],
+  "creator": {
+    "$oid": "69df354625b6694922b90eb1"
+  },
+  "categories": [
+    {
+      "$oid": "69df82df25b6694922b91a9a"
+    },
+    {
+      "$oid": "69df82c625b6694922b91a8b"
+    }
+  ],
+  "theme": {
+    "$oid": "69df7c62241dc35493e97352"
+  },
+  "subThemes": [
+    {
+      "$oid": "69df7c64241dc35493e9735e"
+    }
+  ],
+  "targetAudience": "external",
+  "status": "published",
+  "isTemplate": false,
+  "tags": [],
+  "isBespoke": false,
+  "bespokeMetadata": {
+    "status": "pending"
+  },
+  "isStandardDemographic": false,
+  "isGlobalStandard": false,
+  "demographicMetadata": {
+    "isRequired": false,
+    "recommendedForAudience": [],
+    "complianceRelevant": false,
+    "sensitivityLevel": "medium",
+    "anonymizationRequired": false
+  },
+  "selectedIndicatorTags": [
+    {
+      "$oid": "69df7f7f372e5c8b2acb8d13"
+    }
+  ],
+  "selectedSdgTags": [],
+  "selectedResilienceTags": [],
+  "selectedEsgTags": [],
+  "selectedStandardTags": [],
+  "archived": false,
+  "archivedAt": null,
+  "createdAt": {
+    "$date": "2026-04-17T12:37:09.685Z"
+  },
+  "updatedAt": {
+    "$date": "2026-04-17T12:37:11.942Z"
+  },
+  "__v": 0,
+  "validation": {}
+},
+{
+  "_id": {
+    "$oid": "69e22c4bae03b789d9ca8812"
+  },
+  "text": "To what extent do you agree or disagree with the following statement?",
+  "description": "",
+  "type": "matrix",
+  "required": false,
+  "options": [
+    {
+      "value": "1",
+      "label": "Option 1",
+      "descriptor": null,
+      "placeholder": null,
+      "_id": {
+        "$oid": "69e22fddae03b789d9ca887e"
+      }
+    }
+  ],
+  "creator": {
+    "$oid": "69df354625b6694922b90eb1"
+  },
+  "categories": [
+    {
+      "$oid": "69df82df25b6694922b91a9a"
+    },
+    {
+      "$oid": "69df82c625b6694922b91a8b"
+    }
+  ],
+  "theme": {
+    "$oid": "69df7c62241dc35493e97352"
+  },
+  "subThemes": [
+    {
+      "$oid": "69df7c64241dc35493e9735e"
+    }
+  ],
+  "targetAudience": "external",
+  "status": "published",
+  "isTemplate": false,
+  "tags": [],
+  "isBespoke": false,
+  "bespokeMetadata": {
+    "status": "pending"
+  },
+  "isStandardDemographic": false,
+  "isGlobalStandard": false,
+  "demographicMetadata": {
+    "isRequired": false,
+    "recommendedForAudience": [],
+    "complianceRelevant": false,
+    "sensitivityLevel": "medium",
+    "anonymizationRequired": false
+  },
+  "selectedIndicatorTags": [
+    {
+      "$oid": "69df7f7f372e5c8b2acb8d16"
+    }
+  ],
+  "selectedSdgTags": [],
+  "selectedResilienceTags": [],
+  "selectedEsgTags": [],
+  "selectedStandardTags": [],
+  "archived": false,
+  "archivedAt": null,
+  "createdAt": {
+    "$date": "2026-04-17T12:49:15.418Z"
+  },
+  "updatedAt": {
+    "$date": "2026-04-17T13:04:29.265Z"
+  },
+  "__v": 0,
+  "validation": {}
+},
+{
+  "_id": {
+    "$oid": "69e233e2ae03b789d9ca890b"
+  },
+  "text": "To what extent do you agree or disagree with the following statement?",
+  "description": "",
+  "type": "matrix",
+  "required": false,
+  "options": [
+    {
+      "value": "1",
+      "label": "Option 1",
+      "descriptor": null,
+      "placeholder": null,
+      "_id": {
+        "$oid": "69e2341eae03b789d9ca895d"
+      }
+    }
+  ],
+  "creator": {
+    "$oid": "69df354625b6694922b90eb1"
+  },
+  "categories": [
+    {
+      "$oid": "69df82df25b6694922b91a9a"
+    },
+    {
+      "$oid": "69df82c625b6694922b91a8b"
+    }
+  ],
+  "theme": {
+    "$oid": "69df7c62241dc35493e97352"
+  },
+  "subThemes": [
+    {
+      "$oid": "69df7c63241dc35493e9735b"
+    }
+  ],
+  "targetAudience": "both",
+  "status": "published",
+  "isTemplate": false,
+  "tags": [],
+  "isBespoke": false,
+  "bespokeMetadata": {
+    "status": "pending"
+  },
+  "isStandardDemographic": false,
+  "isGlobalStandard": false,
+  "demographicMetadata": {
+    "isRequired": false,
+    "recommendedForAudience": [],
+    "complianceRelevant": false,
+    "sensitivityLevel": "medium",
+    "anonymizationRequired": false
+  },
+  "selectedIndicatorTags": [
+    {
+      "$oid": "69df7f7d372e5c8b2acb8cfe"
+    }
+  ],
+  "selectedSdgTags": [],
+  "selectedResilienceTags": [],
+  "selectedEsgTags": [],
+  "selectedStandardTags": [],
+  "archived": false,
+  "archivedAt": null,
+  "createdAt": {
+    "$date": "2026-04-17T13:21:38.155Z"
+  },
+  "updatedAt": {
+    "$date": "2026-04-17T13:22:38.804Z"
+  },
+  "__v": 0,
+  "validation": {}
+},
+{
+  "_id": {
+    "$oid": "69e23626ae03b789d9ca89a3"
+  },
+  "text": "To what extent do you agree or disagree with the following statement?",
+  "description": "",
+  "type": "matrix",
+  "required": false,
+  "options": [
+    {
+      "value": "1",
+      "label": "Option 1",
+      "descriptor": null,
+      "placeholder": null,
+      "_id": {
+        "$oid": "69e23628ae03b789d9ca89c3"
+      }
+    }
+  ],
+  "creator": {
+    "$oid": "69df354625b6694922b90eb1"
+  },
+  "categories": [
+    {
+      "$oid": "69df82df25b6694922b91a9a"
+    },
+    {
+      "$oid": "69df82c625b6694922b91a8b"
+    }
+  ],
+  "theme": {
+    "$oid": "69df7c62241dc35493e97352"
+  },
+  "subThemes": [
+    {
+      "$oid": "69df7c63241dc35493e9735b"
+    }
+  ],
+  "targetAudience": "external",
+  "status": "published",
+  "isTemplate": false,
+  "tags": [],
+  "isBespoke": false,
+  "bespokeMetadata": {
+    "status": "pending"
+  },
+  "isStandardDemographic": false,
+  "isGlobalStandard": false,
+  "demographicMetadata": {
+    "isRequired": false,
+    "recommendedForAudience": [],
+    "complianceRelevant": false,
+    "sensitivityLevel": "medium",
+    "anonymizationRequired": false
+  },
+  "selectedIndicatorTags": [
+    {
+      "$oid": "69df7f7d372e5c8b2acb8d01"
+    }
+  ],
+  "selectedSdgTags": [],
+  "selectedResilienceTags": [],
+  "selectedEsgTags": [],
+  "selectedStandardTags": [],
+  "archived": false,
+  "archivedAt": null,
+  "createdAt": {
+    "$date": "2026-04-17T13:31:18.954Z"
+  },
+  "updatedAt": {
+    "$date": "2026-04-17T13:31:20.396Z"
+  },
+  "__v": 0,
+  "validation": {}
+},
+{
+  "_id": {
+    "$oid": "69e236c9ae03b789d9ca89ed"
+  },
+  "text": "To what extent do you agree or disagree with the following statement?",
+  "description": "",
+  "type": "matrix",
+  "required": false,
+  "options": [
+    {
+      "value": "1",
+      "label": "Option 1",
+      "descriptor": null,
+      "placeholder": null,
+      "_id": {
+        "$oid": "69e236cbae03b789d9ca8a0d"
+      }
+    }
+  ],
+  "creator": {
+    "$oid": "69df354625b6694922b90eb1"
+  },
+  "categories": [
+    {
+      "$oid": "69df82df25b6694922b91a9a"
+    },
+    {
+      "$oid": "69df82c625b6694922b91a8b"
+    }
+  ],
+  "theme": {
+    "$oid": "69df7c62241dc35493e97352"
+  },
+  "subThemes": [
+    {
+      "$oid": "69df7c63241dc35493e9735b"
+    }
+  ],
+  "targetAudience": "external",
+  "status": "published",
+  "isTemplate": false,
+  "tags": [],
+  "isBespoke": false,
+  "bespokeMetadata": {
+    "status": "pending"
+  },
+  "isStandardDemographic": false,
+  "isGlobalStandard": false,
+  "demographicMetadata": {
+    "isRequired": false,
+    "recommendedForAudience": [],
+    "complianceRelevant": false,
+    "sensitivityLevel": "medium",
+    "anonymizationRequired": false
+  },
+  "selectedIndicatorTags": [
+    {
+      "$oid": "69df7f7d372e5c8b2acb8d04"
+    }
+  ],
+  "selectedSdgTags": [],
+  "selectedResilienceTags": [],
+  "selectedEsgTags": [],
+  "selectedStandardTags": [],
+  "archived": false,
+  "archivedAt": null,
+  "createdAt": {
+    "$date": "2026-04-17T13:34:01.931Z"
+  },
+  "updatedAt": {
+    "$date": "2026-04-17T13:34:03.380Z"
+  },
+  "__v": 0,
+  "validation": {}
+},
+{
+  "_id": {
+    "$oid": "69e358a5ae03b789d9ca8e1e"
+  },
+  "text": "Have you or people within your household experienced this change?",
+  "description": "",
+  "type": "radio",
+  "required": false,
+  "options": [
+    {
+      "value": "1",
+      "label": "Yes",
+      "descriptor": null,
+      "placeholder": null,
+      "_id": {
+        "$oid": "69e358a6ae03b789d9ca8e49"
+      }
+    },
+    {
+      "value": "2",
+      "label": "No",
+      "descriptor": null,
+      "placeholder": null,
+      "_id": {
+        "$oid": "69e358a6ae03b789d9ca8e4a"
+      }
+    },
+    {
+      "value": "3",
+      "label": "Do not know",
+      "descriptor": null,
+      "placeholder": null,
+      "_id": {
+        "$oid": "69e358a6ae03b789d9ca8e4b"
+      }
+    }
+  ],
+  "creator": {
+    "$oid": "69df354625b6694922b90eb1"
+  },
+  "categories": [
+    {
+      "$oid": "69df82df25b6694922b91a9a"
+    },
+    {
+      "$oid": "69df82c625b6694922b91a8b"
+    }
+  ],
+  "theme": {
+    "$oid": "69df7c56241dc35493e972d7"
+  },
+  "subThemes": [
+    {
+      "$oid": "69df7c67241dc35493e9737c"
+    },
+    {
+      "$oid": "69df7c66241dc35493e97379"
+    },
+    {
+      "$oid": "69df7c66241dc35493e97376"
+    },
+    {
+      "$oid": "69df7c66241dc35493e97373"
+    },
+    {
+      "$oid": "69df7c65241dc35493e97370"
+    },
+    {
+      "$oid": "69df7c65241dc35493e9736d"
+    },
+    {
+      "$oid": "69df7c65241dc35493e9736a"
+    }
+  ],
+  "targetAudience": "external",
+  "status": "published",
+  "isTemplate": false,
+  "tags": [
+    "Outcome Experience"
+  ],
+  "isBespoke": false,
+  "bespokeMetadata": {
+    "status": "pending"
+  },
+  "isStandardDemographic": false,
+  "isGlobalStandard": false,
+  "demographicMetadata": {
+    "isRequired": false,
+    "recommendedForAudience": [],
+    "complianceRelevant": false,
+    "sensitivityLevel": "medium",
+    "anonymizationRequired": false
+  },
+  "selectedIndicatorTags": [],
+  "selectedSdgTags": [],
+  "selectedResilienceTags": [],
+  "selectedEsgTags": [],
+  "selectedStandardTags": [],
+  "archived": false,
+  "archivedAt": null,
+  "createdAt": {
+    "$date": "2026-04-18T10:10:45.071Z"
+  },
+  "updatedAt": {
+    "$date": "2026-04-18T10:55:06.798Z"
+  },
+  "__v": 0,
+  "validation": {}
+},
+{
+  "_id": {
+    "$oid": "69e359a1ae03b789d9ca8eea"
+  },
+  "text": "How many other people in this village do you think have experienced this change?",
+  "description": "",
+  "type": "radio",
+  "required": false,
+  "options": [
+    {
+      "value": "1",
+      "label": "Very few people",
+      "descriptor": null,
+      "placeholder": null,
+      "_id": {
+        "$oid": "69e360dcae03b789d9ca9503"
+      }
+    },
+    {
+      "value": "2",
+      "label": "Some people",
+      "descriptor": null,
+      "placeholder": null,
+      "_id": {
+        "$oid": "69e360dcae03b789d9ca9504"
+      }
+    },
+    {
+      "value": "3",
+      "label": "About half of people",
+      "descriptor": null,
+      "placeholder": null,
+      "_id": {
+        "$oid": "69e360dcae03b789d9ca9505"
+      }
+    },
+    {
+      "value": "4",
+      "label": "Many people",
+      "descriptor": null,
+      "placeholder": null,
+      "_id": {
+        "$oid": "69e360dcae03b789d9ca9506"
+      }
+    },
+    {
+      "value": "5",
+      "label": "Almost everyone",
+      "descriptor": null,
+      "placeholder": null,
+      "_id": {
+        "$oid": "69e360dcae03b789d9ca9507"
+      }
+    },
+    {
+      "value": "6",
+      "label": "Do not know",
+      "descriptor": null,
+      "placeholder": null,
+      "_id": {
+        "$oid": "69e360dcae03b789d9ca9508"
+      }
+    },
+    {
+      "value": "7",
+      "label": "Other",
+      "descriptor": "Please specify number",
+      "placeholder": null,
+      "_id": {
+        "$oid": "69e360dcae03b789d9ca9509"
+      }
+    }
+  ],
+  "creator": {
+    "$oid": "69df354625b6694922b90eb1"
+  },
+  "categories": [
+    {
+      "$oid": "69df82c625b6694922b91a8b"
+    },
+    {
+      "$oid": "69df82df25b6694922b91a9a"
+    }
+  ],
+  "theme": {
+    "$oid": "69df7c56241dc35493e972d7"
+  },
+  "subThemes": [
+    {
+      "$oid": "69df7c67241dc35493e9737c"
+    },
+    {
+      "$oid": "69df7c66241dc35493e97379"
+    },
+    {
+      "$oid": "69df7c66241dc35493e97376"
+    },
+    {
+      "$oid": "69df7c66241dc35493e97373"
+    },
+    {
+      "$oid": "69df7c65241dc35493e97370"
+    },
+    {
+      "$oid": "69df7c65241dc35493e9736d"
+    },
+    {
+      "$oid": "69df7c65241dc35493e9736a"
+    }
+  ],
+  "targetAudience": "external",
+  "status": "published",
+  "isTemplate": false,
+  "tags": [],
+  "isBespoke": false,
+  "bespokeMetadata": {
+    "status": "pending"
+  },
+  "isStandardDemographic": false,
+  "isGlobalStandard": false,
+  "demographicMetadata": {
+    "isRequired": false,
+    "recommendedForAudience": [],
+    "complianceRelevant": false,
+    "sensitivityLevel": "medium",
+    "anonymizationRequired": false
+  },
+  "selectedIndicatorTags": [],
+  "selectedSdgTags": [],
+  "selectedResilienceTags": [],
+  "selectedEsgTags": [],
+  "selectedStandardTags": [],
+  "archived": false,
+  "archivedAt": null,
+  "createdAt": {
+    "$date": "2026-04-18T10:14:57.700Z"
+  },
+  "updatedAt": {
+    "$date": "2026-04-18T10:45:48.326Z"
+  },
+  "__v": 0,
+  "validation": {}
+},
+{
+  "_id": {
+    "$oid": "69e35a3cae03b789d9ca8f9b"
+  },
+  "text": "For how long do you think people will benefit from this change?",
+  "description": "",
+  "type": "radio",
+  "required": true,
+  "options": [
+    {
+      "value": "1",
+      "label": "Only for a short time",
+      "descriptor": null,
+      "placeholder": null,
+      "_id": {
+        "$oid": "69e36203ae03b789d9ca95f1"
+      }
+    },
+    {
+      "value": "2",
+      "label": "For a few years",
+      "descriptor": null,
+      "placeholder": null,
+      "_id": {
+        "$oid": "69e36203ae03b789d9ca95f2"
+      }
+    },
+    {
+      "value": "3",
+      "label": "For many years",
+      "descriptor": null,
+      "placeholder": null,
+      "_id": {
+        "$oid": "69e36203ae03b789d9ca95f3"
+      }
+    },
+    {
+      "value": "4",
+      "label": "For a very long time",
+      "descriptor": null,
+      "placeholder": null,
+      "_id": {
+        "$oid": "69e36203ae03b789d9ca95f4"
+      }
+    },
+    {
+      "value": "5",
+      "label": "Permanently",
+      "descriptor": null,
+      "placeholder": null,
+      "_id": {
+        "$oid": "69e36203ae03b789d9ca95f5"
+      }
+    },
+    {
+      "value": "6",
+      "label": "Do not know",
+      "descriptor": null,
+      "placeholder": null,
+      "_id": {
+        "$oid": "69e36203ae03b789d9ca95f6"
+      }
+    }
+  ],
+  "creator": {
+    "$oid": "69df354625b6694922b90eb1"
+  },
+  "categories": [
+    {
+      "$oid": "69df82df25b6694922b91a9a"
+    },
+    {
+      "$oid": "69df82c625b6694922b91a8b"
+    }
+  ],
+  "theme": {
+    "$oid": "69df7c56241dc35493e972d7"
+  },
+  "subThemes": [
+    {
+      "$oid": "69df7c67241dc35493e9737c"
+    },
+    {
+      "$oid": "69df7c66241dc35493e97379"
+    },
+    {
+      "$oid": "69df7c66241dc35493e97376"
+    },
+    {
+      "$oid": "69df7c66241dc35493e97373"
+    },
+    {
+      "$oid": "69df7c65241dc35493e97370"
+    },
+    {
+      "$oid": "69df7c65241dc35493e9736d"
+    },
+    {
+      "$oid": "69df7c65241dc35493e9736a"
+    }
+  ],
+  "targetAudience": "external",
+  "status": "published",
+  "isTemplate": false,
+  "tags": [
+    "Duration"
+  ],
+  "isBespoke": false,
+  "bespokeMetadata": {
+    "status": "pending"
+  },
+  "isStandardDemographic": false,
+  "isGlobalStandard": false,
+  "demographicMetadata": {
+    "isRequired": false,
+    "recommendedForAudience": [],
+    "complianceRelevant": false,
+    "sensitivityLevel": "medium",
+    "anonymizationRequired": false
+  },
+  "selectedIndicatorTags": [],
+  "selectedSdgTags": [],
+  "selectedResilienceTags": [],
+  "selectedEsgTags": [],
+  "selectedStandardTags": [],
+  "archived": false,
+  "archivedAt": null,
+  "createdAt": {
+    "$date": "2026-04-18T10:17:32.564Z"
+  },
+  "updatedAt": {
+    "$date": "2026-04-18T10:50:43.875Z"
+  },
+  "__v": 0,
+  "validation": {},
+  "conditionalLogic": {
+    "enabled": true,
+    "conditions": [
+      {
+        "questionId": {
+          "$oid": "69e358a5ae03b789d9ca8e1e"
+        },
+        "operator": "equals",
+        "value": "1"
+      }
+    ],
+    "action": "show",
+    "logicOperator": "AND"
+  }
+},
+{
+  "_id": {
+    "$oid": "69e35b3aae03b789d9ca9097"
+  },
+  "text": "How important is this change to you?",
+  "description": "",
+  "type": "scale",
+  "required": true,
+  "options": [
+    {
+      "value": "1",
+      "label": "Option 1",
+      "descriptor": null,
+      "placeholder": null,
+      "_id": {
+        "$oid": "69e3620bae03b789d9ca9629"
+      }
+    }
+  ],
+  "creator": {
+    "$oid": "69df354625b6694922b90eb1"
+  },
+  "categories": [
+    {
+      "$oid": "69df82df25b6694922b91a9a"
+    },
+    {
+      "$oid": "69df82c625b6694922b91a8b"
+    }
+  ],
+  "theme": {
+    "$oid": "69df7c56241dc35493e972d7"
+  },
+  "subThemes": [
+    {
+      "$oid": "69df7c67241dc35493e9737c"
+    },
+    {
+      "$oid": "69df7c66241dc35493e97379"
+    },
+    {
+      "$oid": "69df7c66241dc35493e97376"
+    },
+    {
+      "$oid": "69df7c66241dc35493e97373"
+    },
+    {
+      "$oid": "69df7c65241dc35493e97370"
+    },
+    {
+      "$oid": "69df7c65241dc35493e9736d"
+    },
+    {
+      "$oid": "69df7c65241dc35493e9736a"
+    }
+  ],
+  "targetAudience": "external",
+  "status": "published",
+  "isTemplate": false,
+  "tags": [
+    "Importance of Outcomes"
+  ],
+  "isBespoke": false,
+  "bespokeMetadata": {
+    "status": "pending"
+  },
+  "isStandardDemographic": false,
+  "isGlobalStandard": false,
+  "demographicMetadata": {
+    "isRequired": false,
+    "recommendedForAudience": [],
+    "complianceRelevant": false,
+    "sensitivityLevel": "medium",
+    "anonymizationRequired": false
+  },
+  "selectedIndicatorTags": [],
+  "selectedSdgTags": [],
+  "selectedResilienceTags": [],
+  "selectedEsgTags": [],
+  "selectedStandardTags": [],
+  "archived": false,
+  "archivedAt": null,
+  "createdAt": {
+    "$date": "2026-04-18T10:21:46.053Z"
+  },
+  "updatedAt": {
+    "$date": "2026-04-18T10:50:51.760Z"
+  },
+  "__v": 0,
+  "validation": {},
+  "conditionalLogic": {
+    "enabled": true,
+    "conditions": [
+      {
+        "questionId": {
+          "$oid": "69e358a5ae03b789d9ca8e1e"
+        },
+        "operator": "equals",
+        "value": "1"
+      }
+    ],
+    "action": "show",
+    "logicOperator": "AND"
+  }
+},
+{
+  "_id": {
+    "$oid": "69e35c69ae03b789d9ca9161"
+  },
+  "text": "If this change stopped happening, how much money would your household need to receive each month to make up for losing it?",
+  "description": "",
+  "type": "number",
+  "required": true,
+  "options": [
+    {
+      "value": "1",
+      "label": "No money needed",
+      "descriptor": null,
+      "placeholder": null,
+      "_id": {
+        "$oid": "69e3621eae03b789d9ca9667"
+      }
+    },
+    {
+      "value": "2",
+      "label": "A small amount",
+      "descriptor": null,
+      "placeholder": null,
+      "_id": {
+        "$oid": "69e3621eae03b789d9ca9668"
+      }
+    },
+    {
+      "value": "3",
+      "label": "A moderate amount",
+      "descriptor": null,
+      "placeholder": null,
+      "_id": {
+        "$oid": "69e3621eae03b789d9ca9669"
+      }
+    },
+    {
+      "value": "4",
+      "label": "A very large amount",
+      "descriptor": null,
+      "placeholder": null,
+      "_id": {
+        "$oid": "69e3621eae03b789d9ca966a"
+      }
+    },
+    {
+      "value": "5",
+      "label": "A large amount",
+      "descriptor": null,
+      "placeholder": null,
+      "_id": {
+        "$oid": "69e3621eae03b789d9ca966b"
+      }
+    },
+    {
+      "value": "6",
+      "label": "Do not know",
+      "descriptor": null,
+      "placeholder": null,
+      "_id": {
+        "$oid": "69e3621eae03b789d9ca966c"
+      }
+    }
+  ],
+  "creator": {
+    "$oid": "69df354625b6694922b90eb1"
+  },
+  "categories": [
+    {
+      "$oid": "69df82df25b6694922b91a9a"
+    },
+    {
+      "$oid": "69df82c625b6694922b91a8b"
+    }
+  ],
+  "theme": {
+    "$oid": "69df7c56241dc35493e972d7"
+  },
+  "subThemes": [
+    {
+      "$oid": "69df7c67241dc35493e9737c"
+    },
+    {
+      "$oid": "69df7c66241dc35493e97379"
+    },
+    {
+      "$oid": "69df7c66241dc35493e97376"
+    },
+    {
+      "$oid": "69df7c66241dc35493e97373"
+    },
+    {
+      "$oid": "69df7c65241dc35493e97370"
+    },
+    {
+      "$oid": "69df7c65241dc35493e9736d"
+    },
+    {
+      "$oid": "69df7c65241dc35493e9736a"
+    }
+  ],
+  "targetAudience": "external",
+  "status": "published",
+  "isTemplate": false,
+  "tags": [
+    "Monetary Valuation"
+  ],
+  "isBespoke": false,
+  "bespokeMetadata": {
+    "status": "pending"
+  },
+  "isStandardDemographic": false,
+  "isGlobalStandard": false,
+  "demographicMetadata": {
+    "isRequired": false,
+    "recommendedForAudience": [],
+    "complianceRelevant": false,
+    "sensitivityLevel": "medium",
+    "anonymizationRequired": false
+  },
+  "selectedIndicatorTags": [],
+  "selectedSdgTags": [],
+  "selectedResilienceTags": [],
+  "selectedEsgTags": [],
+  "selectedStandardTags": [],
+  "archived": false,
+  "archivedAt": null,
+  "createdAt": {
+    "$date": "2026-04-18T10:26:49.144Z"
+  },
+  "updatedAt": {
+    "$date": "2026-04-18T10:51:10.358Z"
+  },
+  "__v": 0,
+  "validation": {},
+  "conditionalLogic": {
+    "enabled": true,
+    "conditions": [
+      {
+        "questionId": {
+          "$oid": "69e358a5ae03b789d9ca8e1e"
+        },
+        "operator": "equals",
+        "value": "1"
+      }
+    ],
+    "action": "show",
+    "logicOperator": "AND"
+  }
+},
+{
+  "_id": {
+    "$oid": "69e35e1aae03b789d9ca9272"
+  },
+  "text": "Thinking about the change you described, how much did the carbon revenue contribute to this change?",
+  "description": "",
+  "type": "scale",
+  "required": true,
+  "options": [
+    {
+      "value": "1",
+      "label": "Option 1",
+      "descriptor": null,
+      "placeholder": null,
+      "_id": {
+        "$oid": "69e36234ae03b789d9ca969b"
+      }
+    }
+  ],
+  "creator": {
+    "$oid": "69df354625b6694922b90eb1"
+  },
+  "categories": [
+    {
+      "$oid": "69df82df25b6694922b91a9a"
+    },
+    {
+      "$oid": "69df82c625b6694922b91a8b"
+    }
+  ],
+  "theme": {
+    "$oid": "69df7c56241dc35493e972d7"
+  },
+  "subThemes": [
+    {
+      "$oid": "69df7c67241dc35493e9737c"
+    },
+    {
+      "$oid": "69df7c66241dc35493e97379"
+    },
+    {
+      "$oid": "69df7c66241dc35493e97376"
+    },
+    {
+      "$oid": "69df7c66241dc35493e97373"
+    },
+    {
+      "$oid": "69df7c65241dc35493e97370"
+    },
+    {
+      "$oid": "69df7c65241dc35493e9736d"
+    },
+    {
+      "$oid": "69df7c65241dc35493e9736a"
+    }
+  ],
+  "targetAudience": "both",
+  "status": "published",
+  "isTemplate": false,
+  "tags": [
+    "Attribution"
+  ],
+  "isBespoke": false,
+  "bespokeMetadata": {
+    "status": "pending"
+  },
+  "isStandardDemographic": false,
+  "isGlobalStandard": false,
+  "demographicMetadata": {
+    "isRequired": false,
+    "recommendedForAudience": [],
+    "complianceRelevant": false,
+    "sensitivityLevel": "medium",
+    "anonymizationRequired": false
+  },
+  "selectedIndicatorTags": [],
+  "selectedSdgTags": [],
+  "selectedResilienceTags": [],
+  "selectedEsgTags": [],
+  "selectedStandardTags": [],
+  "archived": false,
+  "archivedAt": null,
+  "createdAt": {
+    "$date": "2026-04-18T10:34:02.136Z"
+  },
+  "updatedAt": {
+    "$date": "2026-04-18T10:51:32.845Z"
+  },
+  "__v": 0,
+  "validation": {},
+  "conditionalLogic": {
+    "enabled": true,
+    "conditions": [
+      {
+        "questionId": {
+          "$oid": "69e358a5ae03b789d9ca8e1e"
+        },
+        "operator": "equals",
+        "value": "1"
+      }
+    ],
+    "action": "show",
+    "logicOperator": "AND"
+  }
+},
+{
+  "_id": {
+    "$oid": "69e35f2cae03b789d9ca9321"
+  },
+  "text": "Thinking about the change you described, has this change caused any problems, losses, or negative effects for you, your household, or others in the community?",
+  "description": "",
+  "type": "radio",
+  "required": true,
+  "options": [
+    {
+      "value": "1",
+      "label": "No negative effects",
+      "descriptor": null,
+      "placeholder": null,
+      "_id": {
+        "$oid": "69e36253ae03b789d9ca96dd"
+      }
+    },
+    {
+      "value": "2",
+      "label": "A small negative effect",
+      "descriptor": null,
+      "placeholder": null,
+      "_id": {
+        "$oid": "69e36253ae03b789d9ca96de"
+      }
+    },
+    {
+      "value": "3",
+      "label": "A moderate negative effect",
+      "descriptor": null,
+      "placeholder": null,
+      "_id": {
+        "$oid": "69e36253ae03b789d9ca96df"
+      }
+    },
+    {
+      "value": "4",
+      "label": "A large negative effect",
+      "descriptor": null,
+      "placeholder": null,
+      "_id": {
+        "$oid": "69e36253ae03b789d9ca96e0"
+      }
+    },
+    {
+      "value": "5",
+      "label": "A very large negative effect",
+      "descriptor": null,
+      "placeholder": null,
+      "_id": {
+        "$oid": "69e36253ae03b789d9ca96e1"
+      }
+    },
+    {
+      "value": "6",
+      "label": "Do not know",
+      "descriptor": null,
+      "placeholder": null,
+      "_id": {
+        "$oid": "69e36253ae03b789d9ca96e2"
+      }
+    }
+  ],
+  "creator": {
+    "$oid": "69df354625b6694922b90eb1"
+  },
+  "categories": [
+    {
+      "$oid": "69df82df25b6694922b91a9a"
+    },
+    {
+      "$oid": "69df82c625b6694922b91a8b"
+    }
+  ],
+  "theme": {
+    "$oid": "69df7c56241dc35493e972d7"
+  },
+  "subThemes": [
+    {
+      "$oid": "69df7c67241dc35493e9737c"
+    },
+    {
+      "$oid": "69df7c66241dc35493e97379"
+    },
+    {
+      "$oid": "69df7c66241dc35493e97376"
+    },
+    {
+      "$oid": "69df7c66241dc35493e97373"
+    },
+    {
+      "$oid": "69df7c65241dc35493e97370"
+    },
+    {
+      "$oid": "69df7c65241dc35493e9736d"
+    },
+    {
+      "$oid": "69df7c65241dc35493e9736a"
+    }
+  ],
+  "targetAudience": "external",
+  "status": "published",
+  "isTemplate": false,
+  "tags": [
+    "Displacement"
+  ],
+  "isBespoke": false,
+  "bespokeMetadata": {
+    "status": "pending"
+  },
+  "isStandardDemographic": false,
+  "isGlobalStandard": false,
+  "demographicMetadata": {
+    "isRequired": false,
+    "recommendedForAudience": [],
+    "complianceRelevant": false,
+    "sensitivityLevel": "medium",
+    "anonymizationRequired": false
+  },
+  "selectedIndicatorTags": [],
+  "selectedSdgTags": [],
+  "selectedResilienceTags": [],
+  "selectedEsgTags": [],
+  "selectedStandardTags": [],
+  "archived": false,
+  "archivedAt": null,
+  "createdAt": {
+    "$date": "2026-04-18T10:38:36.951Z"
+  },
+  "updatedAt": {
+    "$date": "2026-04-18T10:52:03.619Z"
+  },
+  "__v": 0,
+  "validation": {},
+  "conditionalLogic": {
+    "enabled": true,
+    "conditions": [
+      {
+        "questionId": {
+          "$oid": "69e358a5ae03b789d9ca8e1e"
+        },
+        "operator": "equals",
+        "value": "1"
+      }
+    ],
+    "action": "show",
+    "logicOperator": "AND"
+  }
+},
+{
+  "_id": {
+    "$oid": "69e36094ae03b789d9ca9439"
+  },
+  "text": "What kind of problems or negative effects has this change caused?",
+  "description": "",
+  "type": "checkbox",
+  "required": true,
+  "options": [
+    {
+      "value": "1",
+      "label": "Increased household costs",
+      "descriptor": null,
+      "placeholder": null,
+      "_id": {
+        "$oid": "69e362c6ae03b789d9ca9789"
+      }
+    },
+    {
+      "value": "2",
+      "label": "Increased workload or time burden",
+      "descriptor": null,
+      "placeholder": null,
+      "_id": {
+        "$oid": "69e362c6ae03b789d9ca978a"
+      }
+    },
+    {
+      "value": "3",
+      "label": "Restriction on livelihood activities",
+      "descriptor": null,
+      "placeholder": null,
+      "_id": {
+        "$oid": "69e362c6ae03b789d9ca978b"
+      }
+    },
+    {
+      "value": "4",
+      "label": "Conflict or tension within the community",
+      "descriptor": null,
+      "placeholder": null,
+      "_id": {
+        "$oid": "69e362c6ae03b789d9ca978c"
+      }
+    },
+    {
+      "value": "5",
+      "label": "Conflict within the household",
+      "descriptor": null,
+      "placeholder": null,
+      "_id": {
+        "$oid": "69e362c6ae03b789d9ca978d"
+      }
+    },
+    {
+      "value": "6",
+      "label": "Loss of income or economic opportunity",
+      "descriptor": null,
+      "placeholder": null,
+      "_id": {
+        "$oid": "69e362c6ae03b789d9ca978e"
+      }
+    },
+    {
+      "value": "7",
+      "label": "Reduced access to land or natural resources",
+      "descriptor": null,
+      "placeholder": null,
+      "_id": {
+        "$oid": "69e362c6ae03b789d9ca978f"
+      }
+    },
+    {
+      "value": "8",
+      "label": "Other (Please Specify)",
+      "descriptor": "Please Specify",
+      "placeholder": null,
+      "_id": {
+        "$oid": "69e362c6ae03b789d9ca9790"
+      }
+    }
+  ],
+  "creator": {
+    "$oid": "69df354625b6694922b90eb1"
+  },
+  "categories": [
+    {
+      "$oid": "69df82df25b6694922b91a9a"
+    },
+    {
+      "$oid": "69df82c625b6694922b91a8b"
+    }
+  ],
+  "theme": {
+    "$oid": "69df7c56241dc35493e972d7"
+  },
+  "subThemes": [
+    {
+      "$oid": "69df7c67241dc35493e9737c"
+    },
+    {
+      "$oid": "69df7c66241dc35493e97379"
+    },
+    {
+      "$oid": "69df7c66241dc35493e97376"
+    },
+    {
+      "$oid": "69df7c66241dc35493e97373"
+    },
+    {
+      "$oid": "69df7c65241dc35493e97370"
+    },
+    {
+      "$oid": "69df7c65241dc35493e9736d"
+    },
+    {
+      "$oid": "69df7c65241dc35493e9736a"
+    }
+  ],
+  "targetAudience": "external",
+  "status": "published",
+  "isTemplate": false,
+  "tags": [
+    "Displacement specifics"
+  ],
+  "isBespoke": false,
+  "bespokeMetadata": {
+    "status": "pending"
+  },
+  "isStandardDemographic": false,
+  "isGlobalStandard": false,
+  "demographicMetadata": {
+    "isRequired": false,
+    "recommendedForAudience": [],
+    "complianceRelevant": false,
+    "sensitivityLevel": "medium",
+    "anonymizationRequired": false
+  },
+  "selectedIndicatorTags": [],
+  "selectedSdgTags": [],
+  "selectedResilienceTags": [],
+  "selectedEsgTags": [],
+  "selectedStandardTags": [],
+  "archived": false,
+  "archivedAt": null,
+  "createdAt": {
+    "$date": "2026-04-18T10:44:36.267Z"
+  },
+  "updatedAt": {
+    "$date": "2026-04-18T10:53:58.171Z"
+  },
+  "__v": 0,
+  "validation": {},
+  "conditionalLogic": {
+    "enabled": true,
+    "conditions": [
+      {
+        "questionId": {
+          "$oid": "69e358a5ae03b789d9ca8e1e"
+        },
+        "operator": "equals",
+        "value": "1"
+      }
+    ],
+    "action": "show",
+    "logicOperator": "AND"
+  }
+},
+{
+  "_id": {
+    "$oid": "69e70219ae03b789d9caa6d2"
+  },
+  "text": "What is your gender?",
+  "description": "",
+  "type": "radio",
+  "required": false,
+  "options": [
+    {
+      "value": "1",
+      "label": "Female",
+      "descriptor": null,
+      "placeholder": null,
+      "_id": {
+        "$oid": "69e7021bae03b789d9caa724"
+      }
+    },
+    {
+      "value": "2",
+      "label": "Male",
+      "descriptor": null,
+      "placeholder": null,
+      "_id": {
+        "$oid": "69e7021bae03b789d9caa725"
+      }
+    },
+    {
+      "value": "3",
+      "label": "Non-binary",
+      "descriptor": null,
+      "placeholder": null,
+      "_id": {
+        "$oid": "69e7021bae03b789d9caa726"
+      }
+    },
+    {
+      "value": "4",
+      "label": "Transgender woman",
+      "descriptor": null,
+      "placeholder": null,
+      "_id": {
+        "$oid": "69e7021bae03b789d9caa727"
+      }
+    },
+    {
+      "value": "5",
+      "label": "Transgender man",
+      "descriptor": null,
+      "placeholder": null,
+      "_id": {
+        "$oid": "69e7021bae03b789d9caa728"
+      }
+    },
+    {
+      "value": "6",
+      "label": "Another Identity",
+      "descriptor": "Please specify:",
+      "placeholder": null,
+      "_id": {
+        "$oid": "69e7021bae03b789d9caa729"
+      }
+    },
+    {
+      "value": "7",
+      "label": "Prefer not to say",
+      "descriptor": null,
+      "placeholder": null,
+      "_id": {
+        "$oid": "69e7021bae03b789d9caa72a"
+      }
+    }
+  ],
+  "creator": {
+    "$oid": "69df354625b6694922b90eb1"
+  },
+  "categories": [
+    {
+      "$oid": "69df82df25b6694922b91a9a"
+    },
+    {
+      "$oid": "69df832425b6694922b91abf"
+    },
+    {
+      "$oid": "69df830f25b6694922b91ab0"
+    },
+    {
+      "$oid": "69df82f825b6694922b91aa5"
+    },
+    {
+      "$oid": "69df82c625b6694922b91a8b"
+    },
+    {
+      "$oid": "69df829a25b6694922b91a7c"
+    },
+    {
+      "$oid": "69df827f25b6694922b91a71"
+    }
+  ],
+  "theme": {
+    "$oid": "69df7c56241dc35493e972d1"
+  },
+  "subThemes": [],
+  "targetAudience": "both",
+  "status": "published",
+  "isTemplate": false,
+  "tags": [
+    "Gender"
+  ],
+  "isBespoke": false,
+  "bespokeMetadata": {
+    "status": "pending"
+  },
+  "isStandardDemographic": true,
+  "demographicType": "gender",
+  "demographicCategory": "basic",
+  "isGlobalStandard": true,
+  "demographicMetadata": {
+    "isRequired": false,
+    "recommendedForAudience": [
+      "both"
+    ],
+    "complianceRelevant": true,
+    "sensitivityLevel": "high",
+    "anonymizationRequired": false
+  },
+  "selectedIndicatorTags": [],
+  "selectedSdgTags": [],
+  "selectedResilienceTags": [],
+  "selectedEsgTags": [],
+  "selectedStandardTags": [],
+  "archived": false,
+  "archivedAt": null,
+  "createdAt": {
+    "$date": "2026-04-21T04:50:33.937Z"
+  },
+  "updatedAt": {
+    "$date": "2026-04-21T04:50:35.189Z"
+  },
+  "__v": 0,
+  "validation": {}
+},
+{
+  "_id": {
+    "$oid": "69e70323ae03b789d9caa7ca"
+  },
+  "text": "Where do you live?",
+  "description": "Ntakata Mountains Villages",
+  "type": "radio",
+  "required": false,
+  "options": [
+    {
+      "value": "1",
+      "label": "Bujombe",
+      "descriptor": null,
+      "placeholder": null,
+      "_id": {
+        "$oid": "69e70324ae03b789d9caa828"
+      }
+    },
+    {
+      "value": "2",
+      "label": "Kagunga",
+      "descriptor": null,
+      "placeholder": null,
+      "_id": {
+        "$oid": "69e70324ae03b789d9caa829"
+      }
+    },
+    {
+      "value": "3",
+      "label": "Kapanga",
+      "descriptor": null,
+      "placeholder": null,
+      "_id": {
+        "$oid": "69e70324ae03b789d9caa82a"
+      }
+    },
+    {
+      "value": "4",
+      "label": "Katuma",
+      "descriptor": null,
+      "placeholder": null,
+      "_id": {
+        "$oid": "69e70324ae03b789d9caa82b"
+      }
+    },
+    {
+      "value": "5",
+      "label": "Lugonesi",
+      "descriptor": null,
+      "placeholder": null,
+      "_id": {
+        "$oid": "69e70324ae03b789d9caa82c"
+      }
+    },
+    {
+      "value": "6",
+      "label": "Lwega",
+      "descriptor": null,
+      "placeholder": null,
+      "_id": {
+        "$oid": "69e70324ae03b789d9caa82d"
+      }
+    },
+    {
+      "value": "7",
+      "label": "Mpembe",
+      "descriptor": null,
+      "placeholder": null,
+      "_id": {
+        "$oid": "69e70324ae03b789d9caa82e"
+      }
+    },
+    {
+      "value": "8",
+      "label": "Mwese",
+      "descriptor": null,
+      "placeholder": null,
+      "_id": {
+        "$oid": "69e70324ae03b789d9caa82f"
+      }
+    },
+    {
+      "value": "9",
+      "label": "Other",
+      "descriptor": "Please specify",
+      "placeholder": null,
+      "_id": {
+        "$oid": "69e70324ae03b789d9caa830"
+      }
+    }
+  ],
+  "creator": {
+    "$oid": "69df354625b6694922b90eb1"
+  },
+  "categories": [
+    {
+      "$oid": "69df832425b6694922b91abf"
+    },
+    {
+      "$oid": "69df830f25b6694922b91ab0"
+    },
+    {
+      "$oid": "69df82f825b6694922b91aa5"
+    },
+    {
+      "$oid": "69df82df25b6694922b91a9a"
+    },
+    {
+      "$oid": "69df82c625b6694922b91a8b"
+    },
+    {
+      "$oid": "69df829a25b6694922b91a7c"
+    },
+    {
+      "$oid": "69df827f25b6694922b91a71"
+    }
+  ],
+  "theme": {
+    "$oid": "69df7c56241dc35493e972d1"
+  },
+  "subThemes": [],
+  "targetAudience": "both",
+  "status": "published",
+  "isTemplate": false,
+  "tags": [
+    "Village Location"
+  ],
+  "isBespoke": false,
+  "bespokeMetadata": {
+    "status": "pending"
+  },
+  "isStandardDemographic": true,
+  "demographicType": "location",
+  "demographicCategory": "basic",
+  "isGlobalStandard": true,
+  "demographicMetadata": {
+    "isRequired": false,
+    "recommendedForAudience": [
+      "both"
+    ],
+    "complianceRelevant": true,
+    "sensitivityLevel": "high",
+    "anonymizationRequired": false
+  },
+  "selectedIndicatorTags": [],
+  "selectedSdgTags": [],
+  "selectedResilienceTags": [],
+  "selectedEsgTags": [],
+  "selectedStandardTags": [],
+  "archived": false,
+  "archivedAt": null,
+  "createdAt": {
+    "$date": "2026-04-21T04:54:59.252Z"
+  },
+  "updatedAt": {
+    "$date": "2026-04-21T04:55:00.275Z"
+  },
+  "__v": 0,
+  "validation": {}
+},
+{
+  "_id": {
+    "$oid": "69e70518ae03b789d9caa8a4"
+  },
+  "text": "How long have you lived in this village?",
+  "description": "",
+  "type": "scale",
+  "required": false,
+  "options": [
+    {
+      "value": "1",
+      "label": "Option 1",
+      "descriptor": null,
+      "placeholder": null,
+      "_id": {
+        "$oid": "69e70518ae03b789d9caa8a5"
+      }
+    }
+  ],
+  "creator": {
+    "$oid": "69df354625b6694922b90eb1"
+  },
+  "categories": [
+    {
+      "$oid": "69df832425b6694922b91abf"
+    },
+    {
+      "$oid": "69df830f25b6694922b91ab0"
+    },
+    {
+      "$oid": "69df82f825b6694922b91aa5"
+    },
+    {
+      "$oid": "69df82df25b6694922b91a9a"
+    },
+    {
+      "$oid": "69df82c625b6694922b91a8b"
+    },
+    {
+      "$oid": "69df829a25b6694922b91a7c"
+    },
+    {
+      "$oid": "69df827f25b6694922b91a71"
+    }
+  ],
+  "theme": {
+    "$oid": "69df7c56241dc35493e972d1"
+  },
+  "subThemes": [],
+  "targetAudience": "both",
+  "status": "published",
+  "isTemplate": false,
+  "tags": [
+    "Village Location"
+  ],
+  "conditionalLogic": {
+    "enabled": true,
+    "conditions": [
+      {
+        "questionId": {
+          "$oid": "69e70323ae03b789d9caa7ca"
+        },
+        "operator": "equals",
+        "value": "1"
+      },
+      {
+        "questionId": {
+          "$oid": "69e70323ae03b789d9caa7ca"
+        },
+        "operator": "equals",
+        "value": "2"
+      },
+      {
+        "questionId": {
+          "$oid": "69e70323ae03b789d9caa7ca"
+        },
+        "operator": "equals",
+        "value": "3"
+      },
+      {
+        "questionId": {
+          "$oid": "69e70323ae03b789d9caa7ca"
+        },
+        "operator": "equals",
+        "value": "5"
+      },
+      {
+        "questionId": {
+          "$oid": "69e70323ae03b789d9caa7ca"
+        },
+        "operator": "equals",
+        "value": "6"
+      },
+      {
+        "questionId": {
+          "$oid": "69e70323ae03b789d9caa7ca"
+        },
+        "operator": "equals",
+        "value": "7"
+      },
+      {
+        "questionId": {
+          "$oid": "69e70323ae03b789d9caa7ca"
+        },
+        "operator": "equals",
+        "value": "8"
+      },
+      {
+        "questionId": {
+          "$oid": "69e70323ae03b789d9caa7ca"
+        },
+        "operator": "equals",
+        "value": "9"
+      }
+    ],
+    "action": "show",
+    "logicOperator": "AND"
+  },
+  "isBespoke": false,
+  "bespokeMetadata": {
+    "status": "pending"
+  },
+  "isStandardDemographic": true,
+  "demographicType": "location",
+  "demographicCategory": "basic",
+  "isGlobalStandard": true,
+  "demographicMetadata": {
+    "isRequired": false,
+    "recommendedForAudience": [
+      "both"
+    ],
+    "complianceRelevant": true,
+    "sensitivityLevel": "high",
+    "anonymizationRequired": false
+  },
+  "selectedIndicatorTags": [],
+  "selectedSdgTags": [],
+  "selectedResilienceTags": [],
+  "selectedEsgTags": [],
+  "selectedStandardTags": [],
+  "archived": false,
+  "archivedAt": null,
+  "createdAt": {
+    "$date": "2026-04-21T05:03:20.695Z"
+  },
+  "updatedAt": {
+    "$date": "2026-04-21T05:03:20.695Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69e70a0cae03b789d9caa9b2"
+  },
+  "text": "What is your marital status?",
+  "description": "",
+  "type": "radio",
+  "required": false,
+  "options": [
+    {
+      "value": "1",
+      "label": "Single",
+      "descriptor": null,
+      "placeholder": null,
+      "_id": {
+        "$oid": "69e70a0cae03b789d9caaa10"
+      }
+    },
+    {
+      "value": "7",
+      "label": "Married - Monogamy",
+      "descriptor": null,
+      "placeholder": null,
+      "_id": {
+        "$oid": "69e70a0cae03b789d9caaa11"
+      }
+    },
+    {
+      "value": "2",
+      "label": "Married - Polygamy",
+      "descriptor": "How many partners?",
+      "placeholder": null,
+      "_id": {
+        "$oid": "69e70a0cae03b789d9caaa12"
+      }
+    },
+    {
+      "value": "3",
+      "label": "Civil Partnership",
+      "descriptor": null,
+      "placeholder": null,
+      "_id": {
+        "$oid": "69e70a0cae03b789d9caaa13"
+      }
+    },
+    {
+      "value": "4",
+      "label": "Divorced or Separated",
+      "descriptor": null,
+      "placeholder": null,
+      "_id": {
+        "$oid": "69e70a0cae03b789d9caaa14"
+      }
+    },
+    {
+      "value": "5",
+      "label": "Widow / Widowe",
+      "descriptor": null,
+      "placeholder": null,
+      "_id": {
+        "$oid": "69e70a0cae03b789d9caaa15"
+      }
+    },
+    {
+      "value": "6",
+      "label": "Prefer not to say",
+      "descriptor": null,
+      "placeholder": null,
+      "_id": {
+        "$oid": "69e70a0cae03b789d9caaa16"
+      }
+    }
+  ],
+  "creator": {
+    "$oid": "69df354625b6694922b90eb1"
+  },
+  "categories": [
+    {
+      "$oid": "69df832425b6694922b91abf"
+    },
+    {
+      "$oid": "69df830f25b6694922b91ab0"
+    },
+    {
+      "$oid": "69df82f825b6694922b91aa5"
+    },
+    {
+      "$oid": "69df82df25b6694922b91a9a"
+    },
+    {
+      "$oid": "69df82c625b6694922b91a8b"
+    },
+    {
+      "$oid": "69df829a25b6694922b91a7c"
+    },
+    {
+      "$oid": "69df827f25b6694922b91a71"
+    }
+  ],
+  "theme": {
+    "$oid": "69df7c56241dc35493e972d1"
+  },
+  "subThemes": [],
+  "targetAudience": "both",
+  "status": "published",
+  "isTemplate": false,
+  "tags": [
+    "Marital Status"
+  ],
+  "isBespoke": false,
+  "bespokeMetadata": {
+    "status": "pending"
+  },
+  "isStandardDemographic": true,
+  "demographicType": "marital_status",
+  "demographicCategory": "basic",
+  "isGlobalStandard": true,
+  "demographicMetadata": {
+    "isRequired": false,
+    "recommendedForAudience": [
+      "both"
+    ],
+    "complianceRelevant": false,
+    "sensitivityLevel": "medium",
+    "anonymizationRequired": false
+  },
+  "selectedIndicatorTags": [],
+  "selectedSdgTags": [],
+  "selectedResilienceTags": [],
+  "selectedEsgTags": [],
+  "selectedStandardTags": [],
+  "archived": false,
+  "archivedAt": null,
+  "createdAt": {
+    "$date": "2026-04-21T05:24:28.089Z"
+  },
+  "updatedAt": {
+    "$date": "2026-04-21T05:24:28.982Z"
+  },
+  "__v": 0,
+  "validation": {}
+},
+{
+  "_id": {
+    "$oid": "69e70adfae03b789d9caaaaa"
+  },
+  "text": "Do you have any long-term difficulty with any of the following?",
+  "description": "",
+  "type": "checkbox",
+  "required": false,
+  "options": [
+    {
+      "value": "7",
+      "label": "Seeing",
+      "descriptor": null,
+      "placeholder": null,
+      "_id": {
+        "$oid": "69e70ae4ae03b789d9caab0e"
+      }
+    },
+    {
+      "value": "1",
+      "label": "Hearing",
+      "descriptor": null,
+      "placeholder": null,
+      "_id": {
+        "$oid": "69e70ae4ae03b789d9caab0f"
+      }
+    },
+    {
+      "value": "2",
+      "label": "Walking or climbing stairs",
+      "descriptor": null,
+      "placeholder": null,
+      "_id": {
+        "$oid": "69e70ae4ae03b789d9caab10"
+      }
+    },
+    {
+      "value": "3",
+      "label": "Remembering or concentrating",
+      "descriptor": null,
+      "placeholder": null,
+      "_id": {
+        "$oid": "69e70ae4ae03b789d9caab11"
+      }
+    },
+    {
+      "value": "4",
+      "label": "Self-care (such as washing and dressing)",
+      "descriptor": null,
+      "placeholder": null,
+      "_id": {
+        "$oid": "69e70ae4ae03b789d9caab12"
+      }
+    },
+    {
+      "value": "5",
+      "label": "Communicating or being understood",
+      "descriptor": null,
+      "placeholder": null,
+      "_id": {
+        "$oid": "69e70ae4ae03b789d9caab13"
+      }
+    },
+    {
+      "value": "6",
+      "label": "No difficulty",
+      "descriptor": null,
+      "placeholder": null,
+      "_id": {
+        "$oid": "69e70ae4ae03b789d9caab14"
+      }
+    },
+    {
+      "value": "9",
+      "label": "Other",
+      "descriptor": "Please Specify",
+      "placeholder": null,
+      "_id": {
+        "$oid": "69e70ae4ae03b789d9caab15"
+      }
+    },
+    {
+      "value": "8",
+      "label": "Prefer not to say",
+      "descriptor": null,
+      "placeholder": null,
+      "_id": {
+        "$oid": "69e70ae4ae03b789d9caab16"
+      }
+    }
+  ],
+  "creator": {
+    "$oid": "69df354625b6694922b90eb1"
+  },
+  "categories": [
+    {
+      "$oid": "69df832425b6694922b91abf"
+    },
+    {
+      "$oid": "69df830f25b6694922b91ab0"
+    },
+    {
+      "$oid": "69df82f825b6694922b91aa5"
+    },
+    {
+      "$oid": "69df82df25b6694922b91a9a"
+    },
+    {
+      "$oid": "69df82c625b6694922b91a8b"
+    },
+    {
+      "$oid": "69df829a25b6694922b91a7c"
+    },
+    {
+      "$oid": "69df827f25b6694922b91a71"
+    }
+  ],
+  "theme": {
+    "$oid": "69df7c56241dc35493e972d1"
+  },
+  "subThemes": [],
+  "targetAudience": "both",
+  "status": "published",
+  "isTemplate": false,
+  "tags": [
+    "Disability"
+  ],
+  "isBespoke": false,
+  "bespokeMetadata": {
+    "status": "pending"
+  },
+  "isStandardDemographic": true,
+  "demographicType": "disability",
+  "demographicCategory": "accessibility",
+  "isGlobalStandard": true,
+  "demographicMetadata": {
+    "isRequired": false,
+    "recommendedForAudience": [
+      "both"
+    ],
+    "complianceRelevant": false,
+    "sensitivityLevel": "medium",
+    "anonymizationRequired": false
+  },
+  "selectedIndicatorTags": [],
+  "selectedSdgTags": [],
+  "selectedResilienceTags": [],
+  "selectedEsgTags": [],
+  "selectedStandardTags": [],
+  "archived": false,
+  "archivedAt": null,
+  "createdAt": {
+    "$date": "2026-04-21T05:27:59.216Z"
+  },
+  "updatedAt": {
+    "$date": "2026-04-21T05:50:47.612Z"
+  },
+  "__v": 0,
+  "validation": {}
+},
+{
+  "_id": {
+    "$oid": "69e70b84ae03b789d9caab3e"
+  },
+  "text": "Are you currently attending school or any form of training?",
+  "description": "",
+  "type": "radio",
+  "required": false,
+  "options": [
+    {
+      "value": "1",
+      "label": "Yes",
+      "descriptor": null,
+      "placeholder": null,
+      "_id": {
+        "$oid": "69e70b88ae03b789d9caab93"
+      }
+    },
+    {
+      "value": "2",
+      "label": "No",
+      "descriptor": null,
+      "placeholder": null,
+      "_id": {
+        "$oid": "69e70b88ae03b789d9caab94"
+      }
+    },
+    {
+      "value": "3",
+      "label": "Prefer not to say",
+      "descriptor": null,
+      "placeholder": null,
+      "_id": {
+        "$oid": "69e70b88ae03b789d9caab95"
+      }
+    }
+  ],
+  "creator": {
+    "$oid": "69df354625b6694922b90eb1"
+  },
+  "categories": [
+    {
+      "$oid": "69df832425b6694922b91abf"
+    },
+    {
+      "$oid": "69df830f25b6694922b91ab0"
+    },
+    {
+      "$oid": "69df82f825b6694922b91aa5"
+    },
+    {
+      "$oid": "69df82df25b6694922b91a9a"
+    },
+    {
+      "$oid": "69df82c625b6694922b91a8b"
+    },
+    {
+      "$oid": "69df829a25b6694922b91a7c"
+    },
+    {
+      "$oid": "69df827f25b6694922b91a71"
+    }
+  ],
+  "theme": {
+    "$oid": "69df7c56241dc35493e972d1"
+  },
+  "subThemes": [],
+  "targetAudience": "both",
+  "status": "published",
+  "isTemplate": false,
+  "tags": [
+    "Education"
+  ],
+  "isBespoke": false,
+  "bespokeMetadata": {
+    "status": "pending"
+  },
+  "isStandardDemographic": true,
+  "demographicType": "education",
+  "demographicCategory": "socioeconomic",
+  "isGlobalStandard": true,
+  "demographicMetadata": {
+    "isRequired": false,
+    "recommendedForAudience": [
+      "both"
+    ],
+    "complianceRelevant": false,
+    "sensitivityLevel": "medium",
+    "anonymizationRequired": false
+  },
+  "selectedIndicatorTags": [],
+  "selectedSdgTags": [],
+  "selectedResilienceTags": [],
+  "selectedEsgTags": [],
+  "selectedStandardTags": [],
+  "archived": false,
+  "archivedAt": null,
+  "createdAt": {
+    "$date": "2026-04-21T05:30:44.089Z"
+  },
+  "updatedAt": {
+    "$date": "2026-04-21T05:30:48.422Z"
+  },
+  "__v": 0,
+  "validation": {}
+},
+{
+  "_id": {
+    "$oid": "69e70caaae03b789d9caabfa"
+  },
+  "text": "What is the highest level of education you have completed?",
+  "description": "",
+  "type": "radio",
+  "required": false,
+  "options": [
+    {
+      "value": "1",
+      "label": "No formal education",
+      "descriptor": null,
+      "placeholder": null,
+      "_id": {
+        "$oid": "69e70cabae03b789d9caac69"
+      }
+    },
+    {
+      "value": "2",
+      "label": "Some primary education (not completed)",
+      "descriptor": null,
+      "placeholder": null,
+      "_id": {
+        "$oid": "69e70cabae03b789d9caac6a"
+      }
+    },
+    {
+      "value": "3",
+      "label": "Completed primary education",
+      "descriptor": null,
+      "placeholder": null,
+      "_id": {
+        "$oid": "69e70cabae03b789d9caac6b"
+      }
+    },
+    {
+      "value": "4",
+      "label": "Some secondary education(not completed)",
+      "descriptor": null,
+      "placeholder": null,
+      "_id": {
+        "$oid": "69e70cabae03b789d9caac6c"
+      }
+    },
+    {
+      "value": "5",
+      "label": "Completed secondary education",
+      "descriptor": null,
+      "placeholder": null,
+      "_id": {
+        "$oid": "69e70cabae03b789d9caac6d"
+      }
+    },
+    {
+      "value": "6",
+      "label": "Vocational or technical training (not completed)",
+      "descriptor": null,
+      "placeholder": null,
+      "_id": {
+        "$oid": "69e70cabae03b789d9caac6e"
+      }
+    },
+    {
+      "value": "8",
+      "label": "Completed vocational or technical training",
+      "descriptor": null,
+      "placeholder": null,
+      "_id": {
+        "$oid": "69e70cabae03b789d9caac6f"
+      }
+    },
+    {
+      "value": "7",
+      "label": "College or university education (not completed)",
+      "descriptor": null,
+      "placeholder": null,
+      "_id": {
+        "$oid": "69e70cabae03b789d9caac70"
+      }
+    },
+    {
+      "value": "9",
+      "label": "Completed college or university education",
+      "descriptor": null,
+      "placeholder": null,
+      "_id": {
+        "$oid": "69e70cabae03b789d9caac71"
+      }
+    },
+    {
+      "value": "10",
+      "label": "Other ",
+      "descriptor": "Please specify",
+      "placeholder": null,
+      "_id": {
+        "$oid": "69e70cabae03b789d9caac72"
+      }
+    },
+    {
+      "value": "11",
+      "label": "Prefer not to say",
+      "descriptor": null,
+      "placeholder": null,
+      "_id": {
+        "$oid": "69e70cabae03b789d9caac73"
+      }
+    }
+  ],
+  "creator": {
+    "$oid": "69df354625b6694922b90eb1"
+  },
+  "categories": [
+    {
+      "$oid": "69df832425b6694922b91abf"
+    },
+    {
+      "$oid": "69df830f25b6694922b91ab0"
+    },
+    {
+      "$oid": "69df82f825b6694922b91aa5"
+    },
+    {
+      "$oid": "69df82df25b6694922b91a9a"
+    },
+    {
+      "$oid": "69df82c625b6694922b91a8b"
+    },
+    {
+      "$oid": "69df829a25b6694922b91a7c"
+    },
+    {
+      "$oid": "69df827f25b6694922b91a71"
+    }
+  ],
+  "theme": {
+    "$oid": "69df7c56241dc35493e972d1"
+  },
+  "subThemes": [],
+  "targetAudience": "both",
+  "status": "published",
+  "isTemplate": false,
+  "tags": [
+    "Education"
+  ],
+  "isBespoke": false,
+  "bespokeMetadata": {
+    "status": "pending"
+  },
+  "isStandardDemographic": true,
+  "demographicType": "education",
+  "demographicCategory": "socioeconomic",
+  "isGlobalStandard": false,
+  "demographicMetadata": {
+    "isRequired": false,
+    "recommendedForAudience": [
+      "both"
+    ],
+    "complianceRelevant": false,
+    "sensitivityLevel": "medium",
+    "anonymizationRequired": false
+  },
+  "selectedIndicatorTags": [],
+  "selectedSdgTags": [],
+  "selectedResilienceTags": [],
+  "selectedEsgTags": [],
+  "selectedStandardTags": [],
+  "archived": false,
+  "archivedAt": null,
+  "createdAt": {
+    "$date": "2026-04-21T05:35:38.370Z"
+  },
+  "updatedAt": {
+    "$date": "2026-04-21T05:35:39.163Z"
+  },
+  "__v": 0,
+  "validation": {}
+},
+{
+  "_id": {
+    "$oid": "69e7101eae03b789d9caacf3"
+  },
+  "text": "What are your main livelihood activities?",
+  "description": "",
+  "type": "checkbox",
+  "required": false,
+  "options": [
+    {
+      "value": "1",
+      "label": "Crop farming",
+      "descriptor": null,
+      "placeholder": null,
+      "_id": {
+        "$oid": "69e7101fae03b789d9caad6d"
+      }
+    },
+    {
+      "value": "2",
+      "label": "Livestock keeping / pastoralism",
+      "descriptor": null,
+      "placeholder": null,
+      "_id": {
+        "$oid": "69e7101fae03b789d9caad6e"
+      }
+    },
+    {
+      "value": "3",
+      "label": "Fishing",
+      "descriptor": null,
+      "placeholder": null,
+      "_id": {
+        "$oid": "69e7101fae03b789d9caad6f"
+      }
+    },
+    {
+      "value": "4",
+      "label": "Forest product collection (e.g., firewood, charcoal, honey, timber)",
+      "descriptor": "Please specify",
+      "placeholder": null,
+      "_id": {
+        "$oid": "69e7101fae03b789d9caad70"
+      }
+    },
+    {
+      "value": "5",
+      "label": "Small business / trading",
+      "descriptor": null,
+      "placeholder": null,
+      "_id": {
+        "$oid": "69e7101fae03b789d9caad71"
+      }
+    },
+    {
+      "value": "6",
+      "label": "Wage labour / Casual labour",
+      "descriptor": null,
+      "placeholder": null,
+      "_id": {
+        "$oid": "69e7101fae03b789d9caad72"
+      }
+    },
+    {
+      "value": "7",
+      "label": "Formal employment (government, NGO, private sector)",
+      "descriptor": null,
+      "placeholder": null,
+      "_id": {
+        "$oid": "69e7101fae03b789d9caad73"
+      }
+    },
+    {
+      "value": "8",
+      "label": "Artisan / skilled trade (e.g carpentry, tailoring etc.)",
+      "descriptor": "Please Specify",
+      "placeholder": null,
+      "_id": {
+        "$oid": "69e7101fae03b789d9caad74"
+      }
+    },
+    {
+      "value": "9",
+      "label": "Student",
+      "descriptor": null,
+      "placeholder": null,
+      "_id": {
+        "$oid": "69e7101fae03b789d9caad75"
+      }
+    },
+    {
+      "value": "10",
+      "label": "Homemaker / Household work",
+      "descriptor": null,
+      "placeholder": null,
+      "_id": {
+        "$oid": "69e7101fae03b789d9caad76"
+      }
+    },
+    {
+      "value": "11",
+      "label": "Unemployed / Currently not working",
+      "descriptor": null,
+      "placeholder": null,
+      "_id": {
+        "$oid": "69e7101fae03b789d9caad77"
+      }
+    },
+    {
+      "value": "12",
+      "label": "Other ",
+      "descriptor": "Please specify",
+      "placeholder": null,
+      "_id": {
+        "$oid": "69e7101fae03b789d9caad78"
+      }
+    },
+    {
+      "value": "13",
+      "label": "Prefer not to say",
+      "descriptor": null,
+      "placeholder": null,
+      "_id": {
+        "$oid": "69e7101fae03b789d9caad79"
+      }
+    }
+  ],
+  "creator": {
+    "$oid": "69df354625b6694922b90eb1"
+  },
+  "categories": [
+    {
+      "$oid": "69df832425b6694922b91abf"
+    },
+    {
+      "$oid": "69df830f25b6694922b91ab0"
+    },
+    {
+      "$oid": "69df82f825b6694922b91aa5"
+    },
+    {
+      "$oid": "69df82df25b6694922b91a9a"
+    },
+    {
+      "$oid": "69df82c625b6694922b91a8b"
+    },
+    {
+      "$oid": "69df829a25b6694922b91a7c"
+    },
+    {
+      "$oid": "69df827f25b6694922b91a71"
+    }
+  ],
+  "theme": {
+    "$oid": "69df7c56241dc35493e972d1"
+  },
+  "subThemes": [],
+  "targetAudience": "both",
+  "status": "published",
+  "isTemplate": false,
+  "tags": [
+    "Employment"
+  ],
+  "isBespoke": false,
+  "bespokeMetadata": {
+    "status": "pending"
+  },
+  "isStandardDemographic": true,
+  "demographicType": "employment",
+  "demographicCategory": "socioeconomic",
+  "isGlobalStandard": false,
+  "demographicMetadata": {
+    "isRequired": false,
+    "recommendedForAudience": [
+      "both"
+    ],
+    "complianceRelevant": false,
+    "sensitivityLevel": "medium",
+    "anonymizationRequired": false
+  },
+  "selectedIndicatorTags": [],
+  "selectedSdgTags": [],
+  "selectedResilienceTags": [],
+  "selectedEsgTags": [],
+  "selectedStandardTags": [],
+  "archived": false,
+  "archivedAt": null,
+  "createdAt": {
+    "$date": "2026-04-21T05:50:22.628Z"
+  },
+  "updatedAt": {
+    "$date": "2026-04-21T05:50:23.690Z"
+  },
+  "__v": 0,
+  "validation": {}
+},
+{
+  "_id": {
+    "$oid": "69e71168ae03b789d9caafd9"
+  },
+  "text": "Are you a parent?",
+  "description": "",
+  "type": "radio",
+  "required": false,
+  "options": [
+    {
+      "value": "1",
+      "label": "Yes",
+      "descriptor": null,
+      "placeholder": null,
+      "_id": {
+        "$oid": "69e71169ae03b789d9cab041"
+      }
+    },
+    {
+      "value": "2",
+      "label": "No",
+      "descriptor": null,
+      "placeholder": null,
+      "_id": {
+        "$oid": "69e71169ae03b789d9cab042"
+      }
+    },
+    {
+      "value": "3",
+      "label": "Prefer not to say",
+      "descriptor": null,
+      "placeholder": null,
+      "_id": {
+        "$oid": "69e71169ae03b789d9cab043"
+      }
+    }
+  ],
+  "creator": {
+    "$oid": "69df354625b6694922b90eb1"
+  },
+  "categories": [
+    {
+      "$oid": "69df832425b6694922b91abf"
+    },
+    {
+      "$oid": "69df830f25b6694922b91ab0"
+    },
+    {
+      "$oid": "69df82f825b6694922b91aa5"
+    },
+    {
+      "$oid": "69df82df25b6694922b91a9a"
+    },
+    {
+      "$oid": "69df82c625b6694922b91a8b"
+    },
+    {
+      "$oid": "69df829a25b6694922b91a7c"
+    },
+    {
+      "$oid": "69df827f25b6694922b91a71"
+    }
+  ],
+  "theme": {
+    "$oid": "69df7c56241dc35493e972d1"
+  },
+  "subThemes": [],
+  "targetAudience": "both",
+  "status": "published",
+  "isTemplate": false,
+  "tags": [
+    "Parenthood"
+  ],
+  "isBespoke": false,
+  "bespokeMetadata": {
+    "status": "pending"
+  },
+  "isStandardDemographic": true,
+  "demographicType": "other",
+  "demographicCategory": "cultural",
+  "isGlobalStandard": false,
+  "demographicMetadata": {
+    "isRequired": false,
+    "recommendedForAudience": [
+      "both"
+    ],
+    "complianceRelevant": false,
+    "sensitivityLevel": "medium",
+    "anonymizationRequired": false
+  },
+  "selectedIndicatorTags": [],
+  "selectedSdgTags": [],
+  "selectedResilienceTags": [],
+  "selectedEsgTags": [],
+  "selectedStandardTags": [],
+  "archived": false,
+  "archivedAt": null,
+  "createdAt": {
+    "$date": "2026-04-21T05:55:52.781Z"
+  },
+  "updatedAt": {
+    "$date": "2026-04-21T05:55:53.993Z"
+  },
+  "__v": 0,
+  "validation": {}
+},
+{
+  "_id": {
+    "$oid": "69e711beae03b789d9cab0a8"
+  },
+  "text": "Do you have school-age children?",
+  "description": "",
+  "type": "radio",
+  "required": false,
+  "options": [
+    {
+      "value": "1",
+      "label": "Yes",
+      "descriptor": null,
+      "placeholder": null,
+      "_id": {
+        "$oid": "69e711c0ae03b789d9cab115"
+      }
+    },
+    {
+      "value": "2",
+      "label": "No",
+      "descriptor": null,
+      "placeholder": null,
+      "_id": {
+        "$oid": "69e711c0ae03b789d9cab116"
+      }
+    },
+    {
+      "value": "3",
+      "label": "Prefer not to say",
+      "descriptor": null,
+      "placeholder": null,
+      "_id": {
+        "$oid": "69e711c0ae03b789d9cab117"
+      }
+    }
+  ],
+  "creator": {
+    "$oid": "69df354625b6694922b90eb1"
+  },
+  "categories": [
+    {
+      "$oid": "69df832425b6694922b91abf"
+    },
+    {
+      "$oid": "69df830f25b6694922b91ab0"
+    },
+    {
+      "$oid": "69df82f825b6694922b91aa5"
+    },
+    {
+      "$oid": "69df82df25b6694922b91a9a"
+    },
+    {
+      "$oid": "69df82c625b6694922b91a8b"
+    },
+    {
+      "$oid": "69df829a25b6694922b91a7c"
+    },
+    {
+      "$oid": "69df827f25b6694922b91a71"
+    }
+  ],
+  "theme": {
+    "$oid": "69df7c56241dc35493e972d1"
+  },
+  "subThemes": [],
+  "targetAudience": "both",
+  "status": "published",
+  "isTemplate": false,
+  "tags": [],
+  "conditionalLogic": {
+    "enabled": true,
+    "conditions": [
+      {
+        "questionId": {
+          "$oid": "69e71168ae03b789d9caafd9"
+        },
+        "operator": "equals",
+        "value": "1"
+      }
+    ],
+    "action": "show",
+    "logicOperator": "AND"
+  },
+  "isBespoke": false,
+  "bespokeMetadata": {
+    "status": "pending"
+  },
+  "isStandardDemographic": true,
+  "demographicType": "other",
+  "demographicCategory": "cultural",
+  "isGlobalStandard": false,
+  "demographicMetadata": {
+    "isRequired": false,
+    "recommendedForAudience": [
+      "both"
+    ],
+    "complianceRelevant": false,
+    "sensitivityLevel": "medium",
+    "anonymizationRequired": false
+  },
+  "selectedIndicatorTags": [],
+  "selectedSdgTags": [],
+  "selectedResilienceTags": [],
+  "selectedEsgTags": [],
+  "selectedStandardTags": [],
+  "archived": false,
+  "archivedAt": null,
+  "createdAt": {
+    "$date": "2026-04-21T05:57:18.335Z"
+  },
+  "updatedAt": {
+    "$date": "2026-04-21T05:57:20.184Z"
+  },
+  "__v": 0,
+  "validation": {}
+},
+{
+  "_id": {
+    "$oid": "69e7121dae03b789d9cab174"
+  },
+  "text": "Are your school-aged children attending any school or training program?",
+  "description": "",
+  "type": "radio",
+  "required": false,
+  "options": [
+    {
+      "value": "1",
+      "label": "Yes",
+      "descriptor": null,
+      "placeholder": null,
+      "_id": {
+        "$oid": "69e7121fae03b789d9cab1df"
+      }
+    },
+    {
+      "value": "2",
+      "label": "No",
+      "descriptor": null,
+      "placeholder": null,
+      "_id": {
+        "$oid": "69e7121fae03b789d9cab1e0"
+      }
+    },
+    {
+      "value": "3",
+      "label": "Prefer not to say",
+      "descriptor": null,
+      "placeholder": null,
+      "_id": {
+        "$oid": "69e7121fae03b789d9cab1e1"
+      }
+    }
+  ],
+  "creator": {
+    "$oid": "69df354625b6694922b90eb1"
+  },
+  "categories": [
+    {
+      "$oid": "69df832425b6694922b91abf"
+    },
+    {
+      "$oid": "69df830f25b6694922b91ab0"
+    },
+    {
+      "$oid": "69df82f825b6694922b91aa5"
+    },
+    {
+      "$oid": "69df82df25b6694922b91a9a"
+    },
+    {
+      "$oid": "69df82c625b6694922b91a8b"
+    },
+    {
+      "$oid": "69df829a25b6694922b91a7c"
+    },
+    {
+      "$oid": "69df827f25b6694922b91a71"
+    }
+  ],
+  "theme": {
+    "$oid": "69df7c56241dc35493e972d1"
+  },
+  "subThemes": [],
+  "targetAudience": "both",
+  "status": "published",
+  "isTemplate": false,
+  "tags": [
+    "Parenthood and Education"
+  ],
+  "conditionalLogic": {
+    "enabled": true,
+    "conditions": [
+      {
+        "questionId": {
+          "$oid": "69e711beae03b789d9cab0a8"
+        },
+        "operator": "equals",
+        "value": "1"
+      }
+    ],
+    "action": "show",
+    "logicOperator": "AND"
+  },
+  "isBespoke": false,
+  "bespokeMetadata": {
+    "status": "pending"
+  },
+  "isStandardDemographic": true,
+  "demographicType": "other",
+  "demographicCategory": "socioeconomic",
+  "isGlobalStandard": false,
+  "demographicMetadata": {
+    "isRequired": false,
+    "recommendedForAudience": [
+      "both"
+    ],
+    "complianceRelevant": false,
+    "sensitivityLevel": "medium",
+    "anonymizationRequired": false
+  },
+  "selectedIndicatorTags": [],
+  "selectedSdgTags": [],
+  "selectedResilienceTags": [],
+  "selectedEsgTags": [],
+  "selectedStandardTags": [],
+  "archived": false,
+  "archivedAt": null,
+  "createdAt": {
+    "$date": "2026-04-21T05:58:53.281Z"
+  },
+  "updatedAt": {
+    "$date": "2026-04-21T05:58:55.549Z"
+  },
+  "__v": 0,
+  "validation": {}
+},
+{
+  "_id": {
+    "$oid": "69e7135eae03b789d9cab203"
+  },
+  "text": "Compared to other households in your community, how would you describe your household’s economic situation?",
+  "description": "",
+  "type": "scale",
+  "required": false,
+  "options": [
+    {
+      "value": "1",
+      "label": "Much worse off than most households",
+      "descriptor": null,
+      "placeholder": null,
+      "_id": {
+        "$oid": "69e71360ae03b789d9cab258"
+      }
+    }
+  ],
+  "creator": {
+    "$oid": "69df354625b6694922b90eb1"
+  },
+  "categories": [
+    {
+      "$oid": "69df832425b6694922b91abf"
+    },
+    {
+      "$oid": "69df830f25b6694922b91ab0"
+    },
+    {
+      "$oid": "69df82f825b6694922b91aa5"
+    },
+    {
+      "$oid": "69df82df25b6694922b91a9a"
+    },
+    {
+      "$oid": "69df82c625b6694922b91a8b"
+    },
+    {
+      "$oid": "69df829a25b6694922b91a7c"
+    },
+    {
+      "$oid": "69df827f25b6694922b91a71"
+    }
+  ],
+  "theme": {
+    "$oid": "69df7c56241dc35493e972d1"
+  },
+  "subThemes": [],
+  "targetAudience": "both",
+  "status": "published",
+  "isTemplate": false,
+  "tags": [
+    "SES Household Income"
+  ],
+  "isBespoke": false,
+  "bespokeMetadata": {
+    "status": "pending"
+  },
+  "isStandardDemographic": true,
+  "demographicType": "income",
+  "demographicCategory": "socioeconomic",
+  "isGlobalStandard": false,
+  "demographicMetadata": {
+    "isRequired": false,
+    "recommendedForAudience": [
+      "both"
+    ],
+    "complianceRelevant": false,
+    "sensitivityLevel": "medium",
+    "anonymizationRequired": false
+  },
+  "selectedIndicatorTags": [],
+  "selectedSdgTags": [],
+  "selectedResilienceTags": [],
+  "selectedEsgTags": [],
+  "selectedStandardTags": [],
+  "archived": false,
+  "archivedAt": null,
+  "createdAt": {
+    "$date": "2026-04-21T06:04:14.684Z"
+  },
+  "updatedAt": {
+    "$date": "2026-04-21T06:04:16.264Z"
+  },
+  "__v": 0,
+  "validation": {}
+},
+{
+  "_id": {
+    "$oid": "69e7203eae03b789d9cab7b9"
+  },
+  "text": "How many administrative offices supporting social service delivery have been fully completed within the project area during the reporting period?",
+  "description": "",
+  "type": "number",
+  "required": false,
+  "options": [
+    {
+      "value": "1",
+      "label": "Option 1",
+      "descriptor": null,
+      "placeholder": null,
+      "_id": {
+        "$oid": "69e7203fae03b789d9cab804"
+      }
+    }
+  ],
+  "creator": {
+    "$oid": "69df354625b6694922b90eb1"
+  },
+  "categories": [
+    {
+      "$oid": "69df82df25b6694922b91a9a"
+    },
+    {
+      "$oid": "69df82c625b6694922b91a8b"
+    }
+  ],
+  "theme": {
+    "$oid": "69df7c59241dc35493e972f8"
+  },
+  "subThemes": [
+    {
+      "$oid": "69df7c6c241dc35493e973af"
+    }
+  ],
+  "targetAudience": "external",
+  "status": "published",
+  "isTemplate": false,
+  "tags": [],
+  "isBespoke": false,
+  "bespokeMetadata": {
+    "status": "pending"
+  },
+  "isStandardDemographic": false,
+  "isGlobalStandard": false,
+  "demographicMetadata": {
+    "isRequired": false,
+    "recommendedForAudience": [],
+    "complianceRelevant": false,
+    "sensitivityLevel": "medium",
+    "anonymizationRequired": false
+  },
+  "selectedIndicatorTags": [
+    {
+      "$oid": "69df7f82372e5c8b2acb8d2e"
+    }
+  ],
+  "selectedSdgTags": [],
+  "selectedResilienceTags": [],
+  "selectedEsgTags": [],
+  "selectedStandardTags": [],
+  "archived": false,
+  "archivedAt": null,
+  "createdAt": {
+    "$date": "2026-04-21T06:59:10.115Z"
+  },
+  "updatedAt": {
+    "$date": "2026-04-21T06:59:11.298Z"
+  },
+  "__v": 0,
+  "validation": {}
+},
+{
+  "_id": {
+    "$oid": "69e72795ae03b789d9cab8b4"
+  },
+  "text": "What social service function does each  completed office serve? (e.g. community welfare coordination)",
+  "description": "",
+  "type": "text",
+  "required": false,
+  "options": [
+    {
+      "value": "1",
+      "label": "Option 1",
+      "descriptor": null,
+      "placeholder": null,
+      "_id": {
+        "$oid": "69e72799ae03b789d9cab902"
+      }
+    }
+  ],
+  "creator": {
+    "$oid": "69df354625b6694922b90eb1"
+  },
+  "categories": [
+    {
+      "$oid": "69df82df25b6694922b91a9a"
+    },
+    {
+      "$oid": "69df82c625b6694922b91a8b"
+    }
+  ],
+  "theme": {
+    "$oid": "69df7c59241dc35493e972f8"
+  },
+  "subThemes": [
+    {
+      "$oid": "69df7c6c241dc35493e973af"
+    }
+  ],
+  "targetAudience": "both",
+  "status": "published",
+  "isTemplate": false,
+  "tags": [],
+  "conditionalLogic": {
+    "enabled": true,
+    "conditions": [
+      {
+        "questionId": {
+          "$oid": "69e7203eae03b789d9cab7b9"
+        },
+        "operator": "greaterThan",
+        "value": "1"
+      }
+    ],
+    "action": "show",
+    "logicOperator": "AND"
+  },
+  "isBespoke": false,
+  "bespokeMetadata": {
+    "status": "pending"
+  },
+  "isStandardDemographic": false,
+  "isGlobalStandard": false,
+  "demographicMetadata": {
+    "isRequired": false,
+    "recommendedForAudience": [],
+    "complianceRelevant": false,
+    "sensitivityLevel": "medium",
+    "anonymizationRequired": false
+  },
+  "selectedIndicatorTags": [
+    {
+      "$oid": "69df7f82372e5c8b2acb8d2e"
+    }
+  ],
+  "selectedSdgTags": [],
+  "selectedResilienceTags": [],
+  "selectedEsgTags": [],
+  "selectedStandardTags": [],
+  "archived": false,
+  "archivedAt": null,
+  "createdAt": {
+    "$date": "2026-04-21T07:30:29.707Z"
+  },
+  "updatedAt": {
+    "$date": "2026-04-21T07:30:33.083Z"
+  },
+  "__v": 0,
+  "validation": {}
+}]
