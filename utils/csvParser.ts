@@ -15,46 +15,28 @@ interface CSVSetupTask {
 }
 
 /**
- * Parse CSV file and extract setup tasks
- * @param filePath Path to the CSV file
- * @returns Array of parsed tasks
+ * Parse CSV file and extract setup tasks (legacy helper — kept for compatibility).
  */
 export const parseCSVFile = (filePath: string): CSVSetupTask[] => {
-  try {
-    // Read the CSV file
-    const fileContent = fs.readFileSync(path.resolve(filePath), { encoding: 'utf-8' });
-    
-    // Parse the CSV content
-    const records = parse(fileContent, {
-      columns: true,
-      skip_empty_lines: true,
-      trim: true
-    });
-    
-    // Transform the records to our expected format
-    return records.map((record: any) => ({
-      fieldName:    record['Field Name'],
-      isRequired:   (record['Compulsory?'] || '').trim().toLowerCase() === 'yes',
-      dataType:     mapDataType(record['Data Type']),
-      description:  record['Description'],
-      userFacingCopy: record['User-facing copy'],
-      fieldLabel:   record['Field Label'],
-      helperText:   record['Helper Text'],
-      hoverText:    record['Hover Text']
-    }));
-  } catch (error) {
-    console.error('Error parsing CSV file:', error);
-    throw error;
-  }
+  const fileContent = fs.readFileSync(path.resolve(filePath), { encoding: 'utf-8' });
+  const records = parse(fileContent, { columns: true, skip_empty_lines: true, trim: true });
+  return records.map((record: any) => ({
+    fieldName:      record['Field Name'],
+    isRequired:     /^required/i.test((record['Suggested validation'] || record['Compulsory?'] || '').trim()),
+    dataType:       mapDataType(record['Data Type']),
+    description:    record['Description'] || '',
+    userFacingCopy: record['User-facing copy'] || '',
+    fieldLabel:     record['Question'] || record['Field Label'] || '',
+    helperText:     record['Helper text'] || record['Helper Text'] || '',
+    hoverText:      record['Hover Text'] || record['Hover Text:'] || '',
+  }));
 };
 
 /**
- * Map CSV data types to our standard data types.
- * Handles both simple types (string, number, boolean…) and the more
- * descriptive variants that come out of the Excel planning sheet
- * (e.g. "Multi-select string", "Integer", "JSON or structured object").
- * @param csvDataType Data type from CSV
- * @returns Standardized data type matching the model enum
+ * Map raw CSV data-type strings to the model enum values.
+ *
+ * Handles both the old sheet ("string", "boolean", "array"…) and the new
+ * Youth Impact sheet ("Short text", "Single select (enum)", "Yes / No"…).
  */
 const mapDataType = (csvDataType: string): string => {
   const type = (csvDataType || '').toLowerCase().trim();
@@ -62,7 +44,12 @@ const mapDataType = (csvDataType: string): string => {
   // string variants
   if (
     type === 'string' || type === 'text' || type === 'varchar' ||
-    type.startsWith('string (')   // e.g. "String (taggable)", "String (enum or taggable)"
+    type === 'short text' || type === 'long text' ||
+    type.startsWith('short text') ||       // "Short text (string)", "Short text (max 300…)"
+    type.startsWith('long text') ||        // "long text, max 600–900 chars"
+    type.startsWith('string (') ||
+    type.startsWith('single select') ||    // "Single select (enum)", "Single select (country list)", "Single select or taggable select"
+    type.startsWith('structured short text') // "Structured short text. three separate short fields…"
   ) return 'string';
 
   // number variants
@@ -70,8 +57,12 @@ const mapDataType = (csvDataType: string): string => {
     type === 'number' || type === 'integer' || type === 'float' || type === 'decimal'
   ) return 'number';
 
-  // boolean
-  if (type === 'boolean' || type === 'bool') return 'boolean';
+  // boolean variants
+  if (
+    type === 'boolean' || type === 'bool' ||
+    type === 'yes / no' || type === 'yes/no' ||
+    type.startsWith('boolean (yes')        // "Boolean (Yes / No)"
+  ) return 'boolean';
 
   // date
   if (type === 'date') return 'date';
@@ -79,146 +70,261 @@ const mapDataType = (csvDataType: string): string => {
   // array / multi-select variants
   if (
     type === 'array' || type === 'list' || type === 'enum' ||
-    type.startsWith('multi-select') ||          // e.g. "Multi-select string", "Multi-select (taggable)"
-    type.startsWith('array[')                   // e.g. "Array[String] (taggable)"
+    type.startsWith('multi-select') ||     // "Multi-select (enum)", "Multi-select (same enum as…)"
+    type.startsWith('multi select') ||     // "Multi select (enum), with a taggable…"
+    type.startsWith('array[')
   ) return 'array';
 
   // object / json variants
   if (
     type === 'object' || type === 'json' ||
-    type.startsWith('json') ||                  // e.g. "JSON or structured object"
-    type.startsWith('string or object')         // e.g. "String or object (Lat/Long)"
+    type.startsWith('json') ||
+    type.startsWith('string or object') ||
+    type.startsWith('structured object')   // "Structured object (map barrier → Low / Medium / High)"
   ) return 'object';
 
   // file variants
   if (type === 'file' || type === 'image' || type === 'document') return 'file';
 
-  return 'string'; // safe default
+  return 'string';
 };
 
 /**
- * Load default project setup tasks from CSV
- * @returns Array of project setup tasks
- */
-export const loadProjectSetupTasks = (): CSVSetupTask[] => {
-  const filePath = path.join(__dirname, '../data/Set_Up_Your_Project.csv');
-  return parseCSVFile(filePath);
-};
-
-/**
- * Load default project site setup tasks from CSV
- * @returns Array of project site setup tasks
- */
-export const loadProjectSiteSetupTasks = (): CSVSetupTask[] => {
-  const filePath = path.join(__dirname, '../data/Set_up_your_sites.csv');
-  return parseCSVFile(filePath);
-};
-
-/**
- * Map CSV task to database schema
- * @param tasks Array of CSV tasks
- * @param step Step number (1 for project, 2 for site)
- * @returns Mapped tasks ready for database insertion
- */
-export const mapCSVTasksToSchema = (
-  tasks: CSVSetupTask[],
-  step: number
-): any[] => {
-  return tasks.map((task, index) => {
-    const mappedTask: any = {
-      fieldName: task.fieldName,
-      dataType: task.dataType,
-      description: task.description,
-      userFacingCopy: task.userFacingCopy,
-      fieldLabel: task.fieldLabel,
-      helperText: task.helperText,
-      hoverText: task.hoverText,
-      isRequired: true, // Adjust if needed
-      sortOrder: index + 1,
-      step,
-      isCompleted: false
-    };
-
-    // Only include options if they exist
-    if ((task as any).options && Array.isArray((task as any).options)) {
-      mappedTask.options = (task as any).options;
-    }
-
-    return mappedTask;
-  });
-};
-
-
-
-/**
- * Convert raw CSV data to setup tasks.
+ * Parse the options from the "Response options" cell.
  *
- * Expected CSV column order (updated):
+ * Handles two formats found in the new CSV:
+ *   • Newline-separated list (multi-select fields)
+ *   • Pipe-separated single line  (e.g. "Low | Medium | High")
+ *
+ * Strips meta-notes such as "(reuse project …)" and "Add new (add tag)".
+ */
+const parseOptions = (rawOptions: string): string[] | undefined => {
+  if (!rawOptions || !rawOptions.trim()) return undefined;
+
+  const text = rawOptions.trim();
+
+  // Pipe-separated on a single line → split by pipe
+  if (text.includes('|') && !text.includes('\n')) {
+    const opts = text.split('|').map(s => s.trim()).filter(Boolean);
+    if (opts.length > 1) return opts;
+  }
+
+  // Newline-separated list
+  const lines = text.split(/\r?\n|\r/);
+  const filtered = lines
+    .map(l => l.trim())
+    .filter(l =>
+      l.length > 0 &&
+      !l.startsWith('(reuse') &&
+      !l.startsWith('Response options:') &&
+      !/^add new/i.test(l)    // "Add new (add tag)", "Add new <Taggable select>"
+    );
+
+  return filtered.length > 0 ? filtered : undefined;
+};
+
+/**
+ * Strip parenthetical annotations that appear in field names on the new sheet.
+ * e.g. "site_access_differs_from_project (Yes/No)" → "site_access_differs_from_project"
+ */
+const cleanFieldName = (raw: string): string =>
+  raw
+    .replace(/\s*\(Yes\/No\)/gi, '')
+    .replace(/\s*\(editable;[^)]*\)/gi, '')
+    .replace(/\s*\(optional\)/gi, '')
+    .replace(/\s*\(short text\)/gi, '')
+    .trim();
+
+/**
+ * Returns true for rows that are structural headers / explanatory text, not field rows.
+ * These should be skipped (or used to update step context) but never turned into tasks.
+ */
+const isNonFieldRow = (fieldName: string): boolean => {
+  if (!fieldName) return true;
+  if (fieldName === 'Field Name') return true;           // header row
+  if (/^[A-D]\.\s+/.test(fieldName)) return true;       // "A. Access", "B. Safeguarding" subsections
+  if (/^If\s+(Yes|No):/i.test(fieldName)) return true;  // "If Yes:"
+  if (/^\d+\.\s+/.test(fieldName)) return true;         // "1. Core Principle" explanatory rows
+  return false;
+};
+
+/**
+ * Attempts to parse a Step or Section header row.
+ * Returns { stepNumber, stepLabel } if matched, null otherwise.
+ *
+ * Matches:
+ *   "Step 3 — Clarify the challenge"
+ *   "Section 2 — Access and Safeguarding Delta"
+ *   "Golden Circle synthesis"  (treated as a named sub-section within the current step)
+ */
+const parseStepHeader = (
+  fieldName: string,
+  currentStepNumber: number
+): { stepNumber: number; stepLabel: string } | null => {
+  // "Step N — Label"
+  const stepMatch = fieldName.match(/^Step\s+(\d+)\s*[—–-]+\s*(.+)/i);
+  if (stepMatch) {
+    return { stepNumber: parseInt(stepMatch[1], 10), stepLabel: stepMatch[2].trim() };
+  }
+
+  // "Section N — Label"
+  const sectionMatch = fieldName.match(/^Section\s+(\d+)\s*[—–-]+\s*(.+)/i);
+  if (sectionMatch) {
+    return { stepNumber: parseInt(sectionMatch[1], 10), stepLabel: sectionMatch[2].trim() };
+  }
+
+  // "Golden Circle synthesis" — keep the current step number, update label only
+  if (/^Golden Circle/i.test(fieldName)) {
+    return { stepNumber: currentStepNumber, stepLabel: 'Golden Circle synthesis' };
+  }
+
+  return null;
+};
+
+/**
+ * Convert raw CSV data (string[][]) to an array of task objects ready for DB insertion.
+ *
+ * New column layout (Youth Impact sheets):
  *   0  Field Name
- *   1  Compulsory?        ← new column; drives isRequired
+ *   1  Suggested validation   → drives isRequired ("Required" substring match)
  *   2  Data Type
- *   3  Description
- *   4  User-facing copy
- *   5  Field Label
- *   6  Helper Text
- *   7  Hover Text
+ *   3  Question               → fieldLabel
+ *   4  Response options       → options
+ *   5  Helper text
+ *   6  Hover Text
+ *   7  Conditional On         → conditionalOn.fieldName  (site CSV only, optional)
  *
- * @param csvData Raw CSV data as array of rows (including header row)
- * @param isProjectSite Whether this is for project sites (step 2) or projects (step 1)
- * @returns Parsed setup tasks ready for database insertion
+ * Special behaviour:
+ *   • Step / Section header rows update the running step context and are skipped.
+ *   • "Golden Circle synthesis" keeps the current stepNumber but updates stepLabel.
+ *   • "top_learning_questions" is expanded into three separate tasks:
+ *     learning_question_1, learning_question_2, learning_question_3.
+ *
+ * @param csvData   Raw CSV parsed as string[][]  (including header row at index 0)
+ * @param isProjectSite  true → step = 2 (site form); false → step = 1 (project form)
  */
 export const convertCSVDataToSetupTasks = (
   csvData: string[][],
   isProjectSite = false
 ): any[] => {
-  // Skip header row
+  const tasks: any[] = [];
+  let currentStepNumber = 0;
+  let currentStepLabel = '';
+  let sortOrder = 0;
+
+  // Skip the header row (index 0)
   const dataRows = csvData.slice(1);
 
-  return dataRows.map((row, index) => {
-    const fieldName     = row[0] || '';
-    const compulsory    = (row[1] || '').trim().toLowerCase();
-    const dataType      = mapDataType(row[2]);
-    const description   = row[3] || '';
-    const userFacingCopy = row[4] || '';
-    const fieldLabel    = row[5] || '';
-    const helperText    = row[6] || '';
-    const hoverText     = row[7] || '';
+  for (const row of dataRows) {
+    const rawFieldName = (row[0] || '').trim();
 
-    // "Yes" → required; anything else (No, empty, unknown) → optional
-    const isRequired = compulsory === 'yes';
+    // Empty row — skip
+    if (!rawFieldName) continue;
 
-    let options: string[] | undefined = undefined;
-
-    // For array fields, parse options from description (newline-separated list items)
-    if (dataType === 'array' && description) {
-      const splitDescription = description.split(/\r?\n|\r/);
-
-      const parsedOptions = splitDescription.filter(line => {
-        const trimmed = line.trim();
-        return (
-          trimmed.length > 0 &&
-          /^[A-Z0-9"'\-–]/.test(trimmed) // starts with capital letter, number, dash, en-dash, or quote
-        );
-      });
-
-      if (parsedOptions.length > 1) {
-        options = parsedOptions.map(option => option.trim().replace(/^["']|["']$/g, ''));
-      }
+    // Check for step / section header rows first
+    const stepHeader = parseStepHeader(rawFieldName, currentStepNumber);
+    if (stepHeader) {
+      currentStepNumber = stepHeader.stepNumber;
+      currentStepLabel  = stepHeader.stepLabel;
+      continue;
     }
 
-    return {
+    // Skip other non-field structural rows
+    if (isNonFieldRow(rawFieldName)) continue;
+
+    // --- Parse columns ---
+    const fieldName        = cleanFieldName(rawFieldName);
+    const validation       = (row[1] || '').trim();
+    const dataType         = mapDataType(row[2] || '');
+    const question         = (row[3] || '').trim();
+    const responseOptions  = (row[4] || '').trim();
+    const helperText       = (row[5] || '').trim();
+    const hoverText        = (row[6] || '').trim();
+    const conditionalOnRef = (row[7] || '').trim(); // site CSV only
+
+    const isRequired = /^required/i.test(validation);
+    const options    = parseOptions(responseOptions);
+
+    const conditionalOn = conditionalOnRef
+      ? { fieldName: conditionalOnRef, value: true }
+      : undefined;
+
+    // Special case: expand top_learning_questions into three separate tasks
+    if (fieldName === 'top_learning_questions') {
+      for (let i = 1; i <= 3; i++) {
+        sortOrder++;
+        const lqTask: any = {
+          fieldName:   `learning_question_${i}`,
+          dataType:    'string',
+          fieldLabel:  `Learning question ${i}`,
+          helperText:  helperText || 'List up to three priority learning questions for the next phase.',
+          hoverText:   hoverText  || 'Clear learning questions guide analysis and ensure insights are decision-relevant.',
+          isRequired:  false,
+          sortOrder,
+          step:        isProjectSite ? 2 : 1,
+          stepNumber:  currentStepNumber,
+          stepLabel:   currentStepLabel,
+          isCompleted: false,
+        };
+        tasks.push(lqTask);
+      }
+      continue;
+    }
+
+    // Build standard task object
+    sortOrder++;
+    const task: any = {
       fieldName,
       dataType,
-      description,
-      userFacingCopy,
-      fieldLabel,
+      fieldLabel:  question,
       helperText,
       hoverText,
       isRequired,
-      sortOrder: index + 1,
-      step: isProjectSite ? 2 : 1,
+      sortOrder,
+      step:        isProjectSite ? 2 : 1,
+      stepNumber:  currentStepNumber,
+      stepLabel:   currentStepLabel,
       isCompleted: false,
-      ...(options ? { options } : {})
     };
-  });
+
+    if (options && options.length > 0) task.options = options;
+    if (conditionalOn) task.conditionalOn = conditionalOn;
+
+    tasks.push(task);
+  }
+
+  return tasks;
 };
+
+// ---------------------------------------------------------------------------
+// Legacy helpers (kept for any existing callers outside the seed script)
+// ---------------------------------------------------------------------------
+
+export const loadProjectSetupTasks = (): CSVSetupTask[] => {
+  const filePath = path.join(__dirname, '../data/Set_Up_Your_Project_final.csv');
+  return parseCSVFile(filePath);
+};
+
+export const loadProjectSiteSetupTasks = (): CSVSetupTask[] => {
+  const filePath = path.join(__dirname, '../data/Set_Up_Your_Sites_final.csv');
+  return parseCSVFile(filePath);
+};
+
+export const mapCSVTasksToSchema = (tasks: CSVSetupTask[], step: number): any[] =>
+  tasks.map((task, index) => {
+    const mapped: any = {
+      fieldName:      task.fieldName,
+      dataType:       task.dataType,
+      description:    task.description,
+      userFacingCopy: task.userFacingCopy,
+      fieldLabel:     task.fieldLabel,
+      helperText:     task.helperText,
+      hoverText:      task.hoverText,
+      isRequired:     true,
+      sortOrder:      index + 1,
+      step,
+      isCompleted:    false,
+    };
+    if ((task as any).options?.length) mapped.options = (task as any).options;
+    return mapped;
+  });

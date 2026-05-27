@@ -105,9 +105,9 @@ function isDuplicateKeyError(err: any): boolean {
 
 /**
  * Boolean fields that conditionally trigger a file upload when the user selects "Yes".
- * Stored as { confirmed: true, files: [...], uploadedAt } instead of plain true/false.
+ * Empty in the Youth Impact setup — no boolean fields require an accompanying file upload.
  */
-const CONDITIONAL_UPLOAD_BOOLEAN_FIELDS = ['shapefiles_uploaded', 'land_agreements_uploaded'];
+const CONDITIONAL_UPLOAD_BOOLEAN_FIELDS: string[] = [];
 
 
 /**

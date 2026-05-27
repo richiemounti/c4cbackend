@@ -14,10 +14,12 @@ interface ISetupTask {
   isRequired: boolean;
   sortOrder: number;
   step: number;
+  stepNumber?: number;
+  stepLabel?: string;
+  conditionalOn?: { fieldName: string; value: any };
   isCompleted: boolean;
   completedAt?: Date;
   completedBy?: mongoose.Types.ObjectId;
-  // New field to store the user's response data
   responseData?: any;
   createdAt?: Date;
   updatedAt?: Date;
@@ -87,6 +89,18 @@ const projectSetupTaskSchema = new mongoose.Schema({
     type: Number,
     required: true,
     default: 1
+  },
+  stepNumber: {
+    type: Number,
+    default: null
+  },
+  stepLabel: {
+    type: String,
+    default: null
+  },
+  conditionalOn: {
+    fieldName: { type: String },
+    value: { type: mongoose.Schema.Types.Mixed }
   },
   isCompleted: {
     type: Boolean,

@@ -22,13 +22,13 @@ dotenv.config();
 const createDefaultTaskTemplates = async () => {
   try {
     // Read project setup CSV
-    const projectSetupCSVPath = path.join(__dirname, '../data/Set_Up_Your_Project_final.csv');
+    const projectSetupCSVPath = path.join(__dirname, '../data/Set up your project_YouthImpact_16 03 26 - Project_ UX _ Build specification.csv');
     const projectSetupCSV = fs.readFileSync(projectSetupCSVPath, 'utf8');
     const projectSetupRecords = parse(projectSetupCSV);
     const projectSetupTasks = convertCSVDataToSetupTasks(projectSetupRecords, false);
 
     // Read project site setup CSV
-    const projectSiteSetupCSVPath = path.join(__dirname, '../data/Set_Up_Your_Sites_final.csv');
+    const projectSiteSetupCSVPath = path.join(__dirname, '../data/Set_Up_Your_Sites_YouthImpact.csv');
     const projectSiteSetupCSV = fs.readFileSync(projectSiteSetupCSVPath, 'utf8');
     const projectSiteSetupRecords = parse(projectSiteSetupCSV);
     const projectSiteSetupTasks = convertCSVDataToSetupTasks(projectSiteSetupRecords, true);

@@ -26,7 +26,14 @@ tasks: [
     hoverText: String,
     isRequired: Boolean,
     sortOrder: Number,
-    step: Number
+    step: Number,
+    stepNumber: Number,
+    stepLabel: String,
+    conditionalOn: {
+      fieldName: String,
+      value: mongoose.Schema.Types.Mixed
+    },
+    options: [String]
     }
 ],
 version: {
@@ -424,10 +431,13 @@ export const getDefaultProjectSetupTasks = async (): Promise<any[]> => {
         isRequired: Boolean(task.isRequired),
         sortOrder: Number(task.sortOrder) || 0,
         step: Number(task.step) || 1,
+        stepNumber: task.stepNumber ?? null,
+        stepLabel: task.stepLabel ?? null,
+        ...(task.conditionalOn ? { conditionalOn: task.conditionalOn } : {}),
         isCompleted: false,
         completedAt: null,
         completedBy: null,
-        responseData: null // Initialize with null
+        responseData: null
       };
     });
   } catch (error) {
@@ -480,10 +490,13 @@ export const getDefaultProjectSiteSetupTasks = async (): Promise<any[]> => {
         isRequired: Boolean(task.isRequired),
         sortOrder: Number(task.sortOrder) || 0,
         step: Number(task.step) || 1,
+        stepNumber: task.stepNumber ?? null,
+        stepLabel: task.stepLabel ?? null,
+        ...(task.conditionalOn ? { conditionalOn: task.conditionalOn } : {}),
         isCompleted: false,
         completedAt: null,
         completedBy: null,
-        responseData: null // Initialize with null
+        responseData: null
       };
     });
   } catch (error) {

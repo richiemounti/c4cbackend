@@ -14,6 +14,9 @@ interface ITaskTemplate extends Document {
     isRequired: boolean;
     sortOrder?: number;
     step?: number;
+    stepNumber?: number;
+    stepLabel?: string;
+    conditionalOn?: { fieldName: string; value: any };
     options?: string[];
   }>;
   version: string;
@@ -40,6 +43,12 @@ const taskTemplateSchema = new Schema<ITaskTemplate>({
       isRequired: Boolean,
       sortOrder: Number,
       step: Number,
+      stepNumber: Number,
+      stepLabel: String,
+      conditionalOn: {
+        fieldName: String,
+        value: mongoose.Schema.Types.Mixed
+      },
       options: [String]
     }
   ],
