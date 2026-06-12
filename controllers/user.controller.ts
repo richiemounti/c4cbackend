@@ -270,64 +270,16 @@ async function inviteNewUser(
 
   // Send invitation email
   const invitationUrl = `${env.FRONTEND_URL}/accept-invitation?token=${invitationToken}`;
-  
-  const emailHtml = `
-    <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
-      <div style="background: linear-gradient(135deg, #272236 0%, #1a1729 100%); padding: 40px; text-align: center;">
-        <h1 style="color: #ffffff; margin: 0;">You're Invited to Citizens for Change</h1>
-      </div>
 
-      <div style="padding: 40px; background-color: #ffffff;">
-        <p style="font-size: 16px; color: #272236;">Hello,</p>
-
-        <p style="font-size: 16px; color: #272236; line-height: 1.6;">
-          <strong>${inviter.name}</strong> has invited you to join
-          <strong>${organizationName}</strong> on Citizens for Change as a <strong>${role}</strong>.
-        </p>
-
-        <div style="background-color: #f6f8fd; padding: 20px; border-radius: 8px; margin: 25px 0;">
-          <h3 style="color: #272236; margin-top: 0;">About Citizens for Change</h3>
-          <p style="color: #272236; margin: 0; line-height: 1.6;">
-            Citizens for Change is a practical system that makes social monitoring and learning easier to run and easier to use.
-            It gives you an end-to-end workflow to define outcomes clearly, collect feedback from the right people,
-            and use findings to improve decisions and delivery — with less manual work.
-          </p>
-        </div>
-
-        <div style="text-align: center; margin: 35px 0;">
-          <a href="${invitationUrl}"
-             style="display: inline-block; padding: 15px 40px; background-color: #624CF5;
-                    color: #ffffff; text-decoration: none; border-radius: 8px;
-                    font-weight: bold; font-size: 16px;">
-            Accept Invitation
-          </a>
-        </div>
-
-        <p style="font-size: 14px; color: #757575; line-height: 1.6;">
-          This invitation will expire in <strong>72 hours</strong>.
-          If you did not expect this invitation, you can safely ignore this email.
-        </p>
-
-        <hr style="border: none; border-top: 1px solid #e4e0e1; margin: 30px 0;">
-
-        <p style="font-size: 12px; color: #afafaf;">
-          If the button doesn't work, copy and paste this link into your browser:<br>
-          <a href="${invitationUrl}" style="color: #624CF5;">${invitationUrl}</a>
-        </p>
-      </div>
-
-      <div style="background-color: #f6f6f6; padding: 20px; text-align: center;">
-        <p style="font-size: 12px; color: #757575; margin: 0;">
-          Citizens for Change &copy; 2026. All rights reserved.
-        </p>
-      </div>
-    </div>
-  `;
+  const emailHtml = EmailTemplateService.generateC4CInvitationEmail({
+    organizationName,
+    invitationURL: invitationUrl,
+  });
 
   const emailSent = await emailService.sendEmail({
     to: email,
-    subject: `Invitation to join ${organizationName} on Citizens for Change`,
-    html: emailHtml
+    subject: `You've been invited to join ${organizationName} on Citizens for Change`,
+    html: emailHtml,
   });
 
   if (!emailSent) {
@@ -868,22 +820,16 @@ export const resendInvitation = async (
     const invitationURL = `${env.FRONTEND_URL}/accept-invitation?token=${invitationToken}`;
 
     // Prepare email content
-    const emailHtml = EmailTemplateService.generateProjectInvitationEmail({
-      inviteeName: invitedUser.name,
-      inviterName: req.user.name,
-      projectName: (invitedUser.invitedToProjects && invitedUser.invitedToProjects.length > 0) ? 
-        invitedUser.invitedToProjects.map((p: PopulatedProject) => p.name).join(', ') : 'Multiple Projects',
-      organizationName: invitedUser.invitedToOrganization?.name || 'Organization',
-      role: invitedUser.invitedRole || 'Team Member',
+    const emailHtml = EmailTemplateService.generateC4CInvitationEmail({
+      organizationName: invitedUser.invitedToOrganization?.name || 'your organisation',
       invitationURL,
-      userEmail: invitedUser.email
     });
 
     // Send invitation email
     const emailSent = await emailService.sendEmail({
       to: invitedUser.email,
-      subject: `Reminder: Invitation to join ${invitedUser.invitedToOrganization?.name} on Citizens for Change`,
-      html: emailHtml
+      subject: `You've been invited to join ${invitedUser.invitedToOrganization?.name} on Citizens for Change`,
+      html: emailHtml,
     });
 
     if (!emailSent) {

@@ -774,6 +774,95 @@ export class EmailTemplateService {
   }
 
 /**
+   * Generate the Citizens for Change invitation email.
+   * Tone: warm, personal, low-friction — copy is the master from Notion (12 Jun 2026).
+   */
+  static generateC4CInvitationEmail(data: {
+    organizationName: string;
+    invitationURL: string;
+  }): string {
+    const { organizationName, invitationURL } = data;
+
+    return `
+      <!DOCTYPE html>
+      <html lang="en">
+      <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>You've been invited to join ${organizationName} on Citizens for Change</title>
+      </head>
+      <body style="margin:0;padding:0;background-color:#f9f9f9;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;">
+        <table width="100%" cellpadding="0" cellspacing="0" style="background-color:#f9f9f9;padding:40px 0;">
+          <tr>
+            <td align="center">
+              <table width="560" cellpadding="0" cellspacing="0" style="background-color:#ffffff;border-radius:8px;padding:48px 48px 40px;max-width:560px;">
+
+                <!-- Logo / brand mark -->
+                <tr>
+                  <td style="padding-bottom:32px;border-bottom:1px solid #eeeeee;">
+                    <span style="font-size:16px;font-weight:700;color:#1a1a2e;letter-spacing:-0.3px;">Citizens for Change</span>
+                  </td>
+                </tr>
+
+                <!-- Body copy -->
+                <tr>
+                  <td style="padding-top:32px;">
+                    <p style="margin:0 0 20px;font-size:16px;line-height:1.7;color:#1a1a2e;">
+                      Hi there!
+                    </p>
+
+                    <p style="margin:0 0 20px;font-size:16px;line-height:1.7;color:#1a1a2e;">
+                      You've been invited to join <strong>${organizationName}</strong> on Citizens for Change — it's brilliant to have you on board.
+                    </p>
+
+                    <p style="margin:0 0 32px;font-size:16px;line-height:1.7;color:#1a1a2e;">
+                      Once you accept below, you'll land straight in your Project workspace and can get started. If anything feels unclear or you'd just like a hand finding your feet, drop me an email at <a href="mailto:hannah@citizens4change.net" style="color:#624CF5;text-decoration:none;">hannah@citizens4change.net</a> — I'm happy to help.
+                    </p>
+
+                    <!-- CTA -->
+                    <table cellpadding="0" cellspacing="0" style="margin-bottom:32px;">
+                      <tr>
+                        <td>
+                          <a href="${invitationURL}"
+                             style="display:inline-block;padding:14px 32px;background-color:#624CF5;color:#ffffff;text-decoration:none;border-radius:6px;font-size:15px;font-weight:600;letter-spacing:0.2px;">
+                            Accept Invitation
+                          </a>
+                        </td>
+                      </tr>
+                    </table>
+
+                    <p style="margin:0 0 32px;font-size:13px;line-height:1.6;color:#888888;">
+                      This link expires in 72 hours. If you weren't expecting this, you can safely ignore it.
+                    </p>
+
+                    <p style="margin:0;font-size:16px;line-height:1.7;color:#1a1a2e;">
+                      Warm wishes,<br>
+                      <strong>Hannah</strong>
+                    </p>
+                  </td>
+                </tr>
+
+                <!-- Footer -->
+                <tr>
+                  <td style="padding-top:40px;border-top:1px solid #eeeeee;margin-top:40px;">
+                    <p style="margin:0;font-size:12px;color:#aaaaaa;line-height:1.6;">
+                      Citizens for Change &copy; 2026.<br>
+                      If the button above doesn't work, paste this link into your browser:<br>
+                      <a href="${invitationURL}" style="color:#624CF5;word-break:break-all;">${invitationURL}</a>
+                    </p>
+                  </td>
+                </tr>
+
+              </table>
+            </td>
+          </tr>
+        </table>
+      </body>
+      </html>
+    `;
+  }
+
+  /**
    * Generate project invitation email template
    */
   static generateProjectInvitationEmail(data: {
