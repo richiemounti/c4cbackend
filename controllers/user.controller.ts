@@ -274,7 +274,7 @@ async function inviteNewUser(
   const emailHtml = `
     <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
       <div style="background: linear-gradient(135deg, #272236 0%, #1a1729 100%); padding: 40px; text-align: center;">
-        <h1 style="color: #ffffff; margin: 0;">You're Invited to REFLECT Platform</h1>
+        <h1 style="color: #ffffff; margin: 0;">You're Invited to Citizens for Change</h1>
       </div>
 
       <div style="padding: 40px; background-color: #ffffff;">
@@ -282,13 +282,13 @@ async function inviteNewUser(
 
         <p style="font-size: 16px; color: #272236; line-height: 1.6;">
           <strong>${inviter.name}</strong> has invited you to join
-          <strong>${organizationName}</strong> on the REFLECT Platform as a <strong>${role}</strong>.
+          <strong>${organizationName}</strong> on Citizens for Change as a <strong>${role}</strong>.
         </p>
 
         <div style="background-color: #f6f8fd; padding: 20px; border-radius: 8px; margin: 25px 0;">
-          <h3 style="color: #272236; margin-top: 0;">About REFLECT</h3>
+          <h3 style="color: #272236; margin-top: 0;">About Citizens for Change</h3>
           <p style="color: #272236; margin: 0; line-height: 1.6;">
-            REFLECT is a practical system that makes social monitoring and learning easier to run and easier to use.
+            Citizens for Change is a practical system that makes social monitoring and learning easier to run and easier to use.
             It gives you an end-to-end workflow to define outcomes clearly, collect feedback from the right people,
             and use findings to improve decisions and delivery — with less manual work.
           </p>
@@ -318,7 +318,7 @@ async function inviteNewUser(
 
       <div style="background-color: #f6f6f6; padding: 20px; text-align: center;">
         <p style="font-size: 12px; color: #757575; margin: 0;">
-          ConnectGo &copy; 2026. All rights reserved.
+          Citizens for Change &copy; 2026. All rights reserved.
         </p>
       </div>
     </div>
@@ -326,7 +326,7 @@ async function inviteNewUser(
 
   const emailSent = await emailService.sendEmail({
     to: email,
-    subject: `Invitation to join ${organizationName} on REFLECT Platform`,
+    subject: `Invitation to join ${organizationName} on Citizens for Change`,
     html: emailHtml
   });
 
@@ -493,7 +493,7 @@ async function sendProjectAddedNotification(
       <h2 style="color: #272236;">New Projects Assigned</h2>
       <p>Hello,</p>
       <p>${inviterName} has added you to ${projectCount} new project(s) in <strong>${organizationName}</strong>.</p>
-      <p>You can now access these projects on the Youth Impact Platform.</p>
+      <p>You can now access these projects on Citizens for Change.</p>
       <div style="text-align: center; margin: 30px 0;">
         <a href="${env.FRONTEND_URL}/dashboard" 
            style="display: inline-block; padding: 15px 40px; background-color: #624CF5; 
@@ -525,8 +525,8 @@ async function sendOrganizationAddedNotification(
     <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
       <h2 style="color: #272236;">You've Been Added to a New Organization</h2>
       <p>Hello,</p>
-      <p>${inviterName} has granted you <strong>${role}</strong> access to 
-         <strong>${organizationName}</strong> on the Youth Impact Platform.</p>
+      <p>${inviterName} has granted you <strong>${role}</strong> access to
+         <strong>${organizationName}</strong> on Citizens for Change.</p>
       ${projectCount > 0 ? `<p>You've been assigned to ${projectCount} project(s).</p>` : ''}
       <div style="text-align: center; margin: 30px 0;">
         <a href="${env.FRONTEND_URL}/dashboard" 
@@ -882,7 +882,7 @@ export const resendInvitation = async (
     // Send invitation email
     const emailSent = await emailService.sendEmail({
       to: invitedUser.email,
-      subject: `Reminder: Invitation to join ${invitedUser.invitedToOrganization?.name} on Youth Impact Platform`,
+      subject: `Reminder: Invitation to join ${invitedUser.invitedToOrganization?.name} on Citizens for Change`,
       html: emailHtml
     });
 

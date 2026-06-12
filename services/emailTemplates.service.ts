@@ -28,7 +28,7 @@ export class EmailTemplateService {
       <head>
           <meta charset="UTF-8">
           <meta name="viewport" content="width=device-width, initial-scale=1.0">
-          <title>Youth Impact Platform - Password Reset</title>
+          <title>Citizens for Change - Password Reset</title>
           <style>
               body {
                   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
@@ -159,7 +159,7 @@ export class EmailTemplateService {
       <body>
           <div class="container">
               <div class="header">
-                  <div class="logo">Youth Impact Platform</div>
+                  <div class="logo">Citizens for Change</div>
                   <div class="subtitle">Sustainable Monitoring, Reporting & Verification</div>
               </div>
               
@@ -167,7 +167,7 @@ export class EmailTemplateService {
                   <div class="greeting">Hello ${userName},</div>
                   
                   <div class="message">
-                      We received a request to reset the password for your Youth Impact Platform account associated with <strong>${userEmail}</strong>.
+                      We received a request to reset the password for your Citizens for Change account associated with <strong>${userEmail}</strong>.
                   </div>
                   
                   <div class="message">
@@ -203,12 +203,12 @@ export class EmailTemplateService {
                   </div>
                   
                   <div class="message">
-                      Thank you for using Youth Impact Platform to advance sustainable development and environmental monitoring.
+                      Thank you for using Citizens for Change to advance sustainable development and environmental monitoring.
                   </div>
               </div>
               
               <div class="footer">
-                  <p>This is an automated message from Youth Impact Platform.</p>
+                  <p>This is an automated message from Citizens for Change.</p>
                   <p>If you need assistance, contact our support team at 
                      <a href="mailto:support@valuescopeyouthimpact.com" class="support-email">support@valuescopeyouthimpact.com</a>
                   </p>
@@ -218,7 +218,7 @@ export class EmailTemplateService {
                       <a href="#">Help Center</a>
                   </div>
                   <p style="margin-top: 15px; font-size: 12px; color: #9ca3af;">
-                      © 2025 Youth Impact Platform. All rights reserved.
+                      © 2026 Citizens for Change. All rights reserved.
                   </p>
               </div>
           </div>
@@ -239,7 +239,7 @@ export class EmailTemplateService {
       <head>
           <meta charset="UTF-8">
           <meta name="viewport" content="width=device-width, initial-scale=1.0">
-          <title>Welcome to Youth Impact Platform</title>
+          <title>Welcome to Citizens for Change</title>
           <style>
               body {
                   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
@@ -366,17 +366,17 @@ export class EmailTemplateService {
       <body>
           <div class="container">
               <div class="header">
-                  <div class="logo">Youth Impact Platform</div>
+                  <div class="logo">Citizens for Change</div>
                   <div class="subtitle">Sustainable Monitoring, Reporting & Verification</div>
               </div>
               
-              <div class="welcome-title">🎉 Welcome to Youth Impact Platform!</div>
+              <div class="welcome-title">🎉 Welcome to Citizens for Change!</div>
               
               <div class="content">
                   <div class="greeting">Hello ${userName},</div>
                   
                   <div class="message">
-                      Welcome to Youth Impact Platform! We're excited to have you join our community dedicated to advancing sustainable development and environmental monitoring through proper due diligence and GDPR compliance.
+                      Welcome to Citizens for Change! We're excited to have you join our community dedicated to advancing sustainable development and environmental monitoring through proper due diligence and GDPR compliance.
                   </div>
                   
                   <div class="account-details">
@@ -398,7 +398,7 @@ export class EmailTemplateService {
                   </div>
                   
                   <div class="features-section">
-                      <div class="features-title">🚀 What you can do with Youth Impact Platform:</div>
+                      <div class="features-title">🚀 What you can do with Citizens for Change:</div>
                       <div class="feature-list">
                           • <strong>Build:</strong> Create curated surveys for local communities affected by your projects<br>
                           • <strong>Measure:</strong> Analyze survey responses based on specific conditions and criteria<br>
@@ -413,12 +413,12 @@ export class EmailTemplateService {
                   </div>
                   
                   <div class="message">
-                      Thank you for choosing Youth Impact Platform to make a positive impact on sustainable development.
+                      Thank you for choosing Citizens for Change to make a positive impact on sustainable development.
                   </div>
               </div>
               
               <div class="footer">
-                  <p>This is an automated welcome message from Youth Impact Platform.</p>
+                  <p>This is an automated welcome message from Citizens for Change.</p>
                   <p>If you need assistance, contact our support team at 
                      <a href="mailto:support@valuescopeyouthimpact.com" class="support-email">support@valuescopeyouthimpact.com</a>
                   </p>
@@ -428,7 +428,7 @@ export class EmailTemplateService {
                       <a href="#">Help Center</a>
                   </div>
                   <p style="margin-top: 15px; font-size: 12px; color: #9ca3af;">
-                      © 2025 Youth Impact Platform. All rights reserved.
+                      © 2026 Citizens for Change. All rights reserved.
                   </p>
               </div>
           </div>
@@ -447,7 +447,7 @@ export class EmailTemplateService {
       <head>
           <meta charset="UTF-8">
           <meta name="viewport" content="width=device-width, initial-scale=1.0">
-          <title>Youth Impact Platform - Password Changed</title>
+          <title>Citizens for Change - Password Changed</title>
           <style>
               body {
                   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
@@ -545,7 +545,7 @@ export class EmailTemplateService {
       <body>
           <div class="container">
               <div class="header">
-                  <div class="logo">Youth Impact Platform</div>
+                  <div class="logo">Citizens for Change</div>
                   <div class="subtitle">Sustainable Monitoring, Reporting & Verification</div>
               </div>
               
@@ -555,7 +555,7 @@ export class EmailTemplateService {
                   <div class="greeting">Hello ${userName},</div>
                   
                   <div class="message">
-                      This email confirms that the password for your Youth Impact Platform account (<strong>${userEmail}</strong>) has been successfully changed.
+                      This email confirms that the password for your Citizens for Change account (<strong>${userEmail}</strong>) has been successfully changed.
                   </div>
                   
                   <div class="success-info">
@@ -574,17 +574,17 @@ export class EmailTemplateService {
                   </div>
                   
                   <div class="message">
-                      You can now log in to your account using your new password. Thank you for keeping your Youth Impact Platform account secure.
+                      You can now log in to your account using your new password. Thank you for keeping your Citizens for Change account secure.
                   </div>
               </div>
               
               <div class="footer">
-                  <p>This is an automated security notification from Youth Impact Platform.</p>
+                  <p>This is an automated security notification from Citizens for Change.</p>
                   <p>If you need assistance, contact our support team at 
                      <a href="mailto:support@valuescopeyouthimpact.com" class="support-email">support@valuescopeyouthimpact.com</a>
                   </p>
                   <p style="margin-top: 15px; font-size: 12px; color: #9ca3af;">
-                      © 2025 Youth Impact Platform. All rights reserved.
+                      © 2026 Citizens for Change. All rights reserved.
                   </p>
               </div>
           </div>
@@ -603,7 +603,7 @@ export class EmailTemplateService {
       <head>
           <meta charset="UTF-8">
           <meta name="viewport" content="width=device-width, initial-scale=1.0">
-          <title>Youth Impact Platform - Verify Your Account</title>
+          <title>Citizens for Change - Verify Your Account</title>
           <style>
               body {
                   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
@@ -717,7 +717,7 @@ export class EmailTemplateService {
       <body>
           <div class="container">
               <div class="header">
-                  <div class="logo">Youth Impact Platform</div>
+                  <div class="logo">Citizens for Change</div>
                   <div class="subtitle">Sustainable Monitoring, Reporting & Verification</div>
               </div>
               
@@ -727,7 +727,7 @@ export class EmailTemplateService {
                   <div class="greeting">Hello ${userName},</div>
                   
                   <div class="message">
-                      Thank you for creating an account with Youth Impact Platform! To complete your registration and start using our platform, please verify your email address (<strong>${userEmail}</strong>).
+                      Thank you for creating an account with Citizens for Change! To complete your registration and start using our platform, please verify your email address (<strong>${userEmail}</strong>).
                   </div>
                   
                   <div class="message">
@@ -754,17 +754,17 @@ export class EmailTemplateService {
                   </div>
                   
                   <div class="message">
-                      Once verified, you'll have full access to Youth Impact Platform's features for sustainable monitoring, reporting, and verification.
+                      Once verified, you'll have full access to Citizens for Change's features for sustainable monitoring, reporting, and verification.
                   </div>
               </div>
               
               <div class="footer">
-                  <p>This is an automated verification email from Youth Impact Platform.</p>
+                  <p>This is an automated verification email from Citizens for Change.</p>
                   <p>If you need assistance, contact our support team at 
                      <a href="mailto:support@valuescopeyouthimpact.com" class="support-email">support@valuescopeyouthimpact.com</a>
                   </p>
                   <p style="margin-top: 15px; font-size: 12px; color: #9ca3af;">
-                      © 2025 Youth Impact Platform. All rights reserved.
+                      © 2026 Citizens for Change. All rights reserved.
                   </p>
               </div>
           </div>
@@ -793,7 +793,7 @@ export class EmailTemplateService {
       <head>
           <meta charset="UTF-8">
           <meta name="viewport" content="width=device-width, initial-scale=1.0">
-          <title>Youth Impact Platform - Project Invitation</title>
+          <title>Citizens for Change - Project Invitation</title>
           <style>
               body {
                   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
@@ -896,7 +896,7 @@ export class EmailTemplateService {
       <body>
           <div class="container">
               <div class="header">
-                  <div class="logo">Youth Impact Platform</div>
+                  <div class="logo">Citizens for Change</div>
                   <div class="subtitle">Sustainable Monitoring, Reporting & Verification</div>
               </div>
               
@@ -906,7 +906,7 @@ export class EmailTemplateService {
                   <div class="greeting">Hello ${inviteeName},</div>
                   
                   <div class="message">
-                      <strong>${inviterName}</strong> has invited you to collaborate on the <strong>"${projectName}"</strong> project on Youth Impact Platform.
+                      <strong>${inviterName}</strong> has invited you to collaborate on the <strong>"${projectName}"</strong> project on Citizens for Change.
                   </div>
                   
                   <div class="invitation-details">
@@ -929,7 +929,7 @@ export class EmailTemplateService {
                   </div>
                   
                   <div class="message">
-                      If you don't have an Youth Impact Platform account yet, you'll be guided through the registration process when you click the invitation link.
+                      If you don't have an Citizens for Change account yet, you'll be guided through the registration process when you click the invitation link.
                   </div>
                   
                   <div class="message">
@@ -938,12 +938,12 @@ export class EmailTemplateService {
               </div>
               
               <div class="footer">
-                  <p>This is an automated invitation from Youth Impact Platform.</p>
+                  <p>This is an automated invitation from Citizens for Change.</p>
                   <p>If you need assistance, contact our support team at 
                      <a href="mailto:support@valuescopeyouthimpact.com" class="support-email">support@valuescopeyouthimpact.com</a>
                   </p>
                   <p style="margin-top: 15px; font-size: 12px; color: #9ca3af;">
-                      © 2025 Youth Impact Platform. All rights reserved.
+                      © 2026 Citizens for Change. All rights reserved.
                   </p>
               </div>
           </div>
@@ -971,7 +971,7 @@ export class EmailTemplateService {
       <head>
           <meta charset="UTF-8">
           <meta name="viewport" content="width=device-width, initial-scale=1.0">
-          <title>Youth Impact Platform - Survey Reminder</title>
+          <title>Citizens for Change - Survey Reminder</title>
           <style>
               body {
                   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
@@ -1074,7 +1074,7 @@ export class EmailTemplateService {
       <body>
           <div class="container">
               <div class="header">
-                  <div class="logo">Youth Impact Platform</div>
+                  <div class="logo">Citizens for Change</div>
                   <div class="subtitle">Sustainable Monitoring, Reporting & Verification</div>
               </div>
               
@@ -1111,12 +1111,12 @@ export class EmailTemplateService {
               </div>
               
               <div class="footer">
-                  <p>This is an automated reminder from Youth Impact Platform.</p>
+                  <p>This is an automated reminder from Citizens for Change.</p>
                   <p>If you need assistance, contact our support team at 
                      <a href="mailto:support@valuescopeyouthimpact.com" class="support-email">support@valuescopeyouthimpact.com</a>
                   </p>
                   <p style="margin-top: 15px; font-size: 12px; color: #9ca3af;">
-                      © 2025 Youth Impact Platform. All rights reserved.
+                      © 2026 Citizens for Change. All rights reserved.
                   </p>
               </div>
           </div>
