@@ -27,31 +27,57 @@ const INVITABLE_ROLES = [
   'fieldAgent'
 ] as const;
 
+const PERMISSION_FLAG_KEYS = [
+  'submitData',
+  'useDataCollector',
+  'viewRiskRegister',
+  'generateReports',
+  'learnAndTell',
+  'inviteUsers',
+];
+
 // Invite User validation
 export const validateInviteUser = [
   body('email')
     .isEmail()
     .normalizeEmail()
     .withMessage('Please provide a valid email address'),
-  
+
   body('role')
     .isIn(INVITABLE_ROLES)
     .withMessage(`Invalid role. Must be one of: ${INVITABLE_ROLES.join(', ')}`),
-  
+
   body('organizationId')
     .isMongoId()
     .withMessage('Invalid organization ID format'),
-  
+
   body('projectIds')
     .optional()
     .isArray()
     .withMessage('Project IDs must be an array'),
-  
+
   body('projectIds.*')
     .optional()
     .isMongoId()
     .withMessage('Each project ID must be a valid MongoDB ID'),
-  
+
+  body('isOrgAdmin')
+    .optional()
+    .isBoolean()
+    .withMessage('isOrgAdmin must be a boolean'),
+
+  body('permissions')
+    .optional()
+    .isObject()
+    .withMessage('permissions must be an object'),
+
+  ...PERMISSION_FLAG_KEYS.map((key) =>
+    body(`permissions.${key}`)
+      .optional()
+      .isBoolean()
+      .withMessage(`permissions.${key} must be a boolean`)
+  ),
+
   handleValidationErrors
 ];
 

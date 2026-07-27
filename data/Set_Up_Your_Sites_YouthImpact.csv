@@ -1,0 +1,97 @@
+Field Name,Suggested validation,Data Type,Question,Response options,Helper text,Hover Text,Conditional On
+Section 1 — Site Identity,,,,,,,
+site_name,Required; max 120 characters,Short text,What is the name of this site?,,Enter the name used locally to identify this site.,This defines the unit of analysis for comparison across sites.,
+site_country,Required,Single select (country list),In which country is this site located?,,Select the country where this site is located.,Structured geography allows comparison across sites and supports regional analysis.,
+site_admin_level_1,Required,Single select or taggable select,What is the primary administrative region for this site?,,Select the main administrative region where this site is located.,"Structured geography allows comparison across sites and supports regional analysis of participation, risk, and outcomes.",
+site_admin_level_2,Required,Single select or taggable select,"What is the secondary administrative unit? (e.g., District / County)",,Select the district or equivalent administrative unit for this site.,District-level data helps identify local variation and cluster similar sites for analysis.,
+site_admin_level_3,Optional,Single select or taggable select,"Is there a more local administrative unit relevant here? (e.g., Ward / Sub-county / Municipality)",,"If relevant, select the most local administrative unit associated with this site.","More granular location data improves precision when comparing access, safeguarding, and inclusion conditions across sites.",
+site_geography_context_summary,Optional,Short text,Are there any geographic characteristics that affect delivery at this site?,,"Describe anything distinctive about this location (e.g., remote, urban informal settlement, border area).",,
+site_implementation_setting_types,Required,Multi-select (enum),Where does implementation take place at this site?,"School / education setting
+Community setting
+Health facility / clinic
+Safe space / drop-in centre
+Workplace / employer-linked setting
+Justice / protection setting
+Household / home-based
+Digital / remote",Confirm or update the delivery settings specific to this site.,Delivery settings may vary across sites and affect safeguarding and access.,
+site_population_estimate,Optional,Integer,Approximately how many people are directly engaged in the work at this site?,,Provide your best estimate of the number of direct participants at this site.,This helps compare scale and reach across sites.,
+Section 2 — Access and Safeguarding Delta,,,,,,,
+site_access_differs_from_project,Required,Yes / No,Does access at this site differ from the overall project baseline?,,Select Yes if barriers or access conditions are meaningfully different here.,This avoids repeating baseline data and focuses on local differences.,
+site_access_constraints,Optional,Multi-select (enum),What access barriers are different or more severe at this site?,"Cost / financial barriers
+Distance / transport
+Safety / insecurity
+Care responsibilities
+Social norms / expectations
+Stigma or discrimination
+Disability access barriers
+Language barriers
+Lack of information
+Documentation requirements
+Gatekeeping
+Timing / scheduling conflicts
+Digital access limitations",Select barriers that are prominent at this location.,Prominent access barriers help explain participation differences across sites.,site_access_differs_from_project
+site_access_severity,Optional,Single select (enum),How significant are these access barriers at this site?,"Low
+Moderate
+High",Indicate the overall severity of access challenges here.,Severity helps weight the impact of site differences on outcomes.,site_access_differs_from_project
+site_safeguarding_differs_from_project,Required,Yes / No,Does the safeguarding risk level differ at this site?,,Select Yes if risk exposure or reporting conditions differ here.,Local safeguarding realities may influence participation and data collection.,
+site_safeguarding_risk_rating,Optional,Single select (enum),What is the safeguarding risk level at this site?,"Low risk
+Moderate risk
+High risk
+Unsure",Select the risk level specific to this site. Click on risk button to elaborate.,Risk levels affect engagement strategies and interpretation of results.,site_safeguarding_differs_from_project
+site_reporting_pathway_functional,Optional,Yes / No,Is the safeguarding reporting pathway functional and accessible at this site?,,Indicate whether reporting and referral systems are working in practice. Click on risk button to elaborate.,Functional pathways are essential for safe delivery and disclosure response.,site_safeguarding_differs_from_project
+site_data_constraints_differs_from_project,Required,Yes / No,Do data collection conditions differ at this site?,,"Select Yes if consent, privacy, literacy, or digital access differ here.",Differences in data feasibility affect how evidence is interpreted.,
+site_data_collection_constraints_delta,Optional,Multi-select (enum),What data collection constraints are different or more significant at this site?,"Literacy limitations
+Language barriers
+Low digital access
+Consent complexity
+Sensitivity of topic
+Fear of retaliation or stigma
+Limited privacy
+Weak referral options
+Limited administrative data access
+Staff capacity limitations
+Data protection or legal constraints
+None significant",Select constraints that differ from the project baseline. Click on risk button to elaborate.,Data constraints help explain uneven evidence quality across sites.,site_data_constraints_differs_from_project
+Section 3 — Inclusion and Context Delta,,,,,,,
+site_exclusion_differs_from_project,Required,Yes / No,Does exclusion risk differ at this site compared to the project baseline?,,Select Yes if some groups face higher exclusion risk here.,This captures local equity variation without repeating full baseline data.,
+site_exclusion_risks,Optional,Multi-select (enum),Which exclusion risks are elevated at this site?,"Elite capture
+Exclusion of highest-need groups
+Reinforcing inequalities
+Stigma or backlash
+Confidentiality breaches
+Coercion or unsafe participation
+Gender-based harm
+Tokenistic participation
+Power imbalances
+Safeguarding under-reporting",Select risks that are more significant here than in other sites. Click on risk button to elaborate.,Elevated risks help explain differences in reach or outcomes.,site_exclusion_differs_from_project
+site_barriers_severity_delta,Optional,Single select (enum),"Compared to the project baseline, how much higher are barriers at this site?","Slightly higher
+Moderately higher
+Significantly higher",Provide a relative comparison to the overall project context.,,site_exclusion_differs_from_project
+site_constraints_differs_from_project,Required,Yes / No,Do implementation constraints differ at this site?,,"Select Yes if staffing, infrastructure, or coordination differ here.",Local constraints may influence pace and quality.,
+site_implementation_constraints_delta,Optional,Multi-select (enum),Which implementation constraints are different or more severe at this site?,"Funding limitations
+Short funding cycles
+Staffing capacity
+Staff turnover
+High workload in institutions
+Infrastructure limitations
+Transport or access issues
+Political sensitivity
+Regulatory complexity
+Weak referral systems
+Weak coordination between actors
+Data limitations
+Safety or security risks
+Competing priorities in institutions
+Seasonal factors
+None",Select constraints that vary from the baseline. Click on risk button to elaborate.,This helps interpret site-level performance differences.,site_constraints_differs_from_project
+site_shock_differs_from_project,Required,Yes / No,Are shocks or seasonal factors different at this site?,,Select Yes if this site experiences distinct volatility.,External shocks can influence short-term results.,
+site_shock_profile_delta,Optional,Multi-select (enum),Which shocks are specific to or more significant at this site?,"Academic calendar / exam periods
+Seasonal migration
+Climate events (flooding, drought, etc.)
+Conflict or insecurity
+Disease outbreaks
+Economic shocks
+Elections or political transitions
+Agricultural cycles
+None",Select shocks that meaningfully affect this location. Click on risk button to elaborate.,Shock exposure may explain fluctuations in participation or outcomes.,site_shock_differs_from_project
+site_key_uncertainty,Optional,Short text (max 300 characters),What is the biggest uncertainty specific to this site?,,Describe the most important local uncertainty to monitor.,"Naming site-level uncertainties supports focused, local learning.",

@@ -1,15 +1,16 @@
 import { Router } from "express";
-import { 
-  getUser, 
-  getUsers, 
-  inviteUser, 
-  verifyInvitation, 
-  acceptInvitation, 
-  getOrganizationUsers, 
-  revokeInvitation, 
-  resendInvitation, 
-  updateUser, 
-  archiveUser 
+import {
+  getUser,
+  getUsers,
+  inviteUser,
+  verifyInvitation,
+  acceptInvitation,
+  getOrganizationUsers,
+  revokeInvitation,
+  resendInvitation,
+  updateUser,
+  updateUserPermissions,
+  archiveUser
 } from "../controllers/user.controller";
 import { 
   validateInviteUser, 
@@ -40,6 +41,7 @@ userRouter.post('/resend-invitation/:userId', hasPermission(['manage_users', 'ma
 userRouter.get('/', hasPermission(['manage_users', 'manage_client_users']), getUsers);
 userRouter.get('/:id', getUser);
 userRouter.put('/:id', validateUpdateUser, updateUser);
+userRouter.put('/:userId/permissions', updateUserPermissions);
 userRouter.delete('/:id', hasPermission(['manage_users', 'manage_client_users']), archiveUser);
 
 // Mount the role management routes as sub-routes

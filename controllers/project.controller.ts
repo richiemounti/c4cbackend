@@ -5,6 +5,7 @@ import Organization from "../models/organization.model";
 import User from "../models/user.model";
 import { uploadFile } from '../services/storage.service';
 import { CustomError } from "../middlewares/error.middleware";
+import { assertOrganizationCanCreateProject } from "../services/subscriptionGating.service";
 
 // Type guard to check if user is defined
 function isUserAuthenticated(req: Request): boolean {
@@ -47,6 +48,13 @@ export const createProject = async (
 
     // Verify the user has permission to create projects in this organization
     // This should be handled by the role middleware that checks for 'create_projects' permission
+
+    // Billing gate: an active subscription is required from project #1 (hard stop);
+    // ConnectGo staff can create projects during onboarding ahead of payment. Pushing the
+    // org into a higher project-count tier is still allowed (soft gate, surfaced below).
+    const billingGate = await assertOrganizationCanCreateProject(organization, {
+      bypassPaywall: req.user!.isConnectGoStaff === true,
+    });
 
     // Create the new project
     const newProjects = await Project.create([{
@@ -93,7 +101,16 @@ export const createProject = async (
     res.status(201).json({
       success: true,
       message: 'Project created successfully',
-      data: newProjects[0]
+      data: newProjects[0],
+      billing: billingGate.manuallyManaged
+        ? undefined
+        : {
+            upgradeRequired: billingGate.upgradeRequired,
+            requiresSalesContact: billingGate.requiresSalesContact,
+            currentTier: billingGate.currentTier,
+            requiredTier: billingGate.requiredBand,
+            projectCount: billingGate.projectCountAfterCreate
+          }
     });
   } catch (error) {
     await session.abortTransaction();

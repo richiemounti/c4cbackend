@@ -1,51 +1,15 @@
-import { Router, Request, Response } from "express";
+// routes/subscription.routes.ts
+// Mounted at /api/v1/subscriptions. Org-scoped billing actions (checkout, portal, status)
+// live under /api/v1/organizations/:organizationId/subscription instead - see
+// routes/organizationSubscription.routes.ts. This router holds the two things that aren't
+// org-scoped: the public pricing catalogue, and the Stripe webhook (unauthenticated -
+// Stripe can't send a JWT - verified by signature instead).
+import { Router } from "express";
+import { getCatalogue, handleStripeWebhook } from "../controllers/subscription.controller";
 
+const subscriptionRouter = Router();
 
-const subscriptionRouter = Router()
+subscriptionRouter.get("/catalogue", getCatalogue);
+subscriptionRouter.post("/webhook", handleStripeWebhook);
 
-subscriptionRouter.get('/', (req: Request, res: Response) => {
-    // Your get subscriptions logic here
-    res.send({ title: 'GET all subscriptions' })
-})
-
-
-subscriptionRouter.get('/:id', (req: Request, res: Response) => {
-    // Your get subscriptions logic here
-    res.send({ title: 'GET subscription details' })
-})
-
-
-subscriptionRouter.post('/', (req: Request, res: Response) => {
-    // Your get subscriptions logic here
-    res.send({ title: 'Create a new subscription' })
-})
-
-
-subscriptionRouter.put('/:id', (req: Request, res: Response) => {
-    // Your get subscriptions logic here
-    res.send({ title: 'Update a subscription' })
-})
-
-
-subscriptionRouter.delete('/:id', (req: Request, res: Response) => {
-    // Your get subscriptions logic here
-    res.send({ title: 'Delete a subscription' })
-})
-
-subscriptionRouter.get('/user/:id', (req: Request, res: Response) => {
-    // Your get subscriptions logic here
-    res.send({ title: 'GET all user subscriptions' })
-})
-
-
-subscriptionRouter.put('/:id/cancel', (req: Request, res: Response) => {
-    // Your get subscriptions logic here
-    res.send({ title: 'Cancel a subscription' })
-})
-
-subscriptionRouter.get('/upcoming-renewals', (req: Request, res: Response) => {
-    // Your get subscriptions logic here
-    res.send({ title: 'GET upcoming renewals' })
-})
-
-export default subscriptionRouter
+export default subscriptionRouter;

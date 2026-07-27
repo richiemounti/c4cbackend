@@ -1,6 +1,6 @@
 // controllers/user.controller.ts - Updated with invitation system
 import { Request, Response, NextFunction } from "express";
-import User, { IUserDocument } from "../models/user.model";
+import User, { IUserDocument, IPermissions, resolveRoleGrant } from "../models/user.model";
 import Organization from "../models/organization.model";
 import Project from "../models/project.model";
 import { CustomError } from "../middlewares/error.middleware";
@@ -166,8 +166,9 @@ export const inviteUser = async (
   next: NextFunction
 ) => {
   try {
-    const { email, role, organizationId, projectIds } = req.body;
-    
+    const { email, role, organizationId, projectIds, isOrgAdmin, permissions } = req.body;
+    const roleGrant = resolveRoleGrant(role, { isOrgAdmin, permissions });
+
     // Verify organization exists and user has access
     const organization = await Organization.findById(organizationId);
     if (!organization) {
@@ -209,7 +210,8 @@ export const inviteUser = async (
         projectIds,
         organization.name,
         req.user!,
-        res
+        res,
+        roleGrant
       );
     } else {
       // ===== NEW USER FLOW =====
@@ -220,7 +222,8 @@ export const inviteUser = async (
         projectIds,
         organization.name,
         req.user!,
-        res
+        res,
+        roleGrant
       );
     }
   } catch (error) {
@@ -238,7 +241,8 @@ async function inviteNewUser(
   projectIds: string[],
   organizationName: string,
   inviter: Express.User,
-  res: Response
+  res: Response,
+  roleGrant: { isOrgAdmin: boolean; permissions: IPermissions }
 ) {
   // Generate invitation token
   const invitationToken = crypto.randomBytes(32).toString('hex');
@@ -264,7 +268,9 @@ async function inviteNewUser(
     roles: [{
       role: role,
       organization: organizationId,
-      projects: projectIds || []
+      projects: projectIds || [],
+      isOrgAdmin: roleGrant.isOrgAdmin,
+      permissions: roleGrant.permissions,
     }]
   });
 
@@ -311,7 +317,8 @@ async function addExistingUserToOrganization(
   projectIds: string[],
   organizationName: string,
   inviter: Express.User,
-  res: Response
+  res: Response,
+  roleGrant: { isOrgAdmin: boolean; permissions: IPermissions }
 ) {
   // Check if user already has access to this organization
   const hasOrgAccess = user.hasOrganizationAccess(organizationId);
@@ -402,7 +409,9 @@ async function addExistingUserToOrganization(
   user.roles.push({
     role: role,
     organization: organizationId,
-    projects: projectIds || []
+    projects: projectIds || [],
+    isOrgAdmin: roleGrant.isOrgAdmin,
+    permissions: roleGrant.permissions,
   });
 
   await user.save();
@@ -934,6 +943,85 @@ export const updateUser = async (
 };
 
 /**
+ * Update a user's isOrgAdmin/permission-flags for a specific organization
+ * @route PUT /api/v1/users/:userId/permissions
+ * @access Private (ConnectGo staff or org admins of the target organization)
+ */
+export const updateUserPermissions = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const { userId } = req.params;
+    const { organizationId, isOrgAdmin, permissions } = req.body;
+
+    if (!organizationId) {
+      const error = new Error('organizationId is required') as CustomError;
+      error.statusCode = 400;
+      throw error;
+    }
+
+    if ((req.user as any)?._id.toString() === userId) {
+      const error = new Error('You cannot modify your own permissions') as CustomError;
+      error.statusCode = 403;
+      throw error;
+    }
+
+    if (!req.user!.isConnectGoStaff && !req.user!.isOrgAdminOf(organizationId)) {
+      const error = new Error('Not authorized to update permissions for this organization') as CustomError;
+      error.statusCode = 403;
+      throw error;
+    }
+
+    const targetUser = await User.findById(userId);
+    if (!targetUser) {
+      const error = new Error('User not found') as CustomError;
+      error.statusCode = 404;
+      throw error;
+    }
+
+    const roleIndex = targetUser.roles.findIndex(
+      (r: any) => r.organization && r.organization.toString() === organizationId
+    );
+
+    if (roleIndex === -1) {
+      const error = new Error('User does not have a role in this organization') as CustomError;
+      error.statusCode = 404;
+      throw error;
+    }
+
+    if (typeof isOrgAdmin === 'boolean') {
+      targetUser.roles[roleIndex].isOrgAdmin = isOrgAdmin;
+    }
+    if (permissions && typeof permissions === 'object') {
+      targetUser.roles[roleIndex].permissions = {
+        ...targetUser.roles[roleIndex].permissions,
+        ...permissions,
+      } as IPermissions;
+    }
+
+    await targetUser.save();
+
+    res.status(200).json({
+      success: true,
+      message: 'Permissions updated successfully',
+      data: {
+        userId: targetUser._id,
+        role: targetUser.roles[roleIndex]
+      }
+    });
+  } catch (error) {
+    if (error instanceof Error && error.name === 'CastError') {
+      const customError = new Error('Invalid user ID format') as CustomError;
+      customError.statusCode = 400;
+      return next(customError);
+    }
+    next(error);
+  }
+};
+
+/**
  * Archive user (soft delete)
  * @route DELETE /api/v1/users/:id
  * @access Private (Manager/Admin only)
@@ -970,14 +1058,15 @@ export const archiveUser = async (
 
     // Check permissions
     let hasPermission = false;
-    
+
     if (req.user?.isConnectGoStaff) {
       // ConnectGo staff can archive anyone
       hasPermission = true;
-    } else if (req.user?.primaryRole === 'manager') {
-      // Managers can archive users in their organization
-      const commonOrgs = userToArchive.roles.filter(role => 
-        role.organization && req.user?.hasOrganizationAccess(role.organization.toString())
+    } else {
+      // Org-admins (default: manager, but any role can be granted isOrgAdmin) can
+      // archive users who share an organization where the requester is an org-admin.
+      const commonOrgs = userToArchive.roles.filter(role =>
+        role.organization && req.user?.isOrgAdminOf(role.organization.toString())
       );
       hasPermission = commonOrgs.length > 0;
     }

@@ -8,19 +8,19 @@ type ConnectGoRole = typeof connectGoRolesEnum[number];
 
 // Define a schema for client roles (Project-Level Roles)
 const clientRolesEnum = [
-    'manager', 
-    'projectCreator', 
+    'manager',
+    'projectCreator',
     'leadership',
     'hq',
     'communications',
     'fieldStaff',
     'fieldAgent'
 ] as const;
-type ClientRole = typeof clientRolesEnum[number];
+export type ClientRole = typeof clientRolesEnum[number];
 
 // Roles that require organization (all client roles except manager)
 const rolesRequiringOrg = [
-    'projectCreator', 
+    'projectCreator',
     'leadership',
     'hq',
     'communications',
@@ -28,11 +28,97 @@ const rolesRequiringOrg = [
     'fieldAgent'
 ];
 
+// Option B — explicit permission flags that can be toggled per user at invitation.
+// A user gains a permission if EITHER their role grants it (see the role-based
+// `permissions` map in hasPermission, left untouched) OR the matching flag below
+// is set on their role entry. This flag layer only covers the 6 client-facing
+// toggles surfaced in the invite/edit-permissions UI — every other permission
+// string (create_projects, stakeholder_mapping, review_management, etc.) continues
+// to be resolved solely by the role-based map, since those aren't user-toggleable.
+export interface IPermissions {
+    submitData: boolean;      // Can complete tasks and enter data
+    useDataCollector: boolean; // Can use the Data Collector app
+    viewRiskRegister: boolean; // Can view the Risk Register
+    generateReports: boolean;  // Can generate reports
+    learnAndTell: boolean;     // Can engage with the Learn & Tell module
+    inviteUsers: boolean;      // Can invite other users
+}
+
+export const DEFAULT_PERMISSIONS: IPermissions = {
+    submitData: false,
+    useDataCollector: false,
+    viewRiskRegister: false,
+    generateReports: false,
+    learnAndTell: false,
+    inviteUsers: false,
+};
+
+// Maps the subset of legacy permission strings that correspond to the 6 flags
+// above. Only these strings are flag-checkable — everything else stays governed
+// by the existing role-based permission map.
+const CLIENT_PERMISSION_FLAG_MAP: Record<string, keyof IPermissions> = {
+    submit_data: 'submitData',
+    data_collector: 'useDataCollector',
+    risk_register: 'viewRiskRegister',
+    report: 'generateReports',
+    learn_and_tell: 'learnAndTell',
+    invite_users: 'inviteUsers',
+    assign_roles: 'inviteUsers',
+};
+
+// Default isOrgAdmin/permissions bundle per client role. Used as a fallback at
+// invite/role-assignment time whenever explicit overrides aren't provided.
+export const ROLE_PRESETS: Record<ClientRole, { isOrgAdmin: boolean; permissions: IPermissions }> = {
+    manager: {
+        isOrgAdmin: true,
+        permissions: { submitData: true, useDataCollector: true, viewRiskRegister: true, generateReports: true, learnAndTell: true, inviteUsers: true },
+    },
+    projectCreator: {
+        isOrgAdmin: false,
+        permissions: { ...DEFAULT_PERMISSIONS, submitData: true, viewRiskRegister: true, generateReports: true, learnAndTell: true },
+    },
+    leadership: {
+        isOrgAdmin: false,
+        permissions: { ...DEFAULT_PERMISSIONS, viewRiskRegister: true, generateReports: true, learnAndTell: true },
+    },
+    hq: {
+        isOrgAdmin: false,
+        permissions: { ...DEFAULT_PERMISSIONS, viewRiskRegister: true, generateReports: true, learnAndTell: true },
+    },
+    communications: {
+        isOrgAdmin: false,
+        permissions: { ...DEFAULT_PERMISSIONS, generateReports: true, learnAndTell: true },
+    },
+    fieldStaff: {
+        isOrgAdmin: false,
+        permissions: { ...DEFAULT_PERMISSIONS, submitData: true, viewRiskRegister: true },
+    },
+    fieldAgent: {
+        isOrgAdmin: false,
+        permissions: { ...DEFAULT_PERMISSIONS, submitData: true, useDataCollector: true },
+    },
+};
+
+// Resolves the isOrgAdmin/permissions to store on a role entry at invite or
+// role-assignment time: explicit overrides win, falling back to that role's preset.
+export function resolveRoleGrant(
+    role: string,
+    overrides?: { isOrgAdmin?: boolean; permissions?: Partial<IPermissions> }
+): { isOrgAdmin: boolean; permissions: IPermissions } {
+    const preset = ROLE_PRESETS[role as ClientRole] ?? { isOrgAdmin: false, permissions: { ...DEFAULT_PERMISSIONS } };
+    return {
+        isOrgAdmin: overrides?.isOrgAdmin ?? preset.isOrgAdmin,
+        permissions: { ...preset.permissions, ...(overrides?.permissions ?? {}) },
+    };
+}
+
 // Define interface for role
 interface IRole {
   role: string;
   organization?: mongoose.Types.ObjectId;
   projects?: mongoose.Types.ObjectId[];
+  isOrgAdmin?: boolean; // Bypasses the permission flags below entirely for this role entry
+  permissions?: IPermissions; // Option B: explicit per-user permission overrides, additive to the role-based map
 }
 
 // Define interface for User document
@@ -68,9 +154,10 @@ export interface IUserDocument extends Document {
   
   // Method signatures
   isPasswordValid(password: string): Promise<boolean>;
-  hasPermission(permission: string): boolean;
-  hasProjectAccess(projectId: mongoose.Types.ObjectId | string): boolean;
+  hasPermission(permission: string, organizationId?: mongoose.Types.ObjectId | string): boolean;
+  hasProjectAccess(projectId: mongoose.Types.ObjectId | string, organizationId?: mongoose.Types.ObjectId | string): boolean;
   hasOrganizationAccess(organizationId: mongoose.Types.ObjectId | string): boolean;
+  isOrgAdminOf(organizationId: mongoose.Types.ObjectId | string): boolean;
 }
 
 // Define model interface with static methods (if any)
@@ -97,7 +184,25 @@ const roleSchema = new Schema<IRole>({
   projects: [{
     type: Schema.Types.ObjectId,
     ref: 'Project'
-  }]
+  }],
+  // Org-admin bypass: grants every permission scoped to this role's organization.
+  isOrgAdmin: {
+    type: Boolean,
+    default: false
+  },
+  // Option B: explicit permission-flag grants toggled at invitation time.
+  // These augment (not replace) the role-based permissions above.
+  permissions: {
+    type: {
+      submitData: { type: Boolean, default: false },
+      useDataCollector: { type: Boolean, default: false },
+      viewRiskRegister: { type: Boolean, default: false },
+      generateReports: { type: Boolean, default: false },
+      learnAndTell: { type: Boolean, default: false },
+      inviteUsers: { type: Boolean, default: false },
+    },
+    default: () => ({ ...DEFAULT_PERMISSIONS })
+  }
 });
 
 const userSchema = new Schema<IUserDocument>({
@@ -252,7 +357,7 @@ userSchema.methods.isPasswordValid = async function(this: IUserDocument, passwor
 };
 
 // Add method to check user permissions based on role
-userSchema.methods.hasPermission = function(this: IUserDocument, permission: string): boolean {
+userSchema.methods.hasPermission = function(this: IUserDocument, permission: string, organizationId?: mongoose.Types.ObjectId | string): boolean {
     // Define permissions based on roles
     const permissions = {
         // ==================== ConnectGo Roles ====================
@@ -275,13 +380,14 @@ userSchema.methods.hasPermission = function(this: IUserDocument, permission: str
         // ==================== Client Roles ====================
         manager: [
             'manage_org_projects', 'approve_submissions', 'assign_roles',
-            'export_org_reports', 'create_organization', 'invite_users', 'review_management'
+            'export_org_reports', 'create_organization', 'invite_users', 'review_management',
+            'manage_billing'
         ],
         projectCreator: [
             'create_projects', 'configure_projects', 'export_project_reports', 'review_management'
         ],
         leadership: [
-            'visualize_results', 'build_surveys', 'report', 'risk_register', 
+            'visualize_results', 'build_surveys', 'report', 'risk_register',
             'learn_and_tell', 'review_submissions', 'review_management'
         ],
         hq: [
@@ -301,12 +407,41 @@ userSchema.methods.hasPermission = function(this: IUserDocument, permission: str
         ]
     };
 
-    // Check if the user's primary role has the requested permission
-    return permissions[this.primaryRole as keyof typeof permissions]?.includes(permission) || false;
+    // 1. Check role-based permissions (existing system — untouched). This governs
+    //    everything outside the 6 user-toggleable flags (project/stakeholder/site
+    //    setup, reviews, billing, org creation, etc.) and must keep working exactly
+    //    as before for every role, including non-managers like projectCreator/fieldStaff.
+    const hasRolePermission =
+        permissions[this.primaryRole as keyof typeof permissions]?.includes(permission) || false;
+    if (hasRolePermission) return true;
+
+    const rolesToCheck = organizationId
+        ? this.roles.filter((r) => r.organization && r.organization.toString() === organizationId.toString())
+        : this.roles;
+
+    // 2. Org-admin bypass: a role entry marked isOrgAdmin grants every permission
+    //    within that entry's scope, regardless of which permission string is asked for.
+    if (rolesToCheck.some((r) => r.isOrgAdmin)) return true;
+
+    // 3. Option B: explicit permission-flag grants toggled at invitation/edit time.
+    //    Only the 6 client-facing flags are checkable this way.
+    const flagKey = CLIENT_PERMISSION_FLAG_MAP[permission];
+    if (flagKey) {
+        return rolesToCheck.some((r) => r.permissions?.[flagKey] === true);
+    }
+
+    return false;
+};
+
+// Add method to check if a user is an org-admin for a specific organization
+userSchema.methods.isOrgAdminOf = function(this: IUserDocument, organizationId: mongoose.Types.ObjectId | string): boolean {
+    if (this.isConnectGoStaff) return true;
+    const orgIdStr = organizationId.toString();
+    return this.roles.some((r) => r.organization?.toString() === orgIdStr && r.isOrgAdmin === true);
 };
 
 // Add method to check if user has project access
-userSchema.methods.hasProjectAccess = function(this: IUserDocument, projectId: mongoose.Types.ObjectId | string): boolean {
+userSchema.methods.hasProjectAccess = function(this: IUserDocument, projectId: mongoose.Types.ObjectId | string, organizationId?: mongoose.Types.ObjectId | string): boolean {
     // System-wide roles (ConnectGo staff) have access to all projects
     if (this.isConnectGoStaff) {
         return true;
@@ -314,22 +449,29 @@ userSchema.methods.hasProjectAccess = function(this: IUserDocument, projectId: m
 
     // Convert projectId to string for comparison if needed
     const projectIdStr = typeof projectId === 'string' ? projectId : projectId.toString();
+    const orgIdStr = organizationId?.toString();
 
     // For client roles, check project access in roles array
     for (const roleInfo of this.roles) {
-        // Organization managers have access to all organization projects
-        if (roleInfo.role === 'manager' && roleInfo.organization) {
-            // The controller will need to ensure projectId belongs to this organization
+        if (orgIdStr && roleInfo.organization && roleInfo.organization.toString() !== orgIdStr) {
+            continue;
+        }
+
+        // Org-admins (default: manager) have access to all of their organization's projects.
+        // Callers that don't pass organizationId keep the prior (coarser) behaviour of
+        // granting access based on isOrgAdmin alone; the controller should still verify
+        // projectId belongs to the expected organization where that matters.
+        if (roleInfo.isOrgAdmin && roleInfo.organization) {
             return true;
         }
-        
+
         // Check if project is in the allowed projects for this role
-        if (roleInfo.projects && 
+        if (roleInfo.projects &&
             roleInfo.projects.some((id) => id.toString() === projectIdStr)) {
             return true;
         }
     }
-    
+
     return false;
 };
 

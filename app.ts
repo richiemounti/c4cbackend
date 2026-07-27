@@ -16,6 +16,7 @@ import projectRouter from './routes/project.routes';
 import organizationProjectsRouter from './routes/organization-projects.routes';
 import stakeholderRouter from './routes/stakeholder.routes';
 import subscriptionRouter from './routes/subscription.routes';
+import organizationSubscriptionRouter from './routes/organizationSubscription.routes';
 import healthRouter from './routes/health.routes';
 import categoryRouter from "./routes/category.routes";
 import themeRouter from "./routes/theme.routes";
@@ -124,6 +125,12 @@ app.use(cors(corsOptions));
 
 // Middleware setup
 app.use(logger('dev'));
+
+// Stripe webhook needs the exact raw request bytes to verify its signature - this must be
+// registered before the global express.json() parser below, or the body will already have
+// been consumed/parsed by the time it reaches the webhook handler.
+app.use('/api/v1/subscriptions/webhook', express.raw({ type: 'application/json' }));
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
@@ -159,6 +166,9 @@ app.use('/api/v1/organizations', organizationRouter);
 
 // Mount the nested routes for organization projects
 app.use('/api/v1/organizations/:organizationId/projects', organizationProjectsRouter);
+
+// Mount the nested routes for an organization's subscription/billing
+app.use('/api/v1/organizations/:organizationId/subscription', organizationSubscriptionRouter);
 
 // Mount the project routes
 app.use('/api/v1/projects', projectRouter);

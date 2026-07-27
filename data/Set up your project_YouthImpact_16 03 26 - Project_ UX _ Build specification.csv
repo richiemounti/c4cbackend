@@ -1,0 +1,340 @@
+Field Name,Suggested validation,Data Type,Question,Response options,Helper text,Hover Text:
+Step 1 — Project basics and scope,,,,,,
+project_title,Required; max 120 characters,Short text (string),What is the name of this project?,,Use the name you use internally or with partners,This helps identify the project across modules and reports.
+sectors,Required,"Multi select (enum), with a taggable select for the Add new option",Which sector best describes this work?,"Education and learning
+Protection and safeguarding
+Health and wellbeing
+Livelihoods and economic inclusion
+Civic participation and leadership
+Gender equality and GBV prevention
+Mental health and psychosocial support
+Sport, arts, and culture for development
+Humanitarian response/displacement
+Inclusive access to technology
+Sexual and reproductive health and rights
+Climate action
+Add new <Taggable select>",Select the main areas this work contributes to. Choose all that apply.,This helps group similar projects and tailor insights to your sector context.
+programme_stage,Required,Single select (enum),Which stage best describes where this work is right now?,"Design (not yet delivering)
+Pilot / testing
+Early implementation
+Established delivery
+Scaling / expansion
+Transition / handover / exit",Select the option that best reflects where this work is right now.,Understanding your stage helps interpret results and shape realistic learning expectations.
+project_start_date,Required,date,When does this project period start?,,Enter the planned or actual start date for this phase of work.,The timeline helps interpret progress and identify what counts as early signals versus longer-term outcomes.
+project_end_date,Optional. End date must be after start date,date,When does this project period end?,,"Enter the planned end date for this phase, if known.",This helps frame learning windows and reporting cycles. You can update this if plans change.
+project_summary_short,,"long text, max 600–900 chars",Project summary,,"In 2–3 sentences, describe what this project does and who it is for.",This summary provides context across the platform and anchors analysis in your own words.
+Step 2 — Implementation,,,,,,
+implementation_coverage,Required,Single select (enum),Where will this work be implemented?,"One location (single site)
+Several locations in one area (multi-site, same region)
+Several locations across different areas (multi-site, multiple regions)
+National coverage
+Across multiple countries",Select the option that best describes how widely this work is implemented.,"The coverage influences risk, complexity, and how outcomes are interpreted."
+implementation_setting,Required,"Multi select (enum), with a taggable select for the Add new option",Where does implementation take place? (Select all that apply),"School / education setting
+Community setting
+Health facility / clinic
+Safe space / drop-in centre
+Workplace / employer-linked setting
+Justice / protection setting (courts, police-linked services, etc.)
+Household / home-based
+Digital / remote
+Add new (add tag)",Select all the settings where activities and support take place.,"Implementation settings affect access, safeguarding considerations, and participation patterns."
+implementation_mechanism_type,Required,"Multi select (enum), with a taggable select for the Add new option",What is the main delivery mechanism? (How does the work reach people?),"Direct delivery by our organisation
+Delivery through partners (we support / fund / train)
+Shared delivery (co-delivery model)
+Network / coalition approach
+Digital-first delivery
+Add new (add tag)",Select the options that best describes how the work reaches people.,"This helps interpret accountability, coordination, and quality assurance dynamics."
+implementation_intensity,Required,Single select (enum),How intensive is engagement with participants?,"Light touch (one-off or short series)
+Medium touch (ongoing, periodic engagement)
+High touch (intensive / case-based / sustained)",Select how intensive engagement is for participants or institutions.,The intensity of engagement affects expected depth of change and timeframes.
+core_components,Required,"Multi select (enum), with a taggable select for the Add new option",What are the core components of the programme? (Select all that apply),"Outreach and engagement
+Group sessions / clubs
+One-to-one support / mentoring
+Case management
+Referral pathways and follow-up
+Training / capacity building for adults or institutions
+Youth leadership / participation activities
+Caregiver / family engagement
+Community mobilisation / norms work
+Materials / resources distribution
+Financial support (cash, vouchers, fees)
+Service quality improvement (processes, standards, tools)
+Digital tools / platforms
+Advocacy / influencing
+Add new (add tag)",Select the main components that make up your project or programme.,These components describe your offer and help connect activities to outcomes.
+Step 3 — Clarify the challenge,,,,,,
+problem_headline,Required; max 200–280 characters,Short text (string),What is the core challenge this work is responding to? ,,Describe the core problem that you are addressing in one clear sentence.,A clear headline anchors analysis and keeps learning focused on the right issue.
+problem_manifestations,Required; suggest “select up to 6”,"Multi select (enum), with a taggable select for the Add new option",What do you see happening in practice? ,"Low participation / engagement
+Low attendance / retention
+Poor learning / skills outcomes
+Poor wellbeing / distress
+Safety concerns / safeguarding incidents
+Violence, exploitation, or abuse risks
+Exclusion of particular groups
+Stigma or discrimination
+Weak service quality / inconsistent practice
+Low trust in services or institutions
+Limited access to opportunities (training, work, services)
+Risky or harmful behaviours increasing
+Weak coordination between services
+Low caregiver / community support
+Policy or system bottlenecks affecting delivery
+Add new (add tag)",Select what you see happening in practice as a result of this problem.,Understanding how the problem shows up helps interpret change over time.
+root_cause_factors,Required; suggest “select up to 8”,"Multi select (enum), with a taggable select for the Add new option",What factors are driving this challenge? ,"Poverty / financial barriers
+Distance / transport / geographic access
+Safety / insecurity
+Social norms / expectations (gender, age, disability, etc.)
+Stigma / discrimination
+Family or caregiving strain
+Low information / awareness of services
+Low motivation / low perceived value of services
+Weak service capacity (staffing, skills, workload)
+Weak service quality (practice, materials, infrastructure)
+Limited referral options / service gaps
+Weak coordination between actors
+Policy, regulation, or bureaucracy constraints
+Funding constraints / short funding cycles
+Power dynamics / gatekeeping / elite capture
+Shocks (economic, climate, conflict, disease)
+Add new (add tag)",Select the causes of this problem,Identifying drivers supports stronger learning and avoids focusing only on symptoms.
+consequence_pathways,Required; suggest “select up to 6”,"Multi select (enum), with a taggable select for the Add new option","If this challenge continues, what does it lead to? ","Learning gaps persist or widen
+Reduced progression or completion (school, training)
+Reduced wellbeing / increased distress
+Increased exposure to violence or exploitation
+Reduced safety and protection
+Reduced participation / voice / agency
+Increased exclusion and inequality
+Reduced access to livelihoods / income opportunities
+Risk behaviours persist or increase
+Strained family or community relationships
+Reduced trust in institutions
+Higher long-term service needs / higher costs later
+Broader community harm or instability
+Add new (add tag)",Select what this problem leads to if it is not addressed.,This helps clarify why the issue matters and what longer-term risks exist.
+problem_confidence_rating,Required,Single select (enum),How confident are you in this problem analysis based on available evidence?,Low | Medium | High,Select how confident you are in your understanding of the problem.,Confidence levels help interpret findings and identify where further evidence may be needed.
+Golden Circle synthesis,,,,,,
+why_change_statement,Required; max 200–280 characters,Short text (string),Why does this work matter? What change should people experience if it succeeds?,,"In one sentence, describe why this work matters and what change should be experienced.",This anchors the purpose of the project and guides interpretation of success.
+how_pathway_patterns,Required; suggest “select up to 6”,"Multi select (enum), with a taggable select for the Add new option",How will change happen through this work? ,"Direct support or services for participants
+Skills or capability building
+Improving service quality (tools, training, standards)
+Strengthening systems or coordination (processes, roles)
+Strengthening referral pathways
+Creating safer environments / safeguarding strengthening
+Changing social norms or behaviours
+Increasing access to opportunities (education, work, services)
+Influence and advocacy (policy or practice change)
+Add new (add tag)",Select the main ways change is expected to happen.,This helps you start to think about the mechanisms of change and supports meaningful learning analysis.
+success_signals_short,Required; suggest “select up to 6”,"Multi select (enum), with a taggable select for the Add new option",What early signals would tell you you are on track?,"Increased participation or engagement
+Improved attendance / retention
+Improved learning or skills
+Improved wellbeing
+Improved safety / fewer incidents
+Reduced exclusion for priority groups
+Improved service quality (consistency, responsiveness)
+Stronger referrals and follow-up
+Increased caregiver / community support
+Increased trust in services or institutions
+Progress towards policy or practice change
+Add new (add tag)",Select early signs that would indicate you are on the right track.,Early signals help identify progress before long-term outcomes are visible.
+Step 4 — Equity Profile,,,,,,
+inclusion_priority_groups,Required; suggest “select up to 6”,"Multi select (enum), with a taggable select for the Add new option",Which groups are you intentionally prioritising for inclusion through this work?,"Children (0–10)
+Adolescents (11–17)
+Youth (18–24)
+Young adults (25–30)
+Girls / young women
+Boys / young men
+Gender-diverse young people
+Young people with disabilities
+Young people living in poverty
+Rural communities
+Urban informal settlements
+Displaced / refugee populations
+Care-experienced / without parental care
+Justice-involved young people
+Out-of-school young people
+NEET (not in education, employment, or training)
+Caregivers / families
+Frontline service providers
+People with disabilities
+Add new (add tag)",Select the groups you are intentionally prioritising for inclusion.,This clarifies who the work is designed to benefit most and supports disaggregated learning.
+inclusion_dimensions,Required; suggest “select a max of 6”,"Multi select (enum), with a taggable select for the Add new option",Which inclusion dimensions matter most in this context? ,"Gender
+Disability
+Poverty / economic status
+Geography (rural / urban / remote)
+Displacement / migration status
+Ethnicity / language
+Care status
+Justice involvement
+Age
+Education status
+Health status
+Digital access
+Add new (add tag)",Select the inclusion dimensions that are most relevant in this context.,This helps identify where inequality may shape participation or outcomes.
+inclusion_gap_statement,Optional but recommended; max 300 characters,Short text,What inclusion gap are you trying to close? ,,"In one sentence, describe the inclusion gap you aim to close.",This keeps equity goals specific and measurable.
+boundary_partners,Required; suggest “select up to 6”,"Multi select (enum), with a taggable select for the Add new option",What other boundary partners do you work through?,"Parents
+Teachers
+School leadership
+Community leaders
+Religious leaders
+Government officials
+Local Civil Society Organisations
+Add new (add tag)",Select the boundary partners that your project engages with.,This identifies the other actors that constitute a child's circle of care in this context.
+participation_barriers,Required; suggest “select a max of 8”,"Multi select (enum), with a taggable select for the Add new option. Sam, can this then link to the risk register",What could stop people from participating or benefiting? ,"Cost / financial barriers
+Distance / transport
+Safety / insecurity
+Care responsibilities
+Social norms / expectations
+Stigma or discrimination
+Disability access barriers
+Language barriers
+Lack of information
+Documentation requirements
+Gatekeeping by institutions or leaders
+Low trust in services
+Timing / scheduling conflicts
+Digital access limitations
+Add new (add tag)",Select what could prevent people from participating or benefiting. Click on the risk button to elaborate.,Barriers help explain participation patterns and highlight potential exclusion risks.
+barriers_severity_map,Optional (but valuable for Learn),Structured object (map barrier → Low / Medium / High),"For the barriers you selected, how severe are they in this context?",,Indicate how severe each selected barrier is in this context.,Severity helps prioritise mitigation and interpret uneven engagement.
+equity_risk_flags,Required; suggest “select a max of 6”,"Multi select (enum), with a taggable select for the Add new option. Sam, can this then link to the risk register",What equity risks do you want to watch for during delivery? (Select all that apply),"Elite capture
+Exclusion of highest-need groups
+Reinforcing existing inequalities
+Stigma or backlash
+Breaches of confidentiality
+Coercion or unsafe participation
+Gender-based harm
+Tokenistic participation
+Power imbalances affecting voice
+Safeguarding under-reporting
+Add new (add tag)",Select the equity risks you want to monitor during delivery. Click on the risk button to elaborate.,"Monitoring risks supports safe, fair, and inclusive implementation."
+mitigation_strategy,Required; suggest “select 1:,"Multi select (enum), with a taggable select for the Add new option. Sam, can this then link to the risk register",How will these barriers and equity risks be mitigated?,"Accept
+Prevent
+Reduce
+Transfer
+",Select the mitigation strategy for each of the equity risks.,Mitigation strategies enable proactive rather than reactive risk management.
+Step 5 — Context and constraints,,,,,,
+permission_points_required,Required; select all that apply,"Multi select (enum), with a taggable select for the Add new option. Link to risk register",What permissions or approvals are needed to deliver this work? ,"Government approval (national level)
+Local authority approval
+Institutional approval (e.g. school, clinic, facility)
+Caregiver or parental consent
+Community leader endorsement
+Ethics or research approval
+Safeguarding clearance
+Data sharing agreements
+Referral pathway agreements
+Partner MOUs or contracts
+None required
+Add new (add tag)",Select the approvals or permissions needed to deliver this work. Click on the risk button to elaborate.,"Required permissions can affect pace, access, and risk exposure."
+gatekeeper_categories,Required; select all that apply,"Multi select (enum), with a taggable select for the Add new option. Link to risk register",Who can enable or block implementation in practice? ,"Government officials
+Local authorities
+School leadership
+Teachers or frontline staff
+Health workers
+Caregivers or families
+Community leaders
+Religious leaders
+Youth leaders
+Employers
+Police or justice actors
+Partner organisations
+Donors or funders
+No significant gatekeepers
+Add new (add tag)",Select who can enable or block implementation in practice. Click on the risk button to elaborate.,"Gatekeepers influence access, trust, and sustainability."
+implementation_constraints,Required; suggest “select a max of 6”,"Multi select (enum), with a taggable select for the Add new option. Link to risk register","What constraints could limit delivery quality, reach, or pace?","Funding limitations
+Short funding cycles
+Staffing capacity
+Staff turnover
+High workload in institutions
+Infrastructure limitations
+Transport or access issues
+Political sensitivity
+Regulatory complexity
+Weak referral systems
+Weak coordination between actors
+Data limitations
+Safety or security risks
+Competing priorities in institutions
+Seasonal factors
+None
+Add new (add tag)",Select the constraints that could limit implementation quality or reach. Click on the risk button to elaborate.,Constraints help interpret performance realistically and support adaptive planning.
+primary_constraint_summary,Optional but recommended; max 300–400 characters,Short text,"What is the single biggest constraint right now, and why?",,Briefly describe the most significant constraint in 1-2 sentences.,This highlights where focused problem-solving may be needed.
+enablers_incentives,"Optional,","Multi select (enum), with a taggable select for the Add new option.",What enabling conditions support this work?,"Strong leadership support
+Policy alignment
+Community demand
+Clear evidence of need
+Funding stability
+Partner commitment
+Public awareness
+Existing infrastructure
+Staff motivation
+Legal or regulatory backing
+Media attention
+None 
+Add new (add tag)",Select the conditions that support this work.,Enablers help explain where momentum or alignment exists.
+resistance_factors,"Optional,","Multi select (enum), with a taggable select for the Add new option. Link to risk register",What could create resistance to this work?,"Fear of scrutiny or accountability
+Increased workload for staff
+Political sensitivity
+Cultural or social resistance
+Stigma around the issue
+Resource competition
+Power or control dynamics
+Lack of trust
+Financial disincentives
+Policy uncertainty
+None
+Add new (add tag)",Select conditions that could create resistance. Click on the risk button to elaborate.,Anticipating resistance supports proactive risk management.
+shock_profile,"Optional,","Multi select (enum), with a taggable select for the Add new option. Link to risk register",What shocks or seasonal factors could affect delivery or outcomes?,"Academic calendar / exam periods
+Seasonal migration
+Climate events (flooding, drought, etc.)
+Conflict or insecurity
+Disease outbreaks
+Economic shocks
+Elections or political transitions
+Agricultural cycles
+None 
+Add new (add tag",Select shocks or seasonal factors that could affect delivery or outcomes. Click on the risk button to elaborate.,External factors can influence participation and results beyond your control.
+Step 6 — Safeguarding,,,,,,
+safeguarding_risk_rating,Required,Single select (enum),How would you rate the safeguarding risk environment for this work?,"Low risk
+Moderate risk
+High risk
+Unsure",Select the overall safeguarding risk level for this work.,Risk levels shape engagement strategies and data collection approaches.
+safeguarding_reporting_pathway_exists,Required,Boolean (Yes / No). If no add risk button,Is there a clear safeguarding reporting and referral pathway in place?,,Indicate whether a reporting and referral pathway is in place. If 'no' click on the risk button to elaborate.,Clear pathways are essential for safe participation and responsible delivery.
+safeguarding_notes,Optional; max 400–600 characters,Short text,What safeguarding considerations should shape engagement and data collection? (Short summary),,Briefly outline key safeguarding considerations for this context.,This ensures safeguarding realities inform engagement and learning.
+data_collection_constraints,"Optional,","Multi select (enum), with a taggable select for the Add new option. Link to risk register","What constraints could affect safe, ethical, or feasible data collection? (Select all that apply)","Literacy limitations
+Language barriers
+Low digital access
+Consent complexity
+Sensitivity of topic
+Fear of retaliation or stigma
+Limited privacy for participation
+Weak referral options for disclosures
+Limited administrative data access
+Staff capacity for data collection
+Data protection or legal constraints
+None 
+Add new (add tag)",Select factors that could affect safe or ethical data collection. Click on the risk button to elaborate.,Data constraints help interpret evidence gaps and protect participants.
+do_no_harm_red_lines,Optional but recommended; max 400–600 characters,Short text,What safeguards or boundaries must be upheld to ensure this work does not cause harm?,,Describe your non-negotiables to ensure do no harm. What will you not do?,This helps ensure ethical practice and protects participants during delivery and data collection.
+Step 7 — Learning priorities,,,,,,
+evidence_sources_used,Required,"Multi select (enum), with a taggable select for the Add new option. ",What evidence do you have and will use to guide decisions in this work?,"Lived experience and consultation
+Internal monitoring data
+Administrative data (government or institutional)
+Needs assessment
+Previous evaluation
+Research literature
+Partner evidence or reports
+Policy strategies or national plans
+No formal evidence base
+Add new (add tag)",Select the evidence sources that inform and guide this work.,Understanding the evidence base helps interpret confidence and learning potential.
+evidence_confidence_rating,Required,Single select,"Overall, how confident are you in the current evidence base for decision-making?","Low confidence
+Moderate confidence
+High confidence",Select your overall confidence in the available evidence.,Confidence levels help calibrate expectations and identify areas for strengthening.
+baseline_data_availability,Required,"Multi select (enum), with a taggable select for the Add new option. ",What baseline data is available right now?,"No baseline data
+Basic participation data
+Outcome data for participants
+Disaggregated data (e.g. by gender, disability, location)
+Administrative system data
+Qualitative baseline insights
+External benchmark data
+Add new (add tag)",Select what baseline data is available.,Baseline data shapes how change can be measured and interpreted.
+key_uncertainties,Optional but recommended; max 400–600 characters,Short text,What are the key uncertainties you need to learn about? ,,What are you not yet confident about that could affect delivery or results?,Identifying key uncertainties helps focus learning and avoid assumptions that may limit impact.
+top_learning_questions,Each max 200–300 characters,"Structured short text. 
+three separate short fields: learning_question_1, learning_question_2, learning_question_3,",What are your top learning questions for the next phase? ,,List up to three priority learning questions for the next phase.,Clear learning questions guide analysis and ensure insights are decision-relevant

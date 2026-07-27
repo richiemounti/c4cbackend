@@ -46,6 +46,11 @@ interface Environment {
     STREAM_API_KEY?: string;
     STREAM_API_SECRET?: string;
 
+    // Stripe configuration
+    STRIPE_SECRET_KEY?: string;
+    STRIPE_PUBLISHABLE_KEY?: string;
+    STRIPE_WEBHOOK_SECRET?: string;
+
     // Bug Report (existing)
     BUG_REPORT_NOTIFICATION_EMAILS: string;
     
@@ -115,6 +120,11 @@ export const env: Environment = {
     // ✅ ADD: Stream Chat configuration
     STREAM_API_KEY: process.env.STREAM_API_KEY,
     STREAM_API_SECRET: process.env.STREAM_API_SECRET,
+
+    // Stripe configuration
+    STRIPE_SECRET_KEY: process.env.STRIPE_SECRET_KEY,
+    STRIPE_PUBLISHABLE_KEY: process.env.STRIPE_PUBLISHABLE_KEY,
+    STRIPE_WEBHOOK_SECRET: process.env.STRIPE_WEBHOOK_SECRET,
 
     // Bug Report (existing)
     BUG_REPORT_NOTIFICATION_EMAILS: process.env.BUG_REPORT_NOTIFICATION_EMAILS || '',

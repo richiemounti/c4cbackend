@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from "express";
-import User from "../models/user.model";
+import User, { resolveRoleGrant } from "../models/user.model";
 import Organization from "../models/organization.model";
 import Project from "../models/project.model";
 import { CustomError } from "../middlewares/error.middleware";
@@ -52,7 +52,7 @@ export const assignRole = async (
     }
 
     const userId = req.params.id;
-    const { role, organizationId, projectIds } = req.body;
+    const { role, organizationId, projectIds, isOrgAdmin, permissions } = req.body;
 
     // Validate role is provided
     if (!role) {
@@ -146,10 +146,19 @@ export const assignRole = async (
       }
     }
 
-    // Build the role object
+    // Build the role object. For client roles, resolve isOrgAdmin/permissions from
+    // any explicit overrides, falling back to that role's ROLE_PRESETS default.
+    const roleGrant = VALID_CLIENT_ROLES.includes(role)
+      ? resolveRoleGrant(role, { isOrgAdmin, permissions })
+      : undefined;
+
     const roleObject: any = { role };
     if (organizationId) roleObject.organization = organizationId;
     if (projectIds && projectIds.length > 0) roleObject.projects = projectIds;
+    if (roleGrant) {
+      roleObject.isOrgAdmin = roleGrant.isOrgAdmin;
+      roleObject.permissions = roleGrant.permissions;
+    }
 
     // Check if user already has this role for the same organization
     const existingRoleIndex = user.roles.findIndex((r: any) => {
@@ -165,6 +174,10 @@ export const assignRole = async (
       // Update projects on existing role entry
       if (projectIds) {
         user.roles[existingRoleIndex].projects = projectIds;
+      }
+      if (roleGrant) {
+        user.roles[existingRoleIndex].isOrgAdmin = roleGrant.isOrgAdmin;
+        user.roles[existingRoleIndex].permissions = roleGrant.permissions;
       }
     } else {
       // Add new role entry

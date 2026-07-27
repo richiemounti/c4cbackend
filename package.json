@@ -26,7 +26,11 @@
     "fix-crops:apply": "ts-node scripts/fixHorticulturalCrops.ts --apply",
     "migrate:villagers": "ts-node scripts/migrate-villagers-to-sites.ts",
     "migrate:villagers:apply": "ts-node scripts/migrate-villagers-to-sites.ts --apply",
-    "reseed:stakeholder-options": "ts-node scripts/reseedStakeholderTaskOptions.ts"
+    "reseed:stakeholder-options": "ts-node scripts/reseedStakeholderTaskOptions.ts",
+    "migrate:permission-flags": "ts-node scripts/migrate-permission-flags.ts",
+    "migrate:permission-flags:apply": "ts-node scripts/migrate-permission-flags.ts --apply",
+    "seed:stripe-catalogue": "ts-node scripts/seedStripeCatalogue.ts",
+    "seed:stripe-catalogue:apply": "ts-node scripts/seedStripeCatalogue.ts --apply"
   },
   "dependencies": {
     "@arcjet/node": "^1.0.0-beta.3",
@@ -58,7 +62,8 @@
     "passport-google-oauth20": "^2.0.0",
     "passport-microsoft": "^2.1.0",
     "socket.io": "^4.8.3",
-    "stream-chat": "^9.28.0"
+    "stream-chat": "^9.28.0",
+    "stripe": "^22.3.2"
   },
   "devDependencies": {
     "@eslint/js": "^9.21.0",
