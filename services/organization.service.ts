@@ -1,7 +1,7 @@
 // services/organization.service.ts
 import mongoose from "mongoose";
 import Organization from "../models/organization.model";
-import User from "../models/user.model";
+import User, { resolveRoleGrant } from "../models/user.model";
 import { CustomError } from "../middlewares/error.middleware";
 
 /**
@@ -45,17 +45,25 @@ export const createOrganizationForManager = async (
     
     const organization = organizations[0];
     
-    // Update the user's role to include the organization
+    // Update the user's role to include the organization. The org creator is granted the
+    // full 'manager' preset (isOrgAdmin: true + permission flags) - without this they'd be
+    // a 'manager' in name only and fail every isOrgAdmin check (billing page, etc.) on the
+    // very organization they just created.
     const managerRoleIndex = user.roles.findIndex((r: any) => r.role === 'manager');
-    
+    const grant = resolveRoleGrant('manager');
+
     if (managerRoleIndex !== -1) {
       // Update existing manager role
       user.roles[managerRoleIndex].organization = organization._id;
+      user.roles[managerRoleIndex].isOrgAdmin = grant.isOrgAdmin;
+      user.roles[managerRoleIndex].permissions = grant.permissions;
     } else {
       // Add manager role with organization
       user.roles.push({
         role: 'manager',
-        organization: organization._id
+        organization: organization._id,
+        isOrgAdmin: grant.isOrgAdmin,
+        permissions: grant.permissions
       });
     }
     

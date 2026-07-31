@@ -30,7 +30,9 @@
     "migrate:permission-flags": "ts-node scripts/migrate-permission-flags.ts",
     "migrate:permission-flags:apply": "ts-node scripts/migrate-permission-flags.ts --apply",
     "seed:stripe-catalogue": "ts-node scripts/seedStripeCatalogue.ts",
-    "seed:stripe-catalogue:apply": "ts-node scripts/seedStripeCatalogue.ts --apply"
+    "seed:stripe-catalogue:apply": "ts-node scripts/seedStripeCatalogue.ts --apply",
+    "backfill:manager-org-admin": "ts-node scripts/backfillManagerOrgAdmin.ts",
+    "backfill:manager-org-admin:apply": "ts-node scripts/backfillManagerOrgAdmin.ts --apply"
   },
   "dependencies": {
     "@arcjet/node": "^1.0.0-beta.3",
