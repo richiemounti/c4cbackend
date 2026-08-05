@@ -358,6 +358,9 @@ userSchema.methods.isPasswordValid = async function(this: IUserDocument, passwor
 
 // Add method to check user permissions based on role
 userSchema.methods.hasPermission = function(this: IUserDocument, permission: string, organizationId?: mongoose.Types.ObjectId | string): boolean {
+    // ConnectGo staff bypass every permission check, same as isOrgAdminOf/hasProjectAccess below.
+    if (this.isConnectGoStaff) return true;
+
     // Define permissions based on roles
     const permissions = {
         // ==================== ConnectGo Roles ====================

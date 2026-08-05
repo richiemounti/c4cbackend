@@ -48,14 +48,14 @@ projectSiteRouter.get('/:id',
 projectSiteRouter.put('/:id', 
   authorize, 
   hasProjectAccess(),  // This middleware will need to check the project field of the site
-  hasPermission(['create_projects', 'manage_org_projects', 'configure_projects', 'project_site_setup']),
+  hasPermission(['create_projects', 'manage_org_projects', 'configure_projects', 'project_site_setup', 'submit_data']),
   updateProjectSite
 );
 
 projectSiteRouter.delete('/:id', 
   authorize, 
   hasProjectAccess(),  // This middleware will need to check the project field of the site
-  hasPermission(['manage_org_projects']),
+  hasPermission(['manage_org_projects', 'submit_data']),
   archiveProjectSite
 );
 
