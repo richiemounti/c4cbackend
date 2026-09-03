@@ -81,6 +81,11 @@ const projectSchema = new mongoose.Schema({
     required: true,
     index: true,
   },
+  lastUpdatedBy: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
+    default: null
+  },
   organization: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Organization',

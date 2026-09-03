@@ -1,5 +1,6 @@
 // utils/reviewHelpers.ts
 import Review, { ReviewModule, ReviewPriority } from '../models/review.model';
+import Conversation from '../models/conversation.model';
 import StakeholderGroup from '../models/stakeholderGroup.model';
 import ProjectSetup from '../models/projectSetupTask.model';
 import ProjectSiteSetup from '../models/projectSiteSetupTask.model';
@@ -9,6 +10,8 @@ import TOCConsultationPlan from '../models/tocConsultationPlan.model';
 import Survey from '../models/survey.model';
 import SurveyQuestion from '../models/surveyQuestion.model';
 import User, { IUserDocument } from '../models/user.model';
+import Standard from '../models/standard.model';
+import Organization from '../models/organization.model';
 import mongoose from 'mongoose';
 
 interface CreateReviewParams {
@@ -59,7 +62,6 @@ export async function createReview(params: CreateReviewParams) {
     submittedBy,
     priority,
     status: 'pending',
-    chatParticipants: [submittedBy],
   });
 
   // Auto-assign reviewers if requested
@@ -72,69 +74,88 @@ export async function createReview(params: CreateReviewParams) {
     const reviewers = await getDefaultReviewers(organizationId, projectId, submittedBy, submitterIsStaff);
     if (reviewers.length > 0) {
       review.reviewers = reviewers.map(r => r._id as mongoose.Types.ObjectId);
-      review.chatParticipants = [
-        ...review.chatParticipants,
-        ...reviewers.map(r => r._id as mongoose.Types.ObjectId)
-      ];
       await review.save();
     }
   }
+
+  // Create the linked inbox conversation for this review.
+  // Participants = submitter + all assigned reviewers (deduped).
+  const participantSet = new Set<string>([submittedBy.toString()]);
+  review.reviewers.forEach(id => participantSet.add(id.toString()));
+
+  const conversation = await Conversation.create({
+    organization: organizationId,
+    project: projectId,
+    type: 'review',
+    reviewId: review._id,
+    name: title,
+    participants: [...participantSet].map(id => new mongoose.Types.ObjectId(id)),
+    createdBy: submittedBy,
+    lastActivityAt: new Date(),
+  });
+
+  review.conversationId = conversation._id as mongoose.Types.ObjectId;
+  await review.save();
 
   return review;
 }
 
 /**
+ * Returns all client users in an org who have submitData permission (or are org admins).
+ * These are the users who can submit data and act as reviewers.
+ */
+export async function findOrgReviewers(
+  organizationId: mongoose.Types.ObjectId,
+  excludeUserId?: mongoose.Types.ObjectId
+): Promise<IUserDocument[]> {
+  const query: any = {
+    isConnectGoStaff: false,
+    archived: false,
+    roles: {
+      $elemMatch: {
+        organization: organizationId,
+        $or: [
+          { isOrgAdmin: true },
+          { 'permissions.submitData': true },
+        ],
+      },
+    },
+  };
+
+  if (excludeUserId) {
+    query._id = { $ne: excludeUserId };
+  }
+
+  return User.find(query).select('_id name email');
+}
+
+/**
  * Gets default reviewers for an organization/project.
  *
- * Staff-triggered reviews route to the least-loaded accountManager.
- * Client-triggered reviews route to org manager(s), falling back to project creator.
+ * Staff-triggered reviews route to the org's assigned account manager (workload-based fallback).
+ * Client-triggered reviews route to all org users with submitData permission.
  */
-async function getDefaultReviewers(
+export async function getDefaultReviewers(
   organizationId: mongoose.Types.ObjectId,
   projectId: mongoose.Types.ObjectId,
   submittedBy?: mongoose.Types.ObjectId,
   submitterIsStaff?: boolean
 ): Promise<Array<{ _id: mongoose.Types.ObjectId }>> {
-  const reviewers: Array<{ _id: mongoose.Types.ObjectId }> = [];
-
   if (submitterIsStaff) {
-    // Staff-triggered: assign to the least-loaded accountManager
+    // Staff-triggered: assign to the org's account manager
     const accountManager = await findAccountManagerForOrganization(organizationId);
     if (accountManager) {
       const amId = accountManager._id as mongoose.Types.ObjectId;
       if (!submittedBy || amId.toString() !== submittedBy.toString()) {
-        reviewers.push({ _id: amId });
+        return [{ _id: amId }];
       }
     }
-    return reviewers;
+    return [];
   }
 
-  // Client-triggered: find org manager(s)
-  const managerRoleUsers = await User.find({
-    'roles.role': 'manager',
-    'roles.organization': organizationId,
-    archived: false,
-    ...(submittedBy && { _id: { $ne: submittedBy } }),
-  }).limit(3);
-
-  reviewers.push(...managerRoleUsers.map(u => ({ _id: u._id as mongoose.Types.ObjectId })));
-
-  // Fallback to project creator if no managers found
-  if (reviewers.length === 0) {
-    const Project = mongoose.model('Project');
-    const project = await Project.findById(projectId).populate('creator');
-
-    if (project && project.creator) {
-      const creator = project.creator as any;
-      const creatorId = creator._id as mongoose.Types.ObjectId;
-
-      if (!submittedBy || creatorId.toString() !== submittedBy.toString()) {
-        reviewers.push({ _id: creatorId });
-      }
-    }
-  }
-
-  return reviewers;
+  // Client-triggered: all org users with submitData permission, excluding submitter
+  const reviewers = await findOrgReviewers(organizationId, submittedBy);
+  return reviewers.map(u => ({ _id: u._id as mongoose.Types.ObjectId }));
 }
 
 /**
@@ -272,7 +293,7 @@ export async function createProjectSetupTaskReview(
   // ============================================================================
   // 🆕 ENHANCED: Format response data for display
   // ============================================================================
-  const responseDataFormatted = formatResponseData(task.responseData, task.dataType);
+  const responseDataFormatted = await formatResponseData(task.responseData, task.dataType, task.fieldName);
   
   // ============================================================================
   // 🆕 ENHANCED: Rich description with actual response data
@@ -373,7 +394,7 @@ export async function createProjectSiteSetupTaskReview(
   // ============================================================================
   // 🆕 ENHANCED: Format response data for display
   // ============================================================================
-  const responseDataFormatted = formatResponseData(task.responseData, task.dataType);
+  const responseDataFormatted = await formatResponseData(task.responseData, task.dataType, task.fieldName);
   
   // ============================================================================
   // 🆕 ENHANCED: Rich description with actual response data
@@ -543,7 +564,9 @@ export async function createSurveyConfigReview(
   // 🆕 ENHANCED: Better title with context
   // ============================================================================
   const projectName = survey.project?.name || 'Project';
-  const stakeholderName = survey.stakeholderGroup?.name || 'All Stakeholders';
+  const stakeholderName = (survey.stakeholderGroups && survey.stakeholderGroups.length > 0)
+    ? survey.stakeholderGroups.map((sg: any) => sg.name).filter(Boolean).join(', ')
+    : 'All Stakeholders';
   const categoryLabel = survey.category ? ` (${survey.category})` : '';
   const title = `Survey: ${survey.title}${categoryLabel} - ${stakeholderName}`;
 
@@ -607,7 +630,9 @@ export async function createSurveyConfigReview(
     : `Single language (${survey.defaultLanguage || 'en'})`;
 
   // Format ToC stage
-  const tocStageInfo = survey.theoryOfChangeStage?.name || 'Not linked to ToC stage';
+  const tocStageInfo = (survey.theoryOfChangeStages && survey.theoryOfChangeStages.length > 0)
+    ? survey.theoryOfChangeStages.map((s: any) => s.name).filter(Boolean).join(', ')
+    : 'Not linked to ToC stage';
 
   const description = `
 **Project:** ${projectName}
@@ -978,6 +1003,20 @@ Please review this translation for linguistic accuracy, cultural appropriateness
 export async function findAccountManagerForOrganization(
   organizationId: mongoose.Types.ObjectId
 ): Promise<IUserDocument | null> {
+  // Check for an org-level assigned AM first
+  const org = await Organization.findById(organizationId)
+    .select('assignedAccountManagerId')
+    .populate('assignedAccountManagerId', '_id name email primaryRole photo');
+
+  if (org?.assignedAccountManagerId) {
+    const assignedAM = org.assignedAccountManagerId as unknown as IUserDocument;
+    // Confirm the user is still an active account manager
+    if (!assignedAM.archived) {
+      return assignedAM;
+    }
+  }
+
+  // Fallback: workload-based selection across all account managers
   const accountManagers = await User.find({
     primaryRole: 'accountManager',
     isConnectGoStaff: true,
@@ -1161,16 +1200,81 @@ export async function getOverdueReviews(organizationId: mongoose.Types.ObjectId)
  * Gets review statistics for dashboard
  */
 export async function getReviewStatistics(organizationId: mongoose.Types.ObjectId) {
-  const stats = await Review.aggregate([
+  const now = new Date();
+  const orgId = new mongoose.Types.ObjectId(organizationId);
+
+  const startOfToday = new Date(now);
+  startOfToday.setHours(0, 0, 0, 0);
+  const startOfTomorrow = new Date(startOfToday);
+  startOfTomorrow.setDate(startOfTomorrow.getDate() + 1);
+  const endOfWeek = new Date(startOfToday);
+  endOfWeek.setDate(endOfWeek.getDate() + 7);
+
+  const [result] = await Review.aggregate([
+    { $match: { organizationId: orgId, archived: { $ne: true } } },
     {
-      $match: {
-        organizationId: new mongoose.Types.ObjectId(organizationId),
-      },
-    },
-    {
-      $group: {
-        _id: '$status',
-        count: { $sum: 1 },
+      $facet: {
+        byStatus: [{ $group: { _id: '$status', count: { $sum: 1 } } }],
+        byPriority: [{ $group: { _id: '$priority', count: { $sum: 1 } } }],
+        // Date-friendly urgency bucket, derived from dueDate (set via Seek
+        // Input's required response deadline) — mirrors buildDueBucketCondition
+        // in review.controller.ts so the stats card and the list filter agree.
+        // Kept alongside byPriority since priority is still shown/filterable
+        // elsewhere in the review UI (header, filters, cards) independent of
+        // this due-date-driven urgency.
+        byDueBucket: [
+          {
+            $addFields: {
+              dueBucket: {
+                $switch: {
+                  branches: [
+                    { case: { $in: ['$status', ['approved', 'resolved']] }, then: 'closed' },
+                    { case: { $eq: ['$dueDate', null] }, then: 'no_deadline' },
+                    { case: { $lt: ['$dueDate', now] }, then: 'overdue' },
+                    { case: { $lt: ['$dueDate', startOfTomorrow] }, then: 'due_today' },
+                    { case: { $lt: ['$dueDate', endOfWeek] }, then: 'due_this_week' },
+                  ],
+                  default: 'due_later',
+                },
+              },
+            },
+          },
+          { $group: { _id: '$dueBucket', count: { $sum: 1 } } },
+        ],
+        byModule: [{ $group: { _id: '$module', count: { $sum: 1 } } }],
+        overdue: [
+          { $match: { dueDate: { $lt: now }, status: { $in: ['pending', 'in_review', 'escalated'] } } },
+          { $count: 'count' },
+        ],
+        resolutionTime: [
+          { $match: { resolvedAt: { $exists: true, $ne: null } } },
+          {
+            $project: {
+              minutes: { $divide: [{ $subtract: ['$resolvedAt', '$createdAt'] }, 60000] },
+            },
+          },
+          { $group: { _id: null, avgMinutes: { $avg: '$minutes' } } },
+        ],
+        issues: [
+          { $unwind: '$issues' },
+          {
+            $group: {
+              _id: null,
+              total: { $sum: 1 },
+              open: { $sum: { $cond: [{ $eq: ['$issues.resolvedAt', null] }, 1, 0] } },
+              criticalOpen: {
+                $sum: {
+                  $cond: [
+                    { $and: [{ $eq: ['$issues.severity', 'critical'] }, { $eq: ['$issues.resolvedAt', null] }] },
+                    1,
+                    0,
+                  ],
+                },
+              },
+              resolved: { $sum: { $cond: [{ $ne: ['$issues.resolvedAt', null] }, 1, 0] } },
+            },
+          },
+        ],
       },
     },
   ]);
@@ -1182,9 +1286,29 @@ export async function getReviewStatistics(organizationId: mongoose.Types.ObjectI
     escalated: 0,
     resolved: 0,
   };
+  (result?.byStatus ?? []).forEach((s: { _id: string; count: number }) => {
+    statsObj[s._id] = s.count;
+  });
 
-  stats.forEach(stat => {
-    statsObj[stat._id] = stat.count;
+  const priorityObj: Record<string, number> = { low: 0, medium: 0, high: 0, critical: 0 };
+  (result?.byPriority ?? []).forEach((p: { _id: string; count: number }) => {
+    priorityObj[p._id] = p.count;
+  });
+
+  const dueBucketObj: Record<string, number> = {
+    overdue: 0,
+    due_today: 0,
+    due_this_week: 0,
+    due_later: 0,
+    no_deadline: 0,
+  };
+  (result?.byDueBucket ?? []).forEach((b: { _id: string; count: number }) => {
+    if (b._id !== 'closed') dueBucketObj[b._id] = b.count;
+  });
+
+  const moduleObj: Record<string, number> = {};
+  (result?.byModule ?? []).forEach((m: { _id: string; count: number }) => {
+    moduleObj[m._id] = m.count;
   });
 
   // Calculate additional metrics
@@ -1193,12 +1317,30 @@ export async function getReviewStatistics(organizationId: mongoose.Types.ObjectI
   const completedReviews = statsObj.approved + statsObj.resolved;
   const escalationRate = totalReviews > 0 ? (statsObj.escalated / totalReviews) * 100 : 0;
 
+  const overdueCount = result?.overdue?.[0]?.count ?? 0;
+  const avgResolutionMinutes = result?.resolutionTime?.[0]?.avgMinutes;
+
+  const issuesAgg = result?.issues?.[0];
+  const totalIssues = issuesAgg?.total ?? 0;
+  const openIssuesCount = issuesAgg?.open ?? 0;
+  const criticalOpenIssuesCount = issuesAgg?.criticalOpen ?? 0;
+  const resolvedIssuesCount = issuesAgg?.resolved ?? 0;
+  const issuesResolutionRate = totalIssues > 0 ? (resolvedIssuesCount / totalIssues) * 100 : 0;
+
   return {
     byStatus: statsObj,
+    byPriority: priorityObj,
+    byDueBucket: dueBucketObj,
+    byModule: moduleObj,
     totalReviews,
     activeReviews,
     completedReviews,
     escalationRate: Math.round(escalationRate * 100) / 100, // Round to 2 decimals
+    overdueCount,
+    averageResolutionTime: avgResolutionMinutes !== undefined ? Math.round(avgResolutionMinutes) : undefined,
+    openIssuesCount,
+    criticalOpenIssuesCount,
+    issuesResolutionRate: Math.round(issuesResolutionRate * 100) / 100,
   };
 }
 
@@ -1224,10 +1366,29 @@ export function generateReviewTitle(module: ReviewModule, itemName: string): str
 
 
 /**
+ * Resolves certification_standard responseData (Standard ObjectId strings) to
+ * readable Standard names for display. Legacy non-ObjectId strings (pre-migration
+ * data) are passed through unchanged.
+ */
+async function resolveCertificationStandardNames(values: any[]): Promise<string[]> {
+  const isStandardId = (v: any) =>
+    typeof v === 'string' && mongoose.Types.ObjectId.isValid(v) && String(new mongoose.Types.ObjectId(v)) === v;
+
+  const ids = values.filter(isStandardId);
+  const nameById = new Map<string, string>();
+  if (ids.length > 0) {
+    const standards = await Standard.find({ _id: { $in: ids } }).select('name').lean();
+    standards.forEach((s: any) => nameById.set(String(s._id), s.name));
+  }
+
+  return values.map((v: any) => (isStandardId(v) ? (nameById.get(v) || v) : v));
+}
+
+/**
  * Formats response data for display in review descriptions
  * Handles different data types appropriately
  */
-function formatResponseData(responseData: any, dataType: string): string {
+async function formatResponseData(responseData: any, dataType: string, fieldName?: string): Promise<string> {
   if (!responseData) {
     return '_No response provided_';
   }
@@ -1254,8 +1415,12 @@ function formatResponseData(responseData: any, dataType: string): string {
         if (responseData.length === 0) {
           return '_Empty array_';
         }
+        // certification_standard stores Standard ObjectIds - resolve to readable names
+        const items = fieldName === 'certification_standard'
+          ? await resolveCertificationStandardNames(responseData)
+          : responseData;
         // Format as bullet list
-        return responseData.map(item => `• ${item}`).join('\n');
+        return items.map((item: any) => `• ${item}`).join('\n');
       }
       return JSON.stringify(responseData, null, 2);
 
@@ -1338,6 +1503,7 @@ export default {
   createSurveyQuestionReview,
   createSurveyTranslationReview,
   findAccountManagerForOrganization,
+  findOrgReviewers,
   reviewExistsForModuleItem,
   getPendingReviewsCount,
   getCriticalReviews,

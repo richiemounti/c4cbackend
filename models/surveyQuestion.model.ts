@@ -25,8 +25,14 @@ interface ISurveyQuestion extends mongoose.Document {
         }>;
         action: string;
     };
+    // Analytics/reporting metadata — set outside the builder UI for now
+    targetValue?: number;
+    scaleDirection?: 'positive_right' | 'positive_left';
+    insightHeadline?: string;
     archived: boolean;
     archivedAt?: Date;
+    creator?: mongoose.Types.ObjectId;
+    lastUpdatedBy?: mongoose.Types.ObjectId;
     createdAt: Date;
     updatedAt: Date;
 }
@@ -103,6 +109,21 @@ const surveyQuestionSchema = new mongoose.Schema({
             default: 'show'
         }
     },
+    targetValue: {
+        type: Number,
+        default: null
+    },
+    scaleDirection: {
+        type: String,
+        enum: ['positive_right', 'positive_left'],
+        default: 'positive_right'
+    },
+    insightHeadline: {
+        type: String,
+        trim: true,
+        maxLength: 300,
+        default: null
+    },
     archived: {
         type: Boolean,
         default: false
@@ -110,6 +131,14 @@ const surveyQuestionSchema = new mongoose.Schema({
     archivedAt: {
         type: Date,
         default: null
+    },
+    creator: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+    },
+    lastUpdatedBy: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
     }
 }, { timestamps: true });
 

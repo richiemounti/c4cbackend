@@ -83,8 +83,7 @@ interface IReportMetadata {
   
   siteInfo?: {
     name: string;
-    region: string;
-    country: string;
+    location: string;
   };
   
   // Statistics for quick overview
@@ -286,8 +285,7 @@ const reportMetadataSchema = new mongoose.Schema({
   
   siteInfo: {
     name: String,
-    region: String,
-    country: String
+    location: String
   },
   
   summary: {

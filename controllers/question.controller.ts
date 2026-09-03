@@ -2861,6 +2861,72 @@ export const updateBespokeQuestion = async (
 };
 
 /**
+ * Delete (soft-delete) a bespoke question
+ * @route DELETE /api/v1/questions/bespoke/:id
+ * @access Private
+ */
+export const deleteBespokeQuestion = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const questionId = req.params.id;
+
+    if (!isUserAuthenticated(req)) {
+      const error = new Error('Authentication required') as CustomError;
+      error.statusCode = 401;
+      throw error;
+    }
+
+    const question = await Question.findById(questionId);
+    if (!question) {
+      const error = new Error('Question not found') as CustomError;
+      error.statusCode = 404;
+      throw error;
+    }
+
+    if (!question.isBespoke) {
+      const error = new Error('Only bespoke questions can be deleted via this endpoint') as CustomError;
+      error.statusCode = 400;
+      throw error;
+    }
+
+    if (question.archived) {
+      const error = new Error('Question is already archived') as CustomError;
+      error.statusCode = 400;
+      throw error;
+    }
+
+    const isCreator = question.bespokeMetadata?.createdBy.toString() === req.user?._id.toString();
+    const hasProjectAccess = question.bespokeMetadata?.project &&
+      userHasProjectAccess(req, question.bespokeMetadata.project.toString());
+
+    if (!isCreator && !hasProjectAccess && !req.user?.isConnectGoStaff) {
+      const error = new Error('Not authorized to delete this question') as CustomError;
+      error.statusCode = 403;
+      throw error;
+    }
+
+    question.archived = true;
+    question.archivedAt = new Date();
+    await question.save();
+
+    res.status(200).json({
+      success: true,
+      message: 'Bespoke question deleted successfully',
+    });
+  } catch (error) {
+    if (error instanceof Error && (error as any).name === 'CastError') {
+      const customError = new Error('Invalid question ID format') as CustomError;
+      (customError as any).statusCode = 400;
+      return next(customError);
+    }
+    next(error);
+  }
+};
+
+/**
  * Get bespoke question statistics for a project
  * @route GET /api/v1/questions/bespoke/project/:projectId/statistics
  * @access Private

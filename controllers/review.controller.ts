@@ -15,7 +15,17 @@ import {
   getOverdueReviews,
   getReviewStatistics,
 } from "../utils/reviewHelpers";
-import { addChannelMember, sendSystemMessage, upsertStreamChatUser } from "../services/streamChat.service";
+import {
+  notifyReviewCreated,
+  notifyIssueAdded,
+  notifyIssueResolved,
+  notifyReviewEscalated,
+  notifyReviewClosed,
+  notifyStatusChanged,
+  notifySeekInput,
+} from "../utils/reviewNotifications";
+import Conversation from "../models/conversation.model";
+import Message from "../models/message.model";
 
 // Type guard to check if user is authenticated
 function isUserAuthenticated(req: Request): req is Request & { user: IUserDocument & { _id: mongoose.Types.ObjectId } } {
@@ -28,6 +38,61 @@ function idStr(field: any): string {
   return (field._id ?? field).toString();
 }
 
+/**
+ * Builds a Mongo condition for a date-friendly urgency bucket, derived from
+ * dueDate — mirrors the byDueBucket aggregation in reviewHelpers.ts so the
+ * stats card and this list filter always agree.
+ */
+function buildDueBucketCondition(bucket: string): any {
+  const now = new Date();
+  const startOfToday = new Date(now);
+  startOfToday.setHours(0, 0, 0, 0);
+  const startOfTomorrow = new Date(startOfToday);
+  startOfTomorrow.setDate(startOfTomorrow.getDate() + 1);
+  const endOfWeek = new Date(startOfToday);
+  endOfWeek.setDate(endOfWeek.getDate() + 7);
+  const notClosed = { $nin: ['approved', 'resolved'] };
+
+  switch (bucket) {
+    case 'overdue':
+      return { dueDate: { $lt: now }, status: notClosed };
+    case 'due_today':
+      return { dueDate: { $gte: now, $lt: startOfTomorrow }, status: notClosed };
+    case 'due_this_week':
+      return { dueDate: { $gte: startOfTomorrow, $lt: endOfWeek }, status: notClosed };
+    case 'due_later':
+      return { dueDate: { $gte: endOfWeek }, status: notClosed };
+    case 'no_deadline':
+      return { dueDate: null, status: notClosed };
+    default:
+      return {};
+  }
+}
+
+/**
+ * Adds a user to the review's inbox conversation (if not already a participant)
+ * and posts a system message so all participants see the event in their inbox.
+ */
+async function addParticipantToReviewConversation(
+  conversationId: mongoose.Types.ObjectId,
+  userId: mongoose.Types.ObjectId,
+  organization: mongoose.Types.ObjectId,
+  systemMessageContent: string,
+  triggeredBy: mongoose.Types.ObjectId
+): Promise<void> {
+  await Conversation.findByIdAndUpdate(conversationId, {
+    $addToSet: { participants: userId },
+    $set: { lastActivityAt: new Date() },
+  });
+
+  await Message.create({
+    conversation: conversationId,
+    organization,
+    sender: triggeredBy,
+    content: systemMessageContent,
+  });
+}
+
 // Helper function to check if user has review access
 function hasReviewAccess(
   user: IUserDocument & { _id: mongoose.Types.ObjectId },
@@ -38,15 +103,13 @@ function hasReviewAccess(
   const isParticipant =
     idStr(review.submittedBy) === userId ||
     review.reviewers?.some((r: any) => idStr(r) === userId) ||
-    review.chatParticipants?.some((p: any) => idStr(p) === userId) ||
     (review.escalatedTo && idStr(review.escalatedTo) === userId);
 
-  // Staff: only see reviews they created or were explicitly invited to
-  if (user.isConnectGoStaff) {
-    return isParticipant;
-  }
-
-  // Client: org membership + review_management permission grants full access
+  // review_management permission + org access grants full access — this applies
+  // to staff too (every ConnectGo staff role has review_management, and
+  // hasOrganizationAccess/hasPermission both short-circuit to true for staff),
+  // so an admin/owner/account manager/analyst can see any review, not just ones
+  // they're explicitly on.
   if (user.hasPermission('review_management') && user.hasOrganizationAccess(review.organizationId)) {
     return true;
   }
@@ -143,39 +206,8 @@ export const createReviewManually = async (
       await review.save();
     }
 
-    // STREAM CHAT INTEGRATION: Sync users to Stream Chat
-    try {
-      await upsertStreamChatUser(
-        req.user._id.toString(),
-        {
-          name: req.user.name,
-          email: req.user.email,
-          image: req.user.photo,
-          role: req.user.primaryRole,
-        }
-      );
-
-      if (reviewers && reviewers.length > 0) {
-        for (const reviewerId of reviewers) {
-          const reviewer = await User.findById(reviewerId);
-          if (reviewer) {
-            await upsertStreamChatUser(
-              reviewerId,
-              {
-                name: reviewer.name,
-                email: reviewer.email,
-                image: reviewer.photo,
-                role: reviewer.primaryRole,
-              }
-            );
-          }
-        }
-      }
-
-      console.log(`✅ Users synced to Stream Chat for review: ${review._id}`);
-    } catch (streamChatError) {
-      console.error('Failed to sync users to Stream Chat:', streamChatError);
-    }
+    // Notify all assigned reviewers
+    notifyReviewCreated(review, req.user._id).catch(console.error);
 
     // Populate the review
     const populatedReview = await Review.findById(review._id)
@@ -211,32 +243,38 @@ export const getMyReviews = async (
       throw error;
     }
 
-    const { status, priority, module } = req.query;
+    const { status, priority, module, projectId, projectSiteId, organizationId, dueBucket, isOverdue } = req.query;
     const page = parseInt(req.query.page as string) || 1;
     const limit = parseInt(req.query.limit as string) || 10;
     const skip = (page - 1) * limit;
 
-    // Build query
-    const query: any = {
-      $or: [
-        { submittedBy: req.user._id },
-        { reviewers: req.user._id },
-        { currentReviewer: req.user._id },
-        { escalatedTo: req.user._id },
-      ],
-    };
+    // Build query as a set of independent conditions, combined with $and, so
+    // e.g. an explicit status filter and a dueBucket-derived status constraint
+    // (below) don't clobber each other.
+    const conditions: any[] = [
+      {
+        $or: [
+          { submittedBy: req.user._id },
+          { reviewers: req.user._id },
+          { currentReviewer: req.user._id },
+          { escalatedTo: req.user._id },
+        ],
+      },
+    ];
 
-    if (status) {
-      query.status = status;
+    if (status) conditions.push({ status });
+    if (priority) conditions.push({ priority });
+    if (module) conditions.push({ module });
+    if (projectId) conditions.push({ projectId });
+    if (projectSiteId) conditions.push({ projectSiteId });
+    if (organizationId) conditions.push({ organizationId });
+
+    const effectiveDueBucket = (dueBucket as string) || (isOverdue === 'true' ? 'overdue' : undefined);
+    if (effectiveDueBucket) {
+      conditions.push(buildDueBucketCondition(effectiveDueBucket));
     }
 
-    if (priority) {
-      query.priority = priority;
-    }
-
-    if (module) {
-      query.module = module;
-    }
+    const query: any = conditions.length > 1 ? { $and: conditions } : conditions[0];
 
     // Get reviews with pagination
     const reviews = await Review.find(query)
@@ -295,8 +333,7 @@ export const getReviewById = async (
       .populate('projectSiteId', 'name')
       .populate('issues.raisedBy', 'name email')
       .populate('issues.resolvedBy', 'name email')
-      .populate('activityLog.performedBy', 'name email')
-      .populate('chatParticipants', 'name email');
+      .populate('activityLog.performedBy', 'name email');
 
     if (!review) {
       const error = new Error('Review not found') as CustomError;
@@ -373,13 +410,14 @@ export const getReviewsByModuleItem = async (
       query.nestedItemId = nestedItemId;
     }
 
-    // Staff visibility: staff only see reviews they are explicitly involved in
-    if (req.user.isConnectGoStaff) {
+    // Staff visibility: staff with review_management (every ConnectGo role has
+    // it) see everything, matching hasReviewAccess(); only a staff role without
+    // that permission would be scoped down to explicit participation.
+    if (req.user.isConnectGoStaff && !req.user.hasPermission('review_management')) {
       const userId = req.user._id;
       query.$or = [
         { submittedBy: userId },
         { reviewers: userId },
-        { chatParticipants: userId },
         { escalatedTo: userId },
       ];
     }
@@ -451,6 +489,13 @@ export const updateReviewStatus = async (
     }
 
     await review.save();
+
+    // Notify participants based on the new status
+    if (status === 'approved' || status === 'resolved') {
+      notifyReviewClosed(review, req.user._id).catch(console.error);
+    } else if (status === 'in_review') {
+      notifyStatusChanged(review, req.user._id).catch(console.error);
+    }
 
     const populatedReview = await Review.findById(reviewId)
       .populate('submittedBy', 'name email')
@@ -532,31 +577,18 @@ export const escalateReview = async (
     review.escalate(accountManagerId, reason, req.user._id);
     await review.save();
 
-    // STREAM CHAT INTEGRATION: Add staff to chat channel
-    try {
-      if (review.streamChannelCreated && review.streamChannelId) {
-        await upsertStreamChatUser(
-          accountManagerId.toString(),
-          {
-            name: staffUser.name,
-            email: staffUser.email,
-            image: staffUser.photo,
-            role: 'staff',
-          }
-        );
+    // Notify the account manager they've been escalated to
+    notifyReviewEscalated(review, req.user._id).catch(console.error);
 
-        await addChannelMember(review.streamChannelId, accountManagerId.toString());
-
-        await sendSystemMessage(
-          review.streamChannelId,
-          `🔔 Review escalated to ${staffUser.name} (Account Manager)`,
-          req.user._id.toString()
-        );
-
-        console.log(`✅ Staff added to Stream Chat channel: ${review.streamChannelId}`);
-      }
-    } catch (streamChatError) {
-      console.error('Failed to add staff to Stream Chat channel:', streamChatError);
+    // Add AM to the review's inbox conversation and post a system message
+    if (review.conversationId) {
+      await addParticipantToReviewConversation(
+        review.conversationId,
+        accountManagerId,
+        review.organizationId,
+        `Review escalated to ${staffUser.name} (Account Manager): ${reason}`,
+        req.user._id
+      );
     }
 
     const populatedReview = await Review.findById(reviewId)
@@ -640,18 +672,20 @@ export const inviteStaffCollaborator = async (
       throw error;
     }
 
-    // Check if already a participant
-    const alreadyParticipant = review.chatParticipants.some(
-      (p) => p.toString() === collaboratorId
-    );
-    if (alreadyParticipant) {
-      const error = new Error('This staff member is already a collaborator') as CustomError;
-      error.statusCode = 409;
-      throw error;
+    // Check if already in the conversation
+    if (review.conversationId) {
+      const conv = await Conversation.findById(review.conversationId).select('participants');
+      const alreadyParticipant = conv?.participants.some(
+        (p) => p.toString() === collaboratorId
+      );
+      if (alreadyParticipant) {
+        const error = new Error('This staff member is already a collaborator') as CustomError;
+        error.statusCode = 409;
+        throw error;
+      }
     }
 
-    // Add to chat participants and log the activity
-    review.chatParticipants.push(collaborator._id as mongoose.Types.ObjectId);
+    // Log the activity and add to the review conversation
     review.addActivity(
       'staff_collaborator_invited',
       req.user._id,
@@ -659,32 +693,20 @@ export const inviteStaffCollaborator = async (
       undefined,
       collaboratorId
     );
-
     await review.save();
 
-    // Stream Chat: sync collaborator and add to channel
-    try {
-      await upsertStreamChatUser(collaboratorId, {
-        name: collaborator.name,
-        email: collaborator.email,
-        image: collaborator.photo,
-        role: collaborator.primaryRole,
-      });
-
-      if (review.streamChannelCreated && review.streamChannelId) {
-        await addChannelMember(review.streamChannelId, collaboratorId);
-        await sendSystemMessage(
-          review.streamChannelId,
-          `🤝 ${collaborator.name} has been invited to collaborate on this review${message ? `: "${message}"` : ''}`,
-          req.user._id.toString()
-        );
-      }
-    } catch (streamChatError) {
-      console.error('Failed to add collaborator to Stream Chat channel:', streamChatError);
+    if (review.conversationId) {
+      await addParticipantToReviewConversation(
+        review.conversationId,
+        collaborator._id as mongoose.Types.ObjectId,
+        review.organizationId,
+        `${collaborator.name} has been invited to collaborate${message ? `: "${message}"` : ''}`,
+        req.user._id
+      );
     }
 
     const populatedReview = await Review.findById(reviewId)
-      .populate('chatParticipants', 'name email primaryRole photo')
+      .populate('reviewers', 'name email primaryRole photo')
       .populate('escalatedTo', 'name email')
       .populate('escalatedBy', 'name email');
 
@@ -780,31 +802,15 @@ export const addReviewer = async (
     review.addReviewer(reviewerId, req.user._id);
     await review.save();
 
-    // STREAM CHAT INTEGRATION: Add reviewer to chat channel
-    try {
-      if (review.streamChannelCreated && review.streamChannelId) {
-        await upsertStreamChatUser(
-          reviewerId,
-          {
-            name: reviewerUser.name,
-            email: reviewerUser.email,
-            image: reviewerUser.photo,
-            role: reviewerUser.primaryRole,
-          }
-        );
-
-        await addChannelMember(review.streamChannelId, reviewerId);
-
-        await sendSystemMessage(
-          review.streamChannelId,
-          `${reviewerUser.name} was added as a reviewer`,
-          req.user._id.toString()
-        );
-
-        console.log(`✅ Reviewer added to Stream Chat channel: ${review.streamChannelId}`);
-      }
-    } catch (streamChatError) {
-      console.error('Failed to add reviewer to Stream Chat channel:', streamChatError);
+    // Add reviewer to the review's inbox conversation
+    if (review.conversationId) {
+      await addParticipantToReviewConversation(
+        review.conversationId,
+        new mongoose.Types.ObjectId(reviewerId),
+        review.organizationId,
+        `${reviewerUser.name} was added as a reviewer`,
+        req.user._id
+      );
     }
 
     const populatedReview = await Review.findById(reviewId)
@@ -872,6 +878,9 @@ export const addIssue = async (
 
     await review.save();
 
+    // Notify submitter (and AM if escalated) about the new issue
+    notifyIssueAdded(review, description, req.user._id).catch(console.error);
+
     const populatedReview = await Review.findById(reviewId)
       .populate('issues.raisedBy', 'name email');
 
@@ -919,9 +928,20 @@ export const resolveIssue = async (
       throw error;
     }
 
+    // Capture the issue raiser before mutating
+    const issueBeforeResolve = review.issues.find(
+      (i) => i._id?.toString() === issueId
+    );
+    const issueRaisedBy = issueBeforeResolve?.raisedBy;
+
     // Resolve issue using the method
     review.resolveIssue(new mongoose.Types.ObjectId(issueId), req.user._id, resolutionNotes);
     await review.save();
+
+    // Notify the person who raised the issue
+    if (issueRaisedBy) {
+      notifyIssueResolved(review, issueRaisedBy, req.user._id).catch(console.error);
+    }
 
     const populatedReview = await Review.findById(reviewId)
       .populate('issues.resolvedBy', 'name email');
@@ -1247,6 +1267,214 @@ export const getEligibleReviewers = async (
   }
 };
 
+/**
+ * Get non-staff organisation users eligible to be added as reviewers.
+ * Staff-only: used when a staff member views a review in "client mode" and
+ * wants to add an org client as a reviewer.
+ * @route GET /api/v1/reviews/:reviewId/eligible-org-clients
+ * @access Private (ConnectGo staff only)
+ */
+export const getEligibleOrgClients = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    if (!isUserAuthenticated(req)) {
+      const error = new Error('Authentication required') as CustomError;
+      error.statusCode = 401;
+      throw error;
+    }
+
+    if (!req.user.isConnectGoStaff) {
+      const error = new Error('Staff access required') as CustomError;
+      error.statusCode = 403;
+      throw error;
+    }
+
+    const { reviewId } = req.params;
+
+    const review = await Review.findById(reviewId)
+      .select('organizationId projectId submittedBy reviewers');
+
+    if (!review) {
+      const error = new Error('Review not found') as CustomError;
+      error.statusCode = 404;
+      throw error;
+    }
+
+    const currentReviewerIds = review.reviewers.map((r: any) => r.toString());
+
+    const orgClients = await User.find({
+      isConnectGoStaff: false,
+      archived: false,
+      _id: {
+        $ne: review.submittedBy,
+        $nin: currentReviewerIds,
+      },
+    }).select('name email primaryRole photo roles');
+
+    const eligible = orgClients.filter((u: any) =>
+      u.hasProjectAccess(review.projectId) ||
+      u.hasOrganizationAccess(review.organizationId)
+    );
+
+    res.status(200).json({
+      success: true,
+      count: eligible.length,
+      data: eligible.map((u: any) => ({
+        _id: u._id,
+        name: u.name,
+        email: u.email,
+        role: u.primaryRole,
+        photo: u.photo,
+        isStaff: false,
+      })),
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+/**
+ * Update editable metadata fields on an existing review: title, description, priority, dueDate.
+ * @route PATCH /api/v1/reviews/:reviewId/metadata
+ * @access Any user with review access (reviewer, submitter, escalated AM, or review_management perm)
+ */
+export const updateReviewMetadata = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    if (!isUserAuthenticated(req)) {
+      const error = new Error('Authentication required') as CustomError;
+      error.statusCode = 401;
+      throw error;
+    }
+
+    const { reviewId } = req.params;
+    const { title, description, priority, dueDate } = req.body;
+
+    const review = await Review.findById(reviewId);
+    if (!review) {
+      const error = new Error('Review not found') as CustomError;
+      error.statusCode = 404;
+      throw error;
+    }
+
+    if (!hasReviewAccess(req.user, review)) {
+      const error = new Error('Not authorized to update this review') as CustomError;
+      error.statusCode = 403;
+      throw error;
+    }
+
+    const validPriorities = ['low', 'medium', 'high', 'critical'];
+    if (priority && !validPriorities.includes(priority)) {
+      const error = new Error(`Invalid priority. Must be one of: ${validPriorities.join(', ')}`) as CustomError;
+      error.statusCode = 400;
+      throw error;
+    }
+
+    const updates: any = {};
+    if (title !== undefined) updates.title = title.trim();
+    if (description !== undefined) updates.description = description?.trim() ?? null;
+    if (priority !== undefined) updates.priority = priority;
+    if (dueDate !== undefined) updates.dueDate = dueDate ? new Date(dueDate) : null;
+
+    if (Object.keys(updates).length === 0) {
+      const error = new Error('No valid fields provided for update') as CustomError;
+      error.statusCode = 400;
+      throw error;
+    }
+
+    review.addActivity(
+      'metadata_updated',
+      req.user._id,
+      `Updated: ${Object.keys(updates).join(', ')}`
+    );
+
+    Object.assign(review, updates);
+    await review.save();
+
+    const populated = await Review.findById(reviewId)
+      .populate('submittedBy', 'name email')
+      .populate('reviewers', 'name email')
+      .populate('escalatedTo', 'name email');
+
+    res.status(200).json({
+      success: true,
+      message: 'Review updated successfully',
+      data: populated,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+/**
+ * POST /api/v1/reviews/:reviewId/seek-input
+ * Send input_request notifications to a list of colleagues for a review.
+ */
+export const seekInput = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    if (!isUserAuthenticated(req)) {
+      const err = new Error("Authentication required") as CustomError;
+      err.statusCode = 401;
+      throw err;
+    }
+
+    const { reviewId } = req.params;
+    const { recipientIds, message, deadline } = req.body;
+
+    if (!Array.isArray(recipientIds) || recipientIds.length === 0) {
+      return res.status(400).json({ success: false, error: "recipientIds must be a non-empty array" });
+    }
+    if (!message || typeof message !== "string" || !message.trim()) {
+      return res.status(400).json({ success: false, error: "message is required" });
+    }
+    if (!deadline || isNaN(new Date(deadline as string).getTime())) {
+      return res.status(400).json({ success: false, error: "A valid deadline is required" });
+    }
+
+    const review = await Review.findById(reviewId);
+    if (!review) {
+      return res.status(404).json({ success: false, error: "Review not found" });
+    }
+
+    const recipientObjectIds = (recipientIds as string[]).map(
+      (id) => new mongoose.Types.ObjectId(id)
+    );
+    const deadlineDate = new Date(deadline as string);
+
+    const sent = await notifySeekInput(
+      review,
+      recipientObjectIds,
+      req.user._id,
+      message.trim(),
+      deadlineDate
+    );
+
+    // The response deadline becomes the review's due date, driving the
+    // date-based urgency shown/filtered on the reviews page.
+    review.dueDate = deadlineDate;
+    review.addActivity(
+      'seek_input_deadline_set',
+      req.user._id,
+      `Response deadline set to ${deadlineDate.toISOString()}`
+    );
+    await review.save();
+
+    return res.status(200).json({ success: true, data: { sent } });
+  } catch (error) {
+    next(error);
+  }
+};
+
 // Update the default export at the bottom to include the new function
 export default {
   createReviewManually,
@@ -1254,13 +1482,16 @@ export default {
   getReviewById,
   getReviewsByModuleItem,
   updateReviewStatus,
+  updateReviewMetadata,
   escalateReview,
-  inviteStaffCollaborator, // ✅ ADD
+  seekInput,
+  inviteStaffCollaborator,
   addReviewer,
   addIssue,
   resolveIssue,
   getEscalatedReviews,
   getReviewStats,
   getReviewsByModule,
-  getEligibleReviewers, // ✅ ADD THIS
+  getEligibleReviewers,
+  getEligibleOrgClients,
 };  

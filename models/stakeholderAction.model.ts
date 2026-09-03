@@ -5,7 +5,7 @@ interface IStakeholderAction extends mongoose.Document {
   project: mongoose.Types.ObjectId;
   projectSite?: mongoose.Types.ObjectId;
   stage: mongoose.Types.ObjectId;
-  stakeholderGroup: mongoose.Types.ObjectId;
+  stakeholderGroups: mongoose.Types.ObjectId[];
   themes: mongoose.Types.ObjectId[];
   subThemes: mongoose.Types.ObjectId[];
   action: string;
@@ -58,12 +58,11 @@ const stakeholderActionSchema = new mongoose.Schema({
     required: true,
     index: true
   },
-  stakeholderGroup: {
+  stakeholderGroups: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'StakeholderGroup',
-    required: true,
-    index: true
-  },
+    required: true
+  }],
   // CHANGED: Multiple themes selection
   themes: [{
     type: mongoose.Schema.Types.ObjectId,
@@ -167,17 +166,18 @@ const stakeholderActionSchema = new mongoose.Schema({
   }
 }, { timestamps: true });
 
-// Compound uniqueness: same action text cannot appear twice for the
-// same project / site / stakeholder combination
+// Compound uniqueness: same action text cannot appear twice within the same project/site
 stakeholderActionSchema.index(
   {
     project: 1,
     projectSite: 1,
-    stakeholderGroup: 1,
     action: 1
   },
   { unique: true, sparse: true }
 );
+
+// Index for querying by stakeholder group membership
+stakeholderActionSchema.index({ stakeholderGroups: 1 });
 
 // 1. Ensure endDate is strictly after startDate
 stakeholderActionSchema.pre<IStakeholderAction>('save', function (next) {

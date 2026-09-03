@@ -50,7 +50,9 @@ const pulseSurveySchema = new mongoose.Schema({
     required: true,
     enum: [
       'setup_project',
-      'setup_site', 
+      'setup_site',
+      'stakeholder_mapping_project',
+      'stakeholder_mapping_site',
       'theory_of_change_stage_1',
       'theory_of_change_stage_2',
       'survey_creation',

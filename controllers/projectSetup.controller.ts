@@ -273,7 +273,8 @@ export const getProjectSetup = async (
       throw error;
     }
 
-    let projectSetup = await ProjectSetup.findOne({ project: projectId });
+    let projectSetup = await ProjectSetup.findOne({ project: projectId })
+      .populate('lastUpdatedBy', 'name email');
 
     // AUTO-INIT FOR PRE-EXISTING PROJECTS
     // Projects created before the setup feature was added have no setup document.
@@ -383,6 +384,8 @@ export const getProjectSetup = async (
         completedAt: projectSetup.completedAt,
         tasks: tasks,
         _id: projectSetup._id,
+        lastUpdatedBy: projectSetup.lastUpdatedBy,
+        updatedAt: projectSetup.updatedAt,
       },
     });
   } catch (error) {
@@ -427,7 +430,8 @@ export const getProjectSiteSetup = async (
       throw error;
     }
 
-    let siteSetup = await ProjectSiteSetup.findOne({ projectSite: siteId });
+    let siteSetup = await ProjectSiteSetup.findOne({ projectSite: siteId })
+      .populate('lastUpdatedBy', 'name email');
 
     // AUTO-INIT FOR PRE-EXISTING SITES — same pattern as getProjectSetup above
     if (!siteSetup) {
@@ -515,6 +519,8 @@ export const getProjectSiteSetup = async (
         completedAt: siteSetup.completedAt,
         tasks: tasks,
         _id: siteSetup._id,
+        lastUpdatedBy: siteSetup.lastUpdatedBy,
+        updatedAt: siteSetup.updatedAt,
       },
     });
   } catch (error) {

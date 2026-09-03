@@ -14,6 +14,14 @@ interface ITranslatedQuestion {
   translatedText: string;
   translatedDescription?: string;
   translatedOptions?: Array<{ value: string; label: string }>;
+  translatedScaleConfig?: {
+    minLabel?: string;
+    maxLabel?: string;
+  };
+  translatedMatrixConfig?: {
+    rows: Array<{ label: string }>;
+    columns: Array<{ value: string; label: string }>;
+  };
 }
 
 // Interface for the SurveyTranslation document
@@ -26,6 +34,7 @@ interface ISurveyTranslation extends mongoose.Document {
   translatedSections: ITranslatedSection[];
   translatedQuestions: ITranslatedQuestion[];
   translator?: mongoose.Types.ObjectId;
+  lastUpdatedBy?: mongoose.Types.ObjectId;
   translationMethod: 'human' | 'machine' | 'hybrid';
   status: 'draft' | 'pending_review' | 'approved' | 'published';
   completionPercentage: number;
@@ -96,7 +105,15 @@ const translatedQuestionSchema = new mongoose.Schema({
       type: String,
       required: true
     }
-  }]
+  }],
+  translatedScaleConfig: {
+    minLabel: { type: String, trim: true },
+    maxLabel: { type: String, trim: true }
+  },
+  translatedMatrixConfig: {
+    rows: [{ label: { type: String, trim: true }, _id: false }],
+    columns: [{ value: { type: String }, label: { type: String, trim: true }, _id: false }]
+  }
 }, { _id: false });
 
 // Main translation schema
@@ -142,6 +159,10 @@ const surveyTranslationSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
     index: true
+  },
+  lastUpdatedBy: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User'
   },
   translationMethod: {
     type: String,
@@ -320,6 +341,7 @@ surveyTranslationSchema.statics.getTranslationsBySurvey = async function(
   return this.find(query)
     .populate('translator', 'name email')
     .populate('reviewer', 'name email')
+    .populate('lastUpdatedBy', 'name email')
     .sort('-updatedAt');
 };
 

@@ -19,12 +19,11 @@ const socialImpactSchema = new mongoose.Schema({
     required: true,
     index: true
   },
-  stakeholderGroup: {
+  stakeholderGroups: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'StakeholderGroup',
-    required: true,
-    index: true
-  },
+    required: true
+  }],
   // CHANGED: Multiple themes selection
   themes: [{
     type: mongoose.Schema.Types.ObjectId,
@@ -107,16 +106,18 @@ const socialImpactSchema = new mongoose.Schema({
   }
 }, {timestamps: true});
 
-// CHANGED: Updated compound index for uniqueness - now uses outcome text as part of uniqueness
+// Compound uniqueness: same outcome text cannot appear twice within the same project/site
 socialImpactSchema.index(
-  { 
-    project: 1, 
-    projectSite: 1, 
-    stakeholderGroup: 1, 
-    outcome: 1  // Using outcome text for uniqueness instead of theme/subtheme
+  {
+    project: 1,
+    projectSite: 1,
+    outcome: 1
   },
   { unique: true, sparse: true }
 );
+
+// Index for querying by stakeholder group membership
+socialImpactSchema.index({ stakeholderGroups: 1 });
 
 // Add validation to ensure subThemes belong to selected themes
 socialImpactSchema.pre('save', async function(next) {

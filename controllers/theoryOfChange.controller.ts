@@ -235,19 +235,19 @@ export const getStageProgress = async (
     if (stage.stageNumber === 1) {
       // For Stage 1, get stakeholder actions
       const actions = await StakeholderAction.find({ stage: stageId, archived: { $ne: true } })
-        .populate('stakeholderGroup', 'name')
+        .populate('stakeholderGroups', 'name')
         .populate('themes', 'name')        // ✅ CHANGED: from 'theme' to 'themes'
         .populate('subThemes', 'name')     // ✅ CHANGED: from 'subTheme' to 'subThemes'
-        .sort({ 'stakeholderGroup': 1, createdAt: 1 });
+        .sort({ 'stakeholderGroups': 1, createdAt: 1 });
       
       relatedData = { actions };
     } else if (stage.stageNumber === 2) {
       // For Stage 2, get social impacts
       const impacts = await SocialImpact.find({ stage: stageId, archived: { $ne: true } })
-        .populate('stakeholderGroup', 'name')
+        .populate('stakeholderGroups', 'name')
         .populate('themes', 'name')        // ✅ CHANGED: from 'theme' to 'themes'
         .populate('subThemes', 'name')     // ✅ CHANGED: from 'subTheme' to 'subThemes'
-        .sort({ 'stakeholderGroup': 1, createdAt: 1 });
+        .sort({ 'stakeholderGroups': 1, createdAt: 1 });
       
       relatedData = { impacts };
     }
@@ -382,11 +382,11 @@ export const getStagesByProject = async (
         });
         
         // Count unique stakeholder groups with actions
-        const uniqueStakeholders = await StakeholderAction.distinct('stakeholderGroup', { 
-          stage: stage._id, 
-          archived: { $ne: true } 
+        const uniqueStakeholders = await StakeholderAction.distinct('stakeholderGroups', {
+          stage: stage._id,
+          archived: { $ne: true }
         });
-        
+
         summary = {
           actionCount,
           stakeholderCount: uniqueStakeholders.length
@@ -672,11 +672,11 @@ export const getStageStatusWithConsultation = async (
         });
         
         // Count unique stakeholder groups with actions
-        const uniqueStakeholders = await StakeholderAction.distinct('stakeholderGroup', { 
-          stage: stage._id, 
-          archived: { $ne: true } 
+        const uniqueStakeholders = await StakeholderAction.distinct('stakeholderGroups', {
+          stage: stage._id,
+          archived: { $ne: true }
         });
-        
+
         summary = {
           actionCount,
           stakeholderCount: uniqueStakeholders.length

@@ -388,6 +388,129 @@ export const archiveConversation = async (
   }
 };
 
+/**
+ * POST /api/v1/inbox/conversations/:id/participants
+ * Add a member to a group conversation. Only existing participants can add.
+ */
+export const addParticipant = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    if (!isUserAuthenticated(req)) {
+      const error = new Error('Authentication required') as CustomError;
+      error.statusCode = 401;
+      throw error;
+    }
+
+    const userId = req.user._id.toString();
+    const { id } = req.params;
+    const { userId: newUserId } = req.body;
+
+    if (!newUserId) {
+      const error = new Error('userId is required') as CustomError;
+      error.statusCode = 400;
+      throw error;
+    }
+
+    const conversation = await assertParticipant(id, userId);
+
+    if (conversation.type !== 'group') {
+      const error = new Error('Only group conversations support adding members') as CustomError;
+      error.statusCode = 400;
+      throw error;
+    }
+
+    const newUser = await User.findById(newUserId).select('name');
+    if (!newUser) {
+      const error = new Error('User not found') as CustomError;
+      error.statusCode = 404;
+      throw error;
+    }
+
+    await Conversation.findByIdAndUpdate(id, {
+      $addToSet: { participants: newUserId },
+      $set: { lastActivityAt: new Date() },
+    });
+
+    const message = await Message.create({
+      conversation: id,
+      organization: conversation.organization,
+      sender: userId,
+      content: `${newUser.name} was added to the group`,
+    });
+
+    const updated = await Conversation.findById(id)
+      .populate('participants', 'name email photo userName primaryRole')
+      .populate('createdBy', 'name photo userName');
+
+    emitToConversation(id, 'participants_updated', { conversationId: id, participants: updated?.participants });
+    emitToConversation(id, 'new_message', message);
+
+    res.status(200).json({ success: true, data: updated });
+  } catch (error) {
+    next(error);
+  }
+};
+
+/**
+ * DELETE /api/v1/inbox/conversations/:id/participants/:userId
+ * Remove a member from a group conversation. Only existing participants can remove
+ * (including removing themselves, i.e. "leave group").
+ */
+export const removeParticipant = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    if (!isUserAuthenticated(req)) {
+      const error = new Error('Authentication required') as CustomError;
+      error.statusCode = 401;
+      throw error;
+    }
+
+    const userId = req.user._id.toString();
+    const { id, userId: targetUserId } = req.params;
+
+    const conversation = await assertParticipant(id, userId);
+
+    if (conversation.type !== 'group') {
+      const error = new Error('Only group conversations support removing members') as CustomError;
+      error.statusCode = 400;
+      throw error;
+    }
+
+    const targetUser = await User.findById(targetUserId).select('name');
+
+    await Conversation.findByIdAndUpdate(id, {
+      $pull: { participants: targetUserId },
+      $set: { lastActivityAt: new Date() },
+    });
+
+    const message = await Message.create({
+      conversation: id,
+      organization: conversation.organization,
+      sender: userId,
+      content: targetUserId === userId
+        ? `${targetUser?.name ?? 'A member'} left the group`
+        : `${targetUser?.name ?? 'A member'} was removed from the group`,
+    });
+
+    const updated = await Conversation.findById(id)
+      .populate('participants', 'name email photo userName primaryRole')
+      .populate('createdBy', 'name photo userName');
+
+    emitToConversation(id, 'participants_updated', { conversationId: id, participants: updated?.participants });
+    emitToConversation(id, 'new_message', message);
+
+    res.status(200).json({ success: true, data: updated });
+  } catch (error) {
+    next(error);
+  }
+};
+
 // ─────────────────────────────────────────────────────────────────────────────
 // MESSAGES
 // ─────────────────────────────────────────────────────────────────────────────
@@ -730,16 +853,15 @@ export const getNotifications = async (
     }
 
     const userId = req.user._id.toString();
-    const { page = '1', limit = '20', unreadOnly } = req.query;
+    const { page = '1', limit = '20', unreadOnly, type } = req.query;
 
     const pageNum = parseInt(page as string, 10) || 1;
     const pageLimit = Math.min(parseInt(limit as string, 10) || 20, 50);
     const skip = (pageNum - 1) * pageLimit;
 
     const filter: Record<string, any> = { recipient: userId };
-    if (unreadOnly === 'true') {
-      filter.read = false;
-    }
+    if (unreadOnly === 'true') filter.read = false;
+    if (type) filter.type = type as string;
 
     const [notifications, total] = await Promise.all([
       Notification.find(filter)

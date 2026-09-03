@@ -10,12 +10,13 @@ import StakeholderGroup from "../models/stakeholderGroup.model";
 import Theme from "../models/theme.model";
 import SubTheme from "../models/subtheme.model";
 
-import { 
+import {
   validateMultipleStakeholderThemeRelationships,
   getSDGsForMultipleSubThemes,
   getResilienceTagsForMultipleSubThemes,
   calculateStageProgress
 } from "../services/theoryOfChange.service";
+import { createReview, reviewExistsForModuleItem } from "../utils/reviewHelpers";
 import { CustomError } from "../middlewares/error.middleware";
 
 // Type guard to check if user is authenticated
@@ -44,20 +45,26 @@ export const defineOutcome = async (
       throw error;
     }
 
-    const { 
-      projectId, 
-      projectSiteId, 
-      stageId, 
-      stakeholderGroupId, 
+    const {
+      projectId,
+      projectSiteId,
+      stageId,
+      stakeholderGroupIds,
       themeIds,      // CHANGED: Now expects array of theme IDs
       subThemeIds,   // CHANGED: Now expects array of subtheme IDs
-      outcome, 
+      outcome,
       notes
     } = req.body;
 
     // Validate required fields
-    if (!projectId || !stageId || !stakeholderGroupId || !themeIds || !subThemeIds || !outcome) {
+    if (!projectId || !stageId || !stakeholderGroupIds || !themeIds || !subThemeIds || !outcome) {
       const error = new Error('Required fields missing') as CustomError;
+      error.statusCode = 400;
+      throw error;
+    }
+
+    if (!Array.isArray(stakeholderGroupIds) || stakeholderGroupIds.length === 0) {
+      const error = new Error('stakeholderGroupIds must be a non-empty array') as CustomError;
       error.statusCode = 400;
       throw error;
     }
@@ -125,18 +132,10 @@ export const defineOutcome = async (
       throw error;
     }
 
-    // Check if stakeholder group exists
-    const stakeholderGroup = await StakeholderGroup.findById(stakeholderGroupId);
-    if (!stakeholderGroup) {
-      const error = new Error('Stakeholder group not found') as CustomError;
-      error.statusCode = 404;
-      throw error;
-    }
-
-    // CHANGED: Validate multiple stakeholder-theme relationships
-    const isValidRelationship = await validateMultipleStakeholderThemeRelationships(stakeholderGroupId, themeIds);
+    // Validate all stakeholder groups exist and theme relationships are valid
+    const isValidRelationship = await validateMultipleStakeholderThemeRelationships(stakeholderGroupIds, themeIds);
     if (!isValidRelationship) {
-      const error = new Error('Invalid stakeholder-theme relationship for one or more selected themes') as CustomError;
+      const error = new Error('Invalid stakeholder-theme relationship for one or more selected themes or groups') as CustomError;
       error.statusCode = 400;
       throw error;
     }
@@ -198,27 +197,25 @@ export const defineOutcome = async (
       throw error;
     }
 
-    // CHANGED: Check for existing impact with same outcome content
+    // Check for duplicate outcome text within this project/site
     const existingImpact = await SocialImpact.findOne({
       project: projectId,
       projectSite: projectSiteId || null,
-      stakeholderGroup: stakeholderGroupId,
       outcome: outcome.trim()
     });
 
     if (existingImpact) {
-      const error = new Error('A social impact with the same outcome already exists for this stakeholder group') as CustomError;
+      const error = new Error('A social impact with the same outcome already exists in this project') as CustomError;
       error.statusCode = 409;
       throw error;
     }
 
-    // CHANGED: Create the social impact with multiple themes and subthemes
     // ✅ FIXED: Use create with array syntax
     const newImpact = await SocialImpact.create([{
       project: projectId,
       projectSite: projectSiteId || null,
       stage: stageId,
-      stakeholderGroup: stakeholderGroupId,
+      stakeholderGroups: stakeholderGroupIds,
       themes: themeIds,
       subThemes: subThemeIds,
       outcome,
@@ -248,9 +245,34 @@ export const defineOutcome = async (
       console.error('Error calculating stage progress:', progressError);
     }
 
+    // AUTO-TRIGGER: Create review for the new social impact
+    try {
+      const alreadyReviewed = await reviewExistsForModuleItem(
+        'social_impact',
+        newImpact[0]._id as mongoose.Types.ObjectId
+      );
+
+      if (!alreadyReviewed) {
+        await createReview({
+          module: 'social_impact',
+          moduleItemId: newImpact[0]._id as mongoose.Types.ObjectId,
+          organizationId: project.organization,
+          projectId: project._id as mongoose.Types.ObjectId,
+          projectSiteId: projectSiteId || undefined,
+          submittedBy: req.user._id,
+          title: `Review: Social Impact - ${newImpact[0].outcome.substring(0, 50)}`,
+          description: `Review impact outcome. Status: ${newImpact[0].status}, Risks: ${newImpact[0].risks?.length || 0}`,
+          priority: (newImpact[0].risks?.length || 0) > 0 ? 'high' : 'medium',
+          autoAssignReviewers: true,
+        });
+      }
+    } catch (reviewError) {
+      console.error('Failed to create review for social impact:', reviewError);
+    }
+
     // ✅ FIXED: Populate AFTER session is ended
     const populatedImpact = await SocialImpact.findById(newImpact[0]._id)
-      .populate('stakeholderGroup', 'name')
+      .populate('stakeholderGroups', 'name')
       .populate('themes', 'name')
       .populate('subThemes', 'name')
       .populate('creator', 'name')
@@ -357,10 +379,10 @@ export const getImpactsByStakeholder = async (
       throw error;
     }
 
-    // Get all impacts for this stage and stakeholder
-    const impacts = await SocialImpact.find({ 
+    // Get all impacts for this stage that include this stakeholder group
+    const impacts = await SocialImpact.find({
       stage: stageId,
-      stakeholderGroup: stakeholderId,
+      stakeholderGroups: { $in: [stakeholderId] },
       archived: { $ne: true }
     })
       .populate('themes', 'name')
@@ -437,7 +459,7 @@ export const getImpactById = async (
     const { impactId } = req.params;
 
     const impact = await SocialImpact.findById(impactId)
-      .populate('stakeholderGroup', 'name')
+      .populate('stakeholderGroups', 'name')
       .populate('themes', 'name')
       .populate('subThemes', 'name')
       .populate('creator', 'name')
@@ -540,28 +562,24 @@ export const getImpactsByStage = async (
       stage: stageId,
       archived: { $ne: true }
     })
-      .populate('stakeholderGroup', 'name')
+      .populate('stakeholderGroups', 'name')
       .populate('themes', 'name')           // CHANGED: Populate multiple themes
       .populate('subThemes', 'name')        // CHANGED: Populate multiple subthemes
       .populate('creator', 'name')
       .populate('lastUpdatedBy', 'name')
-      .sort({ 'stakeholderGroup': 1, createdAt: 1 });
+      .sort({ createdAt: 1 });
 
-    // Group impacts by stakeholder
-    const stakeholderGroups = Array.from(
-      new Set(impacts.map(impact => impact.stakeholderGroup._id.toString()))
-    );
-
-    const impactsByStakeholder = stakeholderGroups.map(groupId => {
-      const stakeholderImpacts = impacts.filter(
-        impact => impact.stakeholderGroup._id.toString() === groupId
-      );
-
-      return {
-        stakeholderGroup: stakeholderImpacts[0].stakeholderGroup,
-        impacts: stakeholderImpacts
-      };
+    // Unwind: each impact can belong to multiple groups, so it appears under each
+    const groupMap = new Map<string, { stakeholderGroup: any; impacts: any[] }>();
+    impacts.forEach(impact => {
+      (impact.stakeholderGroups as any[]).forEach(group => {
+        const id = group._id.toString();
+        if (!groupMap.has(id)) groupMap.set(id, { stakeholderGroup: group, impacts: [] });
+        groupMap.get(id)!.impacts.push(impact);
+      });
     });
+
+    const impactsByStakeholder = Array.from(groupMap.values());
 
     // Calculate summary statistics
     const impactCount = impacts.length;
@@ -714,11 +732,12 @@ export const updateImpact = async (
     }
 
     const { impactId } = req.params;
-    const { 
-      themeIds, 
-      subThemeIds, 
-      outcome, 
-      notes 
+    const {
+      stakeholderGroupIds,
+      themeIds,
+      subThemeIds,
+      outcome,
+      notes
     } = req.body;
 
     const existingImpact = await SocialImpact.findById(impactId);
@@ -726,6 +745,16 @@ export const updateImpact = async (
       const error = new Error('Social impact not found') as CustomError;
       error.statusCode = 404;
       throw error;
+    }
+
+    // Update stakeholder groups if provided
+    if (stakeholderGroupIds !== undefined) {
+      if (!Array.isArray(stakeholderGroupIds) || stakeholderGroupIds.length === 0) {
+        const error = new Error('stakeholderGroupIds must be a non-empty array') as CustomError;
+        error.statusCode = 400;
+        throw error;
+      }
+      existingImpact.stakeholderGroups = stakeholderGroupIds;
     }
 
     // If themes/subthemes are being updated, validate them
@@ -737,8 +766,9 @@ export const updateImpact = async (
       }
 
       // Validate relationships
+      const groupIdsToValidate = stakeholderGroupIds ?? existingImpact.stakeholderGroups.map(id => id.toString());
       const isValidRelationship = await validateMultipleStakeholderThemeRelationships(
-        existingImpact.stakeholderGroup.toString(), 
+        groupIdsToValidate,
         themeIds
       );
       if (!isValidRelationship) {
@@ -800,7 +830,7 @@ export const updateImpact = async (
     session.endSession();
 
     const populatedImpact = await SocialImpact.findById(impactId)
-      .populate('stakeholderGroup', 'name')
+      .populate('stakeholderGroups', 'name')
       .populate('themes', 'name')
       .populate('subThemes', 'name')
       .populate('creator', 'name')

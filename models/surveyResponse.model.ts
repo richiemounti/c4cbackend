@@ -149,6 +149,13 @@ const surveyResponseSchema = new mongoose.Schema({
         os: String,
         language: String
     },
+    // Set to true when the response was collected while the survey was in pretest status.
+    // Persists after the survey moves to published — use this to filter test noise from analytics.
+    isTestResponse: {
+        type: Boolean,
+        default: false,
+        index: true
+    },
     archived: {
         type: Boolean,
         default: false

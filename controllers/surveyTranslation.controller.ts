@@ -239,6 +239,7 @@ export const getTranslation = async (
       .populate('survey', 'title defaultLanguage project')
       .populate('translator', 'name email')
       .populate('reviewer', 'name email')
+      .populate('lastUpdatedBy', 'name email')
       .populate({
         path: 'translatedSections.section',
         select: 'title description order'
@@ -305,7 +306,7 @@ export const getFullTranslation = async (
         select: 'question order required section',
         populate: {
           path: 'question',
-          select: 'text description type options validation'
+          select: 'text description type options scaleConfig matrixConfig validation'
         }
       });
 
@@ -409,12 +410,15 @@ export const updateTranslation = async (
     if (translationMethod !== undefined) translation.translationMethod = translationMethod;
     if (notes !== undefined) translation.notes = notes;
 
+    translation.lastUpdatedBy = req.user._id;
+
     await translation.save({ session });
     await session.commitTransaction();
 
     const updatedTranslation = await SurveyTranslation.findById(id)
       .populate('translator', 'name email')
       .populate('reviewer', 'name email')
+      .populate('lastUpdatedBy', 'name email')
       .populate('survey', 'title');
 
     res.status(200).json({
@@ -516,11 +520,14 @@ export const updateTranslatedSection = async (
       });
     }
 
+    translation.lastUpdatedBy = req.user._id;
+
     await translation.save({ session });
     await session.commitTransaction();
 
     const updatedTranslation = await SurveyTranslation.findById(id)
-      .populate('translatedSections.section', 'title order');
+      .populate('translatedSections.section', 'title order')
+      .populate('lastUpdatedBy', 'name email');
 
     res.status(200).json({
       success: true,
@@ -550,7 +557,7 @@ export const updateTranslatedQuestion = async (
 
   try {
     const { id, questionId } = req.params;
-    const { translatedText, translatedDescription, translatedOptions } = req.body;
+    const { translatedText, translatedDescription, translatedOptions, translatedScaleConfig, translatedMatrixConfig } = req.body;
 
     if (!isUserAuthenticated(req)) {
       const error = new Error('Authentication required') as CustomError;
@@ -623,15 +630,25 @@ export const updateTranslatedQuestion = async (
       translation.translatedQuestions[existingIndex].translatedText = translatedText;
       translation.translatedQuestions[existingIndex].translatedDescription = translatedDescription;
       translation.translatedQuestions[existingIndex].translatedOptions = translatedOptions;
+      if (translatedScaleConfig !== undefined) {
+        translation.translatedQuestions[existingIndex].translatedScaleConfig = translatedScaleConfig;
+      }
+      if (translatedMatrixConfig !== undefined) {
+        translation.translatedQuestions[existingIndex].translatedMatrixConfig = translatedMatrixConfig;
+      }
     } else {
       // Add new
       translation.translatedQuestions.push({
         surveyQuestion: new mongoose.Types.ObjectId(questionId),
         translatedText,
         translatedDescription,
-        translatedOptions
+        translatedOptions,
+        translatedScaleConfig,
+        translatedMatrixConfig
       });
     }
+
+    translation.lastUpdatedBy = req.user._id;
 
     await translation.save({ session });
     await session.commitTransaction();
@@ -644,7 +661,8 @@ export const updateTranslatedQuestion = async (
           path: 'question',
           select: 'text type'
         }
-      });
+      })
+      .populate('lastUpdatedBy', 'name email');
 
     res.status(200).json({
       success: true,
@@ -739,11 +757,14 @@ export const bulkUpdateTranslatedQuestions = async (
       }
     }
 
+    translation.lastUpdatedBy = req.user._id;
+
     await translation.save({ session });
     await session.commitTransaction();
 
     const updatedTranslation = await SurveyTranslation.findById(id)
       .populate('translator', 'name email')
+      .populate('lastUpdatedBy', 'name email')
       .populate('survey', 'title');
 
     res.status(200).json({
@@ -769,9 +790,6 @@ export const submitForReview = async (
   res: Response,
   next: NextFunction
 ) => {
-  const session = await mongoose.startSession();
-  session.startTransaction();
-
   try {
     const { id } = req.params;
 
@@ -788,7 +806,6 @@ export const submitForReview = async (
       throw error;
     }
 
-    // Check access
     const survey = translation.survey as any;
     const hasAccess = userHasProjectAccess(req, survey.project.toString());
     const isTranslator = translation.translator?.toString() === req.user._id.toString();
@@ -805,7 +822,6 @@ export const submitForReview = async (
       throw error;
     }
 
-    // Check completion
     await translation.markAsComplete();
 
     if (translation.completionPercentage < 100) {
@@ -813,8 +829,6 @@ export const submitForReview = async (
       error.statusCode = 400;
       throw error;
     }
-
-    await session.commitTransaction();
 
     // AUTO-TRIGGER: Create a Review record now that the translation is pending_review
     try {
@@ -843,10 +857,7 @@ export const submitForReview = async (
       data: updatedTranslation
     });
   } catch (error) {
-    await session.abortTransaction();
     next(error);
-  } finally {
-    session.endSession();
   }
 };
 
@@ -860,9 +871,6 @@ export const approveTranslation = async (
   res: Response,
   next: NextFunction
 ) => {
-  const session = await mongoose.startSession();
-  session.startTransaction();
-
   try {
     const { id } = req.params;
 
@@ -920,8 +928,6 @@ export const approveTranslation = async (
       // Non-fatal — translation approval still succeeded
     }
 
-    await session.commitTransaction();
-
     const updatedTranslation = await SurveyTranslation.findById(id)
       .populate('translator', 'name email')
       .populate('reviewer', 'name email')
@@ -933,10 +939,7 @@ export const approveTranslation = async (
       data: updatedTranslation
     });
   } catch (error) {
-    await session.abortTransaction();
     next(error);
-  } finally {
-    session.endSession();
   }
 };
 
@@ -950,9 +953,6 @@ export const publishTranslation = async (
   res: Response,
   next: NextFunction
 ) => {
-  const session = await mongoose.startSession();
-  session.startTransaction();
-
   try {
     const { id } = req.params;
 
@@ -994,8 +994,6 @@ export const publishTranslation = async (
     // Use instance method to publish
     await translation.publish();
 
-    await session.commitTransaction();
-
     const updatedTranslation = await SurveyTranslation.findById(id)
       .populate('translator', 'name email')
       .populate('reviewer', 'name email')
@@ -1007,10 +1005,7 @@ export const publishTranslation = async (
       data: updatedTranslation
     });
   } catch (error) {
-    await session.abortTransaction();
     next(error);
-  } finally {
-    session.endSession();
   }
 };
 
@@ -1225,12 +1220,9 @@ export const autoTranslateSurvey = async (
   res: Response,
   next: NextFunction
 ) => {
-  const session = await mongoose.startSession();
-  session.startTransaction();
-
   try {
     const { id } = req.params;
-    const { 
+    const {
       overwriteExisting = false,  // if true, re-translate already-translated fields
       sourceLanguage = 'en'        // language to translate FROM
     } = req.body;
@@ -1289,10 +1281,10 @@ export const autoTranslateSurvey = async (
       );
 
       const alreadyTranslated = existingIdx >= 0;
-      
+
       if (!alreadyTranslated || overwriteExisting) {
         const translatedTitle = await translateText(section.title, targetLanguage, sourceLanguage);
-        const translatedDesc = section.description 
+        const translatedDesc = section.description
           ? await translateText(section.description, targetLanguage, sourceLanguage)
           : undefined;
 
@@ -1313,7 +1305,7 @@ export const autoTranslateSurvey = async (
     const surveyQuestions = await SurveyQuestion.find({
       survey: survey._id,
       archived: { $ne: true }
-    }).populate('question', 'text description type options');
+    }).populate('question', 'text description type options scaleConfig matrixConfig');
 
     for (const sq of surveyQuestions) {
       const question = sq.question as any;
@@ -1325,7 +1317,6 @@ export const autoTranslateSurvey = async (
       const alreadyTranslated = existingIdx >= 0;
 
       if (!alreadyTranslated || overwriteExisting) {
-        // Use customText if set on the survey question, otherwise fall back to question template text
         const sourceText = sq.customText || question.text;
         const sourceDesc = sq.customDescription || question.description;
 
@@ -1338,35 +1329,64 @@ export const autoTranslateSurvey = async (
         let translatedOptions: Array<{ value: string; label: string }> | undefined;
         const optionsSource = sq.customOptions?.length ? sq.customOptions : question.options;
 
-        if (optionsSource?.length && ['radio', 'checkbox', 'dropdown', 'select'].includes(question.type)) {
+        if (optionsSource?.length && ['radio', 'checkbox', 'dropdown', 'select', 'scale'].includes(question.type)) {
           const labels = optionsSource.map((o: any) => o.label);
           const translatedLabels = await translateBatch(labels, targetLanguage, sourceLanguage);
           translatedOptions = optionsSource.map((o: any, i: number) => ({
-            value: o.value, // keep value as-is (it's the stored key)
+            value: o.value,
             label: translatedLabels[i]
           }));
+        }
+
+        // Translate scale min/max labels
+        let translatedScaleConfig: { minLabel?: string; maxLabel?: string } | undefined;
+        if (question.type === 'scale' && question.scaleConfig) {
+          const sc = question.scaleConfig;
+          translatedScaleConfig = {};
+          if (sc.minLabel) translatedScaleConfig.minLabel = await translateText(sc.minLabel, targetLanguage, sourceLanguage);
+          if (sc.maxLabel) translatedScaleConfig.maxLabel = await translateText(sc.maxLabel, targetLanguage, sourceLanguage);
+        }
+
+        // Translate matrix row and column labels
+        let translatedMatrixConfig: { rows: Array<{ label: string }>; columns: Array<{ value: string; label: string }> } | undefined;
+        if (question.type === 'matrix' && question.matrixConfig) {
+          const mc = question.matrixConfig;
+          const rowLabels = mc.rows?.map((r: any) => r.label).filter(Boolean) ?? [];
+          const colLabels = mc.columns?.map((c: any) => c.label).filter(Boolean) ?? [];
+          const allLabels = [...rowLabels, ...colLabels];
+          if (allLabels.length > 0) {
+            const translatedLabels = await translateBatch(allLabels, targetLanguage, sourceLanguage);
+            const translatedRowLabels = translatedLabels.slice(0, rowLabels.length);
+            const translatedColLabels = translatedLabels.slice(rowLabels.length);
+            translatedMatrixConfig = {
+              rows: (mc.rows ?? []).map((r: any, i: number) => ({ label: translatedRowLabels[i] ?? r.label })),
+              columns: (mc.columns ?? []).map((c: any, i: number) => ({ value: c.value, label: translatedColLabels[i] ?? c.label }))
+            };
+          }
         }
 
         if (alreadyTranslated) {
           translation.translatedQuestions[existingIdx].translatedText = translatedText;
           if (translatedDesc) translation.translatedQuestions[existingIdx].translatedDescription = translatedDesc;
           if (translatedOptions) translation.translatedQuestions[existingIdx].translatedOptions = translatedOptions;
+          if (translatedScaleConfig) translation.translatedQuestions[existingIdx].translatedScaleConfig = translatedScaleConfig;
+          if (translatedMatrixConfig) translation.translatedQuestions[existingIdx].translatedMatrixConfig = translatedMatrixConfig;
         } else {
           translation.translatedQuestions.push({
             surveyQuestion: sq._id as mongoose.Types.ObjectId,
             translatedText,
             translatedDescription: translatedDesc,
-            translatedOptions
+            translatedOptions,
+            translatedScaleConfig,
+            translatedMatrixConfig
           });
         }
       }
     }
 
     translation.translationMethod = 'machine';
-    await translation.save({ session });
-    await session.commitTransaction();
+    await translation.save();
 
-    // Return the updated translation with completion %
     const updated = await SurveyTranslation.findById(id)
       .populate('translator', 'name email')
       .populate('survey', 'title');
@@ -1377,10 +1397,7 @@ export const autoTranslateSurvey = async (
       data: updated
     });
   } catch (error) {
-    await session.abortTransaction();
     next(error);
-  } finally {
-    session.endSession();
   }
 };
 

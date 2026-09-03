@@ -116,16 +116,11 @@ export interface IReview extends Document {
   resolvedAt?: Date;
   resolutionNotes?: string;
   
-  // ===== STREAM CHAT INTEGRATION =====
-  // Stream Chat channel information
-  streamChannelId?: string;           // Stream Chat channel ID
-  streamChannelType?: string;         // Channel type (e.g., 'messaging', 'team')
-  streamChannelCreated?: boolean;     // Whether channel has been created
-  streamChannelCreatedAt?: Date;
-  
-  // Participant tracking for chat
-  chatParticipants: Types.ObjectId[]; // Users currently in the chat
-  
+  // ===== INBOX CONVERSATION =====
+  // Each review has exactly one linked Conversation in the inbox system.
+  conversationId?: Types.ObjectId;
+
+
   // ===== REVIEW FINDINGS =====
   issues: IReviewIssue[];             // Array of issues found
   
@@ -334,7 +329,7 @@ const ReviewSchema = new Schema<IReview>(
     description: {
       type: String,
       trim: true,
-      maxLength: 1000,
+      maxLength: 5000,
     },
     status: {
       type: String,
@@ -400,27 +395,14 @@ const ReviewSchema = new Schema<IReview>(
       trim: true,
     },
     
-    // ===== STREAM CHAT INTEGRATION =====
-    streamChannelId: {
-      type: String,
-      trim: true,
+    // ===== INBOX CONVERSATION =====
+    conversationId: {
+      type: Schema.Types.ObjectId,
+      ref: 'Conversation',
+      default: null,
       index: true,
     },
-    streamChannelType: {
-      type: String,
-      default: 'messaging',
-    },
-    streamChannelCreated: {
-      type: Boolean,
-      default: false,
-    },
-    streamChannelCreatedAt: Date,
-    
-    chatParticipants: [{
-      type: Schema.Types.ObjectId,
-      ref: 'User',
-    }],
-    
+
     // ===== REVIEW FINDINGS =====
     issues: [reviewIssueSchema],
     
@@ -515,14 +497,6 @@ ReviewSchema.virtual('isOverdue').get(function(this: IReview) {
 
 // ===== PRE-SAVE MIDDLEWARE =====
 
-// Auto-populate submittedBy in chatParticipants
-ReviewSchema.pre('save', function(this: IReview, next) {
-  if (this.isNew && !this.chatParticipants.includes(this.submittedBy)) {
-    this.chatParticipants.push(this.submittedBy);
-  }
-  next();
-});
-
 // Log initial creation
 ReviewSchema.pre('save', function(this: IReview, next) {
   if (this.isNew) {
@@ -535,10 +509,6 @@ ReviewSchema.pre('save', function(this: IReview, next) {
   }
   next();
 });
-
-// models/review.model.ts
-
-// ... (keep all your existing code until after the Pre-save middleware section)
 
 // ===== INSTANCE METHODS =====
 
@@ -690,12 +660,7 @@ ReviewSchema.methods.escalate = function(
   this.escalatedAt = new Date();
   this.escalatedReason = reason;
   this.escalatedBy = escalatedBy;
-  
-  // Add staff to chat participants if not already there
-  if (!this.chatParticipants.some(p => p.toString() === staffAccountManager.toString())) {
-    this.chatParticipants.push(staffAccountManager);
-  }
-  
+
   // Log the activity
   this.addActivity(
     'review_escalated',
@@ -724,12 +689,7 @@ ReviewSchema.methods.addReviewer = function(
   }
   
   this.reviewers.push(reviewerId);
-  
-  // Add to chat participants if not already there
-  if (!this.chatParticipants.some(p => p.toString() === reviewerId.toString())) {
-    this.chatParticipants.push(reviewerId);
-  }
-  
+
   // Log the activity
   this.addActivity(
     'reviewer_added',

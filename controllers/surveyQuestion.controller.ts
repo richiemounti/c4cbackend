@@ -243,7 +243,9 @@ export const addQuestionToSurvey = async (
       customDescription,
       customOptions: processedOptions,
       conditionalLogic: inheritedConditionalLogic, // ✅ Use inherited/provided conditional logic
-      order: order || 0
+      order: order || 0,
+      creator: req.user?._id,
+      lastUpdatedBy: req.user?._id
     });
 
     await surveyQuestion.save({ session });
@@ -309,7 +311,9 @@ export const addQuestionToSurvey = async (
       .populate({
         path: 'conditionalLogic.conditions.questionId', // ✅ Populate condition references
         select: 'question'
-      });
+      })
+      .populate('creator', 'name')
+      .populate('lastUpdatedBy', 'name email');
 
     await session.commitTransaction();
     session.endSession();
@@ -356,7 +360,9 @@ export const getSurveyQuestion = async (
       .populate({
         path: 'section',
         select: 'title'
-      });
+      })
+      .populate('creator', 'name')
+      .populate('lastUpdatedBy', 'name email');
 
     if (!surveyQuestion) {
       const error = new Error('Survey question not found') as CustomError;
@@ -483,13 +489,16 @@ export const updateSurveyQuestion = async (
         customText,
         customDescription,
         customOptions,
-        conditionalLogic
+        conditionalLogic,
+        lastUpdatedBy: req.user?._id
       },
       { new: true, runValidators: true, session }
     ).populate({
       path: 'question',
       select: 'text description type options validation targetAudience'
-    });
+    })
+      .populate('creator', 'name')
+      .populate('lastUpdatedBy', 'name email');
 
     await session.commitTransaction();
     session.endSession();

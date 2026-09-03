@@ -67,6 +67,7 @@ export const createProject = async (
       endDate,
       status,
       creator,
+      lastUpdatedBy: creator,
       organization
     }], { session });
 
@@ -342,8 +343,9 @@ export const getProject = async (
   try {
     const projectId = req.params.id;
 
-    const query = Project.findById(projectId);
-    
+    const query = Project.findById(projectId)
+      .populate('lastUpdatedBy', 'name email');
+
     // Populate related fields if requested
     if (req.query.populate) {
       const populateFields = (req.query.populate as string).split(',');
@@ -453,11 +455,15 @@ export const updateProject = async (
     }
 
     // Update the project
+    updates.lastUpdatedBy = req.user!._id;
+
     const updatedProject = await Project.findByIdAndUpdate(
       projectId,
       updates,
       { new: true, runValidators: true }
-    );
+    )
+      .populate('creator', 'name')
+      .populate('lastUpdatedBy', 'name email');
 
     res.status(200).json({
       success: true,

@@ -30,54 +30,48 @@ export const validateStakeholderThemeRelationship = async (
 
 /**
  * UPDATED: Validate multiple stakeholder-theme relationships
- * Now properly validates against the themes field in StakeholderGroup
+ * Now validates that all selected themes are allowed by every stakeholder group
+ * in the list, since actions/impacts can belong to multiple stakeholder groups.
+ * A group with an empty themes array imposes no restriction.
  */
 export const validateMultipleStakeholderThemeRelationships = async (
-  stakeholderGroupId: string, 
+  stakeholderGroupIds: string[],
   themeIds: string[]
 ): Promise<boolean> => {
   try {
-    const stakeholderGroup = await StakeholderGroup.findById(stakeholderGroupId).populate('themes');
-    
-    if (!stakeholderGroup) {
-      console.error('Stakeholder group not found');
+    // First ensure all requested themes exist
+    const themes = await Theme.find({ _id: { $in: themeIds } });
+    if (themes.length !== themeIds.length) {
+      console.error('Some themes not found');
       return false;
     }
 
-    const stakeholderThemes = (stakeholderGroup as any).themes;
+    const groups = await StakeholderGroup.find({ _id: { $in: stakeholderGroupIds } }).populate('themes');
 
-    // If stakeholder has no theme restrictions (empty themes array), allow all themes
-    if (!stakeholderThemes || stakeholderThemes.length === 0) {
-      console.log('Stakeholder has no theme restrictions - allowing all themes');
-      
-      // Still validate that all requested themes exist
-      const themes = await Theme.find({ _id: { $in: themeIds } });
-      
-      if (themes.length !== themeIds.length) {
-        console.error('Some themes not found');
+    if (groups.length !== stakeholderGroupIds.length) {
+      console.error('Some stakeholder groups not found');
+      return false;
+    }
+
+    for (const group of groups) {
+      const groupThemes = (group as any).themes as any[];
+
+      // If stakeholder has no theme restrictions (empty themes array), allow all themes
+      if (!groupThemes || groupThemes.length === 0) continue;
+
+      // Get the theme IDs that this stakeholder group is associated with
+      const associatedThemeIds = groupThemes.map((theme: any) => theme._id.toString());
+
+      // Check if all requested themes are in this stakeholder's associated themes
+      const invalidThemes = themeIds.filter(themeId => !associatedThemeIds.includes(themeId.toString()));
+
+      if (invalidThemes.length > 0) {
+        console.error(`Themes [${invalidThemes.join(', ')}] not associated with stakeholder group "${group.name}"`);
         return false;
       }
-      
-      return true;
     }
 
-    // Get the theme IDs that this stakeholder group is associated with
-    const associatedThemeIds = stakeholderThemes.map((theme: any) => theme._id.toString());
-    
-    // Check if all requested themes are in the stakeholder's associated themes
-    const allThemesValid = themeIds.every(themeId => 
-      associatedThemeIds.includes(themeId.toString())
-    );
-
-    if (!allThemesValid) {
-      console.error('Some themes are not associated with this stakeholder group');
-      const invalidThemes = themeIds.filter(themeId => 
-        !associatedThemeIds.includes(themeId.toString())
-      );
-      console.error('Invalid themes:', invalidThemes);
-    }
-
-    return allThemesValid;
+    return true;
   } catch (error) {
     console.error('Error validating stakeholder-theme relationships:', error);
     return false;
@@ -200,11 +194,11 @@ export const calculateStageProgress = async (stageId: string) => {
 
     if (stage.stageNumber === 1) {
       // UPDATED: For Stage 1, check stakeholder actions with multiple themes
-      const actions = await StakeholderAction.find({ 
-        stage: stageId, 
-        archived: { $ne: true } 
+      const actions = await StakeholderAction.find({
+        stage: stageId,
+        archived: { $ne: true }
       })
-        .populate('stakeholderGroup', 'name')
+        .populate('stakeholderGroups', 'name') // CHANGED: Now populate multiple stakeholder groups
         .populate('themes', 'name')        // CHANGED: Now populate multiple themes
         .populate('subThemes', 'name');    // CHANGED: Now populate multiple subthemes
 
@@ -213,10 +207,17 @@ export const calculateStageProgress = async (stageId: string) => {
         return progressData;
       }
 
-      // Get unique stakeholder groups and themes
-      const stakeholderGroups = Array.from(
-        new Set(actions.map(action => action.stakeholderGroup._id.toString()))
-      );
+      // CHANGED: Build groupId -> { stakeholderGroup, actions[] } by unwinding each
+      // action's stakeholderGroups array, since an action can belong to multiple groups
+      // and should count toward the progress of each one.
+      const groupMap = new Map<string, { stakeholderGroup: any; actions: any[] }>();
+      actions.forEach(action => {
+        (action.stakeholderGroups as any[]).forEach(group => {
+          const id = group._id.toString();
+          if (!groupMap.has(id)) groupMap.set(id, { stakeholderGroup: group, actions: [] });
+          groupMap.get(id)!.actions.push(action);
+        });
+      });
 
       // CHANGED: Extract all unique themes from all actions (since each action can have multiple themes)
       const allThemes = new Set<string>();
@@ -226,28 +227,19 @@ export const calculateStageProgress = async (stageId: string) => {
       const themes = Array.from(allThemes);
 
       // Calculate progress per stakeholder
-      const stakeholderProgress = stakeholderGroups.map(groupId => {
-        const stakeholderActions = actions.filter(
-          action => action.stakeholderGroup._id.toString() === groupId
-        );
-
+      const stakeholderProgress = Array.from(groupMap.values()).map(({ stakeholderGroup, actions: stakeholderActions }) => {
         // CHANGED: Get all unique themes for this stakeholder across all their actions
         const stakeholderThemeIds = new Set<string>();
         stakeholderActions.forEach(action => {
-          action.themes.forEach(theme => stakeholderThemeIds.add(theme._id.toString()));
+          action.themes.forEach((theme: any) => stakeholderThemeIds.add(theme._id.toString()));
         });
 
         // Calculate theme progress for this stakeholder
         const themeProgress = Array.from(stakeholderThemeIds).map(themeId => {
-          // Find actions that include this theme
-          const themeActions = stakeholderActions.filter(action => 
-            action.themes.some(theme => theme._id.toString() === themeId)
-          );
-
           // Get theme object from any action that has this theme
           const themeObj = stakeholderActions
-            .flatMap(action => action.themes)
-            .find(theme => theme._id.toString() === themeId);
+            .flatMap((action: any) => action.themes)
+            .find((theme: any) => theme._id.toString() === themeId);
 
           return {
             theme: themeObj,
@@ -256,7 +248,7 @@ export const calculateStageProgress = async (stageId: string) => {
         });
 
         return {
-          stakeholder: stakeholderActions[0].stakeholderGroup,
+          stakeholder: stakeholderGroup,
           progress: 100, // For now, just having actions is considered 100% progress
           themes: themeProgress
         };
@@ -265,27 +257,21 @@ export const calculateStageProgress = async (stageId: string) => {
       // CHANGED: Calculate progress per theme with multiple themes per action
       const themeProgress = themes.map(themeId => {
         // Find all actions that include this theme
-        const themeActions = actions.filter(action => 
+        const themeActions = actions.filter(action =>
           action.themes.some(theme => theme._id.toString() === themeId)
         );
 
-        // Get all unique stakeholders for this theme
+        // CHANGED: Get all unique stakeholders for this theme by unwinding stakeholderGroups
         const themeStakeholderIds = new Set<string>();
         themeActions.forEach(action => {
-          themeStakeholderIds.add(action.stakeholderGroup._id.toString());
+          (action.stakeholderGroups as any[]).forEach(group => themeStakeholderIds.add(group._id.toString()));
         });
 
         // Calculate stakeholder progress for this theme
-        const stakeholderProgress = Array.from(themeStakeholderIds).map(groupId => {
-          const stakeholderActions = themeActions.filter(
-            action => action.stakeholderGroup._id.toString() === groupId
-          );
-
-          return {
-            stakeholder: stakeholderActions[0].stakeholderGroup,
-            progress: 100 // For now, just having actions is considered 100% progress
-          };
-        });
+        const stakeholderProgress = Array.from(themeStakeholderIds).map(groupId => ({
+          stakeholder: groupMap.get(groupId)?.stakeholderGroup,
+          progress: 100 // For now, just having actions is considered 100% progress
+        }));
 
         // Get theme object
         const themeObj = actions
@@ -310,11 +296,11 @@ export const calculateStageProgress = async (stageId: string) => {
       
     } else if (stage.stageNumber === 2) {
       // UPDATED: For Stage 2, check social impacts with multiple themes
-      const impacts = await SocialImpact.find({ 
-        stage: stageId, 
-        archived: { $ne: true } 
+      const impacts = await SocialImpact.find({
+        stage: stageId,
+        archived: { $ne: true }
       })
-        .populate('stakeholderGroup', 'name')
+        .populate('stakeholderGroups', 'name') // CHANGED: Now populate multiple stakeholder groups
         .populate('themes', 'name')        // CHANGED: Now populate multiple themes
         .populate('subThemes', 'name');    // CHANGED: Now populate multiple subthemes
 
@@ -327,10 +313,17 @@ export const calculateStageProgress = async (stageId: string) => {
       const impactsWithRisks = impacts.filter(impact => impact.risks.length > 0);
       const riskPercentage = (impactsWithRisks.length / impacts.length) * 100;
 
-      // Get unique stakeholder groups and themes
-      const stakeholderGroups = Array.from(
-        new Set(impacts.map(impact => impact.stakeholderGroup._id.toString()))
-      );
+      // CHANGED: Build groupId -> { stakeholderGroup, impacts[] } by unwinding each
+      // impact's stakeholderGroups array, since an impact can belong to multiple groups
+      // and should count toward the progress of each one.
+      const groupMap = new Map<string, { stakeholderGroup: any; impacts: any[] }>();
+      impacts.forEach(impact => {
+        (impact.stakeholderGroups as any[]).forEach(group => {
+          const id = group._id.toString();
+          if (!groupMap.has(id)) groupMap.set(id, { stakeholderGroup: group, impacts: [] });
+          groupMap.get(id)!.impacts.push(impact);
+        });
+      });
 
       // CHANGED: Extract all unique themes from all impacts
       const allThemes = new Set<string>();
@@ -340,30 +333,26 @@ export const calculateStageProgress = async (stageId: string) => {
       const themes = Array.from(allThemes);
 
       // Calculate progress per stakeholder
-      const stakeholderProgress = stakeholderGroups.map(groupId => {
-        const stakeholderImpacts = impacts.filter(
-          impact => impact.stakeholderGroup._id.toString() === groupId
-        );
-
+      const stakeholderProgress = Array.from(groupMap.values()).map(({ stakeholderGroup, impacts: stakeholderImpacts }) => {
         const stakeholderImpactsWithRisks = stakeholderImpacts.filter(
           impact => impact.risks.length > 0
         );
 
-        const stakeholderProgress = stakeholderImpactsWithRisks.length > 0 ? 
-          (stakeholderImpactsWithRisks.length / stakeholderImpacts.length) * 100 : 
+        const stakeholderProgress = stakeholderImpactsWithRisks.length > 0 ?
+          (stakeholderImpactsWithRisks.length / stakeholderImpacts.length) * 100 :
           50; // If impacts but no risks, consider it 50% progress
 
         // CHANGED: Get all unique themes for this stakeholder across all their impacts
         const stakeholderThemeIds = new Set<string>();
         stakeholderImpacts.forEach(impact => {
-          impact.themes.forEach(theme => stakeholderThemeIds.add(theme._id.toString()));
+          impact.themes.forEach((theme: any) => stakeholderThemeIds.add(theme._id.toString()));
         });
 
         // Calculate theme progress for this stakeholder
         const themeProgress = Array.from(stakeholderThemeIds).map(themeId => {
           // Find impacts that include this theme
-          const themeImpacts = stakeholderImpacts.filter(impact => 
-            impact.themes.some(theme => theme._id.toString() === themeId)
+          const themeImpacts = stakeholderImpacts.filter(impact =>
+            impact.themes.some((theme: any) => theme._id.toString() === themeId)
           );
 
           const themeImpactsWithRisks = themeImpacts.filter(
@@ -372,19 +361,19 @@ export const calculateStageProgress = async (stageId: string) => {
 
           // Get theme object
           const themeObj = stakeholderImpacts
-            .flatMap(impact => impact.themes)
-            .find(theme => theme._id.toString() === themeId);
+            .flatMap((impact: any) => impact.themes)
+            .find((theme: any) => theme._id.toString() === themeId);
 
           return {
             theme: themeObj,
-            progress: themeImpactsWithRisks.length > 0 ? 
-              (themeImpactsWithRisks.length / themeImpacts.length) * 100 : 
+            progress: themeImpactsWithRisks.length > 0 ?
+              (themeImpactsWithRisks.length / themeImpacts.length) * 100 :
               50 // If impacts but no risks, consider it 50% progress
           };
         });
 
         return {
-          stakeholder: stakeholderImpacts[0].stakeholderGroup,
+          stakeholder: stakeholderGroup,
           progress: stakeholderProgress,
           themes: themeProgress
         };
@@ -393,7 +382,7 @@ export const calculateStageProgress = async (stageId: string) => {
       // CHANGED: Calculate progress per theme with multiple themes per impact
       const themeProgress = themes.map(themeId => {
         // Find all impacts that include this theme
-        const themeImpacts = impacts.filter(impact => 
+        const themeImpacts = impacts.filter(impact =>
           impact.themes.some(theme => theme._id.toString() === themeId)
         );
 
@@ -401,30 +390,30 @@ export const calculateStageProgress = async (stageId: string) => {
           impact => impact.risks.length > 0
         );
 
-        const themeProgressValue = themeImpactsWithRisks.length > 0 ? 
-          (themeImpactsWithRisks.length / themeImpacts.length) * 100 : 
+        const themeProgressValue = themeImpactsWithRisks.length > 0 ?
+          (themeImpactsWithRisks.length / themeImpacts.length) * 100 :
           50; // If impacts but no risks, consider it 50% progress
 
-        // Get all unique stakeholders for this theme
+        // CHANGED: Get all unique stakeholders for this theme by unwinding stakeholderGroups
         const themeStakeholderIds = new Set<string>();
         themeImpacts.forEach(impact => {
-          themeStakeholderIds.add(impact.stakeholderGroup._id.toString());
+          (impact.stakeholderGroups as any[]).forEach(group => themeStakeholderIds.add(group._id.toString()));
         });
 
         // Calculate stakeholder progress for this theme
         const stakeholderProgress = Array.from(themeStakeholderIds).map(groupId => {
-          const stakeholderImpacts = themeImpacts.filter(
-            impact => impact.stakeholderGroup._id.toString() === groupId
+          const groupImpacts = themeImpacts.filter(
+            impact => (impact.stakeholderGroups as any[]).some(group => group._id.toString() === groupId)
           );
 
-          const stakeholderImpactsWithRisks = stakeholderImpacts.filter(
+          const groupImpactsWithRisks = groupImpacts.filter(
             impact => impact.risks.length > 0
           );
 
           return {
-            stakeholder: stakeholderImpacts[0].stakeholderGroup,
-            progress: stakeholderImpactsWithRisks.length > 0 ? 
-              (stakeholderImpactsWithRisks.length / stakeholderImpacts.length) * 100 : 
+            stakeholder: groupMap.get(groupId)?.stakeholderGroup,
+            progress: groupImpactsWithRisks.length > 0 ?
+              (groupImpactsWithRisks.length / groupImpacts.length) * 100 :
               50 // If impacts but no risks, consider it 50% progress
           };
         });
@@ -490,14 +479,14 @@ export const generateWorkplan = async (stageId: string) => {
     }
 
     // CHANGED: Get all actions with multiple themes and subthemes
-    const actions = await StakeholderAction.find({ 
-      stage: stageId, 
-      archived: { $ne: true } 
+    const actions = await StakeholderAction.find({
+      stage: stageId,
+      archived: { $ne: true }
     })
-      .populate('stakeholderGroup', 'name')
+      .populate('stakeholderGroups', 'name') // CHANGED: Now populate multiple stakeholder groups
       .populate('themes', 'name')        // CHANGED: Multiple themes
       .populate('subThemes', 'name')     // CHANGED: Multiple subthemes
-      .sort({ 'stakeholderGroup': 1, createdAt: 1 });
+      .sort({ createdAt: 1 }); // CHANGED: Can no longer sort by a plural stakeholderGroups field
 
     if (actions.length === 0) {
       return {
@@ -507,37 +496,40 @@ export const generateWorkplan = async (stageId: string) => {
       };
     }
 
-    // Group by stakeholder
-    const stakeholderGroups = Array.from(
-      new Set(actions.map(action => action.stakeholderGroup._id.toString()))
-    );
+    // CHANGED: Build groupId -> { stakeholderGroup, actions[] } by unwinding each
+    // action's stakeholderGroups array, since an action can belong to multiple groups
+    // and appears in each of their workplan sections.
+    const groupMap = new Map<string, { stakeholderGroup: any; actions: any[] }>();
+    actions.forEach(action => {
+      (action.stakeholderGroups as any[]).forEach(group => {
+        const id = group._id.toString();
+        if (!groupMap.has(id)) groupMap.set(id, { stakeholderGroup: group, actions: [] });
+        groupMap.get(id)!.actions.push(action);
+      });
+    });
 
-    const workplanByStakeholder = stakeholderGroups.map(groupId => {
-      const stakeholderActions = actions.filter(
-        action => action.stakeholderGroup._id.toString() === groupId
-      );
-
+    const workplanByStakeholder = Array.from(groupMap.values()).map(({ stakeholderGroup, actions: stakeholderActions }) => {
       // CHANGED: Since actions can have multiple themes, we'll group differently
       // Get all unique themes for this stakeholder
       const stakeholderThemeIds = new Set<string>();
-      stakeholderActions.forEach(action => {
-        action.themes.forEach(theme => stakeholderThemeIds.add(theme._id.toString()));
+      stakeholderActions.forEach((action: any) => {
+        action.themes.forEach((theme: any) => stakeholderThemeIds.add(theme._id.toString()));
       });
 
       const themeGroups = Array.from(stakeholderThemeIds).map(themeId => {
         // Find actions that include this theme
-        const themeActions = stakeholderActions.filter(action => 
-          action.themes.some(theme => theme._id.toString() === themeId)
+        const themeActions = stakeholderActions.filter((action: any) =>
+          action.themes.some((theme: any) => theme._id.toString() === themeId)
         );
 
         // Get theme object
         const themeObj = stakeholderActions
-          .flatMap(action => action.themes)
-          .find(theme => theme._id.toString() === themeId);
+          .flatMap((action: any) => action.themes)
+          .find((theme: any) => theme._id.toString() === themeId);
 
         return {
           theme: themeObj,
-          actions: themeActions.map(action => ({
+          actions: themeActions.map((action: any) => ({
             ...action.toObject(),
             themes: (action.themes as any[]).map((t: any) => t.name),      // Convert to names for workplan
             subThemes: (action.subThemes as any[]).map((st: any) => st.name) // Convert to names for workplan
@@ -546,7 +538,7 @@ export const generateWorkplan = async (stageId: string) => {
       });
 
       return {
-        stakeholder: stakeholderActions[0].stakeholderGroup,
+        stakeholder: stakeholderGroup,
         themes: themeGroups
       };
     });
@@ -568,7 +560,7 @@ export const generateWorkplan = async (stageId: string) => {
       lastUpdated: new Date(),
       actionCount: actions.length,
       summary: {
-        totalStakeholders: stakeholderGroups.length,
+        totalStakeholders: groupMap.size,
         totalThemes: uniqueThemes.size,
         totalSubThemes: uniqueSubThemes.size,
         actionsWithTimeframes: actions.filter(a => a.timeframe?.startDate || a.timeframe?.endDate).length,
@@ -604,16 +596,16 @@ export const generateLogicModel = async (stageId: string) => {
     }
 
     // CHANGED: Get all impacts with multiple themes and subthemes
-    const impacts = await SocialImpact.find({ 
-      stage: stageId, 
-      archived: { $ne: true } 
+    const impacts = await SocialImpact.find({
+      stage: stageId,
+      archived: { $ne: true }
     })
-      .populate('stakeholderGroup', 'name')
+      .populate('stakeholderGroups', 'name') // CHANGED: Now populate multiple stakeholder groups
       .populate('themes', 'name')          // CHANGED: Multiple themes
       .populate('subThemes', 'name')       // CHANGED: Multiple subthemes
       .populate('sdgTags', 'code name')    // Updated to populate the ObjectId references
       .populate('resilienceTags', 'code name') // Updated to populate the ObjectId references
-      .sort({ 'stakeholderGroup': 1, createdAt: 1 });
+      .sort({ createdAt: 1 }); // CHANGED: Can no longer sort by a plural stakeholderGroups field
 
     if (impacts.length === 0) {
       return {
@@ -623,37 +615,40 @@ export const generateLogicModel = async (stageId: string) => {
       };
     }
 
-    // Group by stakeholder
-    const stakeholderGroups = Array.from(
-      new Set(impacts.map(impact => impact.stakeholderGroup._id.toString()))
-    );
+    // CHANGED: Build groupId -> { stakeholderGroup, impacts[] } by unwinding each
+    // impact's stakeholderGroups array, since an impact can belong to multiple groups
+    // and appears in each of their logic model sections.
+    const groupMap = new Map<string, { stakeholderGroup: any; impacts: any[] }>();
+    impacts.forEach(impact => {
+      (impact.stakeholderGroups as any[]).forEach(group => {
+        const id = group._id.toString();
+        if (!groupMap.has(id)) groupMap.set(id, { stakeholderGroup: group, impacts: [] });
+        groupMap.get(id)!.impacts.push(impact);
+      });
+    });
 
-    const logicModelByStakeholder = stakeholderGroups.map(groupId => {
-      const stakeholderImpacts = impacts.filter(
-        impact => impact.stakeholderGroup._id.toString() === groupId
-      );
-
+    const logicModelByStakeholder = Array.from(groupMap.values()).map(({ stakeholderGroup, impacts: stakeholderImpacts }) => {
       // CHANGED: Since impacts can have multiple themes, we'll group differently
       // Get all unique themes for this stakeholder
       const stakeholderThemeIds = new Set<string>();
-      stakeholderImpacts.forEach(impact => {
-        impact.themes.forEach(theme => stakeholderThemeIds.add(theme._id.toString()));
+      stakeholderImpacts.forEach((impact: any) => {
+        impact.themes.forEach((theme: any) => stakeholderThemeIds.add(theme._id.toString()));
       });
 
       const themeGroups = Array.from(stakeholderThemeIds).map(themeId => {
         // Find impacts that include this theme
-        const themeImpacts = stakeholderImpacts.filter(impact => 
-          impact.themes.some(theme => theme._id.toString() === themeId)
+        const themeImpacts = stakeholderImpacts.filter((impact: any) =>
+          impact.themes.some((theme: any) => theme._id.toString() === themeId)
         );
 
         // Get theme object
         const themeObj = stakeholderImpacts
-          .flatMap(impact => impact.themes)
-          .find(theme => theme._id.toString() === themeId);
+          .flatMap((impact: any) => impact.themes)
+          .find((theme: any) => theme._id.toString() === themeId);
 
         return {
           theme: themeObj,
-          impacts: themeImpacts.map(impact => ({
+          impacts: themeImpacts.map((impact: any) => ({
             ...impact.toObject(),
             themes: (impact.themes as any[]).map((t: any) => t.name),        // Convert to names for logic model
             subThemes: (impact.subThemes as any[]).map((st: any) => st.name)  // Convert to names for logic model
@@ -662,7 +657,7 @@ export const generateLogicModel = async (stageId: string) => {
       });
 
       return {
-        stakeholder: stakeholderImpacts[0].stakeholderGroup,
+        stakeholder: stakeholderGroup,
         themes: themeGroups
       };
     });
@@ -715,7 +710,7 @@ export const generateLogicModel = async (stageId: string) => {
 
     // CHANGED: Enhanced summary with multiple themes/subthemes
     const summary = {
-      totalStakeholders: stakeholderGroups.length,
+      totalStakeholders: groupMap.size,
       totalThemes: uniqueThemes.size,
       totalSubThemes: uniqueSubThemes.size,
       totalRisks: impacts.reduce((total, impact) => total + impact.risks.length, 0),

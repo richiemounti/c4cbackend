@@ -119,6 +119,7 @@ export const getReportById = async (
     const report = await Report.findById(reportId)
       .populate('creator', 'name email')
       .populate('approvedBy', 'name email')
+      .populate('lastUpdatedBy', 'name email')
       .populate('project', 'name status')
       .populate('projectSite', 'name')
       .populate('organization', 'name');

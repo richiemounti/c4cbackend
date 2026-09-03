@@ -17,25 +17,14 @@ const projectSiteSchema = new mongoose.Schema({
   },
   description: {
     type: String,
+    required: [true, 'Site description is required'],
     trim: true,
     maxLength: 1000,
   },
-  // Location information
-  address: {
+  location: {
     type: String,
-    trim: true,
-  },
-  region: {
-    type: String,
-    trim: true,
-  },
-  city: {
-    type: String,
-    trim: true,
-  },
-  country: {
-    type: String,
-    trim: true,
+    required: [true, 'Site location is required'],
+    trim: true
   },
   coordinates: {
     lat: {
@@ -47,26 +36,11 @@ const projectSiteSchema = new mongoose.Schema({
       default: null
     }
   },
-  // Site-specific information
-  size: {
-    type: Number, // in hectares or square kilometers
-    default: null
-  },
-  sizeUnit: {
-    type: String,
-    enum: ['hectares', 'sqkm', 'acres', 'sqmi'],
-    default: 'hectares'
-  },
-  siteType: {
-    type: String,
-    enum: ['forest', 'wetland', 'grassland', 'coastal', 'agricultural', 'urban', 'other'],
-    default: 'other'
-  },
   // Site status
   status: {
     type: String,
-    enum: ['active', 'inactive', 'planned'],
-    default: 'active'
+    enum: ['planning', 'active', 'completed', 'on-hold'],
+    default: 'planning'
   },
   // Site contacts - similar to project contacts but specific to the site
   contacts: [{
@@ -92,14 +66,11 @@ const projectSiteSchema = new mongoose.Schema({
       trim: true
     }
   }],
-  // Additional site-specific details
-  notes: {
-    type: String,
-    trim: true,
-    maxLength: 2000,
-  },
-  // Site visit history or any important dates
   startDate: {
+    type: Date,
+    default: Date.now
+  },
+  endDate: {
     type: Date,
     default: null
   },
@@ -108,6 +79,11 @@ const projectSiteSchema = new mongoose.Schema({
     ref: 'User',
     required: true,
     index: true,
+  },
+  lastUpdatedBy: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
+    default: null
   },
   archived: {
     type: Boolean,

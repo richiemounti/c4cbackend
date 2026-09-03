@@ -292,9 +292,48 @@ export const getIncidentStats = async (
   }
 };
 
+/**
+ * List all staff eligible to be assigned as an organization's account manager.
+ * @route GET /api/v1/admin/account-managers
+ * @access Private - ConnectGo staff only
+ */
+export const listAccountManagers = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    if (!isUserAuthenticated(req)) {
+      const error = new Error('Authentication required') as CustomError;
+      error.statusCode = 401;
+      throw error;
+    }
+
+    if (!req.user.isConnectGoStaff) {
+      const error = new Error('Staff access required') as CustomError;
+      error.statusCode = 403;
+      throw error;
+    }
+
+    const accountManagers = await User.find({
+      primaryRole: 'accountManager',
+      isConnectGoStaff: true,
+      archived: false,
+    }).select('_id name email photo');
+
+    res.status(200).json({
+      success: true,
+      data: accountManagers,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
 export default {
   getWorkloadSummary,
   markItemCompleted,
   getSupportEscalationStats,
   getIncidentStats,
+  listAccountManagers,
 };

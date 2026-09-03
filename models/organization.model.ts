@@ -23,6 +23,14 @@ const organizationSchema = new mongoose.Schema({
         required: true,
         index: true,
     },
+    // The staff account manager assigned to this org — used as the first-choice
+    // escalation target instead of workload-based selection every time.
+    assignedAccountManagerId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+        default: null,
+        index: true,
+    },
     archived: {
         type: Boolean,
         default: false

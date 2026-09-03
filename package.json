@@ -32,7 +32,11 @@
     "seed:stripe-catalogue": "ts-node scripts/seedStripeCatalogue.ts",
     "seed:stripe-catalogue:apply": "ts-node scripts/seedStripeCatalogue.ts --apply",
     "backfill:manager-org-admin": "ts-node scripts/backfillManagerOrgAdmin.ts",
-    "backfill:manager-org-admin:apply": "ts-node scripts/backfillManagerOrgAdmin.ts --apply"
+    "backfill:manager-org-admin:apply": "ts-node scripts/backfillManagerOrgAdmin.ts --apply",
+    "backfill-reviews": "ts-node scripts/backfillReviews.ts",
+    "backfill-reviews:apply": "ts-node scripts/backfillReviews.ts --apply",
+    "repair-reviews": "ts-node scripts/repairBrokenReviews.ts",
+    "repair-reviews:apply": "ts-node scripts/repairBrokenReviews.ts --apply"
   },
   "dependencies": {
     "@arcjet/node": "^1.0.0-beta.3",
@@ -49,6 +53,7 @@
     "csv-parse": "^5.6.0",
     "debug": "~2.6.9",
     "dotenv": "^16.5.0",
+    "exceljs": "^4.4.0",
     "express": "^4.21.2",
     "express-validator": "^7.2.1",
     "ioredis": "^5.7.0",

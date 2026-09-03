@@ -25,20 +25,25 @@ const surveySchema = new mongoose.Schema({
     ref: 'ProjectSite',
     index: true
   },
-  // NEW: Theory of Change stage association
-  theoryOfChangeStage: {
+  // Theory of Change stages — 1 element for single-stage surveys, 2 for both-stage surveys
+  theoryOfChangeStages: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'TheoryOfChangeStage',
+    required: true
+  }],
+  // Which stage(s) this survey covers — drives question filtering
+  stageScope: {
+    type: String,
+    enum: ['stage1', 'stage2', 'both'],
     required: true,
     index: true
   },
-  // NEW: Stakeholder group association
-  stakeholderGroup: {
+  // Stakeholder groups this survey targets
+  stakeholderGroups: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'StakeholderGroup',
-    required: true,
-    index: true
-  },
+    required: true
+  }],
   // Consent form association
   consentForm: {
     type: mongoose.Schema.Types.ObjectId,
@@ -92,7 +97,7 @@ const surveySchema = new mongoose.Schema({
   }],
   status: {
     type: String,
-    enum: ['draft', 'published', 'closed', 'archived'],
+    enum: ['draft', 'pretest', 'published', 'closed', 'archived'],
     default: 'draft',
     index: true
   },
@@ -228,46 +233,41 @@ const surveySchema = new mongoose.Schema({
 surveySchema.index({ availableLanguages: 1 });
 
 
-// ENHANCED: Compound index for uniqueness per stakeholder group
+// Compound uniqueness: same title cannot appear twice within the same project/site
 surveySchema.index(
-  { 
-    project: 1, 
-    projectSite: 1, 
-    stakeholderGroup: 1, 
-    title: 1 
+  {
+    project: 1,
+    projectSite: 1,
+    title: 1
   },
-  { 
+  {
     unique: true,
-    sparse: true 
+    sparse: true
   }
 );
 
-// Index for filtering surveys by stage and stakeholder
-surveySchema.index({
-  theoryOfChangeStage: 1,
-  stakeholderGroup: 1,
-  status: 1
-});
+// Index for filtering surveys by stage scope and status
+surveySchema.index({ stageScope: 1, status: 1 });
+
+// Index for querying by stakeholder group membership
+surveySchema.index({ stakeholderGroups: 1 });
+
+// Index for querying by stage membership
+surveySchema.index({ theoryOfChangeStages: 1 });
 
 // Index for survey categorization
-surveySchema.index({
-  stakeholderGroup: 1,
-  category: 1,
-  sequenceNumber: 1
-});
+surveySchema.index({ project: 1, category: 1, sequenceNumber: 1 });
 
-// Pre-save middleware to auto-increment sequence number
+// Pre-save: auto-increment sequence number per project/site
 surveySchema.pre('save', async function(next) {
   if (this.isNew) {
-    // Find the highest sequence number for this stakeholder group
     const lastSurvey = await mongoose.model('Survey')
       .findOne({
-        stakeholderGroup: this.stakeholderGroup,
         project: this.project,
         projectSite: this.projectSite || null
       })
       .sort({ sequenceNumber: -1 });
-    
+
     this.sequenceNumber = lastSurvey ? lastSurvey.sequenceNumber + 1 : 1;
   }
   next();

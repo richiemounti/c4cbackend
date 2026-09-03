@@ -19,6 +19,7 @@ import {
   markItemCompleted,
   getSupportEscalationStats,
   getIncidentStats,
+  listAccountManagers,
 } from "../controllers/workload.controller";
 
 import authorize from "../middlewares/auth.middleware";
@@ -100,6 +101,13 @@ adminDashboardRouter.get('/incidents/stats',
   authorize,
   isConnectGoStaff(),
   getIncidentStats
+);
+
+// Account manager assignment (used by the org detail admin page)
+adminDashboardRouter.get('/account-managers',
+  authorize,
+  isConnectGoStaff(),
+  listAccountManagers
 );
 
 // NOTE: Risk Management Routes have been moved to a separate router

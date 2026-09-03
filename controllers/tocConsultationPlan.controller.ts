@@ -5,6 +5,7 @@ import TOCConsultationPlan from "../models/tocConsultationPlan.model";
 import Project from "../models/project.model";
 import ProjectSite from "../models/projectSite.model";
 import StakeholderGroup from "../models/stakeholderGroup.model";
+import { createReview, reviewExistsForModuleItem } from "../utils/reviewHelpers";
 import { CustomError } from "../middlewares/error.middleware";
 
 
@@ -365,6 +366,38 @@ export const completeConsultationPlan = async (
       },
       { new: true, runValidators: true }
     );
+
+    // AUTO-TRIGGER: Create review for the newly-completed consultation plan
+    try {
+      const alreadyReviewed = await reviewExistsForModuleItem(
+        'toc_consultation_plan',
+        updatedPlan!._id as mongoose.Types.ObjectId
+      );
+
+      if (!alreadyReviewed) {
+        const planProject = await Project.findById(updatedPlan!.project).select('organization');
+        const selectedCount = (updatedPlan!.stakeholderGroups || []).filter(
+          (sg: any) => sg.isSelected
+        ).length;
+
+        if (planProject) {
+          await createReview({
+            module: 'toc_consultation_plan',
+            moduleItemId: updatedPlan!._id as mongoose.Types.ObjectId,
+            organizationId: planProject.organization,
+            projectId: planProject._id as mongoose.Types.ObjectId,
+            projectSiteId: updatedPlan!.projectSite || undefined,
+            submittedBy: req.user._id,
+            title: `Review: TOC Consultation Plan`,
+            description: `Review consultation plan with ${selectedCount} stakeholder groups selected`,
+            priority: 'high',
+            autoAssignReviewers: true,
+          });
+        }
+      }
+    } catch (reviewError) {
+      console.error('Failed to create review for consultation plan:', reviewError);
+    }
 
     // Populate response
     const populatedPlan = await TOCConsultationPlan.findById(updatedPlan!._id)

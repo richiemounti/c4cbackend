@@ -11,8 +11,10 @@ import TheoryOfChangeStage from "../models/theoryOfChangeStage.model";
 import ProjectSite from "../models/projectSite.model";
 import { CustomError } from "../middlewares/error.middleware";
 import { userHasProjectAccess, isCreatorOrHasAccess, isUserAuthenticated } from '../lib/authHelpers';
-import { getFilteredQuestions, getSurveyCreationContext } from "../services/questionFiltering.service";
+import { getFilteredQuestions, getSurveyCreationContext, getSurveyBuilderOverview as getSurveyBuilderOverviewService } from "../services/questionFiltering.service";
 import { createSurveyConfigReview } from "../utils/reviewHelpers";
+import { sortSurveyQuestionsByStructure } from "../lib/surveyQuestionOrdering";
+import ExcelJS from "exceljs";
 
 // ===============================
 // ENHANCED SURVEY CRUD OPERATIONS
@@ -37,8 +39,8 @@ export const createSurvey = async (
       description,
       projectId,
       projectSiteId,
-      stakeholderGroupId,
-      stageId,
+      stakeholderGroupIds,   // array: one or more stakeholder groups
+      stageIds,              // array: [stage1Id] | [stage2Id] | [stage1Id, stage2Id]
       category,
       customCategoryName,
       settings,
@@ -55,8 +57,20 @@ export const createSurvey = async (
     }
 
     // Validate required fields
-    if (!projectId || !stakeholderGroupId || !stageId) {
-      const error = new Error('Project ID, stakeholder group ID, and stage ID are required') as CustomError;
+    if (!projectId || !stakeholderGroupIds || !stageIds) {
+      const error = new Error('Project ID, stakeholder group IDs, and stage IDs are required') as CustomError;
+      error.statusCode = 400;
+      throw error;
+    }
+
+    if (!Array.isArray(stakeholderGroupIds) || stakeholderGroupIds.length === 0) {
+      const error = new Error('stakeholderGroupIds must be a non-empty array') as CustomError;
+      error.statusCode = 400;
+      throw error;
+    }
+
+    if (!Array.isArray(stageIds) || stageIds.length === 0 || stageIds.length > 2) {
+      const error = new Error('stageIds must be an array of 1 or 2 stage IDs') as CustomError;
       error.statusCode = 400;
       throw error;
     }
@@ -69,36 +83,6 @@ export const createSurvey = async (
       throw error;
     }
 
-    // Check if stakeholder group exists
-    const stakeholderGroup = await StakeholderGroup.findById(stakeholderGroupId).session(session);
-    if (!stakeholderGroup) {
-      const error = new Error('Stakeholder group not found') as CustomError;
-      error.statusCode = 404;
-      throw error;
-    }
-
-    // Check if theory of change stage exists
-    const stage = await TheoryOfChangeStage.findById(stageId).session(session);
-    if (!stage) {
-      const error = new Error('Theory of change stage not found') as CustomError;
-      error.statusCode = 404;
-      throw error;
-    }
-
-    // Verify stakeholder group belongs to the same project
-    if (stakeholderGroup.project.toString() !== projectId) {
-      const error = new Error('Stakeholder group does not belong to this project') as CustomError;
-      error.statusCode = 400;
-      throw error;
-    }
-
-    // Verify stage belongs to the same project
-    if (stage.project.toString() !== projectId) {
-      const error = new Error('Theory of change stage does not belong to this project') as CustomError;
-      error.statusCode = 400;
-      throw error;
-    }
-
     // Check if user has permission to create surveys for this project
     const hasAccess = userHasProjectAccess(req, projectId);
     if (!hasAccess) {
@@ -106,6 +90,41 @@ export const createSurvey = async (
       error.statusCode = 403;
       throw error;
     }
+
+    // Validate all stakeholder groups exist and belong to the project
+    const stakeholderGroupDocs = await StakeholderGroup.find({ _id: { $in: stakeholderGroupIds } }).session(session);
+    if (stakeholderGroupDocs.length !== stakeholderGroupIds.length) {
+      const error = new Error('One or more stakeholder groups not found') as CustomError;
+      error.statusCode = 404;
+      throw error;
+    }
+    for (const sg of stakeholderGroupDocs) {
+      if (sg.project.toString() !== projectId) {
+        const error = new Error(`Stakeholder group "${sg.name}" does not belong to this project`) as CustomError;
+        error.statusCode = 400;
+        throw error;
+      }
+    }
+
+    // Validate all stages exist and belong to the project
+    const stageDocs = await TheoryOfChangeStage.find({ _id: { $in: stageIds } }).session(session);
+    if (stageDocs.length !== stageIds.length) {
+      const error = new Error('One or more theory of change stages not found') as CustomError;
+      error.statusCode = 404;
+      throw error;
+    }
+    for (const s of stageDocs) {
+      if (s.project.toString() !== projectId) {
+        const error = new Error('Theory of change stage does not belong to this project') as CustomError;
+        error.statusCode = 400;
+        throw error;
+      }
+    }
+
+    // Derive stageScope from which stages were provided
+    const hasStage1 = stageDocs.some(s => s.stageNumber === 1);
+    const hasStage2 = stageDocs.some(s => s.stageNumber === 2);
+    const stageScope = hasStage1 && hasStage2 ? 'both' : hasStage1 ? 'stage1' : 'stage2';
 
     // Validate category
     if (category === 'custom' && !customCategoryName) {
@@ -130,8 +149,9 @@ export const createSurvey = async (
       description,
       project: projectId,
       projectSite: projectSiteId || null,
-      theoryOfChangeStage: stageId,
-      stakeholderGroup: stakeholderGroupId,
+      theoryOfChangeStages: stageIds,
+      stageScope,
+      stakeholderGroups: stakeholderGroupIds,
       category: category || 'custom',
       customCategoryName,
       settings: settings || {},
@@ -148,8 +168,8 @@ export const createSurvey = async (
     // Populate the response
     const populatedSurvey = await Survey.findById(newSurvey._id)
       .populate('project', 'name')
-      .populate('stakeholderGroup', 'name group')
-      .populate('theoryOfChangeStage', 'stageNumber status')
+      .populate('stakeholderGroups', 'name group')
+      .populate('theoryOfChangeStages', 'stageNumber status')
       .populate('projectSite', 'name');
 
     res.status(201).json({
@@ -180,38 +200,51 @@ export const getSurveysByStakeholder = async (
   next: NextFunction
 ) => {
   try {
-    const { stakeholderGroupId } = req.params;
-    const { includeArchived = false } = req.query;
+    // :stakeholderGroupId may be a single ID or a comma-separated list of IDs
+    const stakeholderGroupIds = (req.params.stakeholderGroupId as string).split(',').filter(Boolean);
+    const { includeArchived = false, stageId } = req.query;
 
-    // Check if stakeholder group exists
-    const stakeholderGroup = await StakeholderGroup.findById(stakeholderGroupId)
+    // Check that all stakeholder groups exist
+    const stakeholderGroups = await StakeholderGroup.find({ _id: { $in: stakeholderGroupIds } })
       .populate('project', 'name');
 
-    if (!stakeholderGroup) {
-      const error = new Error('Stakeholder group not found') as CustomError;
+    if (stakeholderGroups.length !== stakeholderGroupIds.length) {
+      const error = new Error('One or more stakeholder groups not found') as CustomError;
       error.statusCode = 404;
       throw error;
     }
 
+    // All groups must belong to the same project
+    const projectId = stakeholderGroups[0].project._id.toString();
+    const sameProject = stakeholderGroups.every(sg => sg.project._id.toString() === projectId);
+    if (!sameProject) {
+      const error = new Error('Stakeholder groups must belong to the same project') as CustomError;
+      error.statusCode = 400;
+      throw error;
+    }
+
     // Check permissions
-    const hasAccess = userHasProjectAccess(req, stakeholderGroup.project._id.toString());
+    const hasAccess = userHasProjectAccess(req, projectId);
     if (!hasAccess) {
-      const error = new Error('Not authorized to access this stakeholder group') as CustomError;
+      const error = new Error('Not authorized to access these stakeholder groups') as CustomError;
       error.statusCode = 403;
       throw error;
     }
 
     // Build filter
-    const filter: any = { stakeholderGroup: stakeholderGroupId };
+    const filter: any = { stakeholderGroups: { $in: stakeholderGroupIds } };
     if (!includeArchived) {
       filter.archived = { $ne: true };
+    }
+    if (stageId) {
+      filter.theoryOfChangeStages = { $in: (stageId as string).split(',').filter(Boolean) };
     }
 
     // Get surveys with enhanced population
     const surveys = await Survey.find(filter)
       .populate('project', 'name')
-      .populate('stakeholderGroup', 'name group')
-      .populate('theoryOfChangeStage', 'stageNumber status')
+      .populate('stakeholderGroups', 'name group')
+      .populate('theoryOfChangeStages', 'stageNumber status')
       .populate('projectSite', 'name')
       .populate('creator', 'name email')
       .sort({ category: 1, sequenceNumber: 1, createdAt: -1 });
@@ -297,9 +330,9 @@ export const getSurveysByProjectAndStage = async (
     }
 
     // Build filter
-    const filter: any = { 
+    const filter: any = {
       project: projectId,
-      theoryOfChangeStage: stageId 
+      theoryOfChangeStages: stageId
     };
     if (!includeArchived) {
       filter.archived = { $ne: true };
@@ -308,33 +341,25 @@ export const getSurveysByProjectAndStage = async (
     // Get surveys with full population
     const surveys = await Survey.find(filter)
       .populate('project', 'name')
-      .populate('stakeholderGroup', 'name group')
-      .populate('theoryOfChangeStage', 'stageNumber status')
+      .populate('stakeholderGroups', 'name group')
+      .populate('theoryOfChangeStages', 'stageNumber status')
       .populate('projectSite', 'name')
       .populate('creator', 'name email')
-      .sort({ 'stakeholderGroup.name': 1, category: 1, sequenceNumber: 1 });
+      .sort({ category: 1, sequenceNumber: 1, createdAt: -1 });
 
-    // Group by stakeholder for organized display
-    const surveysByStakeholder = surveys.reduce((acc, survey) => {
-      const stakeholderId = survey.stakeholderGroup._id.toString();
+    // Group by stakeholder (unwind — a survey with N groups appears under each)
+    const groupMap = new Map<string, { stakeholderGroup: any; surveys: any[] }>();
+    surveys.forEach((survey: any) => {
       const categoryName = survey.category === 'custom' ? survey.customCategoryName : survey.category;
       const sequence = survey.sequenceNumber > 1 ? ` #${survey.sequenceNumber}` : '';
       const displayName = `${survey.title} (${categoryName}${sequence})`;
-      
-      if (!acc[stakeholderId]) {
-        acc[stakeholderId] = {
-          stakeholderGroup: survey.stakeholderGroup,
-          surveys: []
-        };
-      }
-      
-      acc[stakeholderId].surveys.push({
-        ...survey.toObject(),
-        displayName
+      (survey.stakeholderGroups as any[]).forEach((grp: any) => {
+        const id = grp._id.toString();
+        if (!groupMap.has(id)) groupMap.set(id, { stakeholderGroup: grp, surveys: [] });
+        groupMap.get(id)!.surveys.push({ ...survey.toObject(), displayName });
       });
-      
-      return acc;
-    }, {} as Record<string, any>);
+    });
+    const surveysByStakeholder = Array.from(groupMap.values());
 
     res.status(200).json({
       success: true,
@@ -343,7 +368,7 @@ export const getSurveysByProjectAndStage = async (
         project,
         stage,
         surveys,
-        surveysByStakeholder: Object.values(surveysByStakeholder)
+        surveysByStakeholder
       }
     });
   } catch (error) {
@@ -468,20 +493,20 @@ export const getStakeholderSurveyStats = async (
       categoryStats,
       recentActivity
     ] = await Promise.all([
-      Survey.countDocuments({ stakeholderGroup: stakeholderGroupId }),
-      Survey.countDocuments({ 
-        stakeholderGroup: stakeholderGroupId, 
+      Survey.countDocuments({ stakeholderGroups: stakeholderGroupId }),
+      Survey.countDocuments({
+        stakeholderGroups: stakeholderGroupId,
         status: { $in: ['draft', 'published'] },
         archived: { $ne: true }
       }),
-      Survey.countDocuments({ 
-        stakeholderGroup: stakeholderGroupId, 
-        archived: true 
+      Survey.countDocuments({
+        stakeholderGroups: stakeholderGroupId,
+        archived: true
       }),
       Survey.aggregate([
-        { $match: { stakeholderGroup: new mongoose.Types.ObjectId(stakeholderGroupId) } },
-        { 
-          $group: { 
+        { $match: { stakeholderGroups: new mongoose.Types.ObjectId(stakeholderGroupId) } },
+        {
+          $group: {
             _id: '$category',
             count: { $sum: 1 },
             avgDuration: { $avg: '$estimatedDuration' },
@@ -489,7 +514,7 @@ export const getStakeholderSurveyStats = async (
           }
         }
       ]),
-      Survey.find({ stakeholderGroup: stakeholderGroupId })
+      Survey.find({ stakeholderGroups: stakeholderGroupId })
         .sort({ updatedAt: -1 })
         .limit(5)
         .select('title category customCategoryName status updatedAt')
@@ -506,7 +531,7 @@ export const getStakeholderSurveyStats = async (
         }
       },
       { $unwind: '$surveyInfo' },
-      { $match: { 'surveyInfo.stakeholderGroup': new mongoose.Types.ObjectId(stakeholderGroupId) } },
+      { $match: { 'surveyInfo.stakeholderGroups': new mongoose.Types.ObjectId(stakeholderGroupId) } },
       {
         $group: {
           _id: null,
@@ -571,8 +596,8 @@ export const getSurveys = async (
     const filter: any = { archived: { $ne: true } };
 
     if (project) filter.project = project;
-    if (stakeholderGroup) filter.stakeholderGroup = stakeholderGroup;
-    if (theoryOfChangeStage) filter.theoryOfChangeStage = theoryOfChangeStage;
+    if (stakeholderGroup) filter.stakeholderGroups = stakeholderGroup;
+    if (theoryOfChangeStage) filter.theoryOfChangeStages = theoryOfChangeStage;
     if (status) filter.status = status;
     if (category) filter.category = category;
     if (isTemplate !== undefined) filter.isTemplate = isTemplate === 'true';
@@ -616,8 +641,8 @@ export const getSurveys = async (
     const [surveys, totalCount] = await Promise.all([
       Survey.find(filter)
         .populate('project', 'name')
-        .populate('stakeholderGroup', 'name group')
-        .populate('theoryOfChangeStage', 'stageNumber status')
+        .populate('stakeholderGroups', 'name group')
+        .populate('theoryOfChangeStages', 'stageNumber status')
         .populate('projectSite', 'name')
         .populate('creator', 'name email')
         .sort(sort)
@@ -626,35 +651,27 @@ export const getSurveys = async (
       Survey.countDocuments(filter)
     ]);
 
-    // Group surveys by stakeholder for enhanced display
-    const surveysByStakeholder = surveys.reduce((acc, survey) => {
-      const stakeholderId = survey.stakeholderGroup._id.toString();
-      const categoryName = survey.category === 'custom' ? 
+    // Group surveys by stakeholder (unwind — multi-group surveys appear under each)
+    const sgMap = new Map<string, { stakeholderGroup: any; surveys: any[] }>();
+    surveys.forEach((survey: any) => {
+      const categoryName = survey.category === 'custom' ?
         survey.customCategoryName : survey.category;
       const sequence = survey.sequenceNumber > 1 ? ` #${survey.sequenceNumber}` : '';
       const displayName = `${survey.title} (${categoryName}${sequence})`;
-      
-      if (!acc[stakeholderId]) {
-        acc[stakeholderId] = {
-          stakeholderGroup: survey.stakeholderGroup,
-          surveys: []
-        };
-      }
-      
-      acc[stakeholderId].surveys.push({
-        ...survey.toObject(),
-        displayName
+      (survey.stakeholderGroups as any[]).forEach((grp: any) => {
+        const id = grp._id.toString();
+        if (!sgMap.has(id)) sgMap.set(id, { stakeholderGroup: grp, surveys: [] });
+        sgMap.get(id)!.surveys.push({ ...survey.toObject(), displayName });
       });
-      
-      return acc;
-    }, {} as Record<string, any>);
+    });
+    const surveysByStakeholder = Array.from(sgMap.values());
 
     res.status(200).json({
       success: true,
       count: surveys.length,
       data: {
         surveys,
-        surveysByStakeholder: Object.values(surveysByStakeholder)
+        surveysByStakeholder
       },
       pagination: {
         currentPage: Number(page),
@@ -683,8 +700,8 @@ export const getSurvey = async (
 
     const survey = await Survey.findById(surveyId)
       .populate('project', 'name description')
-      .populate('stakeholderGroup', 'name group description')
-      .populate('theoryOfChangeStage', 'stageNumber status')
+      .populate('stakeholderGroups', 'name group description')
+      .populate('theoryOfChangeStages', 'stageNumber status')
       .populate('projectSite', 'name description')
       .populate('creator', 'name email')
       .populate('lastUpdatedBy', 'name email');
@@ -784,22 +801,39 @@ export const updateSurvey = async (
       throw error;
     }
 
-    // Don't allow status changes to published if survey doesn't have questions
-    if (status === 'published' && survey.status !== 'published') {
+    // Don't allow going live (pretest or published) without questions
+    if (['published', 'pretest'].includes(status) && !['published', 'pretest'].includes(survey.status)) {
       const questionCount = await SurveyQuestion.countDocuments({ survey: surveyId }).session(session);
       if (questionCount === 0) {
-        const error = new Error('Cannot publish a survey without questions') as CustomError;
+        const error = new Error('Cannot activate a survey without questions') as CustomError;
         error.statusCode = 400;
         throw error;
       }
     }
 
+    // Survey must pass through pretest before it can be published
+    if (status === 'published' && survey.status !== 'pretest') {
+      const error = new Error('Survey must be in pretest before it can be published') as CustomError;
+      error.statusCode = 400;
+      throw error;
+    }
+
+    // Only ConnectGo staff or project creators can publish surveys
+    if (status === 'published') {
+      const canPublish = req.user?.isConnectGoStaff || req.user?.primaryRole === 'projectCreator';
+      if (!canPublish) {
+        const error = new Error('Only staff or project creators can publish surveys') as CustomError;
+        error.statusCode = 403;
+        throw error;
+      }
+    }
+
     // ============================================================================
-    // 🆕 TRACK STATUS CHANGE FOR AUTO-TRIGGER
+    // TRACK STATUS CHANGE FOR AUTO-TRIGGER
     // ============================================================================
-    const wasPublished = survey.status === 'published';
-    const isNowPublished = status === 'published';
-    const justPublished = !wasPublished && isNowPublished;
+    const wasPretest = survey.status === 'pretest';
+    const isNowPretest = status === 'pretest';
+    const justPretest = !wasPretest && isNowPretest;
     // ============================================================================
 
     // Update fields
@@ -821,34 +855,27 @@ export const updateSurvey = async (
     // 🆕 ADD AUTO-TRIGGER HERE (AFTER SAVE, BEFORE COMMIT)
     // ============================================================================
     
-    // AUTO-TRIGGER: Create review when survey is published
-    if (justPublished) {
+    // AUTO-TRIGGER: Create review when survey enters pretest
+    if (justPretest) {
       try {
-        // Populate necessary fields for review creation
         const populatedSurvey = await Survey.findById(surveyId)
           .populate({
             path: 'project',
             populate: { path: 'organization' }
           })
           .populate('projectSite')
-          .populate('stakeholderGroup')
-          .populate('theoryOfChangeStage')
+          .populate('stakeholderGroups')
+          .populate('theoryOfChangeStages')
           .session(session);
-        
+
         if (populatedSurvey && req.user) {
-          // Import the review helper at the top of the file
-          // import { createSurveyConfigReview } from '../utils/reviewHelpers';
-          
           await createSurveyConfigReview(
             populatedSurvey,
             req.user._id as mongoose.Types.ObjectId
           );
-          
-          console.log(`✅ Review auto-created for published survey: ${populatedSurvey.title}`);
         }
       } catch (reviewError) {
-        // Non-blocking - log error but don't fail the request
-        console.error('Failed to create review for survey config:', reviewError);
+        console.error('Failed to create review for survey pretest:', reviewError);
       }
     }
     
@@ -861,11 +888,12 @@ export const updateSurvey = async (
     // Return updated survey with populated fields
     const updatedSurvey = await Survey.findById(surveyId)
       .populate('project', 'name')
-      .populate('stakeholderGroup', 'name group')
-      .populate('theoryOfChangeStage', 'stageNumber status')
-      .populate('projectSite', 'name');
+      .populate('stakeholderGroups', 'name')
+      .populate('theoryOfChangeStages', 'stageNumber status')
+      .populate('projectSite', 'name')
+      .populate('lastUpdatedBy', 'name email');
 
-    const categoryName = updatedSurvey!.category === 'custom' ? 
+    const categoryName = updatedSurvey!.category === 'custom' ?
       updatedSurvey!.customCategoryName : updatedSurvey!.category;
     const sequence = updatedSurvey!.sequenceNumber > 1 ? ` #${updatedSurvey!.sequenceNumber}` : '';
     const displayName = `${updatedSurvey!.title} (${categoryName}${sequence})`;
@@ -1097,9 +1125,17 @@ export const getFilteredQuestionsForSurvey = async (
     const parsedThemeIds = themeIds ? (themeIds as string).split(',') : undefined;
     const parsedSubThemeIds = subThemeIds ? (subThemeIds as string).split(',') : undefined;
 
+    // stakeholderGroupId/stageId may be comma-separated lists for multi-group/both-stage surveys
+    const parsedStakeholderGroupIds = stakeholderGroupId
+      ? (stakeholderGroupId as string).split(',')
+      : [];
+    const parsedStageIds = stageId
+      ? (stageId as string).split(',')
+      : [];
+
     const result = await getFilteredQuestions({
-      stakeholderGroupId: stakeholderGroupId as string,
-      stageId: stageId as string,
+      stakeholderGroupIds: parsedStakeholderGroupIds,
+      stageIds: parsedStageIds,
       projectId: projectId as string,
       projectSiteId: projectSiteId as string,
       includeFrequentlyAsked: includeFrequentlyAsked === 'true',
@@ -1140,6 +1176,8 @@ export const getFilteredQuestionsForSurvey = async (
 /**
  * Get survey creation context
  * @route GET /api/v1/surveys/builder/context/:stakeholderGroupId/:stageId
+ * @query stakeholderGroupIds - comma-separated stakeholder group IDs
+ * @query stageIds - comma-separated stage IDs (1 or 2 values)
  * @access Private
  */
 export const getSurveyBuilderContext = async (
@@ -1148,12 +1186,25 @@ export const getSurveyBuilderContext = async (
   next: NextFunction
 ) => {
   try {
-    const { stakeholderGroupId, stageId } = req.params;
+    // Route is /builder/context/:stakeholderGroupId/:stageId — read from path params first,
+    // fall back to query params for flexibility
+    const rawGroupId = (req.params.stakeholderGroupId as string) || (req.query.stakeholderGroupIds as string);
+    const rawStageId = (req.params.stageId as string) || (req.query.stageIds as string);
 
-    const context = await getSurveyCreationContext(stakeholderGroupId, stageId);
+    if (!rawGroupId || !rawStageId) {
+      const error = new Error('stakeholderGroupId and stageId are required') as CustomError;
+      error.statusCode = 400;
+      throw error;
+    }
 
-    // Check if user has access to the project
-    const hasAccess = userHasProjectAccess(req, context.stakeholderGroup.project.toString());
+    const parsedGroupIds = rawGroupId.split(',');
+    const parsedStageIds = rawStageId.split(',');
+
+    const context = await getSurveyCreationContext(parsedGroupIds, parsedStageIds);
+
+    // Check access using the first stakeholder group's project
+    const primaryGroup = context.stakeholderGroups[0];
+    const hasAccess = userHasProjectAccess(req, primaryGroup.project.toString());
     if (!hasAccess) {
       const error = new Error('Not authorized to access this project') as CustomError;
       error.statusCode = 403;
@@ -1164,6 +1215,46 @@ export const getSurveyBuilderContext = async (
       success: true,
       message: 'Survey creation context retrieved successfully',
       data: context
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+/**
+ * Get aggregate survey-builder overview for a project — every stakeholder-group x
+ * stage-scope combo with available-question and existing-survey counts, computed in a
+ * small constant number of queries instead of one HTTP call per combo.
+ * @route GET /api/v1/surveys/builder/overview/:projectId
+ * @access Private
+ */
+export const getSurveyBuilderOverview = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const { projectId } = req.params;
+
+    const project = await Project.findById(projectId);
+    if (!project) {
+      const error = new Error('Project not found') as CustomError;
+      error.statusCode = 404;
+      throw error;
+    }
+
+    const hasAccess = userHasProjectAccess(req, projectId);
+    if (!hasAccess) {
+      const error = new Error('Not authorized to access this project') as CustomError;
+      error.statusCode = 403;
+      throw error;
+    }
+
+    const overview = await getSurveyBuilderOverviewService(projectId);
+
+    res.status(200).json({
+      success: true,
+      data: overview
     });
   } catch (error) {
     next(error);
@@ -1190,8 +1281,8 @@ export const getSurveyStructure = async (
     // Check if survey exists with full population
     const survey = await Survey.findById(surveyId)
       .populate('project', 'name description')
-      .populate('stakeholderGroup', 'name group description')
-      .populate('theoryOfChangeStage', 'stageNumber status')
+      .populate('stakeholderGroups', 'name group description')
+      .populate('theoryOfChangeStages', 'stageNumber status')
       .populate('projectSite', 'name description')
       .populate('creator', 'name email');
 
@@ -1263,8 +1354,8 @@ export const getSurveyStructure = async (
         totalQuestions: number;
         displayName: string;
         project: any;
-        stakeholderGroup: any;
-        theoryOfChangeStage: any;
+        stakeholderGroups: any[];
+        theoryOfChangeStages: any[];
         projectSite?: any;
         creator: any;
         createdAt: Date;
@@ -1302,8 +1393,8 @@ export const getSurveyStructure = async (
         totalQuestions: survey.totalQuestions,
         displayName,
         project: survey.project,
-        stakeholderGroup: survey.stakeholderGroup,
-        theoryOfChangeStage: survey.theoryOfChangeStage,
+        stakeholderGroups: survey.stakeholderGroups,
+        theoryOfChangeStages: survey.theoryOfChangeStages,
         projectSite: survey.projectSite,
         creator: survey.creator,
         createdAt: survey.createdAt,
@@ -1612,8 +1703,8 @@ export const restoreSurvey = async (
 
     const restoredSurvey = await Survey.findById(surveyId)
       .populate('project', 'name')
-      .populate('stakeholderGroup', 'name group')
-      .populate('theoryOfChangeStage', 'stageNumber status');
+      .populate('stakeholderGroups', 'name group')
+      .populate('theoryOfChangeStages', 'stageNumber status');
 
     res.status(200).json({
       success: true,
@@ -1724,7 +1815,7 @@ export const cloneSurvey = async (
 
     // Validate target project and stakeholder group if different
     const targetProjectId = projectId || sourceSurvey.project;
-    const targetStakeholderGroupId = stakeholderGroupId || sourceSurvey.stakeholderGroup;
+    const targetStakeholderGroupId = stakeholderGroupId || (sourceSurvey.stakeholderGroups as any[])?.[0];
 
     const hasTargetAccess = userHasProjectAccess(req, targetProjectId.toString());
     if (!hasTargetAccess) {
@@ -1739,7 +1830,7 @@ export const cloneSurvey = async (
       _id: undefined,
       title: title || `${sourceSurvey.title} (Copy)`,
       project: targetProjectId,
-      stakeholderGroup: targetStakeholderGroupId,
+      stakeholderGroups: targetStakeholderGroupId ? [targetStakeholderGroupId] : sourceSurvey.stakeholderGroups,
       status: 'draft',
       creator: req.user?._id,
       lastUpdatedBy: req.user?._id,
@@ -1788,8 +1879,8 @@ export const cloneSurvey = async (
     // Return populated cloned survey
     const populatedClonedSurvey = await Survey.findById(clonedSurvey._id)
       .populate('project', 'name')
-      .populate('stakeholderGroup', 'name group')
-      .populate('theoryOfChangeStage', 'stageNumber status');
+      .populate('stakeholderGroups', 'name group')
+      .populate('theoryOfChangeStages', 'stageNumber status');
 
     res.status(201).json({
       success: true,
@@ -1801,6 +1892,143 @@ export const cloneSurvey = async (
     next(error);
   } finally {
     session.endSession();
+  }
+};
+
+/**
+ * Export the survey's blank question structure as an Excel workbook —
+ * a printable/fillable version of the form itself, not respondent answers.
+ * @route GET /api/v1/surveys/:id/export-form
+ * @access Private
+ */
+export const exportSurveyForm = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const surveyId = req.params.id;
+
+    const survey = await Survey.findById(surveyId);
+    if (!survey) {
+      const error = new Error('Survey not found') as CustomError;
+      error.statusCode = 404;
+      throw error;
+    }
+
+    const hasAccess = userHasProjectAccess(req, survey.project.toString());
+    if (!hasAccess && !req.user?.isConnectGoStaff) {
+      const error = new Error('Not authorized to export this survey') as CustomError;
+      error.statusCode = 403;
+      throw error;
+    }
+
+    const sections = await SurveySection.find({
+      survey: surveyId,
+      archived: { $ne: true }
+    }).sort('order');
+    const sectionTitleById = new Map(
+      sections.map(s => [(s._id as mongoose.Types.ObjectId).toString(), s.title])
+    );
+
+    const surveyQuestionsRaw = await SurveyQuestion.find({
+      survey: surveyId,
+      archived: { $ne: true }
+    }).populate({
+      path: 'question',
+      select: 'text description type options scaleConfig matrixConfig validation'
+    }).sort('order');
+    // Question `order` resets to 1, 2, 3... independently within each section,
+    // so a flat sort by `order` alone interleaves sections — reorder to match
+    // section order, then question order within each section.
+    const surveyQuestions = sortSurveyQuestionsByStructure(surveyQuestionsRaw, sections);
+
+    const describeQuestion = (sq: any): string => {
+      const q = sq.question as any;
+      const options = (sq.customOptions?.length ? sq.customOptions : q.options) || [];
+      switch (q.type) {
+        case 'radio':
+        case 'checkbox':
+        case 'dropdown':
+          return options.map((o: any) => (typeof o === 'string' ? o : o.label)).join('; ');
+        case 'scale': {
+          const sc = q.scaleConfig;
+          if (!sc) return '';
+          const minLabel = sc.minLabel ? ` (${sc.minLabel})` : '';
+          const maxLabel = sc.maxLabel ? ` (${sc.maxLabel})` : '';
+          return `Scale ${sc.min}${minLabel} to ${sc.max}${maxLabel}`;
+        }
+        case 'matrix': {
+          const mc = q.matrixConfig;
+          if (!mc) return '';
+          const rows = (mc.rows || []).map((r: any) => r.label).join(', ');
+          const cols = (mc.columns || []).map((c: any) => c.label).join(', ');
+          return `Rows: ${rows} | Columns: ${cols}`;
+        }
+        case 'number':
+          return q.validation?.min !== undefined || q.validation?.max !== undefined
+            ? `Range: ${q.validation?.min ?? ''}–${q.validation?.max ?? ''}`
+            : '';
+        default:
+          return '';
+      }
+    };
+
+    const workbook = new ExcelJS.Workbook();
+    const sheet = workbook.addWorksheet('Survey Form');
+    sheet.columns = [
+      { width: 5 },
+      { width: 20 },
+      { width: 50 },
+      { width: 14 },
+      { width: 10 },
+      { width: 40 },
+      { width: 30 },
+    ];
+
+    sheet.mergeCells('A1:G1');
+    sheet.getCell('A1').value = survey.title;
+    sheet.getCell('A1').font = { bold: true, size: 14 };
+
+    let headerRowIndex = 3;
+    if (survey.description) {
+      sheet.mergeCells('A2:G2');
+      sheet.getCell('A2').value = survey.description;
+      sheet.getCell('A2').font = { italic: true, color: { argb: 'FF666666' } };
+      headerRowIndex = 4;
+    }
+
+    const headerRow = sheet.getRow(headerRowIndex);
+    headerRow.values = ['#', 'Section', 'Question', 'Type', 'Required', 'Options / Instructions', 'Response'];
+    headerRow.font = { bold: true };
+
+    let rowIndex = headerRowIndex + 1;
+    surveyQuestions.forEach((sq, i) => {
+      const q = sq.question as any;
+      const sectionTitle = sq.section ? (sectionTitleById.get(sq.section.toString()) || '') : '';
+      const row = sheet.getRow(rowIndex++);
+      row.values = [
+        i + 1,
+        sectionTitle,
+        sq.customText || q.text,
+        q.type,
+        sq.required ? 'Yes' : 'No',
+        describeQuestion(sq),
+        '',
+      ];
+    });
+
+    const buffer = await workbook.xlsx.writeBuffer();
+    res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+    res.setHeader('Content-Disposition', `attachment; filename=survey_form_${surveyId}.xlsx`);
+    res.status(200).send(Buffer.from(buffer));
+  } catch (error) {
+    if (error instanceof Error && error.name === 'CastError') {
+      const customError = new Error('Invalid survey ID format') as CustomError;
+      customError.statusCode = 400;
+      return next(customError);
+    }
+    next(error);
   }
 };
 
@@ -1870,7 +2098,7 @@ export const attachConsentFormToSurvey = async (
     const updatedSurvey = await Survey.findById(surveyId)
       .populate('consentForm')
       .populate('project', 'name')
-      .populate('stakeholderGroup', 'name');
+      .populate('stakeholderGroups', 'name');
 
     res.status(200).json({
       success: true,
@@ -1902,7 +2130,7 @@ export const getPublicSurveyData = async (
 
     const survey = await Survey.findById(surveyId)
       .populate('project', 'name')
-      .populate('stakeholderGroup', 'name');
+      .populate('stakeholderGroups', 'name');
 
     if (!survey) {
       const error = new Error('Survey not found') as CustomError;
@@ -1974,7 +2202,7 @@ export const getPublicSurveyData = async (
           settings: survey.settings,
           consentRequired: survey.consentRequired,
           project: survey.project,
-          stakeholderGroup: survey.stakeholderGroup
+          stakeholderGroups: survey.stakeholderGroups
         },
         sections: sectionsWithQuestions,
         noSectionQuestions,

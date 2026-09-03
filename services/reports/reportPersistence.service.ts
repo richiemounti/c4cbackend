@@ -117,7 +117,7 @@ export class ReportPersistenceService {
         .populate('creator', 'name email')
         .populate('approvedBy', 'name email')
         .populate('project', 'name status description')
-        .populate('projectSite', 'name region city')
+        .populate('projectSite', 'name location')
         .populate('organization', 'name country city');
 
       if (!report) {

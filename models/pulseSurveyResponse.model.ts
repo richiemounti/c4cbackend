@@ -44,6 +44,8 @@ const pulseSurveyResponseSchema = new mongoose.Schema({
     enum: [
       'setup_project',
       'setup_site',
+      'stakeholder_mapping_project',
+      'stakeholder_mapping_site',
       'theory_of_change_stage_1',
       'theory_of_change_stage_2',
       'survey_creation',
@@ -51,10 +53,10 @@ const pulseSurveyResponseSchema = new mongoose.Schema({
     ],
     index: true
   },
-  
+
   // Reference to the specific module instance completed
   moduleReference: {
-    // Will be ProjectSetup._id, ProjectSiteSetup._id, TheoryOfChangeStage._id, etc.
+    // Will be ProjectSetup._id, ProjectSiteSetup._id, Project._id, ProjectSite._id, TheoryOfChangeStage._id, etc.
     type: mongoose.Schema.Types.ObjectId,
     refPath: 'moduleReferenceModel',
     required: true,
@@ -63,7 +65,7 @@ const pulseSurveyResponseSchema = new mongoose.Schema({
   moduleReferenceModel: {
     type: String,
     required: true,
-    enum: ['ProjectSetup', 'ProjectSiteSetup', 'TheoryOfChangeStage', 'Survey']
+    enum: ['ProjectSetup', 'ProjectSiteSetup', 'Project', 'ProjectSite', 'TheoryOfChangeStage', 'Survey']
   },
   
   // Context metadata

@@ -5,6 +5,7 @@ import Project from "../../models/project.model";
 import ProjectSite from "../../models/projectSite.model";
 import Organization from "../../models/organization.model";
 import User from "../../models/user.model";
+import Standard from "../../models/standard.model";
 
 // Interface for the processed report data
 interface IProjectSetupReportData {
@@ -84,9 +85,7 @@ interface IProjectSetupReportData {
     id: string;
     name: string;
     status: string;
-    region?: string;
-    city?: string;
-    country?: string;
+    location?: string;
   }>;
   
   taskDetails: Array<{
@@ -111,6 +110,27 @@ interface IProjectSetupReportData {
     dataVersion: string;
     totalRecords: number;
   };
+}
+
+/**
+ * certification_standard responseData stores Standard ObjectId strings -
+ * resolve them to readable names for the report. Legacy pre-migration
+ * strings that aren't valid Standard ids are passed through unchanged.
+ */
+async function resolveCertificationStandardNames(values: any[]): Promise<string[]> {
+  if (!Array.isArray(values) || values.length === 0) return [];
+
+  const isStandardId = (v: any) =>
+    typeof v === 'string' && mongoose.Types.ObjectId.isValid(v) && String(new mongoose.Types.ObjectId(v)) === v;
+
+  const ids = values.filter(isStandardId);
+  const nameById = new Map<string, string>();
+  if (ids.length > 0) {
+    const standards = await Standard.find({ _id: { $in: ids } }).select('name').lean();
+    standards.forEach((s: any) => nameById.set(String(s._id), s.name));
+  }
+
+  return values.map((v: any) => (isStandardId(v) ? (nameById.get(v) || v) : v));
 }
 
 export class ProjectSetupReportService {
@@ -160,9 +180,7 @@ export class ProjectSetupReportService {
         id: site._id.toString(),
         name: site.name,
         status: site.status,
-        region: site.region || undefined,
-        city: site.city || undefined,
-        country: site.country || undefined
+        location: site.location || undefined
       }));
 
       // Process all task details
@@ -223,7 +241,7 @@ export class ProjectSetupReportService {
         },
 
         projectMetadata: {
-          certificationStandard: getTaskValue('certification_standard') || [],
+          certificationStandard: await resolveCertificationStandardNames(getTaskValue('certification_standard') || []),
           projectName: project.name
         },
 

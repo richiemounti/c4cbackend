@@ -24,6 +24,7 @@ import subThemeRouter from "./routes/subtheme.routes";
 import questionRouter from "./routes/question.routes";
 import questionLibraryRouter from "./routes/questionLibrary.routes";
 import surveyRouter from "./routes/survey.routes";
+import surveyAnalyticsRouter from "./routes/surveyAnalytics.routes";
 import sectionRouter from "./routes/surveySection.routes";
 import surveyQuestionRouter from "./routes/surveyQuestion.routes";
 import responseRouter from "./routes/surveyResponse.routes";
@@ -42,7 +43,6 @@ import standardRouter from './routes/standard.routes';
 import consultationRouter from './routes/tocConsultationPlan.routes';
 import adminDashboardRouter from './routes/adminDashboard.routes';
 import eulaRouter from './routes/eula.routes';
-import surveyBuilderRouter from './routes/surveyBuilder.routes';
 import emailDebugRouter from './routes/emailDebug.routes';
 import taskRouter from "./routes/taskUpdate.routes";
 import riskManagementRouter from './routes/riskManagement.routes';
@@ -51,7 +51,6 @@ import tempMigrationRouter from './routes/tempMigration.routes';
 // import reviewRouter from './routes/reviewManagement.routes';
 import translationRouter from "./routes/translation.routes";
 import consentFormRouter from "./routes/consentForm.routes";
-import streamChatRoutes from './routes/streamChat.routes';
 import reviewRoutes from './routes/review.routes';
 import pulseRouter from './routes/pulseSurvey.routes';
 
@@ -197,6 +196,9 @@ app.use('/api/v1/questionlibrary', questionLibraryRouter);
 // Mount the survey routes
 app.use('/api/v1/surveys', surveyRouter);
 
+// Mount the survey analytics routes
+app.use('/api/v1/survey-analytics', surveyAnalyticsRouter);
+
 // Mount the direct translation routes
 app.use('/api/v1/translations', translationRouter);
 
@@ -254,9 +256,6 @@ app.use('/api/v1/reviews', reviewRoutes);
 
 // Mount the consent form routes
 app.use('/api/v1/consent-forms', consentFormRouter);
-
-// Mount streamChat routes
-app.use('/api/v1/stream-chat', streamChatRoutes);
 
 // Add this line with your other routes
 app.use('/api/v1/pulse-surveys', pulseRouter);

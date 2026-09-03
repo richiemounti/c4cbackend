@@ -13,13 +13,10 @@ interface IProjectSiteSetupReportData {
     name: string;
     description?: string;
     status: string;
-    region?: string;
-    city?: string;
-    country?: string;
+    location?: string;
     coordinates?: any;
-    size?: number;
-    sizeUnit?: string;
-    siteType?: string;
+    startDate?: Date;
+    endDate?: Date;
     createdAt: Date;
     updatedAt: Date;
   };
@@ -201,13 +198,10 @@ export class ProjectSiteSetupReportService {
           name: projectSite.name,
           description: projectSite.description || undefined,
           status: projectSite.status,
-          region: projectSite.region || undefined,
-          city: projectSite.city || undefined,
-          country: projectSite.country || undefined,
+          location: projectSite.location || undefined,
           coordinates: projectSite.coordinates,
-          size: projectSite.size,
-          sizeUnit: projectSite.sizeUnit,
-          siteType: projectSite.siteType,
+          startDate: projectSite.startDate,
+          endDate: projectSite.endDate,
           createdAt: projectSite.createdAt,
           updatedAt: projectSite.updatedAt
         },

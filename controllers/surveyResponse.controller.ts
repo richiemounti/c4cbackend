@@ -1,12 +1,15 @@
 // controllers/surveyResponse.controller.ts - UPDATED WITH CLOUDINARY
 import { Request, Response, NextFunction } from "express";
 import mongoose from "mongoose";
+import ExcelJS from "exceljs";
 import SurveyResponse from "../models/surveyResponse.model";
 import QuestionResponse from "../models/questionResponse.model";
 import Survey from "../models/survey.model";
 import SurveyQuestion from "../models/surveyQuestion.model";
+import SurveySection from "../models/surveySection.model";
 import { CustomError } from "../middlewares/error.middleware";
 import { userHasProjectAccess } from "../lib/authHelpers";
+import { sortSurveyQuestionsByStructure } from "../lib/surveyQuestionOrdering";
 import * as cloudinaryService from "../services/cloudinaryStorage.service";
 
 type AuthUser = mongoose.Document & {
@@ -47,7 +50,7 @@ export const startSurveyResponse = async (
       throw error;
     }
 
-    if (survey.status !== 'published') {
+    if (!['published', 'pretest'].includes(survey.status)) {
       const error = new Error('Survey is not currently accepting responses') as CustomError;
       error.statusCode = 400;
       throw error;
@@ -169,6 +172,7 @@ export const startSurveyResponse = async (
       ...consentData,
       status: 'started',
       progress: 0,
+      isTestResponse: survey.status === 'pretest',
       startedAt: new Date(),
       lastActivityAt: new Date()
     });
@@ -668,6 +672,9 @@ export const getSurveyResponses = async (
     if (req.query.status) {
       query.status = req.query.status;
     }
+    if (req.query.isTestResponse !== undefined) {
+      query.isTestResponse = req.query.isTestResponse === 'true';
+    }
 
     // Pagination
     const page = parseInt(req.query.page as string, 10) || 1;
@@ -875,8 +882,8 @@ export const getSurveyStatistics = async (
 };
 
 /**
- * Export survey responses as CSV
- * @route GET /api/v1/surveys/:surveyId/export
+ * Export survey responses as CSV or Excel
+ * @route GET /api/v1/surveys/:surveyId/responses/export?format=csv|excel
  * @access Private
  */
 export const exportSurveyResponses = async (
@@ -886,6 +893,7 @@ export const exportSurveyResponses = async (
 ) => {
   try {
     const { surveyId } = req.params;
+    const format = req.query.format === 'excel' ? 'excel' : 'csv';
 
     // Check if survey exists
     const survey = await Survey.findById(surveyId);
@@ -909,10 +917,15 @@ export const exportSurveyResponses = async (
       status: 'completed'
     }).populate('respondent', 'name email');
 
-    // Get all questions in the survey
-    const surveyQuestions = await SurveyQuestion.find({ survey: surveyId })
+    // Get all questions in the survey, ordered to match how they actually
+    // appear in the survey (section order, then question order within each
+    // section — see lib/surveyQuestionOrdering.ts for why a flat sort by the
+    // raw `order` field alone is not enough).
+    const sections = await SurveySection.find({ survey: surveyId }).sort('order');
+    const surveyQuestionsRaw = await SurveyQuestion.find({ survey: surveyId })
       .populate('question')
       .sort('order');
+    const surveyQuestions = sortSurveyQuestionsByStructure(surveyQuestionsRaw, sections);
 
     // Get all answers for these responses
     const responseIds = responses.map(response => response._id);
@@ -990,6 +1003,20 @@ export const exportSurveyResponses = async (
 
       rows.push(row);
     });
+
+    if (format === 'excel') {
+      const workbook = new ExcelJS.Workbook();
+      const sheet = workbook.addWorksheet('Responses');
+      rows.forEach(row => sheet.addRow(row));
+      sheet.getRow(1).font = { bold: true };
+      sheet.columns.forEach(column => { column.width = 24; });
+
+      const buffer = await workbook.xlsx.writeBuffer();
+      res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+      res.setHeader('Content-Disposition', `attachment; filename=survey_responses_${surveyId}.xlsx`);
+      res.status(200).send(Buffer.from(buffer));
+      return;
+    }
 
     // Convert to CSV string
     const csvContent = rows.map(row => row.map(cell => {
@@ -1083,6 +1110,7 @@ export const recordConsentDeclined = async (
       } : undefined,
       status: 'abandoned',
       progress: 0,
+      isTestResponse: survey.status === 'pretest',
       startedAt: new Date(),
       lastActivityAt: new Date()
     });

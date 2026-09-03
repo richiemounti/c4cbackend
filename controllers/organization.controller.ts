@@ -6,6 +6,7 @@ import User from "../models/user.model";
 import { CustomError } from "../middlewares/error.middleware";
 import { createOrganizationForManager, getUserOrganizations } from "../services/organization.service";
 import { IUserDocument } from "../models/user.model";
+import { findAccountManagerForOrganization } from "../utils/reviewHelpers";
 
 
 type AuthUser = IUserDocument & {
@@ -316,6 +317,69 @@ export const getOrganization = async (
 };
 
 /**
+ * Get the resolved account manager for an organization — the explicitly
+ * assigned staff member if one is set, otherwise the same workload-based
+ * fallback used when a review is escalated. Lets any org member reach a
+ * real staff contact via the inbox without needing an AM to be assigned yet.
+ * @route GET /api/v1/organizations/:id/account-manager
+ * @access Private
+ */
+export const getOrganizationAccountManager = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    if (!isUserAuthenticated(req)) {
+      const error = new Error('Authentication required') as CustomError;
+      error.statusCode = 401;
+      throw error;
+    }
+
+    const organizationId = req.params.id;
+    const organization = await Organization.findById(organizationId);
+
+    if (!organization) {
+      const error = new Error('Organization not found') as CustomError;
+      error.statusCode = 404;
+      throw error;
+    }
+
+    if (!req.user.isConnectGoStaff) {
+      const user = req.user as any;
+      if (!user.hasOrganizationAccess(organization._id)) {
+        const error = new Error('Not authorized to access this organization') as CustomError;
+        error.statusCode = 403;
+        throw error;
+      }
+    }
+
+    const accountManager = await findAccountManagerForOrganization(
+      organization._id as mongoose.Types.ObjectId
+    );
+
+    res.status(200).json({
+      success: true,
+      data: accountManager
+        ? {
+            _id: accountManager._id,
+            name: accountManager.name,
+            email: accountManager.email,
+            photo: accountManager.photo,
+          }
+        : null,
+    });
+  } catch (error) {
+    if (error instanceof Error && error.name === 'CastError') {
+      const customError = new Error('Invalid organization ID format') as CustomError;
+      customError.statusCode = 400;
+      return next(customError);
+    }
+    next(error);
+  }
+};
+
+/**
  * Update organization by ID
  * @route PUT /api/v1/organizations/:id
  * @access Private
@@ -334,7 +398,7 @@ export const updateOrganization = async (
     }
 
     const organizationId = req.params.id;
-    const { name, country, city } = req.body;
+    const { name, country, city, assignedAccountManagerId } = req.body;
 
     // Find the organization first to check if it exists and is not archived
     const organization = await Organization.findById(organizationId);
@@ -356,23 +420,35 @@ export const updateOrganization = async (
     if (!req.user.isConnectGoStaff) {
       // Organization managers can update their organization
       const roles = req.user.roles || [];
-      const isManager = roles.some((r: any) => 
+      const isManager = roles.some((r: any) =>
         r.role === 'manager' && r.organization && r.organization.toString() === organizationId
       );
-      
+
       const isCreator = organization.creator.toString() === req.user._id.toString();
-      
+
       if (!isManager && !isCreator) {
         const error = new Error('Not authorized to update this organization') as CustomError;
         error.statusCode = 403;
         throw error;
       }
+
+      // Only ConnectGo staff may (re)assign the org's account manager
+      if (assignedAccountManagerId !== undefined) {
+        const error = new Error('Not authorized to assign an account manager') as CustomError;
+        error.statusCode = 403;
+        throw error;
+      }
+    }
+
+    const update: Record<string, unknown> = { name, country, city };
+    if (req.user.isConnectGoStaff && assignedAccountManagerId !== undefined) {
+      update.assignedAccountManagerId = assignedAccountManagerId || null;
     }
 
     // Update the organization
     const updatedOrganization = await Organization.findByIdAndUpdate(
       organizationId,
-      { name, country, city },
+      update,
       { new: true, runValidators: true }
     );
 

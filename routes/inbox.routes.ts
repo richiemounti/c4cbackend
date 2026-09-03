@@ -7,6 +7,8 @@ import {
   createConversation,
   getConversation,
   archiveConversation,
+  addParticipant,
+  removeParticipant,
   // Messages
   getMessages,
   sendMessage,
@@ -38,6 +40,9 @@ inboxRouter
   .route('/conversations/:id')
   .get(getConversation)
   .delete(archiveConversation);
+
+inboxRouter.post('/conversations/:id/participants', addParticipant);
+inboxRouter.delete('/conversations/:id/participants/:userId', removeParticipant);
 
 // ── Messages ───────────────────────────────────────────────────────────────
 inboxRouter

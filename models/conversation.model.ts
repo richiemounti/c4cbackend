@@ -4,7 +4,9 @@ import mongoose, { Document, Schema, Model } from 'mongoose';
 export interface IConversation extends Document {
   organization: mongoose.Types.ObjectId;
   project?: mongoose.Types.ObjectId;
-  type: 'direct' | 'group';
+  // 'review' conversations are linked to a single Review document
+  type: 'direct' | 'group' | 'review';
+  reviewId?: mongoose.Types.ObjectId;
   name?: string;
   participants: mongoose.Types.ObjectId[];
   createdBy: mongoose.Types.ObjectId;
@@ -36,11 +38,18 @@ const conversationSchema = new Schema<IConversation>(
     },
     type: {
       type: String,
-      enum: ['direct', 'group'],
+      enum: ['direct', 'group', 'review'],
       required: true,
       index: true,
     },
-    // Only populated for group conversations
+    // Set for review-type conversations — links this thread to its Review document
+    reviewId: {
+      type: Schema.Types.ObjectId,
+      ref: 'Review',
+      default: null,
+      index: true,
+    },
+    // Only populated for group/review conversations
     name: {
       type: String,
       trim: true,

@@ -6,7 +6,9 @@ import {
   getReviewById,
   getReviewsByModuleItem,
   updateReviewStatus,
+  updateReviewMetadata,
   escalateReview,
+  seekInput,
   addReviewer,
   addIssue,
   resolveIssue,
@@ -14,6 +16,7 @@ import {
   getReviewStats,
   getReviewsByModule,
   getEligibleReviewers,
+  getEligibleOrgClients,
   inviteStaffCollaborator
 } from '../controllers/review.controller';
 import authorize from '../middlewares/auth.middleware';
@@ -50,6 +53,9 @@ reviewRoutes.get('/statistics/:organizationId', getReviewStats);
 // ✅ NEW: Get eligible reviewers for a review (MUST come before /:reviewId)
 reviewRoutes.get('/:reviewId/eligible-reviewers', getEligibleReviewers);
 
+// Get org clients eligible to be added as reviewers (staff only)
+reviewRoutes.get('/:reviewId/eligible-org-clients', isConnectGoStaff(), getEligibleOrgClients);
+
 // Get review by ID (put this after more specific routes)
 reviewRoutes.get('/:reviewId', getReviewById);
 
@@ -59,8 +65,14 @@ reviewRoutes.post('/', validateCreateReview, createReviewManually);
 // Update review status
 reviewRoutes.patch('/:reviewId/status', validateUpdateStatus, updateReviewStatus);
 
+// Update review metadata (title, description, priority, dueDate)
+reviewRoutes.patch('/:reviewId/metadata', updateReviewMetadata);
+
 // Escalate review to staff
 reviewRoutes.post('/:reviewId/escalate', validateEscalate, escalateReview);
+
+// Seek input from colleagues
+reviewRoutes.post('/:reviewId/seek-input', seekInput);
 
 // In your review routes file
 reviewRoutes.post('/:reviewId/staff-collaborators', authorize, inviteStaffCollaborator);

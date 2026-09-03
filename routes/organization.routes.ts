@@ -5,6 +5,7 @@ import {
   getOrganizations,
   getMyOrganizations,
   getOrganization,
+  getOrganizationAccountManager,
   updateOrganization,
   archiveOrganization,
   restoreOrganization,
@@ -31,6 +32,9 @@ organizationRouter.post('/',
 
 // Get organization by ID
 organizationRouter.get('/:id', authorize, getOrganization);
+
+// Get the resolved account manager for an organization (assigned, or workload-fallback)
+organizationRouter.get('/:id/account-manager', authorize, getOrganizationAccountManager);
 
 // Update organization
 organizationRouter.put('/:id', authorize, updateOrganization);

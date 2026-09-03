@@ -12,9 +12,11 @@ import {
   getSurveySections,
   getSurveyQuestions,
   getSurveyStructure,
+  exportSurveyForm,
   // Survey Builder operations
   getFilteredQuestionsForSurvey,
   getSurveyBuilderContext,
+  getSurveyBuilderOverview,
   getSurveysByStakeholder,
   getSurveysByProjectAndStage,
   updateSurveyCategory,
@@ -62,6 +64,7 @@ surveyRouter.get('/:id/sample-size', authorize, getSampleSizeCalculation);
 // ===============================
 
 surveyRouter.get('/:id/structure', authorize, getSurveyStructure);
+surveyRouter.get('/:id/export-form', authorize, exportSurveyForm);
 surveyRouter.get('/:id/sections', authorize, getSurveySections);
 surveyRouter.get('/:id/questions', authorize, getSurveyQuestions);
 
@@ -77,6 +80,7 @@ surveyRouter.put('/:id/consent-form', authorize, attachConsentFormToSurvey);
 
 surveyRouter.get('/builder/questions/filtered', authorize, getFilteredQuestionsForSurvey);
 surveyRouter.get('/builder/context/:stakeholderGroupId/:stageId', authorize, getSurveyBuilderContext);
+surveyRouter.get('/builder/overview/:projectId', authorize, getSurveyBuilderOverview);
 
 // ===============================
 // ENHANCED SURVEY MANAGEMENT ROUTES (handled by survey controller)

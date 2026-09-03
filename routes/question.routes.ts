@@ -28,6 +28,7 @@ import {
   rejectBespokeQuestion,
   elevateBespokeQuestion,
   updateBespokeQuestion,
+  deleteBespokeQuestion,
   getBespokeQuestionStatistics,
   validateQuestionConditionalLogic,
   getQuestionConditionalDependencies,
@@ -64,6 +65,7 @@ questionRouter.get('/bespoke/project/:projectId/available', authorize, getAvaila
 questionRouter.get('/bespoke/project/:projectId/statistics', authorize, getBespokeQuestionStatistics);
 questionRouter.get('/bespoke/organization/:organizationId', authorize, getBespokeQuestionsByOrganization);
 questionRouter.put('/bespoke/:id', authorize, updateBespokeQuestion);
+questionRouter.delete('/bespoke/:id', authorize, deleteBespokeQuestion);
 
 // Bulk conditional logic fetch
 questionRouter.post('/with-dependencies', authorize, getQuestionsWithDependencies);

@@ -32,10 +32,10 @@ export const createProjectSite = async (
     }
 
     const { projectId } = req.params;
-    const { 
-      name, description, address, region, city, country, 
-      coordinates, size, sizeUnit, siteType, status, 
-      contacts, notes, startDate 
+    const {
+      name, description, location,
+      coordinates, status,
+      contacts, startDate, endDate
     } = req.body;
 
     // Check if the project exists
@@ -54,19 +54,14 @@ export const createProjectSite = async (
       project: projectId,
       name,
       description,
-      address,
-      region,
-      city,
-      country,
+      location,
       coordinates,
-      size,
-      sizeUnit,
-      siteType,
       status,
       contacts,
-      notes,
       startDate,
-      creator: req.user!._id
+      endDate,
+      creator: req.user!._id,
+      lastUpdatedBy: req.user!._id
     }], { session });
     
     await session.commitTransaction();
@@ -122,16 +117,8 @@ export const getProjectSites = async (
     });
 
     // Apply filters based on query parameters
-    if (req.query.siteType) {
-      query = query.find({ siteType: req.query.siteType });
-    }
-
     if (req.query.status) {
       query = query.find({ status: req.query.status });
-    }
-
-    if (req.query.region) {
-      query = query.find({ region: req.query.region });
     }
 
     // Select specific fields
@@ -210,7 +197,9 @@ export const getProjectSite = async (
   try {
     const siteId = req.params.id;
 
-    const site = await ProjectSite.findById(siteId);
+    const site = await ProjectSite.findById(siteId)
+      .populate('creator', 'name')
+      .populate('lastUpdatedBy', 'name email');
 
     if (!site) {
       const error = new Error('Project site not found') as CustomError;
@@ -288,11 +277,15 @@ export const updateProjectSite = async (
     }
 
     // Update the site
+    updates.lastUpdatedBy = req.user!._id;
+
     const updatedSite = await ProjectSite.findByIdAndUpdate(
       siteId,
       updates,
       { new: true, runValidators: true }
-    );
+    )
+      .populate('creator', 'name')
+      .populate('lastUpdatedBy', 'name email');
 
     res.status(200).json({
       success: true,

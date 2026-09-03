@@ -176,6 +176,43 @@ const SURVEY_ANALYSIS_QUESTIONS = [
   TIME_ESTIMATE_QUESTION,
 ];
 
+const STAKEHOLDER_MAPPING_QUESTIONS = [
+  {
+    questionText: 'How would you rate your overall experience completing stakeholder mapping?',
+    questionType: 'rating' as const,
+    ratingScale: { min: 1, max: 5, labels: { low: 'Poor', high: 'Excellent' } },
+    isRequired: true,
+    order: 1,
+  },
+  {
+    questionText: 'Was it easy to identify and categorise your stakeholder groups?',
+    questionType: 'yes_no' as const,
+    isRequired: true,
+    order: 2,
+  },
+  {
+    questionText: 'Which mapping task was most difficult to complete?',
+    questionType: 'multiple_choice' as const,
+    options: [
+      { value: 'connections', label: 'Connections' },
+      { value: 'power', label: 'Power' },
+      { value: 'wellbeing', label: 'Wellbeing' },
+      { value: 'roles', label: 'Roles' },
+      { value: 'risks', label: 'Risks' },
+      { value: 'benefits', label: 'Benefits' },
+    ],
+    isRequired: false,
+    order: 3,
+  },
+  {
+    questionText: 'Any additional comments on the stakeholder mapping experience?',
+    questionType: 'text' as const,
+    isRequired: false,
+    order: 4,
+  },
+  TIME_ESTIMATE_QUESTION,
+];
+
 // ─────────────────────────────────────────────────────────────────────────────
 // Survey definitions — one entry per enum value in the model
 // ─────────────────────────────────────────────────────────────────────────────
@@ -192,6 +229,18 @@ const PULSE_SURVEYS = [
     title: 'Site Setup — Module Feedback',
     description: 'Help us improve the platform by sharing your experience completing the site setup module.',
     questions: SETUP_QUESTIONS,
+  },
+  {
+    moduleType: 'stakeholder_mapping_project' as const,
+    title: 'Stakeholder Mapping (Project) — Module Feedback',
+    description: 'Help us improve the platform by sharing your experience mapping stakeholders for this project.',
+    questions: STAKEHOLDER_MAPPING_QUESTIONS,
+  },
+  {
+    moduleType: 'stakeholder_mapping_site' as const,
+    title: 'Stakeholder Mapping (Site) — Module Feedback',
+    description: 'Help us improve the platform by sharing your experience mapping stakeholders for this site.',
+    questions: STAKEHOLDER_MAPPING_QUESTIONS,
   },
   {
     moduleType: 'theory_of_change_stage_1' as const,

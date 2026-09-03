@@ -112,15 +112,17 @@ export const getStakeholder = async (
 ) => {
   try {
     const { id } = req.params;
-    
-    const stakeholder = await Stakeholder.findById(id);
-    
+
+    const stakeholder = await Stakeholder.findById(id)
+      .populate('creator', 'name email')
+      .populate('lastUpdatedBy', 'name email');
+
     if (!stakeholder) {
       const error = new Error('Stakeholder not found') as CustomError;
       error.statusCode = 404;
       throw error;
     }
-    
+
     // Verify project access
     const projectId = stakeholder.project;
     

@@ -8,10 +8,11 @@ import ProjectSite from "../models/projectSite.model";
 import StakeholderGroup from "../models/stakeholderGroup.model";
 import Theme from "../models/theme.model";
 import SubTheme from "../models/subtheme.model";
-import { 
+import {
     calculateStageProgress,
     validateMultipleStakeholderThemeRelationships
 } from "../services/theoryOfChange.service";
+import { createReview, reviewExistsForModuleItem } from "../utils/reviewHelpers";
 import { CustomError } from "../middlewares/error.middleware";
 
 // Type guard to check if user is authenticated
@@ -43,8 +44,8 @@ export const createAction = async (
     const { 
       projectId, 
       projectSiteId, 
-      stageId, 
-      stakeholderGroupId, 
+      stageId,
+      stakeholderGroupIds,
       themeIds,      // CHANGED: Now expects array of theme IDs
       subThemeIds,   // CHANGED: Now expects array of subtheme IDs
       action, 
@@ -57,8 +58,15 @@ export const createAction = async (
     } = req.body;
 
     // Validate required fields
-    if (!projectId || !stageId || !stakeholderGroupId || !themeIds || !subThemeIds || !action) {
+    if (!projectId || !stageId || !stakeholderGroupIds || !themeIds || !subThemeIds || !action) {
       const error = new Error('Required fields missing') as CustomError;
+      error.statusCode = 400;
+      throw error;
+    }
+
+    // Validate arrays
+    if (!Array.isArray(stakeholderGroupIds) || stakeholderGroupIds.length === 0) {
+      const error = new Error('stakeholderGroupIds must be a non-empty array') as CustomError;
       error.statusCode = 400;
       throw error;
     }
@@ -77,10 +85,10 @@ export const createAction = async (
       throw error;
     }
 
-    // CHANGED: Validate multiple stakeholder-theme relationships
-    const isValidRelationship = await validateMultipleStakeholderThemeRelationships(stakeholderGroupId, themeIds);
+    // Validate all stakeholder groups exist and theme relationships are valid
+    const isValidRelationship = await validateMultipleStakeholderThemeRelationships(stakeholderGroupIds, themeIds);
     if (!isValidRelationship) {
-      const error = new Error('Invalid stakeholder-theme relationship for one or more selected themes') as CustomError;
+      const error = new Error('Invalid stakeholder-theme relationship for one or more selected themes or groups') as CustomError;
       error.statusCode = 400;
       throw error;
     }
@@ -193,17 +201,16 @@ export const createAction = async (
       throw error;
     }
 
-    // CHANGED: Check for existing action with same content (since we can't use theme/subtheme for uniqueness anymore)
+    // Check for duplicate action text within this project/site
     const existingAction = await StakeholderAction.findOne({
       project: projectId,
       projectSite: projectSiteId || null,
-      stakeholderGroup: stakeholderGroupId,
       action: action.trim()
     });
 
     if (existingAction) {
-      const error = new Error('An action with the same content already exists for this stakeholder group') as CustomError;
-      error.statusCode = 409; // Conflict
+      const error = new Error('An action with the same content already exists in this project') as CustomError;
+      error.statusCode = 409;
       throw error;
     }
 
@@ -212,7 +219,7 @@ export const createAction = async (
       project: projectId,
       projectSite: projectSiteId || null,
       stage: stageId,
-      stakeholderGroup: stakeholderGroupId,
+      stakeholderGroups: stakeholderGroupIds,
       themes: themeIds,        // CHANGED: Now stores array of theme IDs
       subThemes: subThemeIds,  // CHANGED: Now stores array of subtheme IDs
       action,
@@ -238,13 +245,38 @@ export const createAction = async (
 
     // After saving, update the stage progress
     await calculateStageProgress(stageId);
-    
+
     await session.commitTransaction();
     session.endSession();
 
+    // AUTO-TRIGGER: Create review for the new stakeholder action
+    try {
+      const alreadyReviewed = await reviewExistsForModuleItem(
+        'stakeholder_action',
+        newAction._id as mongoose.Types.ObjectId
+      );
+
+      if (!alreadyReviewed) {
+        await createReview({
+          module: 'stakeholder_action',
+          moduleItemId: newAction._id as mongoose.Types.ObjectId,
+          organizationId: project.organization,
+          projectId: project._id as mongoose.Types.ObjectId,
+          projectSiteId: projectSiteId || undefined,
+          submittedBy: req.user._id,
+          title: `Review: Stakeholder Action - ${newAction.action.substring(0, 50)}`,
+          description: `Review action for stakeholder group. Status: ${newAction.status}, Priority: ${newAction.priority}`,
+          priority: newAction.priority || 'medium',
+          autoAssignReviewers: true,
+        });
+      }
+    } catch (reviewError) {
+      console.error('Failed to create review for stakeholder action:', reviewError);
+    }
+
     // CHANGED: Populate multiple themes and subthemes
     const populatedAction = await StakeholderAction.findById(newAction._id)
-      .populate('stakeholderGroup', 'name')
+      .populate('stakeholderGroups', 'name')
       .populate('themes', 'name')           // CHANGED: Populate multiple themes
       .populate('subThemes', 'name')        // CHANGED: Populate multiple subthemes
       .populate('creator', 'name')
@@ -343,10 +375,10 @@ export const getActionsByStakeholder = async (
       throw error;
     }
 
-    // Get all actions for this stage and stakeholder
-    const actions = await StakeholderAction.find({ 
+    // Get all actions for this stage that include this stakeholder group
+    const actions = await StakeholderAction.find({
       stage: stageId,
-      stakeholderGroup: stakeholderId,
+      stakeholderGroups: { $in: [stakeholderId] },
       archived: { $ne: true }
     })
       .populate('themes', 'name')
@@ -410,7 +442,7 @@ export const getActionById = async (
     const { actionId } = req.params;
 
     const action = await StakeholderAction.findById(actionId)
-      .populate('stakeholderGroup', 'name')
+      .populate('stakeholderGroups', 'name')
       .populate('themes', 'name')
       .populate('subThemes', 'name')
       .populate('creator', 'name')
@@ -462,7 +494,7 @@ export const getActionsByProject = async (
     }
 
     const actions = await StakeholderAction.find(query)
-      .populate('stakeholderGroup', 'name')
+      .populate('stakeholderGroups', 'name')
       .populate('themes', 'name')
       .populate('subThemes', 'name')
       .populate('stage', 'stageNumber status')
@@ -525,32 +557,28 @@ export const getActionsByStage = async (
     }
 
     // CHANGED: Get all actions with multiple themes and subthemes populated
-    const actions = await StakeholderAction.find({ 
+    const actions = await StakeholderAction.find({
       stage: stageId,
       archived: { $ne: true }
     })
-      .populate('stakeholderGroup', 'name')
+      .populate('stakeholderGroups', 'name')
       .populate('themes', 'name')           // CHANGED: Populate multiple themes
       .populate('subThemes', 'name')        // CHANGED: Populate multiple subthemes
       .populate('creator', 'name')
       .populate('lastUpdatedBy', 'name')
-      .sort({ 'stakeholderGroup': 1, createdAt: 1 });
+      .sort({ createdAt: 1 });
 
-    // CHANGED: Group actions by stakeholder (themes are now multiple, so grouping logic is simpler)
-    const stakeholderGroups = Array.from(
-      new Set(actions.map(action => action.stakeholderGroup._id.toString()))
-    );
-
-    const actionsByStakeholder = stakeholderGroups.map(groupId => {
-      const stakeholderActions = actions.filter(
-        action => action.stakeholderGroup._id.toString() === groupId
-      );
-
-      return {
-        stakeholderGroup: stakeholderActions[0].stakeholderGroup,
-        actions: stakeholderActions
-      };
+    // Unwind: each action can belong to multiple groups, so it appears under each
+    const groupMap = new Map<string, { stakeholderGroup: any; actions: any[] }>();
+    actions.forEach(action => {
+      (action.stakeholderGroups as any[]).forEach(group => {
+        const id = group._id.toString();
+        if (!groupMap.has(id)) groupMap.set(id, { stakeholderGroup: group, actions: [] });
+        groupMap.get(id)!.actions.push(action);
+      });
     });
+
+    const actionsByStakeholder = Array.from(groupMap.values());
 
     res.status(200).json({
       success: true,
@@ -659,17 +687,18 @@ export const updateAction = async (
     }
 
     const { actionId } = req.params;
-    const { 
-      themeIds, 
-      subThemeIds, 
-      action, 
-      responsibility, 
+    const {
+      stakeholderGroupIds,
+      themeIds,
+      subThemeIds,
+      action,
+      responsibility,
       timeframe,
       repeatCycle,   // NEW
       status,        // NEW
       priority,      // NEW
       progress,      // NEW
-      notes 
+      notes
     } = req.body;
 
     const existingAction = await StakeholderAction.findById(actionId);
@@ -677,6 +706,16 @@ export const updateAction = async (
       const error = new Error('Stakeholder action not found') as CustomError;
       error.statusCode = 404;
       throw error;
+    }
+
+    // Update stakeholder groups if provided
+    if (stakeholderGroupIds !== undefined) {
+      if (!Array.isArray(stakeholderGroupIds) || stakeholderGroupIds.length === 0) {
+        const error = new Error('stakeholderGroupIds must be a non-empty array') as CustomError;
+        error.statusCode = 400;
+        throw error;
+      }
+      existingAction.stakeholderGroups = stakeholderGroupIds;
     }
 
     // If themes/subthemes are being updated, validate them
@@ -688,8 +727,9 @@ export const updateAction = async (
       }
 
       // Validate relationships
+      const groupIdsToValidate = stakeholderGroupIds ?? existingAction.stakeholderGroups.map(id => id.toString());
       const isValidRelationship = await validateMultipleStakeholderThemeRelationships(
-        existingAction.stakeholderGroup.toString(), 
+        groupIdsToValidate,
         themeIds
       );
       if (!isValidRelationship) {
@@ -757,7 +797,7 @@ export const updateAction = async (
     session.endSession();
 
     const populatedAction = await StakeholderAction.findById(actionId)
-      .populate('stakeholderGroup', 'name')
+      .populate('stakeholderGroups', 'name')
       .populate('themes', 'name')
       .populate('subThemes', 'name')
       .populate('creator', 'name')

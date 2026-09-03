@@ -186,12 +186,12 @@ export const getMobileProjectSurveys = async (
             status: 'published',
             archived: { $ne: true }
         })
-            .populate('projectSite', 'name region city')
-            .populate('stakeholderGroup', 'name group')
+            .populate('projectSite', 'name location')
+            .populate('stakeholderGroups', 'name group')
             .select(
                 '_id title description category customCategoryName ' +
                 'estimatedDuration totalQuestions updatedAt ' +
-                'projectSite stakeholderGroup consentRequired'
+                'projectSite stakeholderGroups consentRequired'
             )
             .sort({ updatedAt: -1 });
 
@@ -240,8 +240,8 @@ export const downloadSurveyPackage = async (
 
         const survey = await Survey.findById(surveyId)
             .populate('project', '_id name location coordinates')
-            .populate('projectSite', '_id name region city coordinates')
-            .populate('stakeholderGroup', '_id name group');
+            .populate('projectSite', '_id name location coordinates')
+            .populate('stakeholderGroups', '_id name group');
 
         if (!survey) {
             const error = new Error('Survey not found') as CustomError;
@@ -314,7 +314,7 @@ export const downloadSurveyPackage = async (
                     consentRequired: survey.consentRequired,
                     project: survey.project,
                     projectSite: survey.projectSite,
-                    stakeholderGroup: survey.stakeholderGroup,
+                    stakeholderGroups: survey.stakeholderGroups,
                     // Device uses this to know whether its cached copy is stale
                     packageVersion: survey.updatedAt
                 },

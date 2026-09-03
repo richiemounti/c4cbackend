@@ -6,7 +6,8 @@ export type NotificationType =
   | 'mention_in_message'   // @mentioned inside a DM or group chat message
   | 'mention_on_page'      // @mentioned from a platform page (review, report, etc.)
   | 'new_message'          // new message in a conversation the user belongs to
-  | 'system';              // platform system alerts
+  | 'system'               // platform system alerts
+  | 'input_request';       // colleague asked for input on a review (seek-input flow)
 
 export interface IPageContext {
   resourceType: ResourceType;
@@ -33,6 +34,9 @@ export interface INotification extends Document {
 
   // Short preview of the triggering content (~120 chars)
   preview: string;
+
+  // Set on input_request notifications — when the requester needs a response by
+  deadline?: Date;
 
   read: boolean;
   readAt?: Date;
@@ -81,7 +85,7 @@ const notificationSchema = new Schema<INotification>(
     },
     type: {
       type: String,
-      enum: ['mention_in_message', 'mention_on_page', 'new_message', 'system'],
+      enum: ['mention_in_message', 'mention_on_page', 'new_message', 'system', 'input_request'],
       required: true,
       index: true,
     },
@@ -113,6 +117,10 @@ const notificationSchema = new Schema<INotification>(
       required: true,
       trim: true,
       maxlength: 200,
+    },
+    deadline: {
+      type: Date,
+      default: null,
     },
     read: {
       type: Boolean,

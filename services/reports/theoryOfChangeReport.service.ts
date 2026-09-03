@@ -34,10 +34,10 @@ interface IGanttTimelineItem {
   id: string;
   name: string;
   type: 'action' | 'impact';
-  stakeholder: {
+  stakeholders: Array<{
     _id: string;
     name: string;
-  };
+  }>;
   themes: Array<{
     _id: string;
     name: string;
@@ -220,7 +220,7 @@ interface IOutcomeReport {
       topRisks: Array<{
         impact: any;
         risk: any;
-        stakeholder: any;
+        stakeholders: any;
       }>;
       mitigationCoverage: number; // % of risks with mitigation
     };
@@ -538,10 +538,10 @@ private static generateGanttTimeline(actions: any[]): IGanttTimelineItem[] {
       id: action._id.toString(),
       name: action.action,
       type: 'action',
-      stakeholder: {
-        _id: action.stakeholderGroup._id.toString(),
-        name: action.stakeholderGroup.name
-      },
+      stakeholders: (action.stakeholderGroups || []).map((sg: any) => ({
+        _id: sg._id.toString(),
+        name: sg.name
+      })),
       themes: action.themes.map((theme: any) => ({
         _id: theme._id.toString(),
         name: theme.name
@@ -954,10 +954,10 @@ private static generateGanttTimeline(actions: any[]): IGanttTimelineItem[] {
       id: action._id.toString(),
       name: action.action,
       type: 'action',
-      stakeholder: {
-        _id: action.stakeholderGroup._id.toString(),
-        name: action.stakeholderGroup.name
-      },
+      stakeholders: (action.stakeholderGroups || []).map((sg: any) => ({
+        _id: sg._id.toString(),
+        name: sg.name
+      })),
       themes: action.themes.map((theme: any) => ({
         _id: theme._id.toString(),
         name: theme.name
@@ -1048,32 +1048,36 @@ private static generateGanttTimeline(actions: any[]): IGanttTimelineItem[] {
     ganttTimeline: IGanttTimelineItem[]
   ): IStakeholderWorkload[] {
     const workloadMap = new Map();
-    
+
+    // An item may belong to multiple stakeholder groups — attribute its workload
+    // to every group it touches, so each group's row reflects its full activity list.
     ganttTimeline.forEach(item => {
-      const stakeholderId = item.stakeholder._id;
-      if (!workloadMap.has(stakeholderId)) {
-        workloadMap.set(stakeholderId, {
-          stakeholder: item.stakeholder,
-          activities: [],
-          totalDuration: 0,
-          completedActivities: 0,
-          totalProgress: 0,
-          highPriorityCount: 0
-        });
-      }
-      
-      const workload = workloadMap.get(stakeholderId);
-      workload.activities.push(item);
-      workload.totalDuration += item.duration || 0;
-      workload.totalProgress += item.progress;
-      
-      if (item.status === 'completed') {
-        workload.completedActivities++;
-      }
-      
-      if (item.priority === 'high' || item.priority === 'critical') {
-        workload.highPriorityCount++;
-      }
+      item.stakeholders.forEach(stakeholder => {
+        const stakeholderId = stakeholder._id;
+        if (!workloadMap.has(stakeholderId)) {
+          workloadMap.set(stakeholderId, {
+            stakeholder,
+            activities: [],
+            totalDuration: 0,
+            completedActivities: 0,
+            totalProgress: 0,
+            highPriorityCount: 0
+          });
+        }
+
+        const workload = workloadMap.get(stakeholderId);
+        workload.activities.push(item);
+        workload.totalDuration += item.duration || 0;
+        workload.totalProgress += item.progress;
+
+        if (item.status === 'completed') {
+          workload.completedActivities++;
+        }
+
+        if (item.priority === 'high' || item.priority === 'critical') {
+          workload.highPriorityCount++;
+        }
+      });
     });
 
     return Array.from(workloadMap.values()).map(workload => {
@@ -1215,27 +1219,31 @@ private static generateGanttTimeline(actions: any[]): IGanttTimelineItem[] {
   
   private static groupImpactsByStakeholder(impacts: any[]) {
     const stakeholderMap = new Map();
-    
+
+    // An impact may belong to multiple stakeholder groups — attribute it to
+    // every group it touches, so each group's bucket reflects its full impact list.
     impacts.forEach(impact => {
-      const stakeholderId = impact.stakeholderGroup._id.toString();
-      if (!stakeholderMap.has(stakeholderId)) {
-        stakeholderMap.set(stakeholderId, {
-          stakeholder: impact.stakeholderGroup,
-          impacts: [],
-          totalRisks: 0,
-          completedImpacts: 0,
-          totalProgress: 0
-        });
-      }
-      
-      const group = stakeholderMap.get(stakeholderId);
-      group.impacts.push(impact);
-      group.totalRisks += impact.risks.length;
-      group.totalProgress += impact.progress || 0;
-      
-      if (impact.status === 'achieved') {
-        group.completedImpacts++;
-      }
+      (impact.stakeholderGroups || []).forEach((stakeholderGroup: any) => {
+        const stakeholderId = stakeholderGroup._id.toString();
+        if (!stakeholderMap.has(stakeholderId)) {
+          stakeholderMap.set(stakeholderId, {
+            stakeholder: stakeholderGroup,
+            impacts: [],
+            totalRisks: 0,
+            completedImpacts: 0,
+            totalProgress: 0
+          });
+        }
+
+        const group = stakeholderMap.get(stakeholderId);
+        group.impacts.push(impact);
+        group.totalRisks += impact.risks.length;
+        group.totalProgress += impact.progress || 0;
+
+        if (impact.status === 'achieved') {
+          group.completedImpacts++;
+        }
+      });
     });
     
     return Array.from(stakeholderMap.values()).map(group => ({
@@ -1349,7 +1357,7 @@ private static generateGanttTimeline(actions: any[]): IGanttTimelineItem[] {
         allRisks.push({
           impact,
           risk,
-          stakeholder: impact.stakeholderGroup
+          stakeholders: impact.stakeholderGroups
         });
       });
     });
@@ -1574,20 +1582,20 @@ private static generateGanttTimeline(actions: any[]): IGanttTimelineItem[] {
     };
 
     if (filters.stakeholderIds && filters.stakeholderIds.length > 0) {
-      actionQuery.stakeholderGroup = { 
-        $in: filters.stakeholderIds.map(id => new mongoose.Types.ObjectId(id)) 
+      actionQuery.stakeholderGroups = {
+        $in: filters.stakeholderIds.map(id => new mongoose.Types.ObjectId(id))
       };
     }
 
     if (filters.themeIds && filters.themeIds.length > 0) {
-      actionQuery.themes = { 
-        $in: filters.themeIds.map(id => new mongoose.Types.ObjectId(id)) 
+      actionQuery.themes = {
+        $in: filters.themeIds.map(id => new mongoose.Types.ObjectId(id))
       };
     }
 
     const actions = await StakeholderAction.find(actionQuery)
       .populate({
-        path: 'stakeholderGroup',
+        path: 'stakeholderGroups',
         select: 'name description category estimatedPopulation completionStatus themes',
         populate: {
           path: 'category',
@@ -1607,8 +1615,8 @@ private static generateGanttTimeline(actions: any[]): IGanttTimelineItem[] {
     };
 
     if (filters.stakeholderIds && filters.stakeholderIds.length > 0) {
-      impactQuery.stakeholderGroup = { 
-        $in: filters.stakeholderIds.map(id => new mongoose.Types.ObjectId(id)) 
+      impactQuery.stakeholderGroups = {
+        $in: filters.stakeholderIds.map(id => new mongoose.Types.ObjectId(id))
       };
     }
 
@@ -1619,7 +1627,7 @@ private static generateGanttTimeline(actions: any[]): IGanttTimelineItem[] {
     }
 
     const impacts = await SocialImpact.find(impactQuery)
-      .populate('stakeholderGroup', 'name')
+      .populate('stakeholderGroups', 'name')
       .populate('themes', 'name')
       .populate('subThemes', 'name')
       .populate('stage', 'stageNumber status progress projectSite')
