@@ -41,6 +41,15 @@ export const parseCSVFile = (filePath: string): CSVSetupTask[] => {
 const mapDataType = (csvDataType: string): string => {
   const type = (csvDataType || '').toLowerCase().trim();
 
+  // true single-select variants → a dedicated dropdown/radio type, distinct
+  // from free text, so the picked value is constrained to `options`.
+  // "Single select or taggable select" is excluded on purpose: those fields
+  // (e.g. site_admin_level_1/2/3) have no fixed option list in the sheet and
+  // are meant to stay free-text/creatable until a taggable-select UI exists.
+  if (
+    type.startsWith('single select') && !type.includes('taggable')
+  ) return 'selection';
+
   // string variants
   if (
     type === 'string' || type === 'text' || type === 'varchar' ||
@@ -48,7 +57,7 @@ const mapDataType = (csvDataType: string): string => {
     type.startsWith('short text') ||       // "Short text (string)", "Short text (max 300…)"
     type.startsWith('long text') ||        // "long text, max 600–900 chars"
     type.startsWith('string (') ||
-    type.startsWith('single select') ||    // "Single select (enum)", "Single select (country list)", "Single select or taggable select"
+    type.startsWith('single select') ||    // "Single select or taggable select" (no fixed options)
     type.startsWith('structured short text') // "Structured short text. three separate short fields…"
   ) return 'string';
 
@@ -92,21 +101,36 @@ const mapDataType = (csvDataType: string): string => {
 /**
  * Parse the options from the "Response options" cell.
  *
- * Handles two formats found in the new CSV:
- *   • Newline-separated list (multi-select fields)
- *   • Pipe-separated single line  (e.g. "Low | Medium | High")
+ * Handles the formats found across CSV/spreadsheet revisions:
+ *   • Newline-separated list (multi-select fields, or any real list)
+ *   • A single line using one delimiter for all its short options —
+ *     "Low | Medium | High", "Yes / No / Unsure", "A; B; C"
+ *
+ * A single-line cell is tried against each delimiter below, in order, and
+ * the first one that actually splits it into 2+ non-empty parts wins. This
+ * only ever runs when the whole cell is one line, so a normal multi-line
+ * list item that happens to contain one of these characters as part of its
+ * own label (e.g. "Cost / financial barriers" as one line among many) is
+ * never touched — that "/" is inside a line, not the line separator.
+ *
+ * Add a new delimiter here if a future sheet revision introduces one.
  *
  * Strips meta-notes such as "(reuse project …)" and "Add new (add tag)".
  */
+const SINGLE_LINE_OPTION_DELIMITERS = ['|', '/', ';'];
+
 const parseOptions = (rawOptions: string): string[] | undefined => {
   if (!rawOptions || !rawOptions.trim()) return undefined;
 
   const text = rawOptions.trim();
 
-  // Pipe-separated on a single line → split by pipe
-  if (text.includes('|') && !text.includes('\n')) {
-    const opts = text.split('|').map(s => s.trim()).filter(Boolean);
-    if (opts.length > 1) return opts;
+  if (!text.includes('\n')) {
+    for (const delimiter of SINGLE_LINE_OPTION_DELIMITERS) {
+      if (text.includes(delimiter)) {
+        const opts = text.split(delimiter).map(s => s.trim()).filter(Boolean);
+        if (opts.length > 1) return opts;
+      }
+    }
   }
 
   // Newline-separated list
@@ -235,7 +259,6 @@ export const convertCSVDataToSetupTasks = (
     // --- Parse columns ---
     const fieldName        = cleanFieldName(rawFieldName);
     const validation       = (row[1] || '').trim();
-    const dataType         = mapDataType(row[2] || '');
     const question         = (row[3] || '').trim();
     const responseOptions  = (row[4] || '').trim();
     const helperText       = (row[5] || '').trim();
@@ -244,6 +267,15 @@ export const convertCSVDataToSetupTasks = (
 
     const isRequired = /^required/i.test(validation);
     const options    = parseOptions(responseOptions);
+
+    // A field described as "Boolean (Yes/No)" but given a 3rd option (e.g.
+    // "Yes / No / Unsure") is really a constrained single-select, not a true
+    // two-state boolean — render/store it accordingly rather than forcing it
+    // through the boolean Yes/No toggle.
+    let dataType = mapDataType(row[2] || '');
+    if (dataType === 'boolean' && options && options.length > 2) {
+      dataType = 'selection';
+    }
 
     const conditionalOn = conditionalOnRef
       ? { fieldName: conditionalOnRef, value: true }

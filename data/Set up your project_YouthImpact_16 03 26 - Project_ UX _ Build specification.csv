@@ -194,7 +194,7 @@ Low trust in services
 Timing / scheduling conflicts
 Digital access limitations
 Add new (add tag)",Select what could prevent people from participating or benefiting. Click on the risk button to elaborate.,Barriers help explain participation patterns and highlight potential exclusion risks.
-barriers_severity_map,Optional (but valuable for Learn),Structured object (map barrier → Low / Medium / High),"For the barriers you selected, how severe are they in this context?",,Indicate how severe each selected barrier is in this context.,Severity helps prioritise mitigation and interpret uneven engagement.
+barriers_severity_map,Optional (but valuable for Learn),Structured object (map barrier → Low / Medium / High),"For the barriers you selected, how severe are they in this context?","Low severity | Medium serverity | High severity",Indicate how severe each selected barrier is in this context.,Severity helps prioritise mitigation and interpret uneven engagement.
 equity_risk_flags,Required; suggest “select a max of 6”,"Multi select (enum), with a taggable select for the Add new option. Sam, can this then link to the risk register",What equity risks do you want to watch for during delivery? (Select all that apply),"Elite capture
 Exclusion of highest-need groups
 Reinforcing existing inequalities
@@ -297,7 +297,7 @@ safeguarding_risk_rating,Required,Single select (enum),How would you rate the sa
 Moderate risk
 High risk
 Unsure",Select the overall safeguarding risk level for this work.,Risk levels shape engagement strategies and data collection approaches.
-safeguarding_reporting_pathway_exists,Required,Boolean (Yes / No). If no add risk button,Is there a clear safeguarding reporting and referral pathway in place?,,Indicate whether a reporting and referral pathway is in place. If 'no' click on the risk button to elaborate.,Clear pathways are essential for safe participation and responsible delivery.
+safeguarding_reporting_pathway_exists,Required,Boolean (Yes / No). If no add risk button,Is there a clear safeguarding reporting and referral pathway in place?,"Yes | No | Unsure",Indicate whether a reporting and referral pathway is in place. If 'no' click on the risk button to elaborate.,Clear pathways are essential for safe participation and responsible delivery.
 safeguarding_notes,Optional; max 400–600 characters,Short text,What safeguarding considerations should shape engagement and data collection? (Short summary),,Briefly outline key safeguarding considerations for this context.,This ensures safeguarding realities inform engagement and learning.
 data_collection_constraints,"Optional,","Multi select (enum), with a taggable select for the Add new option. Link to risk register","What constraints could affect safe, ethical, or feasible data collection? (Select all that apply)","Literacy limitations
 Language barriers

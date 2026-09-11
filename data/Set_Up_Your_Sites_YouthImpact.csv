@@ -38,7 +38,7 @@ site_safeguarding_risk_rating,Optional,Single select (enum),What is the safeguar
 Moderate risk
 High risk
 Unsure",Select the risk level specific to this site. Click on risk button to elaborate.,Risk levels affect engagement strategies and interpretation of results.,site_safeguarding_differs_from_project
-site_reporting_pathway_functional,Optional,Yes / No,Is the safeguarding reporting pathway functional and accessible at this site?,,Indicate whether reporting and referral systems are working in practice. Click on risk button to elaborate.,Functional pathways are essential for safe delivery and disclosure response.,site_safeguarding_differs_from_project
+site_reporting_pathway_functional,Optional,Yes / No,Is the safeguarding reporting pathway functional and accessible at this site?,"Yes | No | Unsure",Indicate whether reporting and referral systems are working in practice. Click on risk button to elaborate.,Functional pathways are essential for safe delivery and disclosure response.,site_safeguarding_differs_from_project
 site_data_constraints_differs_from_project,Required,Yes / No,Do data collection conditions differ at this site?,,"Select Yes if consent, privacy, literacy, or digital access differ here.",Differences in data feasibility affect how evidence is interpreted.,
 site_data_collection_constraints_delta,Optional,Multi-select (enum),What data collection constraints are different or more significant at this site?,"Literacy limitations
 Language barriers

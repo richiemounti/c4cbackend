@@ -54,7 +54,7 @@ const projectSiteSetupTaskSchema = new mongoose.Schema({
     type: String,
     required: true,
     trim: true,
-    enum: ['string', 'number', 'date', 'boolean', 'array', 'object', 'file']
+    enum: ['string', 'number', 'date', 'boolean', 'array', 'object', 'file', 'selection']
   },
   description: {
     type: String,

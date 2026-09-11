@@ -8,7 +8,6 @@ if (!env.DB_URI) {
 const connectionOptions: mongoose.ConnectOptions = {
   serverSelectionTimeoutMS: 10000,
   socketTimeoutMS: 45000,
-  family: 4,
   maxPoolSize: 10,
   minPoolSize: 2,
 };
