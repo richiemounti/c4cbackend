@@ -66,3 +66,7 @@ smrv-platform-d1dc6d4808e7.json
 
 #config.js
 ecosystem.config.js
+
+# compiled output
+dist/
+dist.bak.1785177392
