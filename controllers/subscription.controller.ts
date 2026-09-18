@@ -10,6 +10,7 @@ import { CustomError } from "../middlewares/error.middleware";
 import { IUserDocument } from "../models/user.model";
 import { getCataloguePrice } from "../services/stripeCatalogue.service";
 import { evaluateProjectCreationGate } from "../services/subscriptionGating.service";
+import { evaluateSniAccessGate } from "../services/sniAccessGating.service";
 import { STRIPE_CATALOGUE, type BundleTrack, type TierKey } from "../constants/stripeCatalogue.constants";
 
 type AuthUser = IUserDocument & { _id: mongoose.Types.ObjectId };
@@ -203,6 +204,22 @@ export const getProjectCreationGate = async (req: Request, res: Response, next: 
 
         const { organizationId } = req.params;
         const gate = await evaluateProjectCreationGate(organizationId);
+
+        res.status(200).json({ success: true, data: gate });
+    } catch (error) {
+        next(error);
+    }
+};
+
+// Read-only SNI access check — lets a future client-facing "activate SNI"
+// flow show an upgrade prompt before attempting activation, same reasoning
+// as getProjectCreationGate above.
+export const getSniAccessGateStatus = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        if (!isUserAuthenticated(req)) throw authRequired();
+
+        const { organizationId } = req.params;
+        const gate = await evaluateSniAccessGate(organizationId);
 
         res.status(200).json({ success: true, data: gate });
     } catch (error) {

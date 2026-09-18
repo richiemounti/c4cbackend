@@ -24,6 +24,7 @@ import subThemeRouter from "./routes/subtheme.routes";
 import questionRouter from "./routes/question.routes";
 import questionLibraryRouter from "./routes/questionLibrary.routes";
 import surveyRouter from "./routes/survey.routes";
+import sniSurveyRouter from "./routes/sniSurvey.routes";
 import surveyAnalyticsRouter from "./routes/surveyAnalytics.routes";
 import sectionRouter from "./routes/surveySection.routes";
 import surveyQuestionRouter from "./routes/surveyQuestion.routes";
@@ -195,6 +196,10 @@ app.use('/api/v1/questionlibrary', questionLibraryRouter);
 
 // Mount the survey routes
 app.use('/api/v1/surveys', surveyRouter);
+
+// Mount the Social Networks Instrument (SNI) routes — separate feature,
+// separate canvas (design brief §3). See SNI_BUILD_PLAN.md.
+app.use('/api/v1/sni/surveys', sniSurveyRouter);
 
 // Mount the survey analytics routes
 app.use('/api/v1/survey-analytics', surveyAnalyticsRouter);

@@ -89,6 +89,45 @@ export const STRIPE_CATALOGUE: StripeCatalogueProduct[] = [
     ],
   },
   {
+    // Social Networks Instrument (SNI) — a distinct product from 'sna_*' below.
+    // SNA (Social Network Analysis) is marketed as mapping the ORGANIZATION's own
+    // network of actors/alliances (see app/page.tsx's marketing copy) — sociocentric/
+    // organizational mapping. SNI is the opposite: an individual respondent's personal
+    // ego network (who they rely on), and the design brief is explicit that SNI is NOT
+    // sociocentric/whole-community mapping. Confirmed with Sam (2026-09-16) these are
+    // two separate products, not a rename of one into the other.
+    //
+    // PLACEHOLDER PRICING — not business-approved. Copied insight_*'s price shape as a
+    // structurally similar-sized add-on, purely so this entry has *a* number rather than
+    // zero. Do NOT run `seed:stripe-catalogue:apply` against these amounts without real
+    // pricing sign-off first (the seed script's dry-run mode is safe to run anytime —
+    // it only prints a plan, see scripts/seedStripeCatalogue.ts).
+    key: 'sni_self_serve',
+    name: 'Social Networks Instrument — Self-Serve',
+    description:
+      'Add-on to the Self-Serve core bundle. Ego-network survey engine for measuring who a respondent relies on, what those relationships give them, and how that changes over time.',
+    isCoreBundle: false,
+    bundleTrack: 'self_serve',
+    tiers: [
+      { tier: 'tier_1', projectRange: TIER_RANGES.tier_1, annualAmountPence: 275000, monthlyAmountPence: 22900 },
+      { tier: 'tier_2', projectRange: TIER_RANGES.tier_2, annualAmountPence: 659100, monthlyAmountPence: 54900 },
+      { tier: 'tier_3', projectRange: TIER_RANGES.tier_3, annualAmountPence: 893800, monthlyAmountPence: 74500 },
+    ],
+  },
+  {
+    // See placeholder-pricing note on sni_self_serve above — applies here too.
+    key: 'sni_supported',
+    name: 'Social Networks Instrument — Supported',
+    description: 'Add-on to the Supported core bundle. Includes fieldwork/methodology support for deploying ego-network surveys (roster cap, safeguarding split, longitudinal waves).',
+    isCoreBundle: false,
+    bundleTrack: 'supported',
+    tiers: [
+      { tier: 'tier_1', projectRange: TIER_RANGES.tier_1, annualAmountPence: 1045000, monthlyAmountPence: 87100 },
+      { tier: 'tier_2', projectRange: TIER_RANGES.tier_2, annualAmountPence: 2508000, monthlyAmountPence: 209000 },
+      { tier: 'tier_3', projectRange: TIER_RANGES.tier_3, annualAmountPence: 3396300, monthlyAmountPence: 283000 },
+    ],
+  },
+  {
     key: 'sna_self_serve',
     name: 'Social Network Analysis (Self-Serve)',
     description:

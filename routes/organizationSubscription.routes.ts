@@ -6,6 +6,7 @@ import {
     createPortalSession,
     getOrganizationSubscription,
     getProjectCreationGate,
+    getSniAccessGateStatus,
 } from "../controllers/subscription.controller";
 import authorize from "../middlewares/auth.middleware";
 import { hasPermission, hasOrganizationAccess } from "../middlewares/role.middleware";
@@ -45,6 +46,15 @@ organizationSubscriptionRouter.get(
     authorize,
     hasOrganizationAccess(),
     getProjectCreationGate
+);
+
+// Same reasoning as project-gate above — any org member attempting SNI activation
+// should be able to see why they're blocked, not just billing admins.
+organizationSubscriptionRouter.get(
+    "/sni-gate",
+    authorize,
+    hasOrganizationAccess(),
+    getSniAccessGateStatus
 );
 
 export default organizationSubscriptionRouter;

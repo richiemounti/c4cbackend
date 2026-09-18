@@ -377,7 +377,14 @@ userSchema.methods.hasPermission = function(this: IUserDocument, permission: str
             'communicate_with_client', 'assign_roles', 'review_management', 'manage_all'
         ],
         analyst: [
-            'visualize_results', 'backend_data_entry', 'review_management', 'assign_roles'
+            'visualize_results', 'backend_data_entry', 'review_management', 'assign_roles',
+            // Social Networks Instrument: decrypting a real alter name/Facebook URL,
+            // as opposed to working with the pseudonymous alter_id everywhere else.
+            // Deliberately its own permission, not folded into isConnectGoStaff — SNI
+            // design brief §9 asks for access "restricted to a named role," narrower
+            // than "any ConnectGo staff." Reassign to a different/additional role here
+            // if analyst isn't the right fit as this gets used for real.
+            'sni_pii_access'
         ],
         
         // ==================== Client Roles ====================
