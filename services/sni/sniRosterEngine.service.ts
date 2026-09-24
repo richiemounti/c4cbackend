@@ -251,6 +251,32 @@ async function alterQuestionNeedsAnswering(alterId: mongoose.Types.ObjectId, que
     return !existing;
 }
 
+// Mirrors alterQuestionNeedsAnswering's stable-check, but for ego-level
+// questions (isEgoAttribute + temporality:'stable' on a questionRole:'standard'
+// question) — "asked once ever" here means once across every wave of THIS
+// respondent's own responses, not just this one. Ordinary standard questions
+// (isEgoAttribute false, or time_varying) never hit this path — they're
+// scoped to the current response only, same as before.
+async function stableEgoAttributeAlreadyAnswered(
+    question: any,
+    surveyId: mongoose.Types.ObjectId,
+    participantCode: string,
+    currentResponseId: mongoose.Types.ObjectId
+): Promise<boolean> {
+    const priorResponses = await SniSurveyResponse.find({
+        survey: surveyId,
+        participantCode,
+        _id: { $ne: currentResponseId },
+    }).select('_id');
+    if (priorResponses.length === 0) return false;
+
+    const existing = await SniQuestionResponse.findOne({
+        surveyResponse: { $in: priorResponses.map((r) => r._id) },
+        question: question._id,
+    });
+    return !!existing;
+}
+
 function withPipedText<T extends { text: string; toObject: () => any }>(question: T, alterName: string) {
     const plain = question.toObject();
     return { ...plain, text: applyPiping(plain.text, alterName) };
@@ -411,6 +437,14 @@ async function getNextScreenForSection(response: any, survey: any, section: any)
 
         for (const q of standardQuestions) {
             if (answersByQuestionId.has((q._id as mongoose.Types.ObjectId).toString())) continue;
+
+            if ((q as any).isEgoAttribute && q.temporality === 'stable') {
+                const alreadyAnswered = await stableEgoAttributeAlreadyAnswered(
+                    q, survey._id as mongoose.Types.ObjectId, response.participantCode, response._id as mongoose.Types.ObjectId
+                );
+                if (alreadyAnswered) continue;
+            }
+
             if (shouldDisplayQuestion(q.conditionalLogic as any, answersByQuestionId)) {
                 return { type: 'standard_question', question: q };
             }

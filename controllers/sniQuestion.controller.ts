@@ -10,8 +10,9 @@ import SniQuestion from "../models/sniQuestion.model";
 
 const ASSIGNABLE_FIELDS = [
     'section', 'text', 'description', 'questionRole', 'responseType', 'options',
-    'alterIdentifierConfig', 'scaleConfig', 'matrixConfig', 'temporality',
-    'indicatorLabel', 'conditionalLogic', 'required', 'validation',
+    'alterIdentifierConfig', 'scaleConfig', 'matrixConfig', 'rwbDimension',
+    'isEgoAttribute', 'temporality', 'indicatorLabel', 'conditionalLogic',
+    'required', 'validation',
 ] as const;
 
 export const createSniQuestion = async (req: Request, res: Response, next: NextFunction) => {

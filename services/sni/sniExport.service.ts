@@ -85,6 +85,26 @@ export async function buildSniExportTables(
         standardAnswersByResponse.get(key)!.set(a.question.toString(), a.answer);
     }
 
+    // Stable ego-attribute questions (isEgoAttribute + temporality:'stable') are
+    // only ever answered once — the engine stops re-asking them after the wave
+    // they were first answered in (see stableEgoAttributeAlreadyAnswered in
+    // sniRosterEngine.service.ts). So a later wave's ego row has no answer of
+    // its own for that question; carry the earliest-recorded value forward.
+    // `responses` is sorted {participantCode:1, wave:1}, so the first answer
+    // encountered per {participantCode, question} here is always the earliest wave's.
+    const stableEgoQuestionIds = new Set(
+        standardQuestions.filter((q) => (q as any).isEgoAttribute && q.temporality === 'stable').map((q) => (q._id as any).toString())
+    );
+    const stableEgoAnswersByParticipant = new Map<string, any>();
+    for (const a of standardAnswers) {
+        const questionId = a.question.toString();
+        if (!stableEgoQuestionIds.has(questionId)) continue;
+        const response = responseById.get(a.surveyResponse.toString());
+        if (!response) continue;
+        const key = `${response.participantCode}:${questionId}`;
+        if (!stableEgoAnswersByParticipant.has(key)) stableEgoAnswersByParticipant.set(key, a.answer);
+    }
+
     // Generic {alter, question, wave} -> answer, covers both alter_attribute
     // and tie_quality rows since SniAlterQuestionResponse is shared between them.
     const alterAnswersByWaveKey = new Map<string, any>();
@@ -114,7 +134,12 @@ export async function buildSniExportTables(
         const row: Record<string, any> = { ego_id: response.participantCode, wave: response.wave };
         const answers = standardAnswersByResponse.get((response._id as any).toString()) || new Map();
         for (const q of standardQuestions) {
-            row[q.text] = formatAnswer(answers.get((q._id as any).toString()));
+            const questionId = (q._id as any).toString();
+            let answer = answers.get(questionId);
+            if (answer === undefined && stableEgoQuestionIds.has(questionId)) {
+                answer = stableEgoAnswersByParticipant.get(`${response.participantCode}:${questionId}`);
+            }
+            row[q.text] = formatAnswer(answer);
         }
         egoRows.push(row);
     }

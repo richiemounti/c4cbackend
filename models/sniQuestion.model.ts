@@ -100,6 +100,19 @@ interface ISniQuestion extends mongoose.Document {
     // the three fixed ones. Not required at the schema layer because a future
     // instrument's tie-quality framework might not be RWB-shaped at all.
     rwbDimension?: 'others' | 'self' | 'environment';
+    // Marks a questionRole:'standard' question as ego-level content (the
+    // respondent's own characteristics — brief §11 "ego characteristics") as
+    // opposed to an ordinary Kind B / sub-theme 4-6 question. A dedicated flag,
+    // deliberately NOT the existing platform's isStandardDemographic (that
+    // belongs to the standard survey builder's Question model, a different
+    // schema with its own demographicType/demographicCategory/compliance
+    // machinery — reusing it here would drag SNI back into that system's
+    // shape, which is exactly what building SNI as a parallel schema was
+    // meant to avoid). Surfaces in the authoring UI as its own "Ego
+    // attributes" section (mirrors "Alter attributes"), and — unlike a plain
+    // standard question — can carry `temporality`, so a stable ego
+    // characteristic is asked once ever instead of re-collected every wave.
+    isEgoAttribute?: boolean;
     temporality?: 'stable' | 'time_varying';
     indicatorLabel?: string; // e.g. "2.1" — provenance back to the Notion KB, a label only
     conditionalLogic?: ISniConditionalLogic;
@@ -203,6 +216,10 @@ const sniQuestionSchema = new mongoose.Schema({
         enum: ['others', 'self', 'environment'],
         default: null,
     },
+    isEgoAttribute: {
+        type: Boolean,
+        default: false,
+    },
     temporality: {
         type: String,
         enum: ['stable', 'time_varying'],
@@ -303,12 +320,21 @@ sniQuestionSchema.pre('validate', function (this: ISniQuestion, next: mongoose.C
         return next(new Error("questionRole 'name_generator' requires responseType 'alter_identifier'"));
     }
 
-    // Rule 3 — temporality required for alter_attribute; not stored for tie_quality
-    if (role === 'alter_attribute' && !this.temporality) {
-        return next(new Error('alter_attribute questions must specify temporality (stable or time_varying)'));
+    // Rule 3 — temporality required for alter_attribute and for ego-attribute
+    // standard questions; not stored for anything else (tie_quality is always
+    // time-varying implicitly, ordinary standard/name_generator aren't wave-aware).
+    const isEgoAttributeQuestion = role === 'standard' && this.isEgoAttribute === true;
+    const temporalityApplies = role === 'alter_attribute' || isEgoAttributeQuestion;
+    if (temporalityApplies && !this.temporality) {
+        return next(new Error(`${role === 'alter_attribute' ? 'alter_attribute' : 'ego-attribute standard'} questions must specify temporality (stable or time_varying)`));
     }
-    if (role !== 'alter_attribute' && this.temporality) {
-        return next(new Error('temporality only applies to alter_attribute questions — tie_quality is always time-varying implicitly, others are not wave-aware'));
+    if (!temporalityApplies && this.temporality) {
+        return next(new Error('temporality only applies to alter_attribute questions and ego-attribute standard questions'));
+    }
+
+    // Rule 3b — isEgoAttribute only meaningful on standard questions
+    if (this.isEgoAttribute && role !== 'standard') {
+        return next(new Error("isEgoAttribute can only be set on questionRole 'standard' questions"));
     }
 
     // Rule 4 — conditional logic only meaningful for standard (Kind B) questions
