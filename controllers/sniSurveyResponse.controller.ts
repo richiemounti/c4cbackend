@@ -10,13 +10,16 @@ import * as rosterEngine from '../services/sni/sniRosterEngine.service';
 export const startSniSurveyResponse = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const { surveyId } = req.params;
-        const { wave, participantCode } = req.body;
+        const { wave, participantCode, clientGeneratedId, collectedOffline, deviceId, appVersion } = req.body;
 
         if (!wave || wave < 1) {
             return res.status(400).json({ success: false, error: 'wave (>= 1) is required' });
         }
 
-        const result = await rosterEngine.startSurveyResponse(surveyId, Number(wave), participantCode);
+        // mobile.* fields are optional — omitted entirely by the web flow,
+        // which keeps today's behavior unchanged for every existing caller.
+        const mobile = clientGeneratedId ? { clientGeneratedId, collectedOffline, deviceId, appVersion } : undefined;
+        const result = await rosterEngine.startSurveyResponse(surveyId, Number(wave), participantCode, { mobile });
         res.status(201).json({ success: true, data: result });
     } catch (error) {
         next(error);

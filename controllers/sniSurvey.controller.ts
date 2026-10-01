@@ -1,10 +1,18 @@
 // controllers/sniSurvey.controller.ts
-// Authoring CRUD for SniSurvey. Staff-only throughout — brief §3: "Survey
-// build capacity in the Instrument belongs to ConnectGo staff only... Clients
-// never see a survey builder for SNI." Route-level gating via
-// authorize + isConnectGoStaff() (routes/sniSurvey.routes.ts), mirroring
-// theme.routes.ts's identical pattern for the same kind of staff-managed
-// global content.
+// Authoring CRUD (create/update/archive content) is staff-only throughout —
+// brief §3: "Survey build capacity in the Instrument belongs to ConnectGo
+// staff only... Clients never see a survey builder for SNI." Route-level
+// gating via authorize + isConnectGoStaff() (routes/sniSurvey.routes.ts),
+// mirroring theme.routes.ts's identical pattern for the same kind of
+// staff-managed global content.
+//
+// A separate, deliberately narrower client-facing surface lives at the
+// bottom of this file (getSniTemplates, getSniSurveysForProject,
+// publishSniSurvey, closeSniSurvey) — the brief's own client journey
+// ("create a project -> select SNI -> pay -> activate a pre-built survey ->
+// preview it -> deploy") needs clients to see and toggle *which* surveys are
+// active, without ever letting them touch survey content. Those endpoints
+// only ever read/write `status`, never title/questions/sections.
 import { Request, Response, NextFunction } from "express";
 import { CustomError } from "../middlewares/error.middleware";
 import SniSurvey from "../models/sniSurvey.model";
@@ -13,6 +21,7 @@ import SniQuestion from "../models/sniQuestion.model";
 import Project from "../models/project.model";
 import * as rosterEngine from "../services/sni/sniRosterEngine.service";
 import { assertOrganizationHasSniAccess } from "../services/sniAccessGating.service";
+import { userHasProjectAccess } from "../lib/authHelpers";
 
 export const createSniSurvey = async (req: Request, res: Response, next: NextFunction) => {
     try {
@@ -251,11 +260,130 @@ export const startSniPreview = async (req: Request, res: Response, next: NextFun
         const wave = Number(req.body.wave) || 1;
         const participantCode = req.body.participantCode;
 
-        const result = await rosterEngine.startSurveyResponse(surveyId, wave, participantCode, { bypassStatusCheck: true });
+        // Preview is part of the client journey too (brief §3: "...activate a
+        // pre-built survey -> preview it -> deploy"), not staff-only — but it's
+        // still scoped to whoever has access to the survey's own project.
+        const survey = await SniSurvey.findById(surveyId);
+        if (!survey) {
+            const error = new Error('Survey not found') as CustomError;
+            error.statusCode = 404;
+            throw error;
+        }
+        if (!survey.isTemplate && survey.project) {
+            const hasAccess = userHasProjectAccess(req, survey.project.toString());
+            if (!hasAccess && !req.user?.isConnectGoStaff) {
+                const error = new Error('Not authorized to preview this survey') as CustomError;
+                error.statusCode = 403;
+                throw error;
+            }
+        } else if (!req.user?.isConnectGoStaff) {
+            // Previewing a template directly (before it's cloned to a project) is
+            // still staff/content-authoring territory.
+            const error = new Error('Only ConnectGo staff can preview a template survey directly') as CustomError;
+            error.statusCode = 403;
+            throw error;
+        }
+
+        const result = await rosterEngine.startSurveyResponse(surveyId, wave, participantCode, { isPreview: true });
         result.response.isTestResponse = true;
         await result.response.save();
 
         res.status(201).json({ success: true, data: result });
+    } catch (error) {
+        next(error);
+    }
+};
+
+// ─── Client-facing activation surface ─────────────────────────────────────
+// Deliberately separate from the authoring CRUD above — these only ever
+// touch `status`, never content. See the file-header note.
+
+export const getSniTemplates = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const templates = await SniSurvey.find({ isTemplate: true, status: 'published', archived: { $ne: true } })
+            .select('title description rosterCap createdAt')
+            .sort('title');
+        res.status(200).json({ success: true, data: templates });
+    } catch (error) {
+        next(error);
+    }
+};
+
+export const getSniSurveysForProject = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const { projectId } = req.params;
+        const surveys = await SniSurvey.find({ project: projectId, isTemplate: false, archived: { $ne: true } }).sort('-createdAt');
+        res.status(200).json({ success: true, data: surveys });
+    } catch (error) {
+        next(error);
+    }
+};
+
+async function assertClientCanManageSniSurvey(req: Request, survey: any) {
+    if (survey.isTemplate || !survey.project) {
+        const error = new Error('Cannot publish or close a template survey') as CustomError;
+        error.statusCode = 400;
+        throw error;
+    }
+    const hasAccess = userHasProjectAccess(req, survey.project.toString());
+    if (!hasAccess && !req.user?.isConnectGoStaff) {
+        const error = new Error('Not authorized to manage this survey') as CustomError;
+        error.statusCode = 403;
+        throw error;
+    }
+    return survey.project.toString();
+}
+
+// Publishing is what makes a survey appear on mobile (phase 7 will filter the
+// mobile survey list on status:'published') — this is the "selected and
+// published by clients" step, kept separate from content authoring.
+export const publishSniSurvey = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const survey = await SniSurvey.findById(req.params.id);
+        if (!survey) {
+            const error = new Error('Survey not found') as CustomError;
+            error.statusCode = 404;
+            throw error;
+        }
+        const projectId = await assertClientCanManageSniSurvey(req, survey);
+
+        const project = await Project.findById(projectId);
+        if (!project) {
+            const error = new Error('Project not found') as CustomError;
+            error.statusCode = 404;
+            throw error;
+        }
+        // Re-checked here, not just at clone time — a subscription can lapse
+        // between activation and publishing.
+        await assertOrganizationHasSniAccess(project.organization.toString(), {
+            bypassPaywall: req.user?.isConnectGoStaff === true,
+        });
+
+        survey.status = 'published';
+        survey.lastUpdatedBy = req.user!._id as any;
+        await survey.save();
+
+        res.status(200).json({ success: true, data: survey });
+    } catch (error) {
+        next(error);
+    }
+};
+
+export const closeSniSurvey = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const survey = await SniSurvey.findById(req.params.id);
+        if (!survey) {
+            const error = new Error('Survey not found') as CustomError;
+            error.statusCode = 404;
+            throw error;
+        }
+        await assertClientCanManageSniSurvey(req, survey);
+
+        survey.status = 'closed';
+        survey.lastUpdatedBy = req.user!._id as any;
+        await survey.save();
+
+        res.status(200).json({ success: true, data: survey });
     } catch (error) {
         next(error);
     }

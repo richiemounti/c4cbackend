@@ -38,23 +38,70 @@ function applyPiping(text: string, alterName: string): string {
     return text.split(PIPING_TOKEN).join(alterName);
 }
 
+// Alters/roster data is scoped by {project, participantCode} — real
+// responses always belong to a project-cloned survey, which has one. But
+// staff previewing a TEMPLATE directly (before it's ever cloned to a
+// project — the brief's primary reason preview exists at all: "Kate and
+// Belinda cannot sanity-check a roster survey by reading the question
+// list... without preview they are authoring blind") has no project to
+// scope by. Fall back to the template's own _id as the scope in that case —
+// preview responses are always isTestResponse and typically short-lived, so
+// there's nothing downstream that cares whether this id resolves to a real
+// Project document.
+function getAlterScopeId(survey: { isTemplate: boolean; project?: mongoose.Types.ObjectId; _id: unknown }): mongoose.Types.ObjectId {
+    return (survey.isTemplate ? survey._id : survey.project) as mongoose.Types.ObjectId;
+}
+
 interface RosterEntry { id: string; name: string; }
 
 // ─── Starting a wave ────────────────────────────────────────────────────
+
+interface MobileMetadata {
+    clientGeneratedId?: string;
+    collectedOffline?: boolean;
+    deviceId?: string;
+    appVersion?: string;
+}
 
 export async function startSurveyResponse(
     surveyId: string,
     wave: number,
     participantCode?: string,
-    options: { bypassStatusCheck?: boolean } = {}
+    options: { isPreview?: boolean; mobile?: MobileMetadata } = {}
 ) {
+    // Idempotent retry: a flaky field connection can mean the server already
+    // processed this exact start request but the client never saw the 200 —
+    // without this check, retrying would hit the "already started this wave"
+    // 409 below and look like a failure, when it actually succeeded the first
+    // time. clientGeneratedId is minted once on-device before the first
+    // attempt (same pattern as the existing platform's batchUploadResponses).
+    if (options.mobile?.clientGeneratedId) {
+        const existing = await SniSurveyResponse.findOne({ 'mobileMetadata.clientGeneratedId': options.mobile.clientGeneratedId });
+        if (existing) {
+            const existingSurvey = await SniSurvey.findById(existing.survey);
+            const preloadRoster = existingSurvey && existing.wave > 1
+                ? await getPreloadRoster(getAlterScopeId(existingSurvey).toString(), existing.participantCode, existing.wave)
+                : [];
+            return { response: existing, participantCode: existing.participantCode, isNewParticipant: false, preloadRoster };
+        }
+    }
+
     const survey = await SniSurvey.findById(surveyId);
     if (!survey || survey.archived) fail('Survey not found', 404);
-    if (survey.isTemplate) fail('Cannot respond to a template survey directly — activate it for a project first', 400);
-    if (!options.bypassStatusCheck && !['published', 'pretest'].includes(survey.status)) {
+    // Real (non-preview) responses must go against a project-activated copy.
+    // Preview is the exception — staff sanity-checking a template before it's
+    // ever cloned to a project is the brief's primary reason preview exists
+    // ("without preview they are authoring blind"), so isPreview bypasses both
+    // this AND the status check below together: a template's own `status`
+    // means "is this ready to offer to clients", not "is this ready to
+    // collect preview data", so neither restriction is meaningful in preview.
+    if (survey.isTemplate && !options.isPreview) {
+        fail('Cannot respond to a template survey directly — activate it for a project first', 400);
+    }
+    if (!options.isPreview && !['published', 'pretest'].includes(survey.status)) {
         fail('Survey is not currently accepting responses', 400);
     }
-    if (!survey.project) fail('Survey has no project — malformed state', 500);
+    if (!survey.isTemplate && !survey.project) fail('Survey has no project — malformed state', 500);
 
     let code = participantCode;
     let isNewParticipant = true;
@@ -77,10 +124,16 @@ export async function startSurveyResponse(
         participantCode: code,
         wave,
         status: 'started',
+        mobileMetadata: options.mobile ? {
+            collectedOffline: !!options.mobile.collectedOffline,
+            deviceId: options.mobile.deviceId || null,
+            appVersion: options.mobile.appVersion || null,
+            clientGeneratedId: options.mobile.clientGeneratedId || null,
+        } : undefined,
     });
 
     const preloadRoster = wave > 1
-        ? await getPreloadRoster(survey.project.toString(), code as string, wave)
+        ? await getPreloadRoster(getAlterScopeId(survey).toString(), code as string, wave)
         : [];
 
     return { response, participantCode: code as string, isNewParticipant, preloadRoster };
@@ -171,14 +224,28 @@ export async function submitNameGeneratorAnswer(params: {
     if (question.questionRole !== 'name_generator') fail('Question is not a name generator', 400);
     if (!question.section) fail('Name generator question is missing its section', 500);
 
+    // Idempotent retry guard: unlike the alter-battery/standard-answer submit
+    // functions (plain upserts, naturally safe to retry), this one creates
+    // NEW alter records — retrying a lost-response submission would otherwise
+    // double-create the named people. A name generator is only ever answered
+    // once per response (the sequence engine won't show it again once
+    // SniQuestionResponse exists for it), so that same existence check here
+    // doubles as the idempotency key.
+    const alreadyAnswered = await SniQuestionResponse.findOne({ surveyResponse: surveyResponseId, question: questionId });
+    if (alreadyAnswered) {
+        const priorAnswer = alreadyAnswered.answer as { selectedAlterIds: string[]; newAlterIds: string[] };
+        return { createdAlterIds: priorAnswer.newAlterIds || [], tiedAlterIds: [...(priorAnswer.selectedAlterIds || []), ...(priorAnswer.newAlterIds || [])] };
+    }
+
     const survey = await SniSurvey.findById(response.survey);
-    if (!survey || !survey.project) fail('Survey not found', 404);
+    if (!survey || (!survey.isTemplate && !survey.project)) fail('Survey not found', 404);
+    const scopeProjectId = getAlterScopeId(survey);
 
     // Cap is enforced across the whole roster (all sub-themes combined, brief
     // §4.3), not per-question or per-section — existing alters always remain
     // selectable even once the cap blocks new ones (brief §5, item 4).
     const currentCount = await SniAlter.countDocuments({
-        project: survey.project,
+        project: scopeProjectId,
         participantCode: response.participantCode,
         archived: false,
     });
@@ -191,7 +258,7 @@ export async function submitNameGeneratorAnswer(params: {
     const createdAlterIds: mongoose.Types.ObjectId[] = [];
     for (const newAlter of newAlters) {
         const alter = await SniAlter.create({
-            project: survey.project,
+            project: scopeProjectId,
             participantCode: response.participantCode,
             source: 'free_text',
             encryptedName: encryptField(newAlter.name),
@@ -369,10 +436,10 @@ export async function getNextScreen(surveyResponseId: string): Promise<SniScreen
     if (!response) fail('Survey response not found', 404);
 
     const survey = await SniSurvey.findById(response.survey);
-    if (!survey || !survey.project) fail('Survey not found', 404);
+    if (!survey || (!survey.isTemplate && !survey.project)) fail('Survey not found', 404);
 
     if (!response.preloadCompleted) {
-        const alters = await getPreloadRoster(survey.project.toString(), response.participantCode, response.wave);
+        const alters = await getPreloadRoster(getAlterScopeId(survey).toString(), response.participantCode, response.wave);
         return { type: 'preload_confirmation', alters };
     }
 
@@ -392,7 +459,7 @@ async function getNextScreenForSection(response: any, survey: any, section: any)
     for (const q of nameGenQuestions) {
         const answered = await SniQuestionResponse.findOne({ surveyResponse: response._id, question: q._id });
         if (!answered) {
-            const roster = await getEligibleRosterForSelection(survey.project.toString(), response.participantCode, response.wave);
+            const roster = await getEligibleRosterForSelection(getAlterScopeId(survey).toString(), response.participantCode, response.wave);
             return { type: 'name_generator_question', question: q, roster };
         }
     }
